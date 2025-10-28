@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   return (
     <AuthLayout
-      title="Welcome to Gripday"
+      title="Welcome to GripDay"
       subtitle="Sign in to your account to continue"
     >
       <SignInFormFeature useExternalRedirect />

@@ -11,8 +11,6 @@
 import { Route as rootRouteImport } from "./pages/__root"
 import { Route as RegisterRouteImport } from "./pages/register"
 import { Route as LoginRouteImport } from "./pages/login"
-import { Route as ExamplesRouteImport } from "./pages/examples"
-import { Route as AboutRouteImport } from "./pages/about"
 import { Route as R404RouteImport } from "./pages/404"
 import { Route as IndexRouteImport } from "./pages/index"
 
@@ -24,16 +22,6 @@ const RegisterRoute = RegisterRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: "/login",
   path: "/login",
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ExamplesRoute = ExamplesRouteImport.update({
-  id: "/examples",
-  path: "/examples",
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: "/about",
-  path: "/about",
   getParentRoute: () => rootRouteImport,
 } as any)
 const R404Route = R404RouteImport.update({
@@ -50,16 +38,12 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute
   "/404": typeof R404Route
-  "/about": typeof AboutRoute
-  "/examples": typeof ExamplesRoute
   "/login": typeof LoginRoute
   "/register": typeof RegisterRoute
 }
 export interface FileRoutesByTo {
   "/": typeof IndexRoute
   "/404": typeof R404Route
-  "/about": typeof AboutRoute
-  "/examples": typeof ExamplesRoute
   "/login": typeof LoginRoute
   "/register": typeof RegisterRoute
 }
@@ -67,31 +51,20 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   "/": typeof IndexRoute
   "/404": typeof R404Route
-  "/about": typeof AboutRoute
-  "/examples": typeof ExamplesRoute
   "/login": typeof LoginRoute
   "/register": typeof RegisterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/" | "/404" | "/about" | "/examples" | "/login" | "/register"
+  fullPaths: "/" | "/404" | "/login" | "/register"
   fileRoutesByTo: FileRoutesByTo
-  to: "/" | "/404" | "/about" | "/examples" | "/login" | "/register"
-  id:
-    | "__root__"
-    | "/"
-    | "/404"
-    | "/about"
-    | "/examples"
-    | "/login"
-    | "/register"
+  to: "/" | "/404" | "/login" | "/register"
+  id: "__root__" | "/" | "/404" | "/login" | "/register"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   R404Route: typeof R404Route
-  AboutRoute: typeof AboutRoute
-  ExamplesRoute: typeof ExamplesRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
 }
@@ -110,20 +83,6 @@ declare module "@tanstack/react-router" {
       path: "/login"
       fullPath: "/login"
       preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    "/examples": {
-      id: "/examples"
-      path: "/examples"
-      fullPath: "/examples"
-      preLoaderRoute: typeof ExamplesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    "/about": {
-      id: "/about"
-      path: "/about"
-      fullPath: "/about"
-      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     "/404": {
@@ -146,8 +105,6 @@ declare module "@tanstack/react-router" {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   R404Route: R404Route,
-  AboutRoute: AboutRoute,
-  ExamplesRoute: ExamplesRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
 }

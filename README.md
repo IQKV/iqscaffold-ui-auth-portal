@@ -27,20 +27,11 @@ React + TypeScript + Vite + TanStack Router + Mantine UI Template
 - 🎯 **TypeScript** - Type-safe development with latest language features
 - 📦 **PNPM** - Fast, disk space efficient package manager with workspaces support
 
-### 🎨 **UI & Styling**
-
-- 🎨 **Mantine UI** - Modern React components library with comprehensive theming
-- 🎪 **Mantine Extensions** - Carousel, Charts, Dates, Dropzone, Modals, Notifications
-- 📝 **Tiptap Editor** - Rich text editor with extensions for images, links, and formatting
-- 🎭 **Tabler Icons** - Beautiful SVG icons optimized for React
-- 📊 **Mantine DataTable** - Advanced data table with sorting, filtering, and pagination
-
 ### 🔄 **State Management & Data**
 
 - 🔄 **TanStack Router** - Type-safe routing with code splitting and search params
 - 🔄 **TanStack Query** - Powerful data synchronization and caching
 - 🔄 **Axios** - Promise-based HTTP client for API calls
-- 🔍 **GraphQL Request** - Lightweight GraphQL client
 - ✅ **React Hook Form + Zod** - Type-safe form validation and management
 - 🍪 **JS Cookie** - Simple cookie management
 - 🔗 **nuqs** - Type-safe URL search params state management
@@ -68,10 +59,8 @@ React + TypeScript + Vite + TanStack Router + Mantine UI Template
 
 ### 🧱 **Development Tools**
 
-- 📚 **Storybook 8** - Component development in isolation with dark mode support
 - 🔧 **SWC** - Fast TypeScript/JavaScript compiler for React
 - 📦 **Bundle Analyzer** - Visualize and optimize bundle size
-- 🖼️ **Image Optimizer** - Automatic image optimization in builds
 - 🧹 **Console Remover** - Remove console statements in production builds
 
 ### 🚀 **DevOps & Automation**
@@ -85,7 +74,6 @@ React + TypeScript + Vite + TanStack Router + Mantine UI Template
 ### 🏗️ **Architecture & Patterns**
 
 - 🏗️ **Feature-Sliced Design** - Scalable frontend architecture methodology
-- 🔌 **API Code Generation** - Kubb for OpenAPI/Swagger client generation
 - 🎯 **TypeScript Strict Mode** - Enhanced type safety with strict configuration
 - 🔄 **Hot Module Replacement** - Instant updates during development
 
@@ -168,19 +156,6 @@ After creating your project from this template, you'll want to customize it:
 - [ ] Configure `src/shared/lib/client.ts` with your API base URL and update values in `src/app/config`
 - [ ] Set up authentication endpoints in API clients
 
-#### 4. Remove Template Examples (Optional)
-
-- [ ] Remove or modify `src/features/sample-form`
-- [ ] Update the home page content in `src/routes/index.tsx`
-- [ ] Customize the about page in `src/routes/about.tsx`
-- [ ] Remove template-specific Storybook stories
-
-#### 5. Set Up CI/CD
-
-- [ ] Configure GitHub Actions secrets for deployment
-- [ ] Update SonarQube configuration in `sonar-project.properties`
-- [ ] Set up deployment targets in GitHub Actions workflows
-
 ### 📃 Available Scripts
 
 | Command                   | Description                                |
@@ -214,33 +189,12 @@ After creating your project from this template, you'll want to customize it:
 
 This project follows **Feature-Sliced Design (FSD)** methodology for scalable frontend architecture.
 
-### 📚 **Architecture Documentation**
-
-- 📚 [**Documentation Index**](template-docs/index.md) - Complete documentation guide
-- 📖 [**FSD Architecture Guide**](template-docs/fsd-architecture.md) - Complete architecture overview
-- 🔒 [**Public API Enforcement**](template-docs/public-api-enforcement.md) - API patterns and rules
-- ✅ [**Validation Guide**](template-docs/validation-guide.md) - Zod validation patterns
-- 🛠️ [**Development Guide**](template-docs/development-guide.md) - Step-by-step development patterns
-- 📋 [**Project Overview**](template-docs/project-overview.md) - Implementation summary
-
 ### Environment Variables
 
 | Variable   | Description                | Default       |
 | ---------- | -------------------------- | ------------- |
 | `TZ`       | Defines timezone           | `UTC`         |
 | `NODE_ENV` | Defines nodejs environment | `development` |
-
-### 🎯 Cursor AI IDE Support
-
-This project includes Cursor AI IDE rules for enhanced development experience:
-
-- **TypeScript React Query Best Practices** - Enforces best practices for using TanStack Query (React Query) in TypeScript React applications
-- **Code organization and structure guidelines**
-- **Performance optimization recommendations**
-- **Security best practices enforcement**
-- **Testing approaches and patterns**
-
-The rules are located in `.cursor/rules/` directory and are automatically applied when using Cursor IDE.
 
 ---
 
@@ -272,32 +226,3 @@ Please follow [Code of Conduct](.github/CODE_OF_CONDUCT.md) page.
 ## 📑 License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
----
-
-## _GitHub Project Tooling Overview_
-
-A concise summary of automation and quality tooling. For full details, see:
-
-- template-docs/index.md
-- template-docs/development-guide.md
-
-### CI/CD (GitHub Actions)
-
-- .github/workflows/build-nodejs-project.yml – build & test pipeline
-- .github/workflows/check-pr-title.yml – PR naming conventions
-- .github/workflows/check-commit-message.yml – commit message validation
-- .github/workflows/use-template.yml – one-time template setup
-
-### Local Automation (Husky)
-
-- .husky/pre-commit – triggers pre-commit checks
-- commitlint.config.js – enforces conventional commit messages
-
-### Quality Gates
-
-- ESLint – see eslint.config.js
-- Prettier & Stylelint – run via package.json scripts
-- TypeScript – pnpm type-check
-
-See the Available Scripts section above for everyday commands.

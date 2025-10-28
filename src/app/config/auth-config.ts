@@ -27,8 +27,8 @@ export interface AuthConfig {
 }
 
 // Default hardcoded values (fallbacks)
-const DEFAULT_AUTH_DOMAIN = "https://auth.gripday.com";
-const DEFAULT_APP_DOMAIN = "https://app.gripday.com";
+const DEFAULT_AUTH_DOMAIN = "https://auth.gripday.dev";
+const DEFAULT_APP_DOMAIN = "https://app.gripday.dev";
 
 // Build auth configuration from environment variables with fallbacks
 const buildAuthConfig = (): AuthConfig => {
