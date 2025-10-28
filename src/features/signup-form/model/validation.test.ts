@@ -75,7 +75,8 @@ describe("signup-form validation", () => {
       });
 
       it("should return error for password longer than 100 characters", () => {
-        const longPassword = "P1!" + "a".repeat(98);
+        const llong = "a".repeat(98);
+        const longPassword = `P1!${llong}`;
         const result = validateSignUpForm.password(longPassword);
         expect(result).toBe("Password must be between 8 and 100 characters");
       });
