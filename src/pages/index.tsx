@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SignInFormFeature } from "@/features/signin-form";
-import { AuthLayout } from "@/widgets/auth-layout";
+import { AuthLayout } from "@/widgets";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   return (
     <AuthLayout
-      title="Welcome to GripDay"
+      title="Welcome to IQKV"
       subtitle="Sign in to your account to continue"
     >
       <SignInFormFeature useExternalRedirect />

@@ -13,7 +13,7 @@ test.describe("Register Page", () => {
 
     // Check subtitle
     await expect(
-      page.getByText("Join Gripday and start your journey")
+      page.getByText("Join IQKV and start your journey")
     ).toBeVisible();
 
     // Check form fields
@@ -233,7 +233,7 @@ test.describe("Register Page", () => {
     // Should navigate to home/login page
     await expect(page).toHaveURL(/\/?$/);
     await expect(
-      page.getByRole("heading", { name: "Welcome to Gripday" })
+      page.getByRole("heading", { name: "Welcome to IQKV" })
     ).toBeVisible();
   });
 

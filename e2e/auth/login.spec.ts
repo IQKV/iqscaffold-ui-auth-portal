@@ -8,7 +8,7 @@ test.describe("Login Page", () => {
   test("should display login form elements", async ({ page }) => {
     // Check page title
     await expect(
-      page.getByRole("heading", { name: "Welcome to Gripday" })
+      page.getByRole("heading", { name: "Welcome to IQKV" })
     ).toBeVisible();
 
     // Check subtitle

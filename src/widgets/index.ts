@@ -1,3 +1,2 @@
 // Widgets layer public API
-export { Header } from "./header";
-export { Sidebar } from "./sidebar";
+export { AuthLayout } from "./auth-layout";

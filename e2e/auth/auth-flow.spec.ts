@@ -5,7 +5,7 @@ test.describe("Auth Flow", () => {
     // Start at login page (home)
     await page.goto("/");
     await expect(
-      page.getByRole("heading", { name: "Welcome to Gripday" })
+      page.getByRole("heading", { name: "Welcome to IQKV" })
     ).toBeVisible();
 
     // Click sign up link
@@ -23,7 +23,7 @@ test.describe("Auth Flow", () => {
     // Should be back on login page
     await expect(page).toHaveURL(/\/?$/);
     await expect(
-      page.getByRole("heading", { name: "Welcome to Gripday" })
+      page.getByRole("heading", { name: "Welcome to IQKV" })
     ).toBeVisible();
   });
 
@@ -203,7 +203,7 @@ test.describe("Auth Flow - Edge Cases", () => {
     // Should be at login
     await expect(page).toHaveURL(/\/?$/);
     await expect(
-      page.getByRole("heading", { name: "Welcome to Gripday" })
+      page.getByRole("heading", { name: "Welcome to IQKV" })
     ).toBeVisible();
   });
 
@@ -249,7 +249,7 @@ test.describe("Auth Flow - Responsive Design", () => {
 
     // All elements should be visible
     await expect(
-      page.getByRole("heading", { name: "Welcome to Gripday" })
+      page.getByRole("heading", { name: "Welcome to IQKV" })
     ).toBeVisible();
     await expect(
       page.getByLabel("Username or Email", { exact: true })
@@ -281,7 +281,7 @@ test.describe("Auth Flow - Responsive Design", () => {
 
     // All elements should be visible
     await expect(
-      page.getByRole("heading", { name: "Welcome to Gripday" })
+      page.getByRole("heading", { name: "Welcome to IQKV" })
     ).toBeVisible();
     await expect(
       page.getByLabel("Username or Email", { exact: true })

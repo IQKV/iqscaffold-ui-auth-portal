@@ -10,7 +10,7 @@ function RegisterPage() {
   return (
     <AuthLayout
       title="Create Your Account"
-      subtitle="Join Gripday and start your journey"
+      subtitle="Join IQKV and start your journey"
     >
       <SignUpFormFeature redirectToHome />
     </AuthLayout>
