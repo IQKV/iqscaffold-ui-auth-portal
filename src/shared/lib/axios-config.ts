@@ -151,14 +151,14 @@ export const apiClient = createApiClient({
  * Utility function to add authentication token to requests
  */
 export function addAuthToken(token: string) {
-  apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  apiClient.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
 
 /**
  * Utility function to remove authentication token
  */
 export function removeAuthToken() {
-  delete apiClient.defaults.headers.common["Authorization"];
+  delete apiClient.defaults.headers.common.Authorization;
 }
 
 /**

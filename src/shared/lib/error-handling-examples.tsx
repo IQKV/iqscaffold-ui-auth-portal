@@ -16,11 +16,7 @@ import {
   useMutationErrorHandler,
 } from "./use-error-handler";
 import { useFormMutation } from "./use-form-mutation";
-import {
-  handleError,
-  showErrorModal,
-  showRetryConfirmation,
-} from "./error-utils";
+import { handleError } from "./error-utils";
 import { ErrorBoundary } from "../ui/error-boundary";
 
 // Example API functions
@@ -57,12 +53,12 @@ export function UserProfileExample() {
     queryFn: () => fetchUser("123"),
     retry: (failureCount, error) => {
       // Custom retry logic based on error type
-      const appError = handleError(error);
-      return appError.retryable && failureCount < 3;
+      // Note: handleError doesn't return anything, so we'll use a simpler approach
+      return failureCount < 3;
     },
     retryDelay: (attemptIndex, error) => {
       // Exponential backoff with jitter
-      const baseDelay = Math.min(1000 * Math.pow(2, attemptIndex), 10000);
+      const baseDelay = Math.min(1000 * 2 ** attemptIndex, 10000);
       return baseDelay + Math.random() * 1000;
     },
     ...useQueryErrorHandler({
@@ -71,7 +67,9 @@ export function UserProfileExample() {
     }),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   if (error) {
     return (
       <div>
@@ -80,7 +78,7 @@ export function UserProfileExample() {
     );
   }
 
-  return <div>User: {user?.name}</div>;
+  return <div>User: {(user as any)?.name}</div>;
 }
 
 /**
@@ -88,6 +86,7 @@ export function UserProfileExample() {
  */
 export function UserFormExample() {
   const queryClient = useQueryClient();
+  const { handleErrorWithRetry } = useErrorHandler();
 
   const form = useForm({
     initialValues: {
@@ -116,7 +115,6 @@ export function UserFormExample() {
     },
     // Custom retry logic
     retry: (failureCount, error) => {
-      const { handleErrorWithRetry } = useErrorHandler();
       const result = handleErrorWithRetry(error);
       return result.retryable && failureCount < (result.maxRetries || 3);
     },
@@ -164,10 +162,10 @@ export function ManualErrorHandlingExample() {
     try {
       await apiClient.get("/api/some-endpoint");
     } catch (error) {
-      // Show error modal with retry option
-      showErrorModal(error, {
-        title: "Operation Failed",
+      // Handle error with notification
+      handleError(error, {
         onRetry: handleApiCall,
+        showNotification: true,
       });
     } finally {
       setLoading(false);
@@ -179,11 +177,10 @@ export function ManualErrorHandlingExample() {
     try {
       await apiClient.post("/api/critical-operation");
     } catch (error) {
-      // Show retry confirmation for critical operations
-      showRetryConfirmation(error, handleApiCallWithConfirmation, {
-        title: "Critical Operation Failed",
-        message:
-          "The operation could not be completed. This may affect your data.",
+      // Handle critical operation error
+      handleError(error, {
+        onRetry: handleApiCallWithConfirmation,
+        showNotification: true,
       });
     } finally {
       setLoading(false);
@@ -223,8 +220,7 @@ export function ComprehensiveErrorExample() {
           // Custom login redirect
           window.location.href = "/login";
         },
-        showModal: retryCount >= maxRetries, // Show modal after max retries
-        showNotification: retryCount < maxRetries, // Show notification for retries
+        showNotification: true,
         maxRetries,
         currentRetry: retryCount,
       });

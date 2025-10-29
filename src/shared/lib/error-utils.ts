@@ -72,16 +72,15 @@ export function handleNetworkError(
       }, retryConfig.delay || 1000);
 
       return true;
-    } else {
-      // Max retries reached
-      if (showNotification) {
-        notificationService.error({
-          title: "Connection Failed",
-          message:
-            "Unable to connect after multiple attempts. Please check your internet connection.",
-          autoClose: false,
-        });
-      }
+    }
+    // Max retries reached
+    if (showNotification) {
+      notificationService.error({
+        title: "Connection Failed",
+        message:
+          "Unable to connect after multiple attempts. Please check your internet connection.",
+        autoClose: false,
+      });
     }
   }
 

@@ -135,7 +135,13 @@ export function EmailVerificationFormFeature({
 
   // Auto-verify when component mounts if token is provided
   useEffect(() => {
-    if (token && verificationStatus === null && !verifyEmailMutation.isPending && !verifyEmailMutation.isSuccess && !verifyEmailMutation.isError) {
+    if (
+      token &&
+      verificationStatus === null &&
+      !verifyEmailMutation.isPending &&
+      !verifyEmailMutation.isSuccess &&
+      !verifyEmailMutation.isError
+    ) {
       verifyEmailMutation.mutate(token);
     }
   }, [token, verificationStatus, verifyEmailMutation]);
