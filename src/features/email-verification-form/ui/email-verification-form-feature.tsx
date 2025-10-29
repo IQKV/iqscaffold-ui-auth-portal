@@ -52,9 +52,8 @@ export function EmailVerificationFormFeature({
   const email = propEmail || search.email;
 
   const [verificationStatus, setVerificationStatus] = useState<
-    "pending" | "success" | "error" | null
+    "success" | "error" | null
   >(null);
-  const [autoVerified, setAutoVerified] = useState(false);
 
   const form = useForm<EmailVerificationFormValues>({
     initialValues: {
@@ -136,12 +135,10 @@ export function EmailVerificationFormFeature({
 
   // Auto-verify when component mounts if token is provided
   useEffect(() => {
-    if (token && !autoVerified && verificationStatus === null) {
-      setAutoVerified(true);
-      // Don't set pending status here - let the mutation handle it
+    if (token && verificationStatus === null && !verifyEmailMutation.isPending && !verifyEmailMutation.isSuccess && !verifyEmailMutation.isError) {
       verifyEmailMutation.mutate(token);
     }
-  }, [token, autoVerified, verificationStatus]);
+  }, [token, verificationStatus, verifyEmailMutation]);
 
   const handleResendSubmit = (values: EmailVerificationFormValues) => {
     resendVerificationMutation.mutate(values);
