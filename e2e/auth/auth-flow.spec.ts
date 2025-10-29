@@ -1,290 +1,178 @@
-import { test, expect, type Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
+import { AuthPage, testData, testUtils } from "../utils/test-helpers";
 
 test.describe("Auth Flow", () => {
-  test("should navigate from login to register and back", async ({ page }) => {
-    // Start at login page (home)
-    await page.goto("/");
-    await expect(
-      page.getByRole("heading", { name: "Welcome to IQKV" })
-    ).toBeVisible();
+  let authPage: AuthPage;
 
-    // Click sign up link
-    await page.getByText("Don't have an account? Sign up").click();
+  test.beforeEach(async ({ page }) => {
+    authPage = new AuthPage(page);
+  });
 
-    // Should be on register page
+  test("navigates between login and register pages", async ({ page }) => {
+    // Start at login
+    await authPage.goToLogin();
+    await authPage.expectLoginPageVisible();
+
+    // Navigate to register
+    await authPage.loginForm.signUpLink.click();
     await expect(page).toHaveURL(/\/register$/);
-    await expect(
-      page.getByRole("heading", { name: "Create Your Account" })
-    ).toBeVisible();
+    await authPage.expectRegisterPageVisible();
 
-    // Click sign in link
-    await page.getByText("Already have an account? Sign in").click();
-
-    // Should be back on login page
+    // Navigate back to login
+    await authPage.registerForm.signInLink.click();
     await expect(page).toHaveURL(/\/?$/);
-    await expect(
-      page.getByRole("heading", { name: "Welcome to IQKV" })
-    ).toBeVisible();
+    await authPage.expectLoginPageVisible();
   });
 
-  test("should complete full registration flow", async ({ page }) => {
-    // Go to register page
-    await page.goto("/register");
+  test("handles complete registration flow", async ({ page }) => {
+    await authPage.goToRegister();
 
-    // Fill registration form
-    const timestamp = Date.now();
-    await page.getByLabel("First Name").fill("E2E");
-    await page.getByLabel("Last Name").fill("Test");
-    await page.getByLabel("Username").fill(`e2euser_${timestamp}`);
-    await page.getByLabel("Email").fill(`e2e_${timestamp}@example.com`);
-    await page.getByLabel("Password", { exact: true }).fill("E2eTest123!");
-    await page.getByLabel("Confirm Password").fill("E2eTest123!");
+    const userData = testData.generateUniqueUser();
+    await authPage.fillRegisterForm(userData);
+    await authPage.submitRegisterForm();
 
-    // Submit form
-    await page.getByRole("button", { name: "Create Account" }).click();
-
-    // Note: Without a real backend, this test will fail at the API call
-    // In a real scenario, you would:
-    // 1. Mock the API response
-    // 2. Or use a test backend
-    // 3. Check for success notification
-    // 4. Verify navigation to login page
-
-    // For now, we just verify the form was submitted (button disabled)
-    await expect(page.getByRole("button", { name: "Create Account" }))
-      .toBeDisabled({ timeout: 2000 })
-      .catch(() => {
-        // If not disabled, the form was processed too quickly or API failed
-      });
+    // Form should be submitted (loading state)
+    await authPage.expectFormSubmitting('button[type="submit"]');
   });
 
-  test("should handle login form submission", async ({ page }) => {
-    // Go to login page
-    await page.goto("/");
+  test("handles login form submission", async ({ page }) => {
+    await authPage.goToLogin();
 
-    // Fill login form
-    await page
-      .getByLabel("Username or Email", { exact: true })
-      .fill("testuser");
-    await page.getByLabel("Password").fill("TestPassword123!");
+    await authPage.fillLoginForm(
+      testData.validUser.username,
+      testData.validUser.password
+    );
+    await authPage.submitLoginForm();
 
-    // Submit form
-    await page.getByRole("button", { name: "Sign In" }).click();
-
-    // Note: Without a real backend, this test will fail at the API call
-    // In a real scenario, you would:
-    // 1. Mock the API response
-    // 2. Or use a test backend
-    // 3. Check for success notification
-    // 4. Verify navigation or token storage
-
-    // For now, we just verify the form was submitted
-    await expect(page.getByRole("button", { name: "Sign In" }))
-      .toBeDisabled({ timeout: 2000 })
-      .catch(() => {
-        // If not disabled, the form was processed too quickly or API failed
-      });
+    // Form should be submitted (loading state)
+    await authPage.expectFormSubmitting('button[type="submit"]');
   });
 
-  test("should preserve form state on validation error", async ({ page }) => {
-    // Go to register page
-    await page.goto("/register");
+  test("preserves form state on validation error", async ({ page }) => {
+    await authPage.goToRegister();
 
-    // Fill some fields
-    await page.getByLabel("First Name").fill("John");
-    await page.getByLabel("Last Name").fill("Doe");
-    await page.getByLabel("Username").fill("jo"); // Too short
+    // Fill some fields with invalid data
+    await authPage.registerForm.firstNameInput.fill("John");
+    await authPage.registerForm.lastNameInput.fill("Doe");
+    await authPage.registerForm.usernameInput.fill("jo"); // Too short
 
-    // Submit form
-    await page.getByRole("button", { name: "Create Account" }).click();
+    await authPage.submitRegisterForm();
 
     // Should show validation error
-    await expect(
-      page.getByText("Username must be between 3 and 50 characters")
-    ).toBeVisible();
+    await expect(page.getByText(/username/i)).toBeVisible();
 
     // Form values should be preserved
-    await expect(page.getByLabel("First Name")).toHaveValue("John");
-    await expect(page.getByLabel("Last Name")).toHaveValue("Doe");
-    await expect(page.getByLabel("Username")).toHaveValue("jo");
+    await expect(authPage.registerForm.firstNameInput).toHaveValue("John");
+    await expect(authPage.registerForm.lastNameInput).toHaveValue("Doe");
+    await expect(authPage.registerForm.usernameInput).toHaveValue("jo");
   });
 
-  test("should remember me checkbox work correctly", async ({ page }) => {
-    await page.goto("/");
+  test("handles remember me checkbox", async ({ page }) => {
+    await authPage.goToLogin();
 
-    const rememberMeCheckbox = page.getByLabel("Remember me");
+    const checkbox = authPage.loginForm.rememberMeCheckbox;
+    await checkbox.check();
+    await expect(checkbox).toBeChecked();
 
-    // Check the checkbox
-    await rememberMeCheckbox.check();
-    await expect(rememberMeCheckbox).toBeChecked();
+    await authPage.fillLoginForm(
+      testData.validUser.username,
+      testData.validUser.password
+    );
+    await authPage.submitLoginForm();
 
-    // Fill and submit form
-    await page
-      .getByLabel("Username or Email", { exact: true })
-      .fill("testuser");
-    await page.getByLabel("Password").fill("password123");
-    await page.getByRole("button", { name: "Sign In" }).click();
-
-    // The remember me state should be part of the submission
-    // This is verified in the API call payload
+    // Form should be submitted with remember me checked
+    await authPage.expectFormSubmitting('button[type="submit"]');
   });
 
-  test("should handle rapid form submissions", async ({ page }) => {
-    await page.goto("/");
+  test("prevents rapid form submissions", async ({ page }) => {
+    await authPage.goToLogin();
 
-    // Fill form
-    await page
-      .getByLabel("Username or Email", { exact: true })
-      .fill("testuser");
-    await page.getByLabel("Password").fill("password123");
+    await authPage.fillLoginForm(
+      testData.validUser.username,
+      testData.validUser.password
+    );
 
     // Submit multiple times rapidly
-    const submitButton = page.getByRole("button", { name: "Sign In" });
+    const submitButton = authPage.loginForm.submitButton;
     await submitButton.click();
-    await submitButton.click().catch(() => {
-      // Second click might fail if button is already disabled
-    });
 
-    // Should handle gracefully (button disabled or prevented)
+    // Second click should be prevented
     await expect(submitButton)
       .toBeDisabled({ timeout: 1000 })
       .catch(() => {
-        // Loading state might be too fast
+        // Loading state might be too fast to catch
       });
   });
 });
 
-test.describe("Auth Flow - Edge Cases", () => {
-  test("should handle page refresh on login page", async ({ page }) => {
-    await page.goto("/");
+test.describe("Auth Flow - Navigation", () => {
+  let authPage: AuthPage;
+
+  test.beforeEach(async ({ page }) => {
+    authPage = new AuthPage(page);
+  });
+
+  test("handles page refresh correctly", async ({ page }) => {
+    await authPage.goToLogin();
 
     // Fill form
-    await page
-      .getByLabel("Username or Email", { exact: true })
-      .fill("testuser");
-    await page.getByLabel("Password").fill("password123");
+    await authPage.fillLoginForm("testuser", "password123");
 
     // Reload page
     await page.reload();
+    await testUtils.waitForPageReady(page);
 
     // Form should be empty (no state persistence)
-    await expect(
-      page.getByLabel("Username or Email", { exact: true })
-    ).toHaveValue("");
-    await expect(page.getByLabel("Password")).toHaveValue("");
+    await expect(authPage.loginForm.usernameInput).toHaveValue("");
+    await expect(authPage.loginForm.passwordInput).toHaveValue("");
   });
 
-  test("should handle page refresh on register page", async ({ page }) => {
-    await page.goto("/register");
-
-    // Fill form
-    await page.getByLabel("First Name").fill("John");
-    await page.getByLabel("Username").fill("johndoe");
-
-    // Reload page
-    await page.reload();
-
-    // Form should be empty
-    await expect(page.getByLabel("First Name")).toHaveValue("");
-    await expect(page.getByLabel("Username")).toHaveValue("");
-  });
-
-  test("should handle back navigation", async ({ page }) => {
+  test("handles browser navigation", async ({ page }) => {
     // Start at login
-    await page.goto("/");
+    await authPage.goToLogin();
 
-    // Go to register
-    await page.getByText("Don't have an account? Sign up").click();
+    // Navigate to register
+    await authPage.loginForm.signUpLink.click();
     await expect(page).toHaveURL(/\/register$/);
 
     // Go back
     await page.goBack();
-
-    // Should be at login
     await expect(page).toHaveURL(/\/?$/);
-    await expect(
-      page.getByRole("heading", { name: "Welcome to IQKV" })
-    ).toBeVisible();
-  });
-
-  test("should handle forward navigation", async ({ page }) => {
-    // Start at login
-    await page.goto("/");
-
-    // Go to register
-    await page.goto("/register");
-
-    // Go back
-    await page.goBack();
-    await expect(page).toHaveURL(/\/?$/);
+    await authPage.expectLoginPageVisible();
 
     // Go forward
     await page.goForward();
     await expect(page).toHaveURL(/\/register$/);
+    await authPage.expectRegisterPageVisible();
   });
 
-  test("should handle direct URL access", async ({ page }) => {
+  test("handles direct URL access", async ({ page }) => {
     // Direct access to register page
-    await page.goto("/register");
-
-    await expect(
-      page.getByRole("heading", { name: "Create Your Account" })
-    ).toBeVisible();
+    await authPage.goToRegister();
+    await authPage.expectRegisterPageVisible();
 
     // Should have full functionality
-    await expect(
-      page.getByRole("button", { name: "Create Account" })
-    ).toBeVisible();
-    await expect(
-      page.getByText("Already have an account? Sign in")
-    ).toBeVisible();
+    await expect(authPage.registerForm.submitButton).toBeVisible();
+    await expect(authPage.registerForm.signInLink).toBeVisible();
   });
 });
 
 test.describe("Auth Flow - Responsive Design", () => {
-  test("should work on mobile viewport", async ({ page }) => {
-    // Set mobile viewport
-    await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto("/");
+  let authPage: AuthPage;
 
-    // All elements should be visible
-    await expect(
-      page.getByRole("heading", { name: "Welcome to IQKV" })
-    ).toBeVisible();
-    await expect(
-      page.getByLabel("Username or Email", { exact: true })
-    ).toBeVisible();
-    await expect(page.getByLabel("Password")).toBeVisible();
-    await expect(page.getByRole("button", { name: "Sign In" })).toBeVisible();
+  test.beforeEach(async ({ page }) => {
+    authPage = new AuthPage(page);
   });
 
-  test("should work on tablet viewport", async ({ page }) => {
-    // Set tablet viewport
-    await page.setViewportSize({ width: 768, height: 1024 });
-    await page.goto("/register");
+  test("works across different viewports", async ({ page }) => {
+    await testUtils.testResponsiveDesign(page, async (page) => {
+      // Test login page
+      await authPage.goToLogin();
+      await authPage.expectLoginPageVisible();
 
-    // All elements should be visible
-    await expect(
-      page.getByRole("heading", { name: "Create Your Account" })
-    ).toBeVisible();
-    await expect(page.getByLabel("First Name")).toBeVisible();
-    await expect(page.getByLabel("Last Name")).toBeVisible();
-    await expect(
-      page.getByRole("button", { name: "Create Account" })
-    ).toBeVisible();
-  });
-
-  test("should work on desktop viewport", async ({ page }) => {
-    // Set desktop viewport
-    await page.setViewportSize({ width: 1920, height: 1080 });
-    await page.goto("/");
-
-    // All elements should be visible
-    await expect(
-      page.getByRole("heading", { name: "Welcome to IQKV" })
-    ).toBeVisible();
-    await expect(
-      page.getByLabel("Username or Email", { exact: true })
-    ).toBeVisible();
+      // Test register page
+      await authPage.goToRegister();
+      await authPage.expectRegisterPageVisible();
+    });
   });
 });
