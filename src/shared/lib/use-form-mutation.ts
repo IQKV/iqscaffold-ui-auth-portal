@@ -6,7 +6,9 @@ import {
 } from "@tanstack/react-query";
 import {
   getErrorMessage,
+  getErrorTitle,
   normalizeAxiosError,
+  shouldShowError,
   toMantineErrors,
 } from "./http-error";
 import { notificationService } from "./notifications";
@@ -70,22 +72,10 @@ export function useFormMutation<TData, TVariables, TContext = unknown>(
         form.setErrors(mapped);
       }
 
-      if (notifyError !== false) {
-        const message = getErrorMessage(
-          normalized,
-          notifyError.fallback ?? "Something went wrong"
-        );
-        let finalMessage = message;
-        if (notifyError.includeFieldErrorsInMessage) {
-          const fields = toMantineErrors(normalized);
-          const msgs = Object.values(fields).filter(Boolean) as string[];
-          if (msgs.length) {
-            finalMessage = `${message}: ${msgs.join(", ")}`;
-          }
-        }
-        notificationService.error({
-          title: notifyError.title ?? "Error",
-          message: finalMessage,
+      if (notifyError !== false && shouldShowError(error)) {
+        // Use enhanced error notification for better RFC 7807 support
+        notificationService.errorFromAxios(error, {
+          title: notifyError.title || getErrorTitle(error),
         });
       }
 

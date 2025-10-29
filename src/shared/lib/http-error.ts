@@ -17,8 +17,30 @@ export interface AppError {
   code?: string | number;
   details?: any;
   requestId?: string;
+  correlationId?: string;
   retryable?: boolean;
   cause?: unknown;
+}
+
+/**
+ * RFC 7807 Problem Details structure
+ * @see https://tools.ietf.org/html/rfc7807
+ */
+export interface ProblemDetail {
+  type?: string;
+  title?: string;
+  status?: number;
+  detail?: string;
+  instance?: string;
+  code?: string;
+  method?: string;
+  correlationId?: string;
+  requestId?: string;
+  fields?: Array<{
+    field: string;
+    rejectedValue?: any;
+    message: string;
+  }>;
 }
 
 function extractRequestId(from: any): string | undefined {
@@ -39,6 +61,55 @@ function extractRequestId(from: any): string | undefined {
     return id;
   }
   return undefined;
+}
+
+function extractCorrelationId(from: any): string | undefined {
+  const headers = (from?.headers ?? {}) as Record<
+    string,
+    string | string[] | undefined
+  >;
+  const id = headers["x-correlation-id"] ?? headers["correlation-id"];
+  if (Array.isArray(id)) {
+    return id[0];
+  }
+  if (typeof id === "string") {
+    return id;
+  }
+  return undefined;
+}
+
+/**
+ * Checks if the response data follows RFC 7807 Problem Details format
+ */
+function isProblemDetail(data: any): data is ProblemDetail {
+  return (
+    data &&
+    typeof data === "object" &&
+    (data.type !== undefined ||
+      data.title !== undefined ||
+      data.detail !== undefined ||
+      data.status !== undefined)
+  );
+}
+
+/**
+ * Extracts error code from various response formats
+ */
+function extractErrorCode(data: any, axiosCode?: string): string | undefined {
+  // RFC 7807 code property
+  if (data?.code) {
+    return String(data.code);
+  }
+
+  // Extract from type URI (e.g., "urn:problem:validation_error" -> "VALIDATION_ERROR")
+  if (data?.type && typeof data.type === "string") {
+    const match = data.type.match(/urn:problem:(.+)$/);
+    if (match) {
+      return match[1].toUpperCase().replace(/-/g, "_");
+    }
+  }
+
+  return axiosCode;
 }
 
 function flattenValidationErrors(errors: any): string[] {
@@ -90,8 +161,8 @@ export function normalizeAxiosError(err: unknown): AppError {
     return {
       type: isTimeout ? "timeout" : "network",
       message: isTimeout
-        ? "Request timed out"
-        : "Network error. Please check your connection",
+        ? "Request timed out. Please try again."
+        : "Network error. Please check your connection and try again.",
       code,
       cause: err,
       retryable: true,
@@ -102,68 +173,193 @@ export function normalizeAxiosError(err: unknown): AppError {
   if (isAxios && ax.response) {
     const { status, data } = ax.response as { status: number; data: any };
     const hdrRequestId = extractRequestId(ax.response as any);
+    const hdrCorrelationId = extractCorrelationId(ax.response as any);
 
-    // Try to extract common shapes: Spring Boot, RFC7807, OAuth2, custom
-    const message =
-      (typeof data === "string" ? data : undefined) ??
-      data?.message ??
-      data?.detail ??
-      data?.error_description ??
-      data?.error ??
-      data?.title ??
-      ax.message ??
-      "Request failed";
-
-    const errors = flattenValidationErrors(
-      (data as any)?.errors ?? (data as any)?.violations
-    );
-
-    let type: AppErrorType = "unknown";
-    let retryable = false;
-    if (status === 401 || status === 403) {
-      type = "auth";
-    } else if (status === 400 || status === 422) {
-      type = errors.length ? "validation" : "client";
-    } else if (status === 404) {
-      type = "client";
-    } else if (status === 408) {
-      type = "timeout";
-      retryable = true;
-    } else if (status === 429) {
-      type = "server";
-      retryable = true;
-    } else if (status >= 500) {
-      type = "server";
-      retryable = true;
-    } else if (status >= 400) {
-      type = "client";
+    // Handle RFC 7807 Problem Details format
+    if (isProblemDetail(data)) {
+      return handleProblemDetail(
+        data,
+        status,
+        hdrRequestId,
+        hdrCorrelationId,
+        err
+      );
     }
 
-    const combinedMessage = errors.length
-      ? `${message}: ${errors.join(", ")}`
-      : message;
-
-    return {
-      type,
-      message: combinedMessage,
+    // Fallback to legacy error handling for non-RFC 7807 responses
+    return handleLegacyError(
+      data,
       status,
-      code: (data?.code as any) ?? ax.code,
-      details: data,
-      requestId: hdrRequestId,
-      retryable,
-      cause: err,
-    };
+      ax,
+      hdrRequestId,
+      hdrCorrelationId,
+      err
+    );
   }
 
   // Non-axios or unknown error
   const anyErr = err as any;
   return {
     type: "unknown",
-    message: anyErr?.message || "Unexpected error",
+    message: anyErr?.message || "An unexpected error occurred",
     code: anyErr?.code,
     cause: err,
     retryable: false,
   };
+}
+
+/**
+ * Handles RFC 7807 Problem Details responses
+ */
+function handleProblemDetail(
+  data: ProblemDetail,
+  status: number,
+  requestId?: string,
+  correlationId?: string,
+  cause?: unknown
+): AppError {
+  const type = determineErrorType(status, data.code);
+  const retryable = isRetryableError(status, data.code);
+
+  // Use RFC 7807 fields for message construction
+  const message = constructProblemDetailMessage(data);
+
+  return {
+    type,
+    message,
+    status,
+    code: extractErrorCode(data),
+    details: data,
+    requestId: requestId || data.requestId,
+    correlationId: correlationId || data.correlationId,
+    retryable,
+    cause,
+  };
+}
+
+/**
+ * Handles legacy (non-RFC 7807) error responses
+ */
+function handleLegacyError(
+  data: any,
+  status: number,
+  ax: AxiosError,
+  requestId?: string,
+  correlationId?: string,
+  cause?: unknown
+): AppError {
+  const type = determineErrorType(status);
+  const retryable = isRetryableError(status);
+
+  // Try to extract message from various legacy formats
+  const message =
+    (typeof data === "string" ? data : undefined) ??
+    data?.message ??
+    data?.detail ??
+    data?.error_description ??
+    data?.error ??
+    data?.title ??
+    ax.message ??
+    "Request failed";
+
+  const errors = flattenValidationErrors(
+    data?.errors ?? data?.violations ?? data?.fields
+  );
+
+  const combinedMessage = errors.length
+    ? `${message}. ${errors.join(", ")}`
+    : message;
+
+  return {
+    type: errors.length && type === "client" ? "validation" : type,
+    message: combinedMessage,
+    status,
+    code: extractErrorCode(data, ax.code),
+    details: data,
+    requestId,
+    correlationId,
+    retryable,
+    cause,
+  };
+}
+
+/**
+ * Constructs user-friendly message from RFC 7807 Problem Details
+ */
+function constructProblemDetailMessage(data: ProblemDetail): string {
+  // Start with title or detail
+  let message = data.title || data.detail || "An error occurred";
+
+  // Add field-specific errors if present
+  if (data.fields && data.fields.length > 0) {
+    const fieldMessages = data.fields.map(
+      (field) => `${field.field}: ${field.message}`
+    );
+    message += `. ${fieldMessages.join(", ")}`;
+  }
+
+  return message;
+}
+
+/**
+ * Determines error type based on HTTP status and error code
+ */
+function determineErrorType(status: number, code?: string): AppErrorType {
+  // Check specific error codes first
+  if (code) {
+    const upperCode = code.toUpperCase();
+    if (upperCode.includes("AUTH") || upperCode.includes("UNAUTHORIZED")) {
+      return "auth";
+    }
+    if (upperCode.includes("VALIDATION") || upperCode.includes("INVALID")) {
+      return "validation";
+    }
+    if (upperCode.includes("TIMEOUT")) {
+      return "timeout";
+    }
+  }
+
+  // Fallback to HTTP status codes
+  if (status === 401 || status === 403) {
+    return "auth";
+  } else if (status === 400 || status === 422) {
+    return "validation";
+  } else if (status === 404) {
+    return "client";
+  } else if (status === 408) {
+    return "timeout";
+  } else if (status === 429) {
+    return "server";
+  } else if (status >= 500) {
+    return "server";
+  } else if (status >= 400) {
+    return "client";
+  }
+
+  return "unknown";
+}
+
+/**
+ * Determines if an error is retryable based on status and code
+ */
+function isRetryableError(status: number, code?: string): boolean {
+  // Network timeouts are retryable
+  if (status === 408 || code?.toUpperCase().includes("TIMEOUT")) {
+    return true;
+  }
+
+  // Rate limiting is retryable
+  if (status === 429) {
+    return true;
+  }
+
+  // Server errors are generally retryable
+  if (status >= 500) {
+    return true;
+  }
+
+  // Client errors are generally not retryable
+  return false;
 }
 
 export type FieldErrors = Record<string, string[]>;
@@ -184,25 +380,31 @@ function normalizeFieldKey(key: string): string {
 
 export function getFieldErrors(err: unknown): FieldErrors {
   const appErr = normalizeAxiosError(err);
-  const data = (appErr as any).details;
+  const data = appErr.details;
   const out: FieldErrors = {};
   if (!data) {
     return out;
   }
 
-  // RFC7807-style violations: [{ field/propertyPath, message }]
-  const violations = (data as any)?.violations as Array<any> | undefined;
+  // RFC 7807 Problem Details fields array
+  if (isProblemDetail(data) && data.fields) {
+    for (const fieldError of data.fields) {
+      const field = normalizeFieldKey(fieldError.field);
+      if (field) {
+        (out[field] = out[field] || []).push(fieldError.message);
+      }
+    }
+  }
+
+  // Legacy RFC7807-style violations: [{ field/propertyPath, message }]
+  const violations = data?.violations as Array<Record<string, any>> | undefined;
   if (Array.isArray(violations)) {
     for (const v of violations) {
       const field = normalizeFieldKey(
-        (v as any)?.field || (v as any)?.propertyPath || (v as any)?.name || ""
+        v?.field || v?.propertyPath || v?.name || ""
       );
       const msg =
-        (v as any)?.message ||
-        (v as any)?.reason ||
-        (v as any)?.detail ||
-        (v as any)?.error ||
-        "Invalid value";
+        v?.message || v?.reason || v?.detail || v?.error || "Invalid value";
       if (!field) {
         continue;
       }
@@ -210,16 +412,14 @@ export function getFieldErrors(err: unknown): FieldErrors {
     }
   }
 
-  // errors: { field: [messages] } or { field: "message" }
-  const errorsObj = (data as any)?.errors as
-    | Record<string, unknown>
-    | undefined;
+  // Legacy errors: { field: [messages] } or { field: "message" }
+  const errorsObj = data?.errors as Record<string, unknown> | undefined;
   if (errorsObj && typeof errorsObj === "object" && !Array.isArray(errorsObj)) {
     for (const key of Object.keys(errorsObj)) {
       const field = normalizeFieldKey(key);
-      const val = (errorsObj as Record<string, unknown>)[key];
+      const val = errorsObj[key];
       if (Array.isArray(val)) {
-        (out[field] = out[field] || []).push(...(val as unknown[]).map(String));
+        (out[field] = out[field] || []).push(...val.map(String));
       } else if (val != null) {
         (out[field] = out[field] || []).push(String(val));
       }
@@ -245,12 +445,84 @@ export function getErrorMessage(
   fallback = "Something went wrong"
 ): string {
   const appErr = normalizeAxiosError(err);
-  // Optionally include request id for server/unknown cases to aid debugging
-  if (
-    appErr.requestId &&
-    (appErr.type === "server" || appErr.type === "unknown")
-  ) {
-    return `${appErr.message} (ref: ${appErr.requestId})`;
+  let message = appErr.message || fallback;
+
+  // Include reference ID for server/unknown errors to aid debugging
+  const refId = appErr.correlationId || appErr.requestId;
+  if (refId && (appErr.type === "server" || appErr.type === "unknown")) {
+    message += ` (ref: ${refId})`;
   }
-  return appErr.message || fallback;
+
+  return message;
+}
+
+/**
+ * Gets a user-friendly error title based on error type
+ */
+export function getErrorTitle(err: unknown): string {
+  const appErr = normalizeAxiosError(err);
+
+  switch (appErr.type) {
+    case "network":
+      return "Connection Error";
+    case "timeout":
+      return "Request Timeout";
+    case "auth":
+      return "Authentication Error";
+    case "validation":
+      return "Validation Error";
+    case "server":
+      return "Server Error";
+    case "client":
+      return "Request Error";
+    case "canceled":
+      return "Request Canceled";
+    default:
+      return "Error";
+  }
+}
+
+/**
+ * Determines if an error should be shown to the user
+ */
+export function shouldShowError(err: unknown): boolean {
+  const appErr = normalizeAxiosError(err);
+
+  // Don't show canceled requests
+  if (appErr.type === "canceled") {
+    return false;
+  }
+
+  // Always show other errors
+  return true;
+}
+
+/**
+ * Gets retry configuration for an error
+ */
+export function getRetryConfig(err: unknown): {
+  retryable: boolean;
+  delay?: number;
+  maxRetries?: number;
+} {
+  const appErr = normalizeAxiosError(err);
+
+  if (!appErr.retryable) {
+    return { retryable: false };
+  }
+
+  switch (appErr.type) {
+    case "timeout":
+      return { retryable: true, delay: 1000, maxRetries: 3 };
+    case "network":
+      return { retryable: true, delay: 2000, maxRetries: 2 };
+    case "server":
+      // Rate limiting gets longer delay
+      if (appErr.status === 429) {
+        return { retryable: true, delay: 5000, maxRetries: 2 };
+      }
+      return { retryable: true, delay: 3000, maxRetries: 1 };
+    default:
+      return { retryable: false };
+  }
 }
