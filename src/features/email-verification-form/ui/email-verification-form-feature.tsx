@@ -138,7 +138,7 @@ export function EmailVerificationFormFeature({
   useEffect(() => {
     if (token && !autoVerified && verificationStatus === null) {
       setAutoVerified(true);
-      setVerificationStatus("pending");
+      // Don't set pending status here - let the mutation handle it
       verifyEmailMutation.mutate(token);
     }
   }, [token, autoVerified, verificationStatus]);
@@ -160,7 +160,7 @@ export function EmailVerificationFormFeature({
     return (
       <Card shadow="md" padding="xl" radius="md" withBorder>
         <Stack gap="md" align="center">
-          {verificationStatus === "pending" && (
+          {verifyEmailMutation.isPending && (
             <>
               <Text size="lg" fw={500}>
                 Verifying Your Email...
