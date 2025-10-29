@@ -37,7 +37,7 @@ export class AuthPage {
       lastNameInput: this.page.getByLabel("Last Name"),
       usernameInput: this.page.getByLabel("Username"),
       emailInput: this.page.getByLabel("Email"),
-      passwordInput: this.page.getByLabel("Password", { exact: true }),
+      passwordInput: this.page.getByLabel("Password").first(), // Use first() to get the main password field
       confirmPasswordInput: this.page.getByLabel("Confirm Password"),
       submitButton: this.page.getByRole("button", { name: "Create Account" }),
       signInLink: this.page.getByText("Already have an account? Sign in"),
