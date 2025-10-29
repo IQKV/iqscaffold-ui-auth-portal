@@ -33,6 +33,16 @@ export class AuthPage {
     await this.page.waitForLoadState("networkidle");
   }
 
+  async goToVerifyEmail(token: string) {
+    await this.page.goto(`/verify-email?token=${token}`);
+    await this.page.waitForLoadState("networkidle");
+  }
+
+  async goToVerifyEmailWithoutToken() {
+    await this.page.goto("/verify-email");
+    await this.page.waitForLoadState("networkidle");
+  }
+
   // Login page elements
   get loginForm() {
     return {
@@ -76,6 +86,17 @@ export class AuthPage {
         "Confirm your new password"
       ),
       submitButton: this.page.getByRole("button", { name: "Reset Password" }),
+      backToLoginLink: this.page.getByText("Back to Sign In"),
+    };
+  }
+
+  // Verify email page elements
+  get verifyEmailForm() {
+    return {
+      emailInput: this.page.getByPlaceholder("Enter your email address"),
+      submitButton: this.page.getByRole("button", {
+        name: "Send Verification Email",
+      }),
       backToLoginLink: this.page.getByText("Back to Sign In"),
     };
   }
@@ -132,6 +153,14 @@ export class AuthPage {
     await this.resetPasswordForm.submitButton.click();
   }
 
+  async fillVerifyEmailForm(email: string) {
+    await this.verifyEmailForm.emailInput.fill(email);
+  }
+
+  async submitVerifyEmailForm() {
+    await this.verifyEmailForm.submitButton.click();
+  }
+
   // Assertions
   async expectLoginPageVisible() {
     await expect(
@@ -159,6 +188,11 @@ export class AuthPage {
     await expect(this.resetPasswordForm.passwordInput).toBeVisible();
     await expect(this.resetPasswordForm.confirmPasswordInput).toBeVisible();
     await expect(this.resetPasswordForm.submitButton).toBeVisible();
+  }
+
+  async expectVerifyEmailPageVisible() {
+    await expect(this.verifyEmailForm.emailInput).toBeVisible();
+    await expect(this.verifyEmailForm.submitButton).toBeVisible();
   }
 
   async expectValidationError(message: string) {
