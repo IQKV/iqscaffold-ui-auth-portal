@@ -90,7 +90,7 @@ export function SignInFormFeature({
     if (onForgotPassword) {
       onForgotPassword();
     } else {
-      navigate({ to: "/" });
+      navigate({ to: "/forgot-password" });
     }
   };
 

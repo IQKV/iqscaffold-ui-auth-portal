@@ -18,6 +18,21 @@ export class AuthPage {
     await this.page.waitForLoadState("networkidle");
   }
 
+  async goToForgotPassword() {
+    await this.page.goto("/forgot-password");
+    await this.page.waitForLoadState("networkidle");
+  }
+
+  async goToResetPassword(token: string) {
+    await this.page.goto(`/reset-password?token=${token}`);
+    await this.page.waitForLoadState("networkidle");
+  }
+
+  async goToResetPasswordWithoutToken() {
+    await this.page.goto("/reset-password");
+    await this.page.waitForLoadState("networkidle");
+  }
+
   // Login page elements
   get loginForm() {
     return {
@@ -41,6 +56,27 @@ export class AuthPage {
       confirmPasswordInput: this.page.getByLabel("Confirm Password"),
       submitButton: this.page.getByRole("button", { name: "Create Account" }),
       signInLink: this.page.getByText("Already have an account? Sign in"),
+    };
+  }
+
+  // Forgot password page elements
+  get forgotPasswordForm() {
+    return {
+      emailInput: this.page.getByPlaceholder("Enter your email address"),
+      submitButton: this.page.getByRole("button", { name: "Send Reset Link" }),
+      backToLoginLink: this.page.getByText("Back to Sign In"),
+    };
+  }
+
+  // Reset password page elements
+  get resetPasswordForm() {
+    return {
+      passwordInput: this.page.getByPlaceholder("Enter your new password"),
+      confirmPasswordInput: this.page.getByPlaceholder(
+        "Confirm your new password"
+      ),
+      submitButton: this.page.getByRole("button", { name: "Reset Password" }),
+      backToLoginLink: this.page.getByText("Back to Sign In"),
     };
   }
 
@@ -79,10 +115,27 @@ export class AuthPage {
     await this.registerForm.submitButton.click();
   }
 
+  async fillForgotPasswordForm(email: string) {
+    await this.forgotPasswordForm.emailInput.fill(email);
+  }
+
+  async submitForgotPasswordForm() {
+    await this.forgotPasswordForm.submitButton.click();
+  }
+
+  async fillResetPasswordForm(password: string, confirmPassword: string) {
+    await this.resetPasswordForm.passwordInput.fill(password);
+    await this.resetPasswordForm.confirmPasswordInput.fill(confirmPassword);
+  }
+
+  async submitResetPasswordForm() {
+    await this.resetPasswordForm.submitButton.click();
+  }
+
   // Assertions
   async expectLoginPageVisible() {
     await expect(
-      this.page.getByRole("heading", { name: "Welcome to IQKV" })
+      this.page.getByRole("heading", { name: "Welcome Back" })
     ).toBeVisible();
     await expect(this.loginForm.usernameInput).toBeVisible();
     await expect(this.loginForm.passwordInput).toBeVisible();
@@ -95,6 +148,17 @@ export class AuthPage {
     ).toBeVisible();
     await expect(this.registerForm.firstNameInput).toBeVisible();
     await expect(this.registerForm.submitButton).toBeVisible();
+  }
+
+  async expectForgotPasswordPageVisible() {
+    await expect(this.forgotPasswordForm.emailInput).toBeVisible();
+    await expect(this.forgotPasswordForm.submitButton).toBeVisible();
+  }
+
+  async expectResetPasswordPageVisible() {
+    await expect(this.resetPasswordForm.passwordInput).toBeVisible();
+    await expect(this.resetPasswordForm.confirmPasswordInput).toBeVisible();
+    await expect(this.resetPasswordForm.submitButton).toBeVisible();
   }
 
   async expectValidationError(message: string) {
