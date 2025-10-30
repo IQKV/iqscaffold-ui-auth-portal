@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from "./pages/__root"
 import { Route as VerifyEmailRouteImport } from "./pages/verify-email"
 import { Route as ResetPasswordRouteImport } from "./pages/reset-password"
 import { Route as RegisterRouteImport } from "./pages/register"
+import { Route as MswDemoRouteImport } from "./pages/msw-demo"
 import { Route as LoginRouteImport } from "./pages/login"
 import { Route as ForgotPasswordRouteImport } from "./pages/forgot-password"
 import { Route as R404RouteImport } from "./pages/404"
@@ -30,6 +31,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const RegisterRoute = RegisterRouteImport.update({
   id: "/register",
   path: "/register",
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MswDemoRoute = MswDemoRouteImport.update({
+  id: "/msw-demo",
+  path: "/msw-demo",
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   "/404": typeof R404Route
   "/forgot-password": typeof ForgotPasswordRoute
   "/login": typeof LoginRoute
+  "/msw-demo": typeof MswDemoRoute
   "/register": typeof RegisterRoute
   "/reset-password": typeof ResetPasswordRoute
   "/verify-email": typeof VerifyEmailRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   "/404": typeof R404Route
   "/forgot-password": typeof ForgotPasswordRoute
   "/login": typeof LoginRoute
+  "/msw-demo": typeof MswDemoRoute
   "/register": typeof RegisterRoute
   "/reset-password": typeof ResetPasswordRoute
   "/verify-email": typeof VerifyEmailRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   "/404": typeof R404Route
   "/forgot-password": typeof ForgotPasswordRoute
   "/login": typeof LoginRoute
+  "/msw-demo": typeof MswDemoRoute
   "/register": typeof RegisterRoute
   "/reset-password": typeof ResetPasswordRoute
   "/verify-email": typeof VerifyEmailRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | "/404"
     | "/forgot-password"
     | "/login"
+    | "/msw-demo"
     | "/register"
     | "/reset-password"
     | "/verify-email"
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | "/404"
     | "/forgot-password"
     | "/login"
+    | "/msw-demo"
     | "/register"
     | "/reset-password"
     | "/verify-email"
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | "/404"
     | "/forgot-password"
     | "/login"
+    | "/msw-demo"
     | "/register"
     | "/reset-password"
     | "/verify-email"
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   R404Route: typeof R404Route
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
+  MswDemoRoute: typeof MswDemoRoute
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   VerifyEmailRoute: typeof VerifyEmailRoute
@@ -142,6 +155,13 @@ declare module "@tanstack/react-router" {
       path: "/register"
       fullPath: "/register"
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/msw-demo": {
+      id: "/msw-demo"
+      path: "/msw-demo"
+      fullPath: "/msw-demo"
+      preLoaderRoute: typeof MswDemoRouteImport
       parentRoute: typeof rootRouteImport
     }
     "/login": {
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   R404Route: R404Route,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
+  MswDemoRoute: MswDemoRoute,
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   VerifyEmailRoute: VerifyEmailRoute,
