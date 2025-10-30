@@ -9,6 +9,7 @@ vi.mock("./notifications", () => ({
   notificationService: {
     success: vi.fn(),
     error: vi.fn(),
+    errorFromAxios: vi.fn(),
   },
 }));
 
@@ -16,6 +17,8 @@ vi.mock("./http-error", () => ({
   normalizeAxiosError: vi.fn((error) => error),
   toMantineErrors: vi.fn(() => ({})),
   getErrorMessage: vi.fn((error, fallback) => error?.message || fallback),
+  shouldShowError: vi.fn(() => true),
+  getErrorTitle: vi.fn(() => "Error"),
 }));
 
 const createWrapper = () => {
@@ -129,9 +132,8 @@ describe("useFormMutation", () => {
       expect(result.current.isError).toBe(true);
     });
 
-    expect(notificationService.error).toHaveBeenCalledWith({
+    expect(notificationService.errorFromAxios).toHaveBeenCalledWith(error, {
       title: "Error!",
-      message: "Test error",
     });
   });
 
@@ -153,7 +155,7 @@ describe("useFormMutation", () => {
       expect(result.current.isError).toBe(true);
     });
 
-    expect(notificationService.error).not.toHaveBeenCalled();
+    expect(notificationService.errorFromAxios).not.toHaveBeenCalled();
   });
 
   it("calls custom onSuccess callback", async () => {

@@ -240,17 +240,36 @@ describe("EmailVerificationFormFeature", () => {
   });
 
   describe("Email Verification Mode (with token)", () => {
-    it("shows verification pending state initially", () => {
+    it("shows verification pending state initially", async () => {
+      // Create a promise that doesn't resolve immediately
+      let resolvePromise: () => void;
+      const pendingPromise = new Promise<void>((resolve) => {
+        resolvePromise = resolve;
+      });
+
+      vi.mocked(authApi.verifyEmail).mockReturnValue(pendingPromise);
+
       render(
         <TestWrapper>
           <EmailVerificationFormFeature token="valid-token" />
         </TestWrapper>
       );
 
+      // Wait for the mutation to be triggered
+      await waitFor(() => {
+        expect(vi.mocked(authApi.verifyEmail)).toHaveBeenCalledWith(
+          "valid-token"
+        );
+      });
+
+      // Should show pending state
       expect(screen.getByText("Verifying Your Email...")).toBeInTheDocument();
       expect(
         screen.getByText("Please wait while we verify your email address.")
       ).toBeInTheDocument();
+
+      // Clean up by resolving the promise
+      resolvePromise!();
     });
 
     it("automatically calls verifyEmail when token is provided", async () => {
@@ -352,10 +371,16 @@ describe("EmailVerificationFormFeature", () => {
       expect(mockNavigate).toHaveBeenCalledWith({ to: "/login" });
     });
 
-    it("uses token from props over search params", () => {
+    it("uses token from props over search params", async () => {
       mockUseSearch.mockReturnValue({ token: "search-token" });
 
-      vi.mocked(authApi.verifyEmail).mockResolvedValue(undefined);
+      // Create a promise that doesn't resolve immediately
+      let resolvePromise: () => void;
+      const pendingPromise = new Promise<void>((resolve) => {
+        resolvePromise = resolve;
+      });
+
+      vi.mocked(authApi.verifyEmail).mockReturnValue(pendingPromise);
 
       render(
         <TestWrapper>
@@ -363,11 +388,21 @@ describe("EmailVerificationFormFeature", () => {
         </TestWrapper>
       );
 
+      // Wait for the mutation to be triggered with the prop token
+      await waitFor(() => {
+        expect(vi.mocked(authApi.verifyEmail)).toHaveBeenCalledWith(
+          "prop-token"
+        );
+      });
+
       // Should show verification UI (not resend form)
       expect(screen.getByText("Verifying Your Email...")).toBeInTheDocument();
       expect(
         screen.queryByText("Send Verification Email")
       ).not.toBeInTheDocument();
+
+      // Clean up by resolving the promise
+      resolvePromise!();
     });
   });
 
