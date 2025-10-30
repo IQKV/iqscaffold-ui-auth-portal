@@ -12,6 +12,7 @@ import { notifications } from "@mantine/notifications";
 import { IconMail, IconArrowLeft } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
+import { t } from "@lingui/core/macro";
 import { authApi } from "@/shared/api";
 import {
   initialForgotPasswordValues,
@@ -41,8 +42,8 @@ export function ForgotPasswordFormFeature({
     },
     onSuccess: (_, variables) => {
       notifications.show({
-        title: "Reset Link Sent",
-        message: `We've sent a password reset link to ${variables.email}. Please check your email and follow the instructions.`,
+        title: t`Reset Link Sent`,
+        message: t`We've sent a password reset link to ${variables.email}. Please check your email and follow the instructions.`,
         color: "green",
       });
 
@@ -55,10 +56,10 @@ export function ForgotPasswordFormFeature({
     },
     onError: (error: any) => {
       const errorMessage =
-        error?.message || "Failed to send reset email. Please try again.";
+        error?.message || t`Failed to send reset email. Please try again.`;
 
       notifications.show({
-        title: "Reset Failed",
+        title: t`Reset Failed`,
         message: errorMessage,
         color: "red",
       });
@@ -82,13 +83,12 @@ export function ForgotPasswordFormFeature({
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack gap="md">
           <Text size="sm" c="dimmed" ta="center">
-            Enter your email address and we'll send you a link to reset your
-            password.
+            {t`Enter your email address and we'll send you a link to reset your password.`}
           </Text>
 
           <TextInput
-            label="Email Address"
-            placeholder="Enter your email address"
+            label={t`Email Address`}
+            placeholder={t`Enter your email address`}
             leftSection={<IconMail size={16} />}
             required
             {...form.getInputProps("email")}
@@ -99,7 +99,7 @@ export function ForgotPasswordFormFeature({
             fullWidth
             loading={forgotPasswordMutation.isPending}
           >
-            Send Reset Link
+            {t`Send Reset Link`}
           </Button>
 
           <Group justify="center" gap="xs">
@@ -111,7 +111,7 @@ export function ForgotPasswordFormFeature({
             >
               <Group gap="xs" align="center">
                 <IconArrowLeft size={14} />
-                Back to Sign In
+                {t`Back to Sign In`}
               </Group>
             </Anchor>
           </Group>

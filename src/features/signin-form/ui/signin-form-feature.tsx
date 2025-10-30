@@ -13,6 +13,7 @@ import { notifications } from "@mantine/notifications";
 import { IconLock, IconUser } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
+import { t } from "@lingui/core/macro";
 import { authApi, type TokenResponse } from "@/shared/api";
 import { getAuthConfig } from "@/app/config";
 import { initialSignInValues, validateSignInForm } from "../model/validation";
@@ -55,8 +56,8 @@ export function SignInFormFeature({
       );
 
       notifications.show({
-        title: "Login Successful",
-        message: `Welcome back, ${data.user.firstName}!`,
+        title: t`Login Successful`,
+        message: t`Welcome back, ${data.user.firstName}!`,
         color: "green",
       });
 
@@ -72,10 +73,10 @@ export function SignInFormFeature({
     },
     onError: (error: any) => {
       const errorMessage =
-        error?.message || "Invalid credentials. Please try again.";
+        error?.message || t`Invalid credentials. Please try again.`;
 
       notifications.show({
-        title: "Login Failed",
+        title: t`Login Failed`,
         message: errorMessage,
         color: "red",
       });
@@ -107,16 +108,16 @@ export function SignInFormFeature({
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack gap="md">
           <TextInput
-            label="Username or Email"
-            placeholder="Enter your username or email"
+            label={t`Username or Email`}
+            placeholder={t`Enter your username or email`}
             leftSection={<IconUser size={16} />}
             required
             {...form.getInputProps("username")}
           />
 
           <PasswordInput
-            label="Password"
-            placeholder="Enter your password"
+            label={t`Password`}
+            placeholder={t`Enter your password`}
             leftSection={<IconLock size={16} />}
             required
             {...form.getInputProps("password")}
@@ -124,7 +125,7 @@ export function SignInFormFeature({
 
           <Group justify="space-between">
             <Checkbox
-              label="Remember me"
+              label={t`Remember me`}
               {...form.getInputProps("rememberMe", { type: "checkbox" })}
             />
             <Anchor
@@ -133,17 +134,17 @@ export function SignInFormFeature({
               size="sm"
               onClick={handleForgotPassword}
             >
-              Forgot password?
+              {t`Forgot password?`}
             </Anchor>
           </Group>
 
           <Button type="submit" fullWidth loading={loginMutation.isPending}>
-            Sign In
+            {t`Sign In`}
           </Button>
 
           <Group justify="center" gap="xs">
             <Anchor size="sm" onClick={handleNavigateToRegister}>
-              Don't have an account? Sign up
+              {t`Don't have an account? Sign up`}
             </Anchor>
           </Group>
         </Stack>

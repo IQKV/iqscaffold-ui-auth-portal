@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SignUpFormFeature } from "@/features/signup-form";
 import { AuthLayout } from "@/widgets/auth-layout";
+import { t } from "@lingui/core/macro";
 
 export const Route = createFileRoute("/register")({
   component: RegisterPage,
@@ -9,8 +10,8 @@ export const Route = createFileRoute("/register")({
 function RegisterPage() {
   return (
     <AuthLayout
-      title="Create Your Account"
-      subtitle="Join IQKV and start your journey"
+      title={t`Create Your Account`}
+      subtitle={t`Join IQKV and start your journey`}
     >
       <SignUpFormFeature redirectToHome />
     </AuthLayout>

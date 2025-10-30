@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ResetPasswordFormFeature } from "@/features/reset-password-form";
 import { AuthLayout } from "@/widgets/auth-layout";
+import { t } from "@lingui/core/macro";
 
 export const Route = createFileRoute("/reset-password")({
   component: ResetPasswordPage,
@@ -14,8 +15,8 @@ export const Route = createFileRoute("/reset-password")({
 function ResetPasswordPage() {
   return (
     <AuthLayout
-      title="Set New Password"
-      subtitle="Create a strong password for your account"
+      title={t`Set New Password`}
+      subtitle={t`Create a strong password for your account`}
     >
       <ResetPasswordFormFeature />
     </AuthLayout>

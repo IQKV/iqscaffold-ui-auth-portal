@@ -1,14 +1,15 @@
+import { t } from "@lingui/core/macro";
 import { EmailVerificationFormValues } from "./types";
 
 export const validateEmailVerificationForm = {
   email: (value: string) => {
     if (!value) {
-      return "Email is required";
+      return t`Email is required`;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(value)) {
-      return "Please enter a valid email address";
+      return t`Please enter a valid email address`;
     }
 
     return null;

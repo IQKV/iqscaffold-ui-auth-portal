@@ -1,6 +1,7 @@
 import { Alert, Button, Container, Stack, Title } from "@mantine/core";
 import { IconAlertCircle, IconRefresh } from "@tabler/icons-react";
 import { Component, ErrorInfo, ReactNode } from "react";
+import { t } from "@lingui/core/macro";
 
 interface Props {
   children: ReactNode;
@@ -35,22 +36,22 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <Container size="sm" py="xl">
           <Stack align="center" gap="lg">
-            <Title order={2}>Something went wrong</Title>
+            <Title order={2}>{t`Something went wrong`}</Title>
 
             <Alert
               icon={<IconAlertCircle size="1rem" />}
-              title="Application Error"
+              title={t`Application Error`}
               color="red"
               variant="light"
             >
-              {this.state.error?.message || "An unexpected error occurred"}
+              {this.state.error?.message || t`An unexpected error occurred`}
             </Alert>
 
             <Button
               leftSection={<IconRefresh size="1rem" />}
               onClick={() => window.location.reload()}
             >
-              Reload Page
+              {t`Reload Page`}
             </Button>
           </Stack>
         </Container>

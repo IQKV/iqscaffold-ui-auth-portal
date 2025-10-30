@@ -12,6 +12,7 @@ import { notifications } from "@mantine/notifications";
 import { IconLock, IconArrowLeft } from "@tabler/icons-react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
+import { t } from "@lingui/core/macro";
 import { authApi } from "@/shared/api";
 import {
   initialResetPasswordValues,
@@ -54,9 +55,8 @@ export function ResetPasswordFormFeature({
     },
     onSuccess: () => {
       notifications.show({
-        title: "Password Reset Successful",
-        message:
-          "Your password has been successfully reset. You can now sign in with your new password.",
+        title: t`Password Reset Successful`,
+        message: t`Your password has been successfully reset. You can now sign in with your new password.`,
         color: "green",
       });
 
@@ -70,10 +70,10 @@ export function ResetPasswordFormFeature({
     onError: (error: any) => {
       const errorMessage =
         error?.message ||
-        "Failed to reset password. Please try again or request a new reset link.";
+        t`Failed to reset password. Please try again or request a new reset link.`;
 
       notifications.show({
-        title: "Reset Failed",
+        title: t`Reset Failed`,
         message: errorMessage,
         color: "red",
       });
@@ -98,14 +98,13 @@ export function ResetPasswordFormFeature({
       <Card shadow="md" padding="xl" radius="md" withBorder>
         <Stack gap="md" align="center">
           <Text size="lg" fw={500} c="red">
-            Invalid Reset Link
+            {t`Invalid Reset Link`}
           </Text>
           <Text size="sm" c="dimmed" ta="center">
-            This password reset link is invalid or has expired. Please request a
-            new password reset.
+            {t`This password reset link is invalid or has expired. Please request a new password reset.`}
           </Text>
           <Button onClick={handleBackToLogin} variant="light">
-            Back to Sign In
+            {t`Back to Sign In`}
           </Button>
         </Stack>
       </Card>
@@ -117,20 +116,20 @@ export function ResetPasswordFormFeature({
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack gap="md">
           <Text size="sm" c="dimmed" ta="center">
-            Enter your new password below. Make sure it's strong and secure.
+            {t`Enter your new password below. Make sure it's strong and secure.`}
           </Text>
 
           <PasswordInput
-            label="New Password"
-            placeholder="Enter your new password"
+            label={t`New Password`}
+            placeholder={t`Enter your new password`}
             leftSection={<IconLock size={16} />}
             required
             {...form.getInputProps("password")}
           />
 
           <PasswordInput
-            label="Confirm New Password"
-            placeholder="Confirm your new password"
+            label={t`Confirm New Password`}
+            placeholder={t`Confirm your new password`}
             leftSection={<IconLock size={16} />}
             required
             {...form.getInputProps("confirmPassword")}
@@ -141,7 +140,7 @@ export function ResetPasswordFormFeature({
             fullWidth
             loading={resetPasswordMutation.isPending}
           >
-            Reset Password
+            {t`Reset Password`}
           </Button>
 
           <Group justify="center" gap="xs">
@@ -153,7 +152,7 @@ export function ResetPasswordFormFeature({
             >
               <Group gap="xs" align="center">
                 <IconArrowLeft size={14} />
-                Back to Sign In
+                {t`Back to Sign In`}
               </Group>
             </Anchor>
           </Group>

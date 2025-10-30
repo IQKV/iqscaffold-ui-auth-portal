@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SignInFormFeature } from "@/features/signin-form";
 import { AuthLayout } from "@/widgets";
+import { t } from "@lingui/core/macro";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -9,8 +10,8 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   return (
     <AuthLayout
-      title="Welcome to IQKV"
-      subtitle="Sign in to your account to continue"
+      title={t`Welcome to IQKV`}
+      subtitle={t`Sign in to your account to continue`}
     >
       <SignInFormFeature useExternalRedirect />
     </AuthLayout>

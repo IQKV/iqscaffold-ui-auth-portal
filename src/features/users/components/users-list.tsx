@@ -14,6 +14,7 @@ import {
   Alert,
 } from "@mantine/core";
 import { IconSearch, IconEdit, IconTrash, IconPlus } from "@tabler/icons-react";
+import { t } from "@lingui/core/macro";
 import { useUsersQuery, useDeleteUserMutation } from "../hooks/use-users-query";
 
 export function UsersList() {
@@ -39,10 +40,10 @@ export function UsersList() {
 
   if (error) {
     return (
-      <Alert color="red" title="Error loading users">
+      <Alert color="red" title={t`Error loading users`}>
         {error instanceof Error
           ? error.message
-          : "An unexpected error occurred"}
+          : t`An unexpected error occurred`}
       </Alert>
     );
   }
@@ -54,13 +55,13 @@ export function UsersList() {
     <Stack>
       <Group justify="space-between">
         <Text size="xl" fw={700}>
-          Users Management
+          {t`Users Management`}
         </Text>
-        <Button leftSection={<IconPlus size={16} />}>Add User</Button>
+        <Button leftSection={<IconPlus size={16} />}>{t`Add User`}</Button>
       </Group>
 
       <TextInput
-        placeholder="Search users..."
+        placeholder={t`Search users...`}
         leftSection={<IconSearch size={16} />}
         value={search}
         onChange={(event) => setSearch(event.currentTarget.value)}
@@ -73,11 +74,11 @@ export function UsersList() {
         <Table striped highlightOnHover>
           <Table.Thead>
             <Table.Tr>
-              <Table.Th>User</Table.Th>
-              <Table.Th>Email</Table.Th>
-              <Table.Th>Role</Table.Th>
-              <Table.Th>Created</Table.Th>
-              <Table.Th>Actions</Table.Th>
+              <Table.Th>{t`User`}</Table.Th>
+              <Table.Th>{t`Email`}</Table.Th>
+              <Table.Th>{t`Role`}</Table.Th>
+              <Table.Th>{t`Created`}</Table.Th>
+              <Table.Th>{t`Actions`}</Table.Th>
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
@@ -131,7 +132,7 @@ export function UsersList() {
 
         {users.length === 0 && !isLoading && (
           <Text ta="center" py="xl" c="dimmed">
-            No users found
+            {t`No users found`}
           </Text>
         )}
       </div>

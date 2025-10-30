@@ -12,6 +12,7 @@ import { notifications } from "@mantine/notifications";
 import { IconAt, IconLock, IconUser, IconUserPlus } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
+import { t } from "@lingui/core/macro";
 import { authApi, type UserRegistrationResponse } from "@/shared/api";
 import type { UserRegistration } from "@/entities/user";
 import { initialSignUpValues, validateSignUpForm } from "../model/validation";
@@ -41,10 +42,10 @@ export function SignUpFormFeature({
     },
     onSuccess: (data) => {
       notifications.show({
-        title: "Registration Successful",
+        title: t`Registration Successful`,
         message:
           data.message ||
-          "Your account has been created. Please verify your email.",
+          t`Your account has been created. Please verify your email.`,
         color: "green",
       });
 
@@ -60,10 +61,10 @@ export function SignUpFormFeature({
     },
     onError: (error: any) => {
       const errorMessage =
-        error?.message || "Registration failed. Please try again.";
+        error?.message || t`Registration failed. Please try again.`;
 
       notifications.show({
-        title: "Registration Failed",
+        title: t`Registration Failed`,
         message: errorMessage,
         color: "red",
       });
@@ -92,31 +93,31 @@ export function SignUpFormFeature({
         <Stack gap="md">
           <Group grow>
             <TextInput
-              label="First Name"
-              placeholder="John"
+              label={t`First Name`}
+              placeholder={t`John`}
               required
               {...form.getInputProps("firstName")}
             />
             <TextInput
-              label="Last Name"
-              placeholder="Doe"
+              label={t`Last Name`}
+              placeholder={t`Doe`}
               required
               {...form.getInputProps("lastName")}
             />
           </Group>
 
           <TextInput
-            label="Username"
-            placeholder="johndoe"
+            label={t`Username`}
+            placeholder={t`johndoe`}
             leftSection={<IconUser size={16} />}
-            description="3-50 characters, letters, numbers, and underscores only"
+            description={t`3-50 characters, letters, numbers, and underscores only`}
             required
             {...form.getInputProps("username")}
           />
 
           <TextInput
-            label="Email"
-            placeholder="john.doe@example.com"
+            label={t`Email`}
+            placeholder={t`john.doe@example.com`}
             leftSection={<IconAt size={16} />}
             type="email"
             required
@@ -124,17 +125,17 @@ export function SignUpFormFeature({
           />
 
           <PasswordInput
-            label="Password"
-            placeholder="Create a strong password"
+            label={t`Password`}
+            placeholder={t`Create a strong password`}
             leftSection={<IconLock size={16} />}
-            description="Min 8 characters with uppercase, lowercase, number, and special character"
+            description={t`Min 8 characters with uppercase, lowercase, number, and special character`}
             required
             {...form.getInputProps("password")}
           />
 
           <PasswordInput
-            label="Confirm Password"
-            placeholder="Re-enter your password"
+            label={t`Confirm Password`}
+            placeholder={t`Re-enter your password`}
             leftSection={<IconLock size={16} />}
             required
             {...form.getInputProps("confirmPassword")}
@@ -146,12 +147,12 @@ export function SignUpFormFeature({
             leftSection={<IconUserPlus size={18} />}
             loading={registerMutation.isPending}
           >
-            Create Account
+            {t`Create Account`}
           </Button>
 
           <Group justify="center" gap="xs">
             <Anchor size="sm" onClick={handleNavigateToLogin}>
-              Already have an account? Sign in
+              {t`Already have an account? Sign in`}
             </Anchor>
           </Group>
         </Stack>

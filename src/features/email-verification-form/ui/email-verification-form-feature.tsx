@@ -19,6 +19,7 @@ import {
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
+import { t } from "@lingui/core/macro";
 import { authApi } from "@/shared/api";
 import {
   initialEmailVerificationValues,
@@ -71,9 +72,8 @@ export function EmailVerificationFormFeature({
     onSuccess: () => {
       setVerificationStatus("success");
       notifications.show({
-        title: "Email Verified Successfully",
-        message:
-          "Your email has been verified. You can now sign in to your account.",
+        title: t`Email Verified Successfully`,
+        message: t`Your email has been verified. You can now sign in to your account.`,
         color: "green",
         icon: <IconCheck size={16} />,
       });
@@ -91,10 +91,10 @@ export function EmailVerificationFormFeature({
       setVerificationStatus("error");
       const errorMessage =
         error?.message ||
-        "Failed to verify email. The verification link may be invalid or expired.";
+        t`Failed to verify email. The verification link may be invalid or expired.`;
 
       notifications.show({
-        title: "Verification Failed",
+        title: t`Verification Failed`,
         message: errorMessage,
         color: "red",
         icon: <IconAlertCircle size={16} />,
@@ -109,8 +109,8 @@ export function EmailVerificationFormFeature({
     },
     onSuccess: (_, variables) => {
       notifications.show({
-        title: "Verification Email Sent",
-        message: `We've sent a new verification email to ${variables.email}. Please check your inbox and click the verification link.`,
+        title: t`Verification Email Sent`,
+        message: t`We've sent a new verification email to ${variables.email}. Please check your inbox and click the verification link.`,
         color: "green",
         icon: <IconCheck size={16} />,
       });
@@ -122,10 +122,10 @@ export function EmailVerificationFormFeature({
     onError: (error: any) => {
       const errorMessage =
         error?.message ||
-        "Failed to send verification email. Please try again.";
+        t`Failed to send verification email. Please try again.`;
 
       notifications.show({
-        title: "Send Failed",
+        title: t`Send Failed`,
         message: errorMessage,
         color: "red",
         icon: <IconAlertCircle size={16} />,
@@ -166,10 +166,10 @@ export function EmailVerificationFormFeature({
           {verifyEmailMutation.isPending && (
             <>
               <Text size="lg" fw={500}>
-                Verifying Your Email...
+                {t`Verifying Your Email...`}
               </Text>
               <Text size="sm" c="dimmed" ta="center">
-                Please wait while we verify your email address.
+                {t`Please wait while we verify your email address.`}
               </Text>
             </>
           )}
@@ -178,15 +178,14 @@ export function EmailVerificationFormFeature({
             <>
               <Alert
                 icon={<IconCheck size={16} />}
-                title="Email Verified!"
+                title={t`Email Verified!`}
                 color="green"
                 variant="light"
               >
-                Your email has been successfully verified. You will be
-                redirected to the login page shortly.
+                {t`Your email has been successfully verified. You will be redirected to the login page shortly.`}
               </Alert>
               <Button onClick={handleBackToLogin} variant="light">
-                Continue to Sign In
+                {t`Continue to Sign In`}
               </Button>
             </>
           )}
@@ -195,15 +194,14 @@ export function EmailVerificationFormFeature({
             <>
               <Alert
                 icon={<IconAlertCircle size={16} />}
-                title="Verification Failed"
+                title={t`Verification Failed`}
                 color="red"
                 variant="light"
               >
-                The verification link is invalid or has expired. You can request
-                a new verification email below.
+                {t`The verification link is invalid or has expired. You can request a new verification email below.`}
               </Alert>
               <Button onClick={handleBackToLogin} variant="light">
-                Back to Sign In
+                {t`Back to Sign In`}
               </Button>
             </>
           )}
@@ -218,12 +216,12 @@ export function EmailVerificationFormFeature({
       <form onSubmit={form.onSubmit(handleResendSubmit)}>
         <Stack gap="md">
           <Text size="sm" c="dimmed" ta="center">
-            Enter your email address and we'll send you a new verification link.
+            {t`Enter your email address and we'll send you a new verification link.`}
           </Text>
 
           <TextInput
-            label="Email Address"
-            placeholder="Enter your email address"
+            label={t`Email Address`}
+            placeholder={t`Enter your email address`}
             leftSection={<IconMail size={16} />}
             required
             {...form.getInputProps("email")}
@@ -234,7 +232,7 @@ export function EmailVerificationFormFeature({
             fullWidth
             loading={resendVerificationMutation.isPending}
           >
-            Send Verification Email
+            {t`Send Verification Email`}
           </Button>
 
           <Group justify="center" gap="xs">
@@ -246,7 +244,7 @@ export function EmailVerificationFormFeature({
             >
               <Group gap="xs" align="center">
                 <IconArrowLeft size={14} />
-                Back to Sign In
+                {t`Back to Sign In`}
               </Group>
             </Anchor>
           </Group>
