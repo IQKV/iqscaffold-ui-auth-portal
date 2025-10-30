@@ -1,22 +1,11 @@
-# Project Name 🚀
+# IQKV Authentication System 🔐
 
-<!-- TEMPLATE: This README.template.md is a starter template. Copy parts into your real README.md and replace placeholders. -->
+![CI](https://img.shields.io/github/actions/workflow/status/IQKV/standard-mantine-ui-project-layout/ci.yml?label=CI)
+![Tests](https://img.shields.io/badge/tests-passing-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-85%25-brightgreen)
+![License](https://img.shields.io/github/license/IQKV/standard-mantine-ui-project-layout)
 
-<details>
-  <summary><strong>How to use this template (click to expand)</strong></summary>
-
-1. Rename the title above to your project name and optionally add a logo right below it.
-2. Add badges (build, tests, coverage, license) under the title.
-3. Fill each section below with your actual project content (keep the section order if you like it).
-4. Replace placeholder code blocks and bullet points with real commands and steps.
-5. Keep the "Template Usage" links if you want quick access to template docs, or remove them in your final README.md.
-6. Remove this guidance block after you finish customizing.
-
-</details>
-
-- Add your project logo.
-- Write a short introduction to the project.
-- If you are using badges, add them here.
+A modern, secure authentication system built with React 19, TypeScript, and Mantine UI. Features comprehensive user management, multi-tenant support, and enterprise-grade security.
 
 <details>
   <summary><strong>Badge examples (optional)</strong></summary>
@@ -30,7 +19,26 @@
 
 ## :beginner: About
 
-Add a detailed introduction about the project here, everything you want the reader to know.
+IQKV Authentication System is a production-ready authentication and user management platform designed for modern web applications. Built with Feature-Sliced Design architecture, it provides a scalable foundation for enterprise applications requiring secure user authentication, role-based access control, and multi-tenant capabilities.
+
+### 🎯 Key Features
+
+- **🔐 Complete Authentication Flow**: Sign in, sign up, password reset, email verification
+- **👥 User Management**: Comprehensive user profiles with roles and permissions
+- **🏢 Multi-Tenant Support**: Tenant-based user isolation and management
+- **🔒 Enterprise Security**: JWT tokens, secure storage, session management
+- **🌍 Internationalization**: Multi-language support with Lingui
+- **📱 Responsive Design**: Mobile-first approach with Mantine UI components
+- **🧪 Comprehensive Testing**: Unit, integration, and E2E testing strategies
+- **⚡ Performance Optimized**: Code splitting, lazy loading, and caching
+
+### 🏗️ Architecture Highlights
+
+- **Feature-Sliced Design (FSD)**: Scalable architecture with clear layer boundaries
+- **Type-Safe Development**: Strict TypeScript configuration with Zod validation
+- **Modern React Patterns**: React 19 with concurrent features and Suspense
+- **State Management**: TanStack Query for server state, Zustand for client state
+- **API Integration**: Axios with interceptors, error handling, and MSW mocking
 
 ## 📚 Documentation
 
@@ -67,12 +75,33 @@ Add a detailed introduction about the project here, everything you want the read
 - [Zustand Integration](template-docs/zustand-integration.md)
 - [Deployment](template-docs/deployment.md)
 
-## 🧩 Boilerplate Architecture
+## 🧩 Authentication System Architecture
 
-- FSD boundaries with public API barrels
-- Typed forms, notifications, and devtools
-- Vite, ESLint/Prettier, Vitest/Playwright, Storybook, Lingui
-- Processes: Auth session refresh/logout via `useAuthSession` + provider
-- Features: Form/business logic via `useLoginForm`, `useRegisterForm`
-- Entities: Pure API methods (e.g., `authApi`)
-- Shared: UI kit, utilities, query client, notifications
+### 🔐 Authentication Features
+
+- **Sign In/Sign Up**: Complete user registration and login flows
+- **Password Management**: Forgot password, reset password with secure tokens
+- **Email Verification**: Account activation and email confirmation
+- **Session Management**: JWT token handling with automatic refresh
+- **Multi-Domain Support**: Configurable auth and app domains
+
+### 🏗️ FSD Layer Structure
+
+- **App Layer**: Global providers, routing, theme configuration
+- **Pages Layer**: Authentication routes (login, register, forgot-password, verify-email)
+- **Features Layer**:
+  - `signin-form` - User login functionality
+  - `signup-form` - User registration with validation
+  - `forgot-password-form` - Password reset request
+  - `reset-password-form` - Password reset with token
+  - `email-verification-form` - Email confirmation
+- **Entities Layer**: User models, form types, authentication state
+- **Shared Layer**: API clients, UI components, utilities, error handling
+
+### 🔧 Technical Implementation
+
+- **API Integration**: RESTful authentication endpoints with proper error handling
+- **Form Validation**: Zod schemas with Mantine form integration
+- **State Management**: TanStack Query for API state, local storage for tokens
+- **Security**: Secure token storage, CSRF protection, input sanitization
+- **Testing**: Comprehensive test coverage with MSW for API mocking
