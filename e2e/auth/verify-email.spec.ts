@@ -333,6 +333,6 @@ test.describe("Verify Email Navigation Flow", () => {
 
     // Should show verification mode (token takes precedence)
     await expect(page.getByText("Verifying Your Email...")).toBeVisible();
-    await expect(page.queryByText("Send Verification Email")).not.toBeVisible();
+    await expect(page.getByText("Send Verification Email")).not.toBeVisible();
   });
 });
