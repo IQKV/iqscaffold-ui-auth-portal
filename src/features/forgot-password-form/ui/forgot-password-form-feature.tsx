@@ -41,9 +41,10 @@ export function ForgotPasswordFormFeature({
       return await authApi.forgotPassword(values.email);
     },
     onSuccess: (_, variables) => {
+      const email = variables.email;
       notifications.show({
         title: t`Reset Link Sent`,
-        message: t`We've sent a password reset link to ${variables.email}. Please check your email and follow the instructions.`,
+        message: t`We've sent a password reset link to ${email}. Please check your email and follow the instructions.`,
         color: "green",
       });
 

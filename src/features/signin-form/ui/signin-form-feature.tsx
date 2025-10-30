@@ -55,9 +55,10 @@ export function SignInFormFeature({
         data.refreshToken
       );
 
+      const firstName = data.user.firstName;
       notifications.show({
         title: t`Login Successful`,
-        message: t`Welcome back, ${data.user.firstName}!`,
+        message: t`Welcome back, ${firstName}!`,
         color: "green",
       });
 

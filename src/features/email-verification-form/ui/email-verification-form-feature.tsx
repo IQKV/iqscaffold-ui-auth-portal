@@ -108,9 +108,10 @@ export function EmailVerificationFormFeature({
       return await authApi.resendVerification(values.email);
     },
     onSuccess: (_, variables) => {
+      const email = variables.email;
       notifications.show({
         title: t`Verification Email Sent`,
-        message: t`We've sent a new verification email to ${variables.email}. Please check your inbox and click the verification link.`,
+        message: t`We've sent a new verification email to ${email}. Please check your inbox and click the verification link.`,
         color: "green",
         icon: <IconCheck size={16} />,
       });
