@@ -16,8 +16,12 @@ import { useMutation } from "@tanstack/react-query";
 import { t } from "@lingui/core/macro";
 import { authApi, type TokenResponse } from "@/shared/api";
 import { getAuthConfig } from "@/app/config";
-import { initialSignInValues, validateSignInForm } from "../model/validation";
-import type { SignInFormValues } from "../model/types";
+import { useForm } from "@/shared/lib/enhanced-form-hook";
+import {
+  signInFormSchema,
+  initialSignInValues,
+  type SignInFormSchemaType,
+} from "../model/validation";
 
 interface SignInFormFeatureProps {
   onSuccess?: (data: TokenResponse) => void;
@@ -35,13 +39,13 @@ export function SignInFormFeature({
   const navigate = useNavigate();
   const authConfig = getAuthConfig();
 
-  const form = useForm<SignInFormValues>({
+  const form = useForm<SignInFormSchemaType>({
     initialValues: initialSignInValues,
-    validate: validateSignInForm,
+    schema: signInFormSchema,
   });
 
   const loginMutation = useMutation({
-    mutationFn: async (values: SignInFormValues) => {
+    mutationFn: async (values: SignInFormSchemaType) => {
       return await authApi.login(values);
     },
     onSuccess: (data) => {
@@ -84,7 +88,7 @@ export function SignInFormFeature({
     },
   });
 
-  const handleSubmit = (values: SignInFormValues) => {
+  const handleSubmit = (values: SignInFormSchemaType) => {
     loginMutation.mutate(values);
   };
 

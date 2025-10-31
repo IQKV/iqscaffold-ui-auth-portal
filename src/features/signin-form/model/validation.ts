@@ -1,17 +1,19 @@
-import { t } from "@lingui/core/macro";
+import { z } from "zod";
+import { formSchemas } from "@/shared/lib/form-validation";
 import { SignInFormValues } from "./types";
 
-export const validateSignInForm = {
-  username: (value: string) =>
-    value.length < 3
-      ? t`Username or email must be at least 3 characters`
-      : null,
-  password: (value: string) =>
-    value.length < 1 ? t`Password is required` : null,
-};
+// Use the standardized schema from shared validation
+export const signInFormSchema = formSchemas.signIn;
 
-export const initialSignInValues: SignInFormValues = {
+// Type inference from schema
+export type SignInFormSchemaType = z.infer<typeof signInFormSchema>;
+
+// Initial values
+export const initialSignInValues: SignInFormSchemaType = {
   username: "",
   password: "",
   rememberMe: false,
 };
+
+// Legacy export for backward compatibility (will be removed)
+export const validateSignInForm = "DEPRECATED: Use signInFormSchema instead";

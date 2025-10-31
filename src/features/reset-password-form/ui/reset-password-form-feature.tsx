@@ -7,18 +7,18 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { IconLock, IconArrowLeft } from "@tabler/icons-react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
 import { t } from "@lingui/core/macro";
 import { authApi } from "@/shared/api";
+import { useForm } from "@/shared/lib/enhanced-form-hook";
 import {
+  resetPasswordFormSchema,
   initialResetPasswordValues,
-  validateResetPasswordForm,
+  type ResetPasswordFormSchemaType,
 } from "../model/validation";
-import type { ResetPasswordFormValues } from "../model/types";
 
 interface ResetPasswordFormFeatureProps {
   token?: string;
@@ -37,17 +37,13 @@ export function ResetPasswordFormFeature({
   // Get token from props or URL search params
   const token = propToken || search.token;
 
-  const form = useForm<ResetPasswordFormValues>({
+  const form = useForm<ResetPasswordFormSchemaType>({
     initialValues: initialResetPasswordValues,
-    validate: {
-      password: validateResetPasswordForm.password,
-      confirmPassword: (value, values) =>
-        validateResetPasswordForm.confirmPassword(value, values),
-    },
+    schema: resetPasswordFormSchema,
   });
 
   const resetPasswordMutation = useMutation({
-    mutationFn: async (values: ResetPasswordFormValues) => {
+    mutationFn: async (values: ResetPasswordFormSchemaType) => {
       if (!token) {
         throw new Error("Reset token is missing");
       }
@@ -80,7 +76,7 @@ export function ResetPasswordFormFeature({
     },
   });
 
-  const handleSubmit = (values: ResetPasswordFormValues) => {
+  const handleSubmit = (values: ResetPasswordFormSchemaType) => {
     resetPasswordMutation.mutate(values);
   };
 

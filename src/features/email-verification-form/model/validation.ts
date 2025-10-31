@@ -1,21 +1,20 @@
-import { t } from "@lingui/core/macro";
+import { z } from "zod";
+import { formSchemas } from "@/shared/lib/form-validation";
 import { EmailVerificationFormValues } from "./types";
 
-export const validateEmailVerificationForm = {
-  email: (value: string) => {
-    if (!value) {
-      return t`Email is required`;
-    }
+// Use the standardized schema from shared validation
+export const emailVerificationFormSchema = formSchemas.emailVerification;
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) {
-      return t`Please enter a valid email address`;
-    }
+// Type inference from schema
+export type EmailVerificationFormSchemaType = z.infer<
+  typeof emailVerificationFormSchema
+>;
 
-    return null;
-  },
+// Initial values
+export const initialEmailVerificationValues: EmailVerificationFormSchemaType = {
+  code: "",
 };
 
-export const initialEmailVerificationValues: EmailVerificationFormValues = {
-  email: "",
-};
+// Legacy export for backward compatibility (will be removed)
+export const validateEmailVerificationForm =
+  "DEPRECATED: Use emailVerificationFormSchema instead";

@@ -1,53 +1,21 @@
-import { t } from "@lingui/core/macro";
+import { z } from "zod";
+import { formSchemas } from "@/shared/lib/form-validation";
 import { ResetPasswordFormValues } from "./types";
 
-export const validateResetPasswordForm = {
-  password: (value: string) => {
-    if (!value) {
-      return t`Password is required`;
-    }
+// Use the standardized schema from shared validation
+export const resetPasswordFormSchema = formSchemas.resetPassword;
 
-    if (value.length < 8) {
-      return t`Password must be at least 8 characters long`;
-    }
+// Type inference from schema
+export type ResetPasswordFormSchemaType = z.infer<
+  typeof resetPasswordFormSchema
+>;
 
-    // Check for at least one uppercase letter
-    if (!/[A-Z]/.test(value)) {
-      return t`Password must contain at least one uppercase letter`;
-    }
-
-    // Check for at least one lowercase letter
-    if (!/[a-z]/.test(value)) {
-      return t`Password must contain at least one lowercase letter`;
-    }
-
-    // Check for at least one number
-    if (!/\d/.test(value)) {
-      return t`Password must contain at least one number`;
-    }
-
-    // Check for at least one special character
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
-      return t`Password must contain at least one special character`;
-    }
-
-    return null;
-  },
-
-  confirmPassword: (value: string, values: ResetPasswordFormValues) => {
-    if (!value) {
-      return t`Please confirm your password`;
-    }
-
-    if (value !== values.password) {
-      return t`Passwords do not match`;
-    }
-
-    return null;
-  },
-};
-
-export const initialResetPasswordValues: ResetPasswordFormValues = {
+// Initial values
+export const initialResetPasswordValues: ResetPasswordFormSchemaType = {
   password: "",
   confirmPassword: "",
 };
+
+// Legacy export for backward compatibility (will be removed)
+export const validateResetPasswordForm =
+  "DEPRECATED: Use resetPasswordFormSchema instead";

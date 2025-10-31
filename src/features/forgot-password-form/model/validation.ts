@@ -1,21 +1,20 @@
-import { t } from "@lingui/core/macro";
+import { z } from "zod";
+import { formSchemas } from "@/shared/lib/form-validation";
 import { ForgotPasswordFormValues } from "./types";
 
-export const validateForgotPasswordForm = {
-  email: (value: string) => {
-    if (!value) {
-      return t`Email is required`;
-    }
+// Use the standardized schema from shared validation
+export const forgotPasswordFormSchema = formSchemas.forgotPassword;
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) {
-      return t`Please enter a valid email address`;
-    }
+// Type inference from schema
+export type ForgotPasswordFormSchemaType = z.infer<
+  typeof forgotPasswordFormSchema
+>;
 
-    return null;
-  },
-};
-
-export const initialForgotPasswordValues: ForgotPasswordFormValues = {
+// Initial values
+export const initialForgotPasswordValues: ForgotPasswordFormSchemaType = {
   email: "",
 };
+
+// Legacy export for backward compatibility (will be removed)
+export const validateForgotPasswordForm =
+  "DEPRECATED: Use forgotPasswordFormSchema instead";

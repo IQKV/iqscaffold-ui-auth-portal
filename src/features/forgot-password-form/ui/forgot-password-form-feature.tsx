@@ -7,18 +7,18 @@ import {
   Text,
   TextInput,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { IconMail, IconArrowLeft } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
 import { t } from "@lingui/core/macro";
 import { authApi } from "@/shared/api";
+import { useForm } from "@/shared/lib/enhanced-form-hook";
 import {
+  forgotPasswordFormSchema,
   initialForgotPasswordValues,
-  validateForgotPasswordForm,
+  type ForgotPasswordFormSchemaType,
 } from "../model/validation";
-import type { ForgotPasswordFormValues } from "../model/types";
 
 interface ForgotPasswordFormFeatureProps {
   onSuccess?: (email: string) => void;
@@ -31,13 +31,13 @@ export function ForgotPasswordFormFeature({
 }: ForgotPasswordFormFeatureProps) {
   const navigate = useNavigate();
 
-  const form = useForm<ForgotPasswordFormValues>({
+  const form = useForm<ForgotPasswordFormSchemaType>({
     initialValues: initialForgotPasswordValues,
-    validate: validateForgotPasswordForm,
+    schema: forgotPasswordFormSchema,
   });
 
   const forgotPasswordMutation = useMutation({
-    mutationFn: async (values: ForgotPasswordFormValues) => {
+    mutationFn: async (values: ForgotPasswordFormSchemaType) => {
       return await authApi.forgotPassword(values.email);
     },
     onSuccess: (_, variables) => {
@@ -67,7 +67,7 @@ export function ForgotPasswordFormFeature({
     },
   });
 
-  const handleSubmit = (values: ForgotPasswordFormValues) => {
+  const handleSubmit = (values: ForgotPasswordFormSchemaType) => {
     forgotPasswordMutation.mutate(values);
   };
 

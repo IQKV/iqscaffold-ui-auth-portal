@@ -7,7 +7,6 @@ import {
   Stack,
   TextInput,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { IconAt, IconLock, IconUser, IconUserPlus } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
@@ -15,8 +14,12 @@ import { useMutation } from "@tanstack/react-query";
 import { t } from "@lingui/core/macro";
 import { authApi, type UserRegistrationResponse } from "@/shared/api";
 import type { UserRegistration } from "@/entities/user";
-import { initialSignUpValues, validateSignUpForm } from "../model/validation";
-import type { SignUpFormValues } from "../model/types";
+import { useForm } from "@/shared/lib/enhanced-form-hook";
+import {
+  signUpFormSchema,
+  initialSignUpValues,
+  type SignUpFormSchemaType,
+} from "../model/validation";
 
 interface SignUpFormFeatureProps {
   onSuccess?: (data: UserRegistrationResponse) => void;
@@ -31,9 +34,9 @@ export function SignUpFormFeature({
 }: SignUpFormFeatureProps) {
   const navigate = useNavigate();
 
-  const form = useForm<SignUpFormValues>({
+  const form = useForm<SignUpFormSchemaType>({
     initialValues: initialSignUpValues,
-    validate: validateSignUpForm,
+    schema: signUpFormSchema,
   });
 
   const registerMutation = useMutation({
@@ -71,7 +74,7 @@ export function SignUpFormFeature({
     },
   });
 
-  const handleSubmit = (values: SignUpFormValues) => {
+  const handleSubmit = (values: SignUpFormSchemaType) => {
     const { confirmPassword, ...signupData } = values;
     registerMutation.mutate(signupData);
   };
