@@ -82,6 +82,7 @@
     "dotenv": "^17.2.3",
     "immer": "^10.2.0",
     "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "lottie-web": "^5.13.0",
     "nuqs": "^2.7.2",
