@@ -8,13 +8,13 @@ import {
 import { i18n } from "@lingui/core";
 import { messages } from "../locales/en";
 
+// Setup Lingui BEFORE any other imports to prevent translation errors
+i18n.load("en", messages);
+i18n.activate("en");
+
 // Setup MSW server for testing
 beforeAll(() => {
   startMSWServer();
-
-  // Setup Lingui for tests
-  i18n.load("en", messages);
-  i18n.activate("en");
 });
 
 afterEach(() => {

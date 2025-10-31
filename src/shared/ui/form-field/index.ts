@@ -1,2 +1,1 @@
-// Form field public API
-export { FormField } from "./form-field";
+export { FormField, EnhancedFormField } from "./form-field";

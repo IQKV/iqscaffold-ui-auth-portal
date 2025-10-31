@@ -1,14 +1,4 @@
-import {
-  Anchor,
-  Button,
-  Card,
-  Group,
-  Stack,
-  Text,
-  TextInput,
-  Alert,
-} from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Anchor, Button, Card, Group, Stack, Text, Alert } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import {
   IconMail,
@@ -21,11 +11,14 @@ import { useMutation } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { t } from "@lingui/core/macro";
 import { authApi } from "@/shared/api";
+import { useForm, UseFormInput } from "@/shared/lib/enhanced-form-hook";
+import { FormField } from "@/shared/ui";
 import {
+  emailVerificationFormSchema,
   initialEmailVerificationValues,
-  validateEmailVerificationForm,
+  type EmailVerificationFormSchemaType,
 } from "../model/validation";
-import type { EmailVerificationFormValues } from "../model/types";
+import { EmailVerificationFormValues } from "../model/types";
 
 interface EmailVerificationFormFeatureProps {
   token?: string;
@@ -56,13 +49,13 @@ export function EmailVerificationFormFeature({
     "success" | "error" | null
   >(null);
 
-  const form = useForm<EmailVerificationFormValues>({
+  const form = useForm({
     initialValues: {
       ...initialEmailVerificationValues,
       email: email || "",
     },
-    validate: validateEmailVerificationForm,
-  });
+    schema: emailVerificationFormSchema,
+  } as UseFormInput<EmailVerificationFormSchemaType>);
 
   // Auto-verify if token is provided
   const verifyEmailMutation = useMutation({
@@ -220,12 +213,14 @@ export function EmailVerificationFormFeature({
             {t`Enter your email address and we'll send you a new verification link.`}
           </Text>
 
-          <TextInput
+          <FormField
+            type="email"
+            name="email"
             label={t`Email Address`}
             placeholder={t`Enter your email address`}
             leftSection={<IconMail size={16} />}
             required
-            {...form.getInputProps("email")}
+            form={form}
           />
 
           <Button

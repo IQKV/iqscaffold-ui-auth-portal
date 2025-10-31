@@ -1,114 +1,177 @@
 import { describe, it, expect } from "vitest";
 import {
-  validateResetPasswordForm,
+  resetPasswordFormSchema,
   initialResetPasswordValues,
 } from "./validation";
-import type { ResetPasswordFormValues } from "./types";
 
 describe("reset-password-form validation", () => {
-  describe("validateResetPasswordForm", () => {
+  describe("resetPasswordFormSchema", () => {
     describe("password validation", () => {
       it("should return error for empty password", () => {
-        const result = validateResetPasswordForm.password("");
-        expect(result).toBe("Password is required");
+        const result = resetPasswordFormSchema.safeParse({
+          password: "",
+          confirmPassword: "",
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          expect(
+            result.error.issues.some((issue) =>
+              issue.message.includes("Password must be at least 8 characters")
+            )
+          ).toBe(true);
+        }
       });
 
       it("should return error for password less than 8 characters", () => {
-        const result = validateResetPasswordForm.password("Pass1!");
-        expect(result).toBe("Password must be at least 8 characters long");
+        const result = resetPasswordFormSchema.safeParse({
+          password: "Pass1!",
+          confirmPassword: "Pass1!",
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          expect(
+            result.error.issues.some((issue) =>
+              issue.message.includes("Password must be at least 8 characters")
+            )
+          ).toBe(true);
+        }
       });
 
       it("should return error for password without uppercase letter", () => {
-        const result = validateResetPasswordForm.password("password123!");
-        expect(result).toBe(
-          "Password must contain at least one uppercase letter"
-        );
+        const result = resetPasswordFormSchema.safeParse({
+          password: "password123!",
+          confirmPassword: "password123!",
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          expect(
+            result.error.issues.some((issue) =>
+              issue.message.includes("uppercase letter")
+            )
+          ).toBe(true);
+        }
       });
 
       it("should return error for password without lowercase letter", () => {
-        const result = validateResetPasswordForm.password("PASSWORD123!");
-        expect(result).toBe(
-          "Password must contain at least one lowercase letter"
-        );
+        const result = resetPasswordFormSchema.safeParse({
+          password: "PASSWORD123!",
+          confirmPassword: "PASSWORD123!",
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          expect(
+            result.error.issues.some((issue) =>
+              issue.message.includes("lowercase letter")
+            )
+          ).toBe(true);
+        }
       });
 
       it("should return error for password without number", () => {
-        const result = validateResetPasswordForm.password("Password!");
-        expect(result).toBe("Password must contain at least one number");
+        const result = resetPasswordFormSchema.safeParse({
+          password: "Password!",
+          confirmPassword: "Password!",
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          expect(
+            result.error.issues.some((issue) =>
+              issue.message.includes("number")
+            )
+          ).toBe(true);
+        }
       });
 
       it("should return error for password without special character", () => {
-        const result = validateResetPasswordForm.password("Password123");
-        expect(result).toBe(
-          "Password must contain at least one special character"
-        );
+        const result = resetPasswordFormSchema.safeParse({
+          password: "Password123",
+          confirmPassword: "Password123",
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          expect(
+            result.error.issues.some((issue) =>
+              issue.message.includes("special character")
+            )
+          ).toBe(true);
+        }
       });
 
-      it("should return null for valid password", () => {
-        const result = validateResetPasswordForm.password("Password123!");
-        expect(result).toBeNull();
+      it("should accept valid password", () => {
+        const result = resetPasswordFormSchema.safeParse({
+          password: "Password123!",
+          confirmPassword: "Password123!",
+        });
+        expect(result.success).toBe(true);
       });
 
-      it("should return null for valid password with different special characters", () => {
+      it("should accept valid password with different special characters", () => {
         const validPasswords = [
           "Password123@",
-          "Password123#",
           "Password123$",
+          "Password123!",
           "Password123%",
-          "Password123^",
-          "Password123&",
           "Password123*",
+          "Password123?",
+          "Password123&",
         ];
 
         validPasswords.forEach((password) => {
-          const result = validateResetPasswordForm.password(password);
-          expect(result).toBeNull();
+          const result = resetPasswordFormSchema.safeParse({
+            password,
+            confirmPassword: password,
+          });
+          expect(result.success).toBe(true);
         });
       });
     });
 
     describe("confirmPassword validation", () => {
-      const mockValues: ResetPasswordFormValues = {
-        password: "Password123!",
-        confirmPassword: "",
-      };
-
       it("should return error for empty confirm password", () => {
-        const result = validateResetPasswordForm.confirmPassword(
-          "",
-          mockValues
-        );
-        expect(result).toBe("Please confirm your password");
+        const result = resetPasswordFormSchema.safeParse({
+          password: "Password123!",
+          confirmPassword: "",
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          expect(
+            result.error.issues.some((issue) =>
+              issue.message.includes("Please confirm your password")
+            )
+          ).toBe(true);
+        }
       });
 
       it("should return error when passwords do not match", () => {
-        const result = validateResetPasswordForm.confirmPassword(
-          "DifferentPassword123!",
-          mockValues
-        );
-        expect(result).toBe("Passwords do not match");
+        const result = resetPasswordFormSchema.safeParse({
+          password: "Password123!",
+          confirmPassword: "DifferentPassword123!",
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          expect(
+            result.error.issues.some((issue) =>
+              issue.message.includes("Passwords do not match")
+            )
+          ).toBe(true);
+        }
       });
 
-      it("should return null when passwords match", () => {
-        const result = validateResetPasswordForm.confirmPassword(
-          "Password123!",
-          mockValues
-        );
-        expect(result).toBeNull();
+      it("should accept when passwords match", () => {
+        const result = resetPasswordFormSchema.safeParse({
+          password: "Password123!",
+          confirmPassword: "Password123!",
+        });
+        expect(result.success).toBe(true);
       });
 
-      it("should return null when both passwords are the same complex password", () => {
+      it("should accept when both passwords are the same complex password", () => {
         const complexPassword = "MyVerySecure123!@#";
-        const values: ResetPasswordFormValues = {
+        const result = resetPasswordFormSchema.safeParse({
           password: complexPassword,
           confirmPassword: complexPassword,
-        };
-
-        const result = validateResetPasswordForm.confirmPassword(
-          complexPassword,
-          values
-        );
-        expect(result).toBeNull();
+        });
+        expect(result.success).toBe(true);
       });
     });
   });

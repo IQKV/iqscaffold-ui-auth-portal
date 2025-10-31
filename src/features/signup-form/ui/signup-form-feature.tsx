@@ -1,12 +1,4 @@
-import {
-  Anchor,
-  Button,
-  Card,
-  Group,
-  PasswordInput,
-  Stack,
-  TextInput,
-} from "@mantine/core";
+import { Anchor, Button, Card, Group, Stack } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IconAt, IconLock, IconUser, IconUserPlus } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
@@ -15,6 +7,7 @@ import { t } from "@lingui/core/macro";
 import { authApi, type UserRegistrationResponse } from "@/shared/api";
 import type { UserRegistration } from "@/entities/user";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
+import { FormField } from "@/shared/ui";
 import {
   signUpFormSchema,
   initialSignUpValues,
@@ -95,53 +88,64 @@ export function SignUpFormFeature({
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack gap="md">
           <Group grow>
-            <TextInput
+            <FormField
+              type="text"
+              name="firstName"
               label={t`First Name`}
               placeholder={t`John`}
               required
-              {...form.getInputProps("firstName")}
+              form={form}
             />
-            <TextInput
+            <FormField
+              type="text"
+              name="lastName"
               label={t`Last Name`}
               placeholder={t`Doe`}
               required
-              {...form.getInputProps("lastName")}
+              form={form}
             />
           </Group>
 
-          <TextInput
+          <FormField
+            type="text"
+            name="username"
             label={t`Username`}
             placeholder={t`johndoe`}
             leftSection={<IconUser size={16} />}
             description={t`3-50 characters, letters, numbers, and underscores only`}
             required
-            {...form.getInputProps("username")}
+            form={form}
           />
 
-          <TextInput
+          <FormField
+            type="email"
+            name="email"
             label={t`Email`}
             placeholder={t`john.doe@example.com`}
             leftSection={<IconAt size={16} />}
-            type="email"
             required
-            {...form.getInputProps("email")}
+            form={form}
           />
 
-          <PasswordInput
+          <FormField
+            type="password"
+            name="password"
             label={t`Password`}
             placeholder={t`Create a strong password`}
             leftSection={<IconLock size={16} />}
             description={t`Min 8 characters with uppercase, lowercase, number, and special character`}
             required
-            {...form.getInputProps("password")}
+            form={form}
           />
 
-          <PasswordInput
+          <FormField
+            type="password"
+            name="confirmPassword"
             label={t`Confirm Password`}
             placeholder={t`Re-enter your password`}
             leftSection={<IconLock size={16} />}
             required
-            {...form.getInputProps("confirmPassword")}
+            form={form}
           />
 
           <Button

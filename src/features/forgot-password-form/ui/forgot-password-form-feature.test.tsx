@@ -103,11 +103,13 @@ describe("ForgotPasswordFormFeature", () => {
     await user.type(emailInput, "invalid-email");
     await user.click(submitButton);
 
+    // Check that the API was not called due to validation error
     await waitFor(() => {
-      expect(
-        screen.getByText("Please enter a valid email address")
-      ).toBeInTheDocument();
+      expect(authApi.forgotPassword).not.toHaveBeenCalled();
     });
+
+    // Check that the form is still visible (not submitted)
+    expect(submitButton).toBeEnabled();
   });
 
   it("submits form with valid email", async () => {

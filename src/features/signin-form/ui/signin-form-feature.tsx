@@ -1,14 +1,4 @@
-import {
-  Anchor,
-  Button,
-  Card,
-  Checkbox,
-  Group,
-  PasswordInput,
-  Stack,
-  TextInput,
-} from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Anchor, Button, Card, Group, Stack } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IconLock, IconUser } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
@@ -17,6 +7,7 @@ import { t } from "@lingui/core/macro";
 import { authApi, type TokenResponse } from "@/shared/api";
 import { getAuthConfig } from "@/app/config";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
+import { FormField } from "@/shared/ui";
 import {
   signInFormSchema,
   initialSignInValues,
@@ -112,26 +103,32 @@ export function SignInFormFeature({
     <Card shadow="md" padding="xl" radius="md" withBorder>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack gap="md">
-          <TextInput
+          <FormField
+            type="text"
+            name="username"
             label={t`Username or Email`}
             placeholder={t`Enter your username or email`}
             leftSection={<IconUser size={16} />}
             required
-            {...form.getInputProps("username")}
+            form={form}
           />
 
-          <PasswordInput
+          <FormField
+            type="password"
+            name="password"
             label={t`Password`}
             placeholder={t`Enter your password`}
             leftSection={<IconLock size={16} />}
             required
-            {...form.getInputProps("password")}
+            form={form}
           />
 
           <Group justify="space-between">
-            <Checkbox
+            <FormField
+              type="checkbox"
+              name="rememberMe"
               label={t`Remember me`}
-              {...form.getInputProps("rememberMe", { type: "checkbox" })}
+              form={form}
             />
             <Anchor
               component="button"

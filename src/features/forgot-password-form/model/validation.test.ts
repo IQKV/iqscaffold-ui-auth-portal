@@ -1,49 +1,73 @@
 import { describe, it, expect } from "vitest";
 import {
-  validateForgotPasswordForm,
+  forgotPasswordFormSchema,
   initialForgotPasswordValues,
 } from "./validation";
 
 describe("forgot-password-form validation", () => {
-  describe("validateForgotPasswordForm", () => {
+  describe("forgotPasswordFormSchema", () => {
     describe("email validation", () => {
       it("should return error for empty email", () => {
-        const result = validateForgotPasswordForm.email("");
-        expect(result).toBe("Email is required");
+        const result = forgotPasswordFormSchema.safeParse({ email: "" });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          expect(result.error.issues[0].message).toBe("Email is required");
+        }
       });
 
       it("should return error for invalid email format", () => {
-        const result = validateForgotPasswordForm.email("invalid-email");
-        expect(result).toBe("Please enter a valid email address");
+        const result = forgotPasswordFormSchema.safeParse({
+          email: "invalid-email",
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          expect(result.error.issues[0].message).toBe(
+            "Please enter a valid email address"
+          );
+        }
       });
 
       it("should return error for email without domain", () => {
-        const result = validateForgotPasswordForm.email("test@");
-        expect(result).toBe("Please enter a valid email address");
+        const result = forgotPasswordFormSchema.safeParse({ email: "test@" });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          expect(result.error.issues[0].message).toBe(
+            "Please enter a valid email address"
+          );
+        }
       });
 
       it("should return error for email without @", () => {
-        const result = validateForgotPasswordForm.email("testexample.com");
-        expect(result).toBe("Please enter a valid email address");
+        const result = forgotPasswordFormSchema.safeParse({
+          email: "testexample.com",
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          expect(result.error.issues[0].message).toBe(
+            "Please enter a valid email address"
+          );
+        }
       });
 
-      it("should return null for valid email", () => {
-        const result = validateForgotPasswordForm.email("test@example.com");
-        expect(result).toBeNull();
+      it("should accept valid email", () => {
+        const result = forgotPasswordFormSchema.safeParse({
+          email: "test@example.com",
+        });
+        expect(result.success).toBe(true);
       });
 
-      it("should return null for valid email with subdomain", () => {
-        const result = validateForgotPasswordForm.email(
-          "user@mail.example.com"
-        );
-        expect(result).toBeNull();
+      it("should accept valid email with subdomain", () => {
+        const result = forgotPasswordFormSchema.safeParse({
+          email: "user@mail.example.com",
+        });
+        expect(result.success).toBe(true);
       });
 
-      it("should return null for valid email with numbers", () => {
-        const result = validateForgotPasswordForm.email(
-          "user123@example123.com"
-        );
-        expect(result).toBeNull();
+      it("should accept valid email with numbers", () => {
+        const result = forgotPasswordFormSchema.safeParse({
+          email: "user123@example123.com",
+        });
+        expect(result.success).toBe(true);
       });
     });
   });

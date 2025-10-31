@@ -1,12 +1,4 @@
-import {
-  Anchor,
-  Button,
-  Card,
-  Group,
-  PasswordInput,
-  Stack,
-  Text,
-} from "@mantine/core";
+import { Anchor, Button, Card, Group, Stack, Text } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IconLock, IconArrowLeft } from "@tabler/icons-react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
@@ -14,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { t } from "@lingui/core/macro";
 import { authApi } from "@/shared/api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
+import { FormField } from "@/shared/ui";
 import {
   resetPasswordFormSchema,
   initialResetPasswordValues,
@@ -115,20 +108,24 @@ export function ResetPasswordFormFeature({
             {t`Enter your new password below. Make sure it's strong and secure.`}
           </Text>
 
-          <PasswordInput
+          <FormField
+            type="password"
+            name="password"
             label={t`New Password`}
             placeholder={t`Enter your new password`}
             leftSection={<IconLock size={16} />}
             required
-            {...form.getInputProps("password")}
+            form={form}
           />
 
-          <PasswordInput
+          <FormField
+            type="password"
+            name="confirmPassword"
             label={t`Confirm New Password`}
             placeholder={t`Confirm your new password`}
             leftSection={<IconLock size={16} />}
             required
-            {...form.getInputProps("confirmPassword")}
+            form={form}
           />
 
           <Button

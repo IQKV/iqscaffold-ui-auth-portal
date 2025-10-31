@@ -3,7 +3,7 @@ import { Button, Stack, Group, Card, Title, Text } from "@mantine/core";
 import { z } from "zod";
 import { t } from "@lingui/core/macro";
 import { useForm } from "./enhanced-form-hook";
-import { EnhancedFormField } from "../ui/enhanced-form-field";
+import { FormField } from "../ui/form-field";
 import {
   createFormSchema,
   createValidationSchemas,
@@ -54,7 +54,7 @@ export function ContactFormExample() {
       </Title>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack gap="md">
-          <EnhancedFormField
+          <FormField
             type="text"
             name="name"
             label="Full Name"
@@ -63,7 +63,7 @@ export function ContactFormExample() {
             form={form}
           />
 
-          <EnhancedFormField
+          <FormField
             type="email"
             name="email"
             label="Email Address"
@@ -72,7 +72,7 @@ export function ContactFormExample() {
             form={form}
           />
 
-          <EnhancedFormField
+          <FormField
             type="tel"
             name="phone"
             label="Phone Number"
@@ -80,7 +80,7 @@ export function ContactFormExample() {
             form={form}
           />
 
-          <EnhancedFormField
+          <FormField
             type="select"
             name="contactMethod"
             label="Preferred Contact Method"
@@ -92,7 +92,7 @@ export function ContactFormExample() {
             form={form}
           />
 
-          <EnhancedFormField
+          <FormField
             type="select"
             name="urgency"
             label="Urgency Level"
@@ -104,7 +104,7 @@ export function ContactFormExample() {
             form={form}
           />
 
-          <EnhancedFormField
+          <FormField
             type="textarea"
             name="message"
             label="Message"
@@ -172,12 +172,12 @@ export function ProfileFormExample() {
   return (
     <Card withBorder padding="md">
       <Title order={3} mb="md">
-        Profile Form (Hybrid Validation)
+        Profile Form (Zod Validation)
       </Title>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack gap="md">
           <Group grow>
-            <EnhancedFormField
+            <FormField
               type="text"
               name="firstName"
               label="First Name"
@@ -186,7 +186,7 @@ export function ProfileFormExample() {
               form={form}
             />
 
-            <EnhancedFormField
+            <FormField
               type="text"
               name="lastName"
               label="Last Name"
@@ -196,7 +196,7 @@ export function ProfileFormExample() {
             />
           </Group>
 
-          <EnhancedFormField
+          <FormField
             type="email"
             name="email"
             label="Email Address"
@@ -205,7 +205,7 @@ export function ProfileFormExample() {
             form={form}
           />
 
-          <EnhancedFormField
+          <FormField
             type="url"
             name="website"
             label="Website"
@@ -213,7 +213,7 @@ export function ProfileFormExample() {
             form={form}
           />
 
-          <EnhancedFormField
+          <FormField
             type="date"
             name="birthDate"
             label="Birth Date"
@@ -221,7 +221,7 @@ export function ProfileFormExample() {
             form={form}
           />
 
-          <EnhancedFormField
+          <FormField
             type="multiselect"
             name="skills"
             label="Skills"
@@ -237,7 +237,7 @@ export function ProfileFormExample() {
             form={form}
           />
 
-          <EnhancedFormField
+          <FormField
             type="textarea"
             name="bio"
             label="Bio"
@@ -248,7 +248,7 @@ export function ProfileFormExample() {
             form={form}
           />
 
-          <EnhancedFormField
+          <FormField
             type="file"
             name="avatar"
             label="Profile Picture"
@@ -256,7 +256,7 @@ export function ProfileFormExample() {
             form={form}
           />
 
-          <EnhancedFormField
+          <FormField
             type="switch"
             name="isPublic"
             label="Make profile public"
@@ -331,7 +331,7 @@ export function DynamicFormExample() {
       </Title>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack gap="md">
-          <EnhancedFormField
+          <FormField
             type="select"
             name="accountType"
             label="Account Type"
@@ -343,7 +343,7 @@ export function DynamicFormExample() {
             form={form}
           />
 
-          <EnhancedFormField
+          <FormField
             type="email"
             name="email"
             label="Email Address"
@@ -353,7 +353,7 @@ export function DynamicFormExample() {
           />
 
           {accountType === "personal" && (
-            <EnhancedFormField
+            <FormField
               type="text"
               name="personalName"
               label="Full Name"
@@ -365,7 +365,7 @@ export function DynamicFormExample() {
 
           {accountType === "business" && (
             <>
-              <EnhancedFormField
+              <FormField
                 type="text"
                 name="businessName"
                 label="Business Name"
@@ -374,7 +374,7 @@ export function DynamicFormExample() {
                 form={form}
               />
 
-              <EnhancedFormField
+              <FormField
                 type="select"
                 name="businessSize"
                 label="Business Size"
@@ -387,7 +387,7 @@ export function DynamicFormExample() {
                 form={form}
               />
 
-              <EnhancedFormField
+              <FormField
                 type="text"
                 name="taxId"
                 label="Tax ID (Optional)"
@@ -433,7 +433,7 @@ export function RealTimeValidationExample() {
       </Text>
       <form onSubmit={form.onSubmit(console.log)}>
         <Stack gap="md">
-          <EnhancedFormField
+          <FormField
             type="text"
             name="username"
             label="Username"
@@ -442,7 +442,7 @@ export function RealTimeValidationExample() {
             form={form}
           />
 
-          <EnhancedFormField
+          <FormField
             type="email"
             name="email"
             label="Email"
@@ -451,7 +451,7 @@ export function RealTimeValidationExample() {
             form={form}
           />
 
-          <EnhancedFormField
+          <FormField
             type="password"
             name="password"
             label="Password"

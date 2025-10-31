@@ -93,6 +93,7 @@ export const createValidationSchemas = () => ({
   // Enhanced username/email field for signin
   usernameOrEmail: z
     .string()
+    .trim()
     .min(3, t`Username or email must be at least 3 characters`)
     .refine(
       (value) => {
@@ -105,14 +106,26 @@ export const createValidationSchemas = () => ({
         return /^[a-zA-Z0-9_]+$/.test(value);
       },
       t`Please enter a valid username or email address`
-    )
-    .trim(),
+    ),
 
   simplePassword: z.string().min(1, t`Password is required`),
 });
 
-// Core validation schemas using Lingui for internationalization
-export const validationSchemas = createValidationSchemas();
+// Core validation schemas using Lingui for internationalization (lazy initialization)
+let _validationSchemas: ReturnType<typeof createValidationSchemas> | null =
+  null;
+
+export const validationSchemas = new Proxy(
+  {} as ReturnType<typeof createValidationSchemas>,
+  {
+    get(target, prop) {
+      if (!_validationSchemas) {
+        _validationSchemas = createValidationSchemas();
+      }
+      return _validationSchemas[prop as keyof typeof _validationSchemas];
+    },
+  }
+);
 
 // Form schema builders
 export const createFormSchema = <T extends z.ZodRawShape>(shape: T) => {
@@ -175,7 +188,20 @@ export const createArraySchemas = () => ({
       ),
 });
 
-export const arraySchemas = createArraySchemas();
+// Array schemas with lazy initialization
+let _arraySchemas: ReturnType<typeof createArraySchemas> | null = null;
+
+export const arraySchemas = new Proxy(
+  {} as ReturnType<typeof createArraySchemas>,
+  {
+    get(target, prop) {
+      if (!_arraySchemas) {
+        _arraySchemas = createArraySchemas();
+      }
+      return _arraySchemas[prop as keyof typeof _arraySchemas];
+    },
+  }
+);
 
 // File validation helpers
 export const createFileSchemas = () => ({
@@ -207,7 +233,20 @@ export const createFileSchemas = () => ({
     ),
 });
 
-export const fileSchemas = createFileSchemas();
+// File schemas with lazy initialization
+let _fileSchemas: ReturnType<typeof createFileSchemas> | null = null;
+
+export const fileSchemas = new Proxy(
+  {} as ReturnType<typeof createFileSchemas>,
+  {
+    get(target, prop) {
+      if (!_fileSchemas) {
+        _fileSchemas = createFileSchemas();
+      }
+      return _fileSchemas[prop as keyof typeof _fileSchemas];
+    },
+  }
+);
 
 // Date validation helpers
 export const createDateSchemas = () => ({
@@ -229,7 +268,20 @@ export const createDateSchemas = () => ({
   },
 });
 
-export const dateSchemas = createDateSchemas();
+// Date schemas with lazy initialization
+let _dateSchemas: ReturnType<typeof createDateSchemas> | null = null;
+
+export const dateSchemas = new Proxy(
+  {} as ReturnType<typeof createDateSchemas>,
+  {
+    get(target, prop) {
+      if (!_dateSchemas) {
+        _dateSchemas = createDateSchemas();
+      }
+      return _dateSchemas[prop as keyof typeof _dateSchemas];
+    },
+  }
+);
 
 // Common form schemas
 export const createFormSchemas = () => {
@@ -271,7 +323,20 @@ export const createFormSchemas = () => {
   };
 };
 
-export const formSchemas = createFormSchemas();
+// Form schemas with lazy initialization
+let _formSchemas: ReturnType<typeof createFormSchemas> | null = null;
+
+export const formSchemas = new Proxy(
+  {} as ReturnType<typeof createFormSchemas>,
+  {
+    get(target, prop) {
+      if (!_formSchemas) {
+        _formSchemas = createFormSchemas();
+      }
+      return _formSchemas[prop as keyof typeof _formSchemas];
+    },
+  }
+);
 
 // Legacy alias for backward compatibility (will be removed)
 export const commonSchemas = validationSchemas;
