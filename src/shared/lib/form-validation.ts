@@ -290,7 +290,7 @@ export const createFormSchemas = () => {
     signIn: createFormSchema({
       username: schemas.usernameOrEmail,
       password: schemas.simplePassword,
-      rememberMe: z.boolean().optional().default(false),
+      rememberMe: z.boolean().default(false),
     }),
 
     signUp: createFormSchema({

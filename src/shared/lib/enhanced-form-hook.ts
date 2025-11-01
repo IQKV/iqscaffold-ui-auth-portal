@@ -1,6 +1,6 @@
 import {
   useForm as useMantineForm,
-  UseFormInput,
+  UseFormInput as MantineUseFormInput,
   UseFormReturnType,
 } from "@mantine/form";
 import { z } from "zod";
@@ -9,8 +9,8 @@ import { createFormResolver } from "./form-validation";
 // Standardized form hook using Zod validation
 export interface UseFormInput<
   T extends Record<string, any> = Record<string, any>,
-> extends Omit<UseFormInput<T>, "validate"> {
-  schema: z.ZodSchema<T>;
+> extends Omit<MantineUseFormInput<T>, "validate"> {
+  schema: z.ZodType<any, any, any>;
 }
 
 export function useForm<T extends Record<string, any> = Record<string, any>>(
@@ -18,7 +18,7 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
 ): UseFormReturnType<T> {
   const { schema, ...mantineFormInput } = input;
 
-  const formConfig: UseFormInput<T> = {
+  const formConfig: MantineUseFormInput<T> = {
     ...mantineFormInput,
     validate: createFormResolver(schema),
   };
