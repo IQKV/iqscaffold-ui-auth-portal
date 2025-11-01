@@ -165,7 +165,7 @@ export function UsersList() {
                       variant="subtle"
                       color="gray"
                       onClick={() => handleEditUser(user)}
-                      aria-label={t`Edit ${user.name}`}
+                      aria-label={`${t`Edit`} ${user.name}`}
                     >
                       <IconEdit size={16} />
                     </ActionIcon>
@@ -174,7 +174,7 @@ export function UsersList() {
                       color="red"
                       onClick={() => handleDelete(user.id)}
                       loading={deleteUserMutation.isPending}
-                      aria-label={t`Delete ${user.name}`}
+                      aria-label={`${t`Delete`} ${user.name}`}
                     >
                       <IconTrash size={16} />
                     </ActionIcon>
