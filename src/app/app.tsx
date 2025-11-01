@@ -17,7 +17,7 @@ import { queryClient } from "@/shared/lib";
 
 import { ErrorBoundary } from "@/shared/ui";
 import { MSWDevTools } from "@/shared/ui/msw-dev-tools";
-import { AuthProvider } from "@/processes/auth";
+import { AuthProvider, attachAuthInterceptors } from "@/processes/auth";
 
 import { ConfirmContextModal } from "@/shared/ui/confirmation-modal";
 
@@ -47,6 +47,9 @@ declare module "@tanstack/react-router" {
 
 export function App() {
   useEffect(() => {
+    // Attach auth HTTP interceptors once
+    attachAuthInterceptors();
+
     // Load locale messages asynchronously after component mounts
     const loadLocale = async () => {
       const { dynamicActivateLocale, getClientLocale } = await import(

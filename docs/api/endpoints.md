@@ -2,7 +2,7 @@
 
 ## Authentication Endpoints
 
-### POST /api/auth/login
+### POST /api/v1/auth/login
 
 Authenticate user with email and password.
 
@@ -10,8 +10,9 @@ Authenticate user with email and password.
 
 ```json
 {
-  "email": "user@example.com",
-  "password": "password123"
+  "username": "user@example.com",
+  "password": "password123",
+  "rememberMe": true
 }
 ```
 
@@ -19,17 +20,23 @@ Authenticate user with email and password.
 
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "accessToken": "<jwt>",
+  "refreshToken": "<jwt>",
+  "tokenType": "Bearer",
+  "expiresIn": 3600,
   "user": {
-    "id": "123",
+    "id": 123,
+    "username": "user@example.com",
     "email": "user@example.com",
-    "name": "John Doe",
-    "role": "user"
+    "firstName": "John",
+    "lastName": "Doe",
+    "roles": ["user"],
+    "permissions": []
   }
 }
 ```
 
-### POST /api/auth/logout
+### POST /api/v1/auth/logout
 
 Logout current user and invalidate token.
 
@@ -47,27 +54,19 @@ Authorization: Bearer <token>
 }
 ```
 
-### GET /api/users/me
+### POST /api/v1/auth/refresh
 
-Get current authenticated user information.
+Refresh access token using a refresh token.
 
-**Headers:**
-
-```
-Authorization: Bearer <token>
-```
-
-**Response:**
+**Request:**
 
 ```json
 {
-  "id": "123",
-  "email": "user@example.com",
-  "name": "John Doe",
-  "role": "user",
-  "createdAt": "2024-01-01T00:00:00Z"
+  "refreshToken": "<jwt>"
 }
 ```
+
+**Response:** Same as login response.
 
 ## User Management Endpoints
 

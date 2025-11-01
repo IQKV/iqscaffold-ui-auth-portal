@@ -6,19 +6,17 @@ This document provides comprehensive information about the API endpoints, authen
 
 ## Base Configuration
 
-The API client is configured in `src/shared/lib/client.ts` using Axios with the following features:
+The API client is configured in `src/shared/api/base.ts` using Axios with the following features:
 
-- Request/response interceptors
-- Error handling
-- Authentication token management
+- Error normalization and notifications
 - Base URL configuration from environment variables
+- Authentication interceptors are attached from `processes/auth` at app startup
 
 ### Environment Variables
 
 ```bash
 # API Configuration
-VITE_API_BASE_URL=http://localhost:3000/api
-VITE_API_TIMEOUT=10000
+VITE_API_URL_SERVER=http://localhost:3000
 ```
 
 ## Authentication
@@ -48,16 +46,16 @@ POST /auth/login
 
 ### Token Storage
 
-Tokens are stored using `js-cookie` and automatically included in requests:
+Tokens are managed by the `TokenManager` in `processes/auth` and stored in `localStorage` using keys from `getAuthConfig().tokenStorage`:
 
 ```typescript
-import Cookies from "js-cookie";
+import { TokenManager } from "@/processes/auth";
 
-// Set token
-Cookies.set("auth-token", token, { expires: 7 });
+const tokenManager = TokenManager.getInstance();
 
-// Get token
-const token = Cookies.get("auth-token");
+// Read tokens
+const accessToken = tokenManager.getAccessToken();
+const refreshToken = tokenManager.getRefreshToken();
 ```
 
 ## API Client Usage
@@ -65,43 +63,42 @@ const token = Cookies.get("auth-token");
 ### Basic Usage
 
 ```typescript
-import { apiClient } from "@/shared/lib/client";
+import { apiClient } from "@/shared/api";
 
 // GET request
-const users = await apiClient.get("/users");
+const users = await apiClient.get("/api/v1/users");
 
 // POST request
-const newUser = await apiClient.post("/users", {
+const newUser = await apiClient.post("/api/v1/users", {
   name: "John Doe",
   email: "john@example.com",
 });
 
 // PUT request
-const updatedUser = await apiClient.put("/users/123", {
+const updatedUser = await apiClient.put("/api/v1/users/123", {
   name: "Jane Doe",
 });
 
 // DELETE request
-await apiClient.delete("/users/123");
+await apiClient.delete("/api/v1/users/123");
 ```
 
 ### With TanStack Query
 
 ```typescript
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { apiClient } from "@/shared/lib/client";
+import { apiClient } from "@/shared/api";
 
 // Query
 const { data, isLoading, error } = useQuery({
   queryKey: ["users"],
-  queryFn: () => apiClient.get("/users"),
+  queryFn: () => apiClient.get("/api/v1/users"),
 });
 
 // Mutation
 const createUserMutation = useMutation({
-  mutationFn: (userData) => apiClient.post("/users", userData),
+  mutationFn: (userData) => apiClient.post("/api/v1/users", userData),
   onSuccess: () => {
-    // Invalidate and refetch
     queryClient.invalidateQueries({ queryKey: ["users"] });
   },
 });
@@ -199,27 +196,20 @@ Response: void
 
 ### Authentication
 
-```typescript
-// Login
-POST / api / auth / login;
-Body: LoginRequest;
-Response: AuthResponse;
+```http
+# Login
+POST /api/v1/auth/login
+Body: { username: string; password: string; rememberMe: boolean }
+Response: { accessToken, refreshToken, tokenType, expiresIn, user }
 
-// Logout
-POST / api / auth / logout;
-Response: void (
-  // Refresh token
-  POST
-) /
-  api /
-  auth /
-  refresh;
-Body: RefreshTokenRequest;
-Response: AuthResponse;
+# Logout
+POST /api/v1/auth/logout
+Response: 204 No Content
 
-// Get current user
-GET / api / auth / me;
-Response: User;
+# Refresh token
+POST /api/v1/auth/refresh
+Body: { refreshToken: string }
+Response: { accessToken, refreshToken, tokenType, expiresIn, user }
 ```
 
 ## Type Definitions

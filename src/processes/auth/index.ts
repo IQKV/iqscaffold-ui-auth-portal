@@ -20,7 +20,6 @@ export {
   useHasAnyPermission,
   useUserFullName,
   useUserInitials,
-  useIsEmailVerified,
 } from "./model/auth-selectors";
 
 // Guards and protection
@@ -31,8 +30,6 @@ export {
   requireRole,
   requireAnyRole,
   requirePermission,
-  requireAnyPermission,
-  requireEmailVerification,
 } from "./lib/auth-guards";
 
 // Utilities
@@ -45,10 +42,10 @@ export {
   getUserRolePriority,
   isSessionExpiringSoon,
   getTimeUntilExpiration,
-  canPerformAction,
-  getUserTenant,
-  belongsToTenant,
 } from "./lib/auth-utils";
+
+// HTTP Interceptors setup
+export { attachAuthInterceptors } from "./lib/http-interceptors";
 
 // UI Components
 export { AuthProvider } from "./ui/auth-provider";

@@ -386,20 +386,19 @@ export function AppErrorBoundary({ children }) {
 
 ### API Error Handling
 
+Authentication-related HTTP behavior (attaching `Authorization` header, 401 refresh-and-retry, logout on refresh failure) is centralized in the processes layer and attached at app startup:
+
 ```typescript
-// Axios interceptor for error handling
-apiClient.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      // Handle authentication error
-      authStore.logout();
-      router.navigate({ to: "/auth/login" });
-    }
-    return Promise.reject(error);
-  }
-);
+// src/app/app.tsx
+import { attachAuthInterceptors } from "@/processes/auth";
+
+useEffect(() => {
+  attachAuthInterceptors();
+  // ...other init
+}, []);
 ```
+
+Implementation lives in `src/processes/auth/lib/http-interceptors.ts`. The shared API client (`src/shared/api/base.ts`) focuses on base config and generic error normalization only, keeping FSD layer boundaries intact.
 
 ## Performance Optimization
 
