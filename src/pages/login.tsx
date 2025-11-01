@@ -1,9 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { SignInFormFeature } from "@/features/signin-form";
 import { AuthLayout } from "@/widgets/auth-layout";
 import { t } from "@lingui/core/macro";
+import { requireGuest } from "@/processes/auth";
 
 export const Route = createFileRoute("/login")({
+  beforeLoad: () => {
+    requireGuest();
+  },
   component: LoginPage,
 });
 

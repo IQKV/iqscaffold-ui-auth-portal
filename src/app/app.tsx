@@ -17,6 +17,7 @@ import { queryClient } from "@/shared/lib";
 
 import { ErrorBoundary } from "@/shared/ui";
 import { MSWDevTools } from "@/shared/ui/msw-dev-tools";
+import { AuthProvider } from "@/processes/auth";
 
 import { ConfirmContextModal } from "@/shared/ui/confirmation-modal";
 
@@ -54,12 +55,26 @@ export function App() {
       await dynamicActivateLocale(getClientLocale());
     };
 
+    // Initialize auth effects
+    const initAuthEffects = async () => {
+      const { AuthEffects } = await import("@/processes/auth");
+      AuthEffects.getInstance().initialize();
+    };
+
     loadLocale().catch(console.error);
+    initAuthEffects().catch(console.error);
 
     // Start MSW if enabled
     if (typeof window !== "undefined") {
       startMSW();
     }
+
+    // Cleanup auth effects on unmount
+    return () => {
+      import("@/processes/auth").then(({ AuthEffects }) => {
+        AuthEffects.getInstance().cleanup();
+      });
+    };
   }, []);
 
   return (
@@ -71,9 +86,11 @@ export function App() {
               <ModalsProvider modals={{ confirmation: ConfirmContextModal }}>
                 <Notifications />
                 <QueryClientProvider client={queryClient}>
-                  <RouterProvider router={router} />
-                  <ReactQueryDevtools initialIsOpen={false} />
-                  <MSWDevTools />
+                  <AuthProvider>
+                    <RouterProvider router={router} />
+                    <ReactQueryDevtools initialIsOpen={false} />
+                    <MSWDevTools />
+                  </AuthProvider>
                 </QueryClientProvider>
               </ModalsProvider>
             </MantineProvider>

@@ -1,10 +1,9 @@
 import { Anchor, Button, Card, Group, Stack } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
 import { IconLock, IconUser } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
 import { t } from "@lingui/core/macro";
-import { authApi, type TokenResponse } from "@/shared/api";
+import { useAuthStore } from "@/processes/auth";
 import { getAuthConfig } from "@/app/config";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
 import { FormField } from "@/shared/ui";
@@ -15,7 +14,7 @@ import {
 } from "../model/validation";
 
 interface SignInFormFeatureProps {
-  onSuccess?: (data: TokenResponse) => void;
+  onSuccess?: () => void;
   onForgotPassword?: () => void;
   onNavigateToRegister?: () => void;
   useExternalRedirect?: boolean;
@@ -29,6 +28,8 @@ export function SignInFormFeature({
 }: SignInFormFeatureProps) {
   const navigate = useNavigate();
   const authConfig = getAuthConfig();
+  const login = useAuthStore((state) => state.login);
+  const isLoading = useAuthStore((state) => state.isLoading);
 
   const form = useForm<SignInFormSchemaType>({
     initialValues: initialSignInValues,
@@ -37,45 +38,22 @@ export function SignInFormFeature({
 
   const loginMutation = useMutation({
     mutationFn: async (values: SignInFormSchemaType) => {
-      return await authApi.login(values);
+      await login(values);
     },
-    onSuccess: (data) => {
-      // Store tokens in localStorage
-      localStorage.setItem(
-        authConfig.tokenStorage.accessTokenKey,
-        data.accessToken
-      );
-      localStorage.setItem(
-        authConfig.tokenStorage.refreshTokenKey,
-        data.refreshToken
-      );
-
-      const firstName = data.user.firstName;
-      notifications.show({
-        title: t`Login Successful`,
-        message: t`Welcome back, ${firstName}!`,
-        color: "green",
-      });
-
+    onSuccess: () => {
       if (onSuccess) {
-        onSuccess(data);
+        onSuccess();
       } else if (useExternalRedirect) {
         // External redirect to app domain
         window.location.href = authConfig.redirects.afterLogin;
       } else {
         // Internal navigation
-        navigate({ to: "/" });
+        navigate({ to: "/dashboard" });
       }
     },
     onError: (error: any) => {
-      const errorMessage =
-        error?.message || t`Invalid credentials. Please try again.`;
-
-      notifications.show({
-        title: t`Login Failed`,
-        message: errorMessage,
-        color: "red",
-      });
+      // Error handling is now done in the auth store
+      console.error("Login error:", error);
     },
   });
 
@@ -140,7 +118,11 @@ export function SignInFormFeature({
             </Anchor>
           </Group>
 
-          <Button type="submit" fullWidth loading={loginMutation.isPending}>
+          <Button
+            type="submit"
+            fullWidth
+            loading={isLoading || loginMutation.isPending}
+          >
             {t`Sign In`}
           </Button>
 
