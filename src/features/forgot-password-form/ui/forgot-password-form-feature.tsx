@@ -74,7 +74,7 @@ export function ForgotPasswordFormFeature({
 
   return (
     <Card shadow="md" padding="xl" radius="md" withBorder>
-      <form onSubmit={form.onSubmit(handleSubmit)}>
+      <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <Text size="sm" c="dimmed" ta="center">
             {t`Enter your email address and we'll send you a link to reset your password.`}

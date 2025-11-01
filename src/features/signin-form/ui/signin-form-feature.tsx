@@ -101,7 +101,7 @@ export function SignInFormFeature({
 
   return (
     <Card shadow="md" padding="xl" radius="md" withBorder>
-      <form onSubmit={form.onSubmit(handleSubmit)}>
+      <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <FormField
             type="text"

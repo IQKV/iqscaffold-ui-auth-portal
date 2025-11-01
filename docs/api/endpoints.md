@@ -79,27 +79,31 @@ Get list of users with pagination and filtering.
 
 - `page` (number): Page number (default: 1)
 - `limit` (number): Items per page (default: 10)
-- `search` (string): Search term for name/email
+- `search` (string): Search term for name/email/username
 - `role` (string): Filter by user role
 
 **Response:**
 
 ```json
 {
-  "users": [
+  "data": [
     {
       "id": "123",
       "name": "John Doe",
       "email": "john@example.com",
+      "avatar": "https://example.com/avatar.jpg",
       "role": "user",
-      "createdAt": "2024-01-01T00:00:00Z"
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
     }
   ],
   "pagination": {
     "page": 1,
     "limit": 10,
     "total": 100,
-    "pages": 10
+    "totalPages": 10,
+    "hasNext": true,
+    "hasPrev": false
   }
 }
 ```
@@ -131,7 +135,7 @@ Create new user.
 {
   "name": "Jane Doe",
   "email": "jane@example.com",
-  "password": "password123",
+  "username": "janedoe",
   "role": "user"
 }
 ```
@@ -140,11 +144,13 @@ Create new user.
 
 ```json
 {
-  "id": "124",
-  "name": "Jane Doe",
-  "email": "jane@example.com",
-  "role": "user",
-  "createdAt": "2024-01-01T00:00:00Z"
+  "data": {
+    "id": "124",
+    "name": "Jane Doe",
+    "email": "jane@example.com",
+    "role": "user",
+    "createdAt": "2024-01-01T00:00:00Z"
+  }
 }
 ```
 
@@ -157,7 +163,8 @@ Update existing user.
 ```json
 {
   "name": "Jane Smith",
-  "email": "jane.smith@example.com"
+  "email": "jane.smith@example.com",
+  "username": "janesmith"
 }
 ```
 
@@ -165,11 +172,14 @@ Update existing user.
 
 ```json
 {
-  "id": "124",
-  "name": "Jane Smith",
-  "email": "jane.smith@example.com",
-  "role": "user",
-  "updatedAt": "2024-01-01T00:00:00Z"
+  "data": {
+    "id": "124",
+    "name": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "username": "janesmith",
+    "role": "user",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  }
 }
 ```
 

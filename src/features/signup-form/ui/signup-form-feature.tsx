@@ -85,7 +85,7 @@ export function SignUpFormFeature({
 
   return (
     <Card shadow="md" padding="xl" radius="md" withBorder>
-      <form onSubmit={form.onSubmit(handleSubmit)}>
+      <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <Group grow>
             <FormField

@@ -229,6 +229,8 @@ interface User {
   id: string;
   name: string;
   email: string;
+  avatar: string;
+  role: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -236,12 +238,31 @@ interface User {
 interface CreateUserRequest {
   name: string;
   email: string;
-  password: string;
+  username: string;
+  role?: string;
 }
 
 interface UpdateUserRequest {
   name?: string;
   email?: string;
+  username?: string;
+  role?: string;
+}
+
+interface UsersResponse {
+  data: User[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+    hasNext: boolean;
+    hasPrev: boolean;
+  };
+}
+
+interface UserResponse {
+  data: User;
 }
 
 interface LoginRequest {

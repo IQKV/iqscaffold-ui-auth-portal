@@ -16,10 +16,26 @@ Welcome to the comprehensive documentation for the Mantine UI Project Layout. Th
 
 - API client configuration
 - Authentication patterns
-- Endpoint reference
+- User management endpoints
+- Endpoint reference with updated schemas
 - Error handling strategies
 - Mock Service Worker setup
 - Testing API integration
+
+### [📝 Form Validation Guide](./form-validation-guide.md)
+
+- Mantine + Zod validation system
+- HTML5 validation disabled approach
+- Authentication and user management forms
+- Validation schemas and patterns
+- Internationalization support
+- Testing form validation
+
+### [🔧 Features Documentation](./features/)
+
+- [User Management](./features/user-management.md) - Complete CRUD operations with form validation
+- Authentication forms implementation
+- Form validation patterns and best practices
 
 ### [🚀 Deployment Guide](./deployment/README.md)
 
@@ -59,6 +75,7 @@ Welcome to the comprehensive documentation for the Mantine UI Project Layout. Th
 - **Linting**: ESLint with React and TypeScript rules
 - **Formatting**: Prettier with automatic formatting
 - **Type Checking**: TypeScript strict mode
+- **Form Validation**: Mantine + Zod with HTML5 validation disabled
 - **Testing**: Vitest for unit tests, Playwright for E2E
 
 ### Git Workflow
@@ -80,7 +97,8 @@ Welcome to the comprehensive documentation for the Mantine UI Project Layout. Th
 - Follow Feature-Sliced Design methodology
 - Use TypeScript for type safety
 - Implement proper error boundaries
-- Write comprehensive tests
+- Use Mantine + Zod for consistent form validation
+- Write comprehensive tests including form validation
 
 ### Performance
 

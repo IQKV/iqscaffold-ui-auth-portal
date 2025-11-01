@@ -2,6 +2,9 @@ import { z } from "zod";
 import { zodResolver } from "mantine-form-zod-resolver";
 import { t } from "@lingui/core/macro";
 
+// Ensure locale is initialized before any translation functions are called
+import "@/shared/locales";
+
 // Factory functions to create validation schemas with Lingui
 export const createValidationSchemas = () => ({
   email: z
@@ -318,7 +321,7 @@ export const createFormSchemas = () => {
     }),
 
     emailVerification: createFormSchema({
-      code: z.string().min(1, t`Verification code is required`),
+      email: schemas.email,
     }),
   };
 };

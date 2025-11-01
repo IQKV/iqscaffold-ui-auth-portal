@@ -15,15 +15,32 @@ import {
 } from "@mantine/core";
 import { IconSearch, IconEdit, IconTrash, IconPlus } from "@tabler/icons-react";
 import { t } from "@lingui/core/macro";
-import { useUsersQuery, useDeleteUserMutation } from "../hooks/use-users-query";
+import {
+  useUsersQuery,
+  useDeleteUserMutation,
+  useCreateUserMutation,
+  useUpdateUserMutation,
+} from "../hooks/use-users-query";
+import { UserFormModal } from "./user-form-modal";
+import {
+  mapFormToCreateRequest,
+  mapFormToUpdateRequest,
+  mapUserToForm,
+} from "../model/mappers";
+import type { UserFormSchemaType } from "../model/validation";
+import type { User } from "../api/users-api";
 
 export function UsersList() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [modalOpened, setModalOpened] = useState(false);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
   const limit = 10;
 
   const { data, isLoading, error } = useUsersQuery({ page, limit, search });
   const deleteUserMutation = useDeleteUserMutation();
+  const createUserMutation = useCreateUserMutation();
+  const updateUserMutation = useUpdateUserMutation();
 
   const handleDelete = async (id: string) => {
     // Using a more accessible confirmation method instead of window.confirm
@@ -35,6 +52,36 @@ export function UsersList() {
       } catch (error) {
         console.error("Failed to delete user:", error);
       }
+    }
+  };
+
+  const handleAddUser = () => {
+    setEditingUser(null);
+    setModalOpened(true);
+  };
+
+  const handleEditUser = (user: User) => {
+    setEditingUser(user);
+    setModalOpened(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpened(false);
+    setEditingUser(null);
+  };
+
+  const handleSubmitUser = async (formData: UserFormSchemaType) => {
+    if (editingUser) {
+      // Update existing user
+      const updateData = mapFormToUpdateRequest(formData);
+      await updateUserMutation.mutateAsync({
+        id: editingUser.id,
+        userData: updateData,
+      });
+    } else {
+      // Create new user
+      const createData = mapFormToCreateRequest(formData);
+      await createUserMutation.mutateAsync(createData);
     }
   };
 
@@ -57,7 +104,9 @@ export function UsersList() {
         <Text size="xl" fw={700}>
           {t`Users Management`}
         </Text>
-        <Button leftSection={<IconPlus size={16} />}>{t`Add User`}</Button>
+        <Button leftSection={<IconPlus size={16} />} onClick={handleAddUser}>
+          {t`Add User`}
+        </Button>
       </Group>
 
       <TextInput
@@ -112,7 +161,12 @@ export function UsersList() {
                 </Table.Td>
                 <Table.Td>
                   <Group gap={0} justify="flex-end">
-                    <ActionIcon variant="subtle" color="gray">
+                    <ActionIcon
+                      variant="subtle"
+                      color="gray"
+                      onClick={() => handleEditUser(user)}
+                      aria-label={t`Edit ${user.name}`}
+                    >
                       <IconEdit size={16} />
                     </ActionIcon>
                     <ActionIcon
@@ -120,6 +174,7 @@ export function UsersList() {
                       color="red"
                       onClick={() => handleDelete(user.id)}
                       loading={deleteUserMutation.isPending}
+                      aria-label={t`Delete ${user.name}`}
                     >
                       <IconTrash size={16} />
                     </ActionIcon>
@@ -146,6 +201,14 @@ export function UsersList() {
           />
         </Group>
       )}
+
+      <UserFormModal
+        opened={modalOpened}
+        onClose={handleCloseModal}
+        user={editingUser ? mapUserToForm(editingUser) : undefined}
+        onSubmit={handleSubmitUser}
+        isLoading={createUserMutation.isPending || updateUserMutation.isPending}
+      />
     </Stack>
   );
 }

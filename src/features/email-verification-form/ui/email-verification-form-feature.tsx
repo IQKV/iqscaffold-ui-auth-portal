@@ -207,7 +207,7 @@ export function EmailVerificationFormFeature({
   // Show resend verification form if no token
   return (
     <Card shadow="md" padding="xl" radius="md" withBorder>
-      <form onSubmit={form.onSubmit(handleResendSubmit)}>
+      <form onSubmit={form.onSubmit(handleResendSubmit)} noValidate>
         <Stack gap="md">
           <Text size="sm" c="dimmed" ta="center">
             {t`Enter your email address and we'll send you a new verification link.`}

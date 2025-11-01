@@ -17,7 +17,7 @@ import { queryClient } from "@/shared/lib";
 
 import { ErrorBoundary } from "@/shared/ui";
 import { MSWDevTools } from "@/shared/ui/msw-dev-tools";
-import { dynamicActivateLocale, getClientLocale } from "@/shared/locales";
+
 import { ConfirmContextModal } from "@/shared/ui/confirmation-modal";
 
 // MSW setup
@@ -46,8 +46,15 @@ declare module "@tanstack/react-router" {
 
 export function App() {
   useEffect(() => {
-    // Activate locale based on cookie or browser
-    dynamicActivateLocale(getClientLocale());
+    // Load locale messages asynchronously after component mounts
+    const loadLocale = async () => {
+      const { dynamicActivateLocale, getClientLocale } = await import(
+        "@/shared/locales"
+      );
+      await dynamicActivateLocale(getClientLocale());
+    };
+
+    loadLocale().catch(console.error);
 
     // Start MSW if enabled
     if (typeof window !== "undefined") {

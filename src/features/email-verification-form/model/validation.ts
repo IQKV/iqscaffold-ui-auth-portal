@@ -3,7 +3,7 @@ import { formSchemas } from "@/shared/lib/form-validation";
 import { EmailVerificationFormValues } from "./types";
 
 // Use the standardized schema from shared validation for resend verification (email)
-export const emailVerificationFormSchema = formSchemas.forgotPassword;
+export const emailVerificationFormSchema = formSchemas.emailVerification;
 
 // Type inference from schema
 export type EmailVerificationFormSchemaType = z.infer<

@@ -17,7 +17,7 @@ This project follows **Feature-Sliced Design (FSD)** methodology, providing a sc
 - **TanStack Router** - Type-safe routing with code splitting
 - **TanStack Query** - Server state management and caching
 - **Zustand** - Client state management
-- **React Hook Form + Zod** - Form state and validation
+- **Mantine Forms + Zod** - Form state and validation with enhanced form hook
 
 ### UI & Styling
 
@@ -243,22 +243,28 @@ export const useAppStore = create<AppState>((set) => ({
 }));
 ```
 
-### Form State (React Hook Form)
+### Form State (Mantine + Zod)
 
-- Form validation
-- Field management
-- Submission handling
+- Form validation with Zod schemas
+- Field management with Mantine hooks
+- Submission handling with enhanced form hook
+- HTML5 validation disabled for consistent UX
 
 ```typescript
-// Form with validation
-const form = useForm<UserFormData>({
-  resolver: zodResolver(userSchema),
-  defaultValues: {
-    name: "",
-    email: "",
-    role: "user",
-  },
+// Form with Zod validation
+import { useForm } from "@/shared/lib/enhanced-form-hook";
+import { userFormSchema, initialUserValues } from "./validation";
+
+const form = useForm({
+  initialValues: initialUserValues,
+  schema: userFormSchema,
 });
+
+// Form component with noValidate
+<form onSubmit={form.onSubmit(handleSubmit)} noValidate>
+  <FormField type="text" name="firstName" form={form} />
+  <FormField type="email" name="email" form={form} />
+</form>
 ```
 
 ## Routing Architecture

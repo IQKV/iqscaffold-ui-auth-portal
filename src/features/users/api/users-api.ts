@@ -13,12 +13,14 @@ export interface User {
 export interface CreateUserRequest {
   name: string;
   email: string;
+  username: string;
   role?: string;
 }
 
 export interface UpdateUserRequest {
   name?: string;
   email?: string;
+  username?: string;
   role?: string;
 }
 

@@ -102,7 +102,7 @@ export function ResetPasswordFormFeature({
 
   return (
     <Card shadow="md" padding="xl" radius="md" withBorder>
-      <form onSubmit={form.onSubmit(handleSubmit)}>
+      <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <Text size="sm" c="dimmed" ta="center">
             {t`Enter your new password below. Make sure it's strong and secure.`}
