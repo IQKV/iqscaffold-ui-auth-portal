@@ -213,7 +213,7 @@ export const authHandlers = [
     const body = (await request.json()) as { email: string };
 
     if (config.enableLogging) {
-      console.log("🔑 MSW: Forgot password", { email: body.username });
+      console.log("🔑 MSW: Forgot password", { email: body.email });
     }
 
     return HttpResponse.json({
