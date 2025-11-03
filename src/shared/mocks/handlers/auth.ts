@@ -36,20 +36,20 @@ export const authHandlers = [
     };
 
     if (config.enableLogging) {
-      console.log("🔐 MSW: Login attempt", { email: body.email });
+      console.log("🔐 MSW: Login attempt", { email: body.username });
     }
 
     // Simulate login validation
     if (body.username === "admin@example.com" && body.password === "admin123") {
       return HttpResponse.json({
-        user: { ...mockUser, email: body.email, role: "admin" },
+        user: { ...mockUser, email: body.username, role: "admin" },
         ...mockTokens,
       });
     }
 
     if (body.username === "user@example.com" && body.password === "user123") {
       return HttpResponse.json({
-        user: { ...mockUser, email: body.email },
+        user: { ...mockUser, email: body.username },
         ...mockTokens,
       });
     }
@@ -85,13 +85,13 @@ export const authHandlers = [
 
     if (config.enableLogging) {
       console.log("📝 MSW: Signup attempt", {
-        email: body.email,
+        email: body.username,
         name: body.name,
       });
     }
 
     // Simulate email already exists
-    if (body.email === "existing@example.com") {
+    if (body.username === "existing@example.com") {
       return HttpResponse.json(
         {
           type: "https://example.com/problems/email-exists",
@@ -106,7 +106,7 @@ export const authHandlers = [
     return HttpResponse.json({
       user: {
         ...mockUser,
-        email: body.email,
+        email: body.username,
         name: body.name,
         id: Math.random().toString(36).substr(2, 9),
       },
@@ -213,7 +213,7 @@ export const authHandlers = [
     const body = (await request.json()) as { email: string };
 
     if (config.enableLogging) {
-      console.log("🔑 MSW: Forgot password", { email: body.email });
+      console.log("🔑 MSW: Forgot password", { email: body.username });
     }
 
     return HttpResponse.json({
