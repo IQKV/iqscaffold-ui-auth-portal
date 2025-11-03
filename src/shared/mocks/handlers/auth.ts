@@ -30,21 +30,21 @@ export const authHandlers = [
       );
     }
 
-    const body = (await request.json()) as { email: string; password: string };
+    const body = (await request.json()) as { username: string; password: string };
 
     if (config.enableLogging) {
       console.log("🔐 MSW: Login attempt", { email: body.email });
     }
 
     // Simulate login validation
-    if (body.email === "admin@example.com" && body.password === "admin123") {
+    if (body.username === "admin@example.com" && body.password === "admin123") {
       return HttpResponse.json({
         user: { ...mockUser, email: body.email, role: "admin" },
         ...mockTokens,
       });
     }
 
-    if (body.email === "user@example.com" && body.password === "user123") {
+    if (body.username === "user@example.com" && body.password === "user123") {
       return HttpResponse.json({
         user: { ...mockUser, email: body.email },
         ...mockTokens,

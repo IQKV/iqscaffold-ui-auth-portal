@@ -3,11 +3,13 @@ import axios, {
   type AxiosRequestConfig,
   type AxiosInstance,
 } from "axios";
-import { getConfig } from "@/app/config";
+import { getConfig, getFinalMSWConfig } from "@/app/config";
 import { normalizeAxiosError } from "@/shared/lib/http-error";
 import { notificationService } from "@/shared/lib/notifications";
 
-const BASE_URL = getConfig("VITE_API_URL_SERVER");
+// When MSW is enabled, use relative URLs so handlers with relative paths match.
+const mswEnabled = getFinalMSWConfig().enabled;
+const BASE_URL = mswEnabled ? undefined : getConfig("VITE_API_URL_SERVER");
 
 /**
  * Create base axios instance with common configuration
