@@ -30,7 +30,10 @@ export const authHandlers = [
       );
     }
 
-    const body = (await request.json()) as { username: string; password: string };
+    const body = (await request.json()) as {
+      username: string;
+      password: string;
+    };
 
     if (config.enableLogging) {
       console.log("🔐 MSW: Login attempt", { email: body.email });
