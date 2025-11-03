@@ -4,8 +4,11 @@ import { IconAt, IconLock, IconUser, IconUserPlus } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
 import { t } from "@lingui/core/macro";
-import { authApi, type UserRegistrationResponse } from "@/shared/api";
-import type { UserRegistration } from "@/entities/user";
+import {
+  authApi,
+  type UserRegistrationResponse,
+  type UserRegistration,
+} from "@/shared/api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
 import { FormField } from "@/shared/ui";
 import {

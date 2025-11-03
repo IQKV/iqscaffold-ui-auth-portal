@@ -22,24 +22,23 @@ msgstr "{0}"
 msgid "{fieldName} is required"
 msgstr "{fieldName} is required"
 
-#: src/pages/msw-demo.tsx:94
+#: src/pages/msw-demo.tsx:82
 msgid "1. Environment Configuration"
 msgstr "1. Environment Configuration"
 
-#: src/pages/msw-demo.tsx:103
+#: src/pages/msw-demo.tsx:91
 msgid "2. Development Tools"
 msgstr "2. Development Tools"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:115
-#: src/features/users/components/user-form.tsx:104
+#: src/features/signup-form/ui/signup-form-feature.tsx:118
 msgid "3-50 characters, letters, numbers, and underscores only"
 msgstr "3-50 characters, letters, numbers, and underscores only"
 
-#: src/pages/msw-demo.tsx:112
+#: src/pages/msw-demo.tsx:100
 msgid "3. Add New Mocks"
 msgstr "3. Add New Mocks"
 
-#: src/pages/msw-demo.tsx:121
+#: src/pages/msw-demo.tsx:109
 msgid "4. Testing"
 msgstr "4. Testing"
 
@@ -52,30 +51,29 @@ msgid "Account"
 msgstr "Account"
 
 #: src/features/users/components/users-list.tsx:130
-msgid "Actions"
-msgstr "Actions"
+#~ msgid "Actions"
+#~ msgstr "Actions"
 
-#: src/pages/msw-demo.tsx:38
+#: src/pages/msw-demo.tsx:37
 msgid "Active"
 msgstr "Active"
 
 #: src/features/users/components/users-list.tsx:108
-msgid "Add User"
-msgstr "Add User"
+#~ msgid "Add User"
+#~ msgstr "Add User"
 
 #: src/features/users/components/user-form.tsx:71
-msgid "Admin"
-msgstr "Admin"
+#~ msgid "Admin"
+#~ msgstr "Admin"
 
 #: src/shared/lib/form-validation.ts:190
 msgid "All items must be unique"
 msgstr "All items must be unique"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:162
+#: src/features/signup-form/ui/signup-form-feature.tsx:165
 msgid "Already have an account? Sign in"
 msgstr "Already have an account? Sign in"
 
-#: src/features/users/components/users-list.tsx:93
 #: src/shared/ui/error-boundary/error-boundary.tsx:47
 msgid "An unexpected error occurred"
 msgstr "An unexpected error occurred"
@@ -110,7 +108,6 @@ msgstr "Bio must be less than 500 characters"
 msgid "Bypass (allow through)"
 msgstr "Bypass (allow through)"
 
-#: src/features/users/components/user-form.tsx:130
 #: src/shared/ui/confirmation-modal/confirm-context-modal.tsx:25
 #: src/shared/ui/confirmation-modal/confirmation-modal.tsx:25
 #: src/shared/ui/confirmation-modal/open-confirm.ts:18
@@ -137,7 +134,7 @@ msgstr "Confirm Action"
 msgid "Confirm New Password"
 msgstr "Confirm New Password"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:144
+#: src/features/signup-form/ui/signup-form-feature.tsx:147
 msgid "Confirm Password"
 msgstr "Confirm Password"
 
@@ -149,7 +146,7 @@ msgstr "Confirm your new password"
 msgid "Continue to Sign In"
 msgstr "Continue to Sign In"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:134
+#: src/features/signup-form/ui/signup-form-feature.tsx:137
 msgid "Create a strong password"
 msgstr "Create a strong password"
 
@@ -157,33 +154,33 @@ msgstr "Create a strong password"
 msgid "Create a strong password for your account"
 msgstr "Create a strong password for your account"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:157
+#: src/features/signup-form/ui/signup-form-feature.tsx:160
 msgid "Create Account"
 msgstr "Create Account"
 
-#: src/pages/msw-demo.tsx:115
+#: src/pages/msw-demo.tsx:103
 msgid "Create handlers in src/shared/mocks/handlers/ and export them"
 msgstr "Create handlers in src/shared/mocks/handlers/ and export them"
 
 #: src/features/users/components/user-form-modal.tsx:33
-msgid "Create New User"
-msgstr "Create New User"
+#~ msgid "Create New User"
+#~ msgstr "Create New User"
 
 #: src/features/users/components/user-form.tsx:144
-msgid "Create User"
-msgstr "Create User"
+#~ msgid "Create User"
+#~ msgstr "Create User"
 
 #: src/pages/register.tsx:13
 msgid "Create Your Account"
 msgstr "Create Your Account"
 
 #: src/features/users/components/users-list.tsx:129
-msgid "Created"
-msgstr "Created"
+#~ msgid "Created"
+#~ msgstr "Created"
 
 #: src/features/users/components/user-form.tsx:62
-msgid "Creation Failed"
-msgstr "Creation Failed"
+#~ msgid "Creation Failed"
+#~ msgstr "Creation Failed"
 
 #: src/pages/dashboard.tsx:36
 msgid "Dashboard"
@@ -201,38 +198,35 @@ msgstr "Date must be in the future"
 msgid "Date must be in the past"
 msgstr "Date must be in the past"
 
-#: src/pages/msw-demo.tsx:63
+#: src/pages/msw-demo.tsx:62
 msgid "Delay:"
 msgstr "Delay:"
 
 #: src/features/users/components/users-list.tsx:177
-msgid "Delete"
-msgstr "Delete"
+#~ msgid "Delete"
+#~ msgstr "Delete"
 
 #: src/shared/ui/msw-dev-tools.tsx:79
 msgid "Disable MSW"
 msgstr "Disable MSW"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:103
-#: src/features/users/components/user-form.tsx:91
+#: src/features/signup-form/ui/signup-form-feature.tsx:106
 msgid "Doe"
 msgstr "Doe"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:127
+#: src/features/signin-form/ui/signin-form-feature.tsx:131
 msgid "Don't have an account? Sign up"
 msgstr "Don't have an account? Sign up"
 
 #: src/features/users/components/users-list.tsx:168
-msgid "Edit"
-msgstr "Edit"
+#~ msgid "Edit"
+#~ msgstr "Edit"
 
 #: src/features/users/components/user-form-modal.tsx:33
-msgid "Edit User"
-msgstr "Edit User"
+#~ msgid "Edit User"
+#~ msgstr "Edit User"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:123
-#: src/features/users/components/user-form.tsx:112
-#: src/features/users/components/users-list.tsx:127
+#: src/features/signup-form/ui/signup-form-feature.tsx:126
 msgid "Email"
 msgstr "Email"
 
@@ -265,7 +259,7 @@ msgstr "Enable logging"
 msgid "Enable MSW"
 msgstr "Enable MSW"
 
-#: src/pages/msw-demo.tsx:45
+#: src/pages/msw-demo.tsx:44
 msgid "Enabled:"
 msgstr "Enabled:"
 
@@ -303,12 +297,12 @@ msgid "Error (throw error)"
 msgstr "Error (throw error)"
 
 #: src/features/users/components/users-list.tsx:90
-msgid "Error loading users"
-msgstr "Error loading users"
+#~ msgid "Error loading users"
+#~ msgstr "Error loading users"
 
 #: src/features/users/components/user-form.tsx:59
-msgid "Failed to create user. Please try again."
-msgstr "Failed to create user. Please try again."
+#~ msgid "Failed to create user. Please try again."
+#~ msgstr "Failed to create user. Please try again."
 
 #: src/features/reset-password-form/ui/reset-password-form-feature.tsx:62
 msgid "Failed to reset password. Please try again or request a new reset link."
@@ -323,8 +317,8 @@ msgid "Failed to send verification email. Please try again."
 msgstr "Failed to send verification email. Please try again."
 
 #: src/features/users/components/user-form.tsx:58
-msgid "Failed to update user. Please try again."
-msgstr "Failed to update user. Please try again."
+#~ msgid "Failed to update user. Please try again."
+#~ msgstr "Failed to update user. Please try again."
 
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:87
 msgid "Failed to verify email. The verification link may be invalid or expired."
@@ -338,8 +332,7 @@ msgstr "File size must be less than 10MB"
 msgid "File size must be less than 5MB"
 msgstr "File size must be less than 5MB"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:94
-#: src/features/users/components/user-form.tsx:81
+#: src/features/signup-form/ui/signup-form-feature.tsx:97
 msgid "First Name"
 msgstr "First Name"
 
@@ -375,11 +368,11 @@ msgstr "Go Home"
 msgid "How to handle requests without mocks"
 msgstr "How to handle requests without mocks"
 
-#: src/pages/msw-demo.tsx:89
+#: src/pages/msw-demo.tsx:77
 msgid "How to Use MSW"
 msgstr "How to Use MSW"
 
-#: src/pages/msw-demo.tsx:38
+#: src/pages/msw-demo.tsx:37
 msgid "Inactive"
 msgstr "Inactive"
 
@@ -391,18 +384,15 @@ msgstr "Inactive"
 msgid "Invalid Reset Link"
 msgstr "Invalid Reset Link"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:95
-#: src/features/users/components/user-form.tsx:82
+#: src/features/signup-form/ui/signup-form-feature.tsx:98
 msgid "John"
 msgstr "John"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:124
-#: src/features/users/components/user-form.tsx:113
+#: src/features/signup-form/ui/signup-form-feature.tsx:127
 msgid "john.doe@example.com"
 msgstr "john.doe@example.com"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:113
-#: src/features/users/components/user-form.tsx:102
+#: src/features/signup-form/ui/signup-form-feature.tsx:116
 msgid "johndoe"
 msgstr "johndoe"
 
@@ -410,8 +400,7 @@ msgstr "johndoe"
 msgid "Join IQKV and start your journey"
 msgstr "Join IQKV and start your journey"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:102
-#: src/features/users/components/user-form.tsx:90
+#: src/features/signup-form/ui/signup-form-feature.tsx:105
 msgid "Last Name"
 msgstr "Last Name"
 
@@ -431,7 +420,7 @@ msgstr "Last name must be less than 100 characters"
 msgid "Log MSW requests to console"
 msgstr "Log MSW requests to console"
 
-#: src/pages/msw-demo.tsx:51
+#: src/pages/msw-demo.tsx:50
 msgid "Logging:"
 msgstr "Logging:"
 
@@ -444,7 +433,7 @@ msgstr "Logging:"
 #~ msgstr "Login Successful"
 
 #: src/pages/dashboard.tsx:79
-#: src/processes/auth/ui/user-menu.tsx:70
+#: src/processes/auth/ui/user-menu.tsx:68
 msgid "Logout"
 msgstr "Logout"
 
@@ -452,15 +441,15 @@ msgstr "Logout"
 msgid "Message must be at least 10 characters"
 msgstr "Message must be at least 10 characters"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:136
+#: src/features/signup-form/ui/signup-form-feature.tsx:139
 msgid "Min 8 characters with uppercase, lowercase, number, and special character"
 msgstr "Min 8 characters with uppercase, lowercase, number, and special character"
 
-#: src/pages/msw-demo.tsx:124
+#: src/pages/msw-demo.tsx:112
 msgid "MSW automatically works in tests - no additional setup required"
 msgstr "MSW automatically works in tests - no additional setup required"
 
-#: src/pages/msw-demo.tsx:27
+#: src/pages/msw-demo.tsx:26
 msgid "MSW Demo Page"
 msgstr "MSW Demo Page"
 
@@ -468,7 +457,7 @@ msgstr "MSW Demo Page"
 msgid "MSW Dev Tools"
 msgstr "MSW Dev Tools"
 
-#: src/pages/msw-demo.tsx:36
+#: src/pages/msw-demo.tsx:35
 msgid "MSW Status"
 msgstr "MSW Status"
 
@@ -489,16 +478,16 @@ msgstr "Name must be less than 100 characters"
 msgid "New Password"
 msgstr "New Password"
 
-#: src/pages/msw-demo.tsx:47
-#: src/pages/msw-demo.tsx:53
+#: src/pages/msw-demo.tsx:46
+#: src/pages/msw-demo.tsx:52
 msgid "No"
 msgstr "No"
 
 #: src/features/users/components/users-list.tsx:190
-msgid "No users found"
-msgstr "No users found"
+#~ msgid "No users found"
+#~ msgstr "No users found"
 
-#: src/pages/msw-demo.tsx:70
+#: src/pages/msw-demo.tsx:69
 msgid "None"
 msgstr "None"
 
@@ -515,7 +504,7 @@ msgid "Page Not Found"
 msgstr "Page Not Found"
 
 #: src/features/signin-form/ui/signin-form-feature.tsx:97
-#: src/features/signup-form/ui/signup-form-feature.tsx:133
+#: src/features/signup-form/ui/signup-form-feature.tsx:136
 msgid "Password"
 msgstr "Password"
 
@@ -627,23 +616,23 @@ msgstr "Please select at least one skill"
 msgid "Please wait while we verify your email address."
 msgstr "Please wait while we verify your email address."
 
-#: src/processes/auth/ui/user-menu.tsx:60
+#: src/processes/auth/ui/user-menu.tsx:59
 msgid "Profile"
 msgstr "Profile"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:145
+#: src/features/signup-form/ui/signup-form-feature.tsx:148
 msgid "Re-enter your password"
 msgstr "Re-enter your password"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:63
+#: src/features/signup-form/ui/signup-form-feature.tsx:66
 msgid "Registration Failed"
 msgstr "Registration Failed"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:60
+#: src/features/signup-form/ui/signup-form-feature.tsx:63
 msgid "Registration failed. Please try again."
 msgstr "Registration failed. Please try again."
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:41
+#: src/features/signup-form/ui/signup-form-feature.tsx:44
 msgid "Registration Successful"
 msgstr "Registration Successful"
 
@@ -678,8 +667,8 @@ msgstr "Response delay (ms)"
 
 #: src/features/users/components/user-form.tsx:120
 #: src/features/users/components/users-list.tsx:128
-msgid "Role"
-msgstr "Role"
+#~ msgid "Role"
+#~ msgstr "Role"
 
 #: src/pages/dashboard.tsx:60
 msgid "Roles:"
@@ -690,12 +679,12 @@ msgid "Running"
 msgstr "Running"
 
 #: src/features/users/components/users-list.tsx:113
-msgid "Search users..."
-msgstr "Search users..."
+#~ msgid "Search users..."
+#~ msgstr "Search users..."
 
 #: src/features/users/components/user-form.tsx:121
-msgid "Select user role"
-msgstr "Select user role"
+#~ msgid "Select user role"
+#~ msgstr "Select user role"
 
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:122
 msgid "Send Failed"
@@ -713,11 +702,11 @@ msgstr "Send Verification Email"
 msgid "Set New Password"
 msgstr "Set New Password"
 
-#: src/pages/msw-demo.tsx:97
+#: src/pages/msw-demo.tsx:85
 msgid "Set VITE_ENABLE_MSW=true in your .env file"
 msgstr "Set VITE_ENABLE_MSW=true in your .env file"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:122
+#: src/features/signin-form/ui/signin-form-feature.tsx:126
 msgid "Sign In"
 msgstr "Sign In"
 
@@ -751,16 +740,20 @@ msgid "The verification link is invalid or has expired. You can request a new ve
 msgstr "The verification link is invalid or has expired. You can request a new verification email below."
 
 #: src/pages/msw-demo.tsx:81
-msgid "This component fetches data from /api/v1/users. When MSW is enabled, it returns mock data. When disabled, it will attempt to call your real API."
-msgstr "This component fetches data from /api/v1/users. When MSW is enabled, it returns mock data. When disabled, it will attempt to call your real API."
+#~ msgid "This component fetches data from /api/v1/users. When MSW is enabled, it returns mock data. When disabled, it will attempt to call your real API."
+#~ msgstr "This component fetches data from /api/v1/users. When MSW is enabled, it returns mock data. When disabled, it will attempt to call your real API."
 
 #: src/shared/lib/form-validation.ts:45
 msgid "This field is required"
 msgstr "This field is required"
 
+#: src/pages/msw-demo.tsx:29
+msgid "This page demonstrates Mock Service Worker (MSW) functionality with mocked API responses when MSW is enabled."
+msgstr "This page demonstrates Mock Service Worker (MSW) functionality with mocked API responses when MSW is enabled."
+
 #: src/pages/msw-demo.tsx:30
-msgid "This page demonstrates Mock Service Worker (MSW) functionality. The users list below uses mocked API responses when MSW is enabled."
-msgstr "This page demonstrates Mock Service Worker (MSW) functionality. The users list below uses mocked API responses when MSW is enabled."
+#~ msgid "This page demonstrates Mock Service Worker (MSW) functionality. The users list below uses mocked API responses when MSW is enabled."
+#~ msgstr "This page demonstrates Mock Service Worker (MSW) functionality. The users list below uses mocked API responses when MSW is enabled."
 
 #: src/features/reset-password-form/ui/reset-password-form-feature.tsx:93
 msgid "This password reset link is invalid or has expired. Please request a new password reset."
@@ -774,45 +767,44 @@ msgstr "Toggle MSW settings"
 msgid "Unhandled requests"
 msgstr "Unhandled requests"
 
-#: src/pages/msw-demo.tsx:57
+#: src/pages/msw-demo.tsx:56
 msgid "Unhandled Requests:"
 msgstr "Unhandled Requests:"
 
 #: src/features/users/components/user-form.tsx:62
-msgid "Update Failed"
-msgstr "Update Failed"
+#~ msgid "Update Failed"
+#~ msgstr "Update Failed"
 
 #: src/features/users/components/user-form.tsx:144
-msgid "Update User"
-msgstr "Update User"
+#~ msgid "Update User"
+#~ msgstr "Update User"
 
-#: src/pages/msw-demo.tsx:106
+#: src/pages/msw-demo.tsx:94
 msgid "Use the floating MSW Dev Tools panel (bottom-right) to control MSW at runtime"
 msgstr "Use the floating MSW Dev Tools panel (bottom-right) to control MSW at runtime"
 
 #: src/features/users/components/user-form.tsx:70
 #: src/features/users/components/users-list.tsx:126
-msgid "User"
-msgstr "User"
+#~ msgid "User"
+#~ msgstr "User"
 
 #: src/features/users/components/user-form.tsx:44
-msgid "User Created"
-msgstr "User Created"
+#~ msgid "User Created"
+#~ msgstr "User Created"
 
 #: src/features/users/components/user-form.tsx:47
-msgid "User has been successfully created."
-msgstr "User has been successfully created."
+#~ msgid "User has been successfully created."
+#~ msgstr "User has been successfully created."
 
 #: src/features/users/components/user-form.tsx:46
-msgid "User has been successfully updated."
-msgstr "User has been successfully updated."
+#~ msgid "User has been successfully updated."
+#~ msgstr "User has been successfully updated."
 
 #: src/features/users/components/user-form.tsx:44
-msgid "User Updated"
-msgstr "User Updated"
+#~ msgid "User Updated"
+#~ msgstr "User Updated"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:112
-#: src/features/users/components/user-form.tsx:101
+#: src/features/signup-form/ui/signup-form-feature.tsx:115
 msgid "Username"
 msgstr "Username"
 
@@ -841,16 +833,16 @@ msgid "Username or email must be at least 3 characters"
 msgstr "Username or email must be at least 3 characters"
 
 #: src/features/users/components/users-page.tsx:9
-msgid "Users"
-msgstr "Users"
+#~ msgid "Users"
+#~ msgstr "Users"
 
 #: src/features/users/components/users-list.tsx:105
-msgid "Users Management"
-msgstr "Users Management"
+#~ msgid "Users Management"
+#~ msgstr "Users Management"
 
 #: src/pages/msw-demo.tsx:78
-msgid "Users Management Demo"
-msgstr "Users Management Demo"
+#~ msgid "Users Management Demo"
+#~ msgstr "Users Management Demo"
 
 #: src/shared/lib/form-validation.ts:321
 #~ msgid "Verification code is required"
@@ -917,8 +909,8 @@ msgstr "Welcome to IQKV"
 msgid "Welcome, {userFullName}!"
 msgstr "Welcome, {userFullName}!"
 
-#: src/pages/msw-demo.tsx:47
-#: src/pages/msw-demo.tsx:53
+#: src/pages/msw-demo.tsx:46
+#: src/pages/msw-demo.tsx:52
 msgid "Yes"
 msgstr "Yes"
 
@@ -930,7 +922,7 @@ msgstr "You are successfully authenticated and can access protected content."
 msgid "You don't have permission to access this page."
 msgstr "You don't have permission to access this page."
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:44
+#: src/features/signup-form/ui/signup-form-feature.tsx:47
 msgid "Your account has been created. Please verify your email."
 msgstr "Your account has been created. Please verify your email."
 

@@ -15,8 +15,7 @@ Welcome to the comprehensive documentation for the Mantine UI Project Layout. Th
 ### [📡 API Documentation](./api/README.md)
 
 - API client configuration
-- Authentication patterns
-- User management endpoints
+- Endpoint reference
 - Endpoint reference with updated schemas
 - Error handling strategies
 - Mock Service Worker setup
@@ -26,14 +25,13 @@ Welcome to the comprehensive documentation for the Mantine UI Project Layout. Th
 
 - Mantine + Zod validation system
 - HTML5 validation disabled approach
-- Authentication and user management forms
+- Authentication forms
 - Validation schemas and patterns
 - Internationalization support
 - Testing form validation
 
 ### [🔧 Features Documentation](./features/)
 
-- [User Management](./features/user-management.md) - Complete CRUD operations with form validation
 - Authentication forms implementation
 - Form validation patterns and best practices
 

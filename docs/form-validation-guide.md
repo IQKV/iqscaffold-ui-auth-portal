@@ -357,11 +357,6 @@ All authentication forms have HTML5 validation disabled and use Zod schemas:
 - **Reset Password Form** (`src/features/reset-password-form/`) - New password with confirmation
 - **Email Verification Form** (`src/features/email-verification-form/`) - Email validation for resending verification
 
-### User Management Forms
-
-- **User Form** (`src/features/users/components/user-form.tsx`) - Create/edit users with role selection
-- **User Form Modal** (`src/features/users/components/user-form-modal.tsx`) - Modal wrapper for user operations
-
 ### Form Features
 
 All forms include:
@@ -406,66 +401,6 @@ export function SignInForm() {
         form={form}
       />
       <Button type="submit">Sign In</Button>
-    </form>
-  );
-}
-```
-
-### User Management Form Example
-
-```tsx
-// User form with role selection
-import { useForm } from "@/shared/lib/enhanced-form-hook";
-import { FormField } from "@/shared/ui";
-import { Select } from "@mantine/core";
-import { userFormSchema, initialUserValues } from "./validation";
-
-export function UserForm({ onSubmit }) {
-  const form = useForm({
-    initialValues: initialUserValues,
-    schema: userFormSchema,
-  });
-
-  return (
-    <form onSubmit={form.onSubmit(onSubmit)} noValidate>
-      <Group grow>
-        <FormField
-          type="text"
-          name="firstName"
-          label="First Name"
-          required
-          form={form}
-        />
-        <FormField
-          type="text"
-          name="lastName"
-          label="Last Name"
-          required
-          form={form}
-        />
-      </Group>
-
-      <FormField
-        type="text"
-        name="username"
-        label="Username"
-        required
-        form={form}
-      />
-
-      <FormField type="email" name="email" label="Email" required form={form} />
-
-      <Select
-        label="Role"
-        data={[
-          { value: "user", label: "User" },
-          { value: "admin", label: "Admin" },
-        ]}
-        required
-        {...form.getInputProps("role")}
-      />
-
-      <Button type="submit">Create User</Button>
     </form>
   );
 }

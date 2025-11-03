@@ -5,7 +5,7 @@
 
 import { useAuthStore } from "../model/auth-store";
 import { TokenManager } from "./token-manager";
-import type { User } from "@/entities/user";
+import type { AuthUser } from "@/shared/api";
 
 const tokenManager = TokenManager.getInstance();
 
@@ -20,7 +20,7 @@ export const getAuthHeader = (): Record<string, string> => {
 /**
  * Format user display name
  */
-export const formatUserDisplayName = (user: User): string => {
+export const formatUserDisplayName = (user: AuthUser): string => {
   if (user.firstName && user.lastName) {
     return `${user.firstName} ${user.lastName}`;
   }
@@ -30,7 +30,7 @@ export const formatUserDisplayName = (user: User): string => {
 /**
  * Get user initials for avatar
  */
-export const getUserInitials = (user: User): string => {
+export const getUserInitials = (user: AuthUser): string => {
   if (user.firstName && user.lastName) {
     return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase();
   }
@@ -43,7 +43,7 @@ export const getUserInitials = (user: User): string => {
 /**
  * Check if user has admin privileges
  */
-export const isAdmin = (user?: User | null): boolean => {
+export const isAdmin = (user?: AuthUser | null): boolean => {
   const currentUser = user || useAuthStore.getState().user;
   return currentUser?.roles.includes("admin") ?? false;
 };
@@ -51,7 +51,7 @@ export const isAdmin = (user?: User | null): boolean => {
 /**
  * Check if user is super admin
  */
-export const isSuperAdmin = (user?: User | null): boolean => {
+export const isSuperAdmin = (user?: AuthUser | null): boolean => {
   const currentUser = user || useAuthStore.getState().user;
   return currentUser?.roles.includes("super_admin") ?? false;
 };
@@ -59,7 +59,7 @@ export const isSuperAdmin = (user?: User | null): boolean => {
 /**
  * Get user's highest role priority
  */
-export const getUserRolePriority = (user?: User | null): number => {
+export const getUserRolePriority = (user?: AuthUser | null): number => {
   const currentUser = user || useAuthStore.getState().user;
   if (!currentUser?.roles) {
     return 0;
@@ -139,7 +139,7 @@ export const getTimeUntilExpiration = (): {
 export const canPerformAction = (
   action: string,
   resource?: string,
-  user?: User | null
+  user?: AuthUser | null
 ): boolean => {
   const currentUser = user || useAuthStore.getState().user;
   if (!currentUser) {
@@ -159,7 +159,7 @@ export const canPerformAction = (
 /**
  * Get user's tenant context
  */
-export const getUserTenant = (user?: User | null): string => {
+export const getUserTenant = (user?: AuthUser | null): string => {
   const currentUser = user || useAuthStore.getState().user;
   return currentUser?.tenantId || "default";
 };
@@ -169,7 +169,7 @@ export const getUserTenant = (user?: User | null): string => {
  */
 export const belongsToTenant = (
   tenantId: string,
-  user?: User | null
+  user?: AuthUser | null
 ): boolean => {
   const currentUser = user || useAuthStore.getState().user;
   return currentUser?.tenantId === tenantId;

@@ -42,16 +42,14 @@ src/
 │   ├── router/           # Router configuration
 │   └── styles/           # Global styles
 ├── pages/                 # Pages layer
-│   ├── home/             # Home page
-│   └── users/            # Users page
+│   └── home/             # Home page
 ├── widgets/              # Widgets layer
 │   ├── header/           # Header widget
 │   └── sidebar/          # Sidebar widget
 ├── features/             # Features layer
 │   ├── auth/             # Authentication feature
-│   └── user-management/  # User management feature
+│
 ├── entities/             # Entities layer
-│   ├── user/             # User entity
 │   └── session/          # Session entity
 └── shared/               # Shared layer
     ├── ui/               # Shared UI components

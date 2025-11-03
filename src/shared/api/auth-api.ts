@@ -1,6 +1,29 @@
 import { apiClient } from "./base";
 import { getAuthConfig } from "@/app/config";
-import type { User, UserRegistration } from "@/entities/user";
+/**
+ * Auth user and registration types are defined locally to avoid cross-layer deps.
+ */
+export interface AuthUser {
+  userId: number;
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  roles: string[];
+  permissions: string[];
+  tenantId: string;
+  emailVerified?: boolean;
+  customClaims: Record<string, unknown>;
+}
+
+export interface UserRegistration {
+  username: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  tenantId?: string;
+}
 
 /**
  * Authentication API responses
@@ -10,7 +33,7 @@ export interface TokenResponse {
   refreshToken: string;
   tokenType: string;
   expiresIn: number;
-  user: User;
+  user: AuthUser;
 }
 
 export interface UserRegistrationResponse {

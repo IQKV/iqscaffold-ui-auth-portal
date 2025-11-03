@@ -6,11 +6,10 @@
 import { create, type StateCreator } from "zustand";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
-import { authApi, type TokenResponse } from "@/shared/api";
+import { authApi, type TokenResponse, type AuthUser } from "@/shared/api";
 import { TokenManager } from "../lib/token-manager";
 import { notificationService } from "@/shared/lib/notifications";
 import type { AuthStore, LoginCredentials, AuthError } from "./types";
-import type { User } from "@/entities/user";
 
 const tokenManager = TokenManager.getInstance();
 
@@ -221,7 +220,7 @@ const createAuthStore: AuthStoreCreator = (set, get) => ({
   /**
    * Set user data (for updates)
    */
-  setUser: (user: User) => {
+  setUser: (user: AuthUser) => {
     set((state) => {
       state.user = user;
     });

@@ -4,12 +4,12 @@
  */
 
 import { useAuthStore } from "./auth-store";
-import type { User } from "@/entities/user";
+import type { AuthUser } from "@/shared/api";
 
 /**
  * Hook to get current user
  */
-export const useCurrentUser = (): User | null => {
+export const useCurrentUser = (): AuthUser | null => {
   return useAuthStore((state) => state.user);
 };
 

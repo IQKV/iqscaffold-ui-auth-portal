@@ -9,7 +9,6 @@ import {
 } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import { t } from "@lingui/core/macro";
-import { UsersList } from "@/features/users/components/users-list";
 import { useMSWControl } from "@/shared/lib";
 
 export const Route = createFileRoute("/msw-demo")({
@@ -27,7 +26,7 @@ export function MSWDemoPage() {
             {t`MSW Demo Page`}
           </Title>
           <Text c="dimmed" size="lg">
-            {t`This page demonstrates Mock Service Worker (MSW) functionality. The users list below uses mocked API responses when MSW is enabled.`}
+            {t`This page demonstrates Mock Service Worker (MSW) functionality with mocked API responses when MSW is enabled.`}
           </Text>
         </div>
 
@@ -71,17 +70,6 @@ export function MSWDemoPage() {
               </Text>
             </Group>
           </Stack>
-        </Card>
-
-        <Card withBorder padding="md">
-          <Title order={2} mb="md">
-            {t`Users Management Demo`}
-          </Title>
-          <Text c="dimmed" mb="md">
-            {t`This component fetches data from /api/v1/users. When MSW is enabled, it returns mock data. When disabled, it will attempt to call your real API.`}
-          </Text>
-
-          <UsersList />
         </Card>
 
         <Card withBorder padding="md">

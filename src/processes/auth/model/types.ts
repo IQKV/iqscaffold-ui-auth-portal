@@ -3,10 +3,10 @@
  * Centralized types for authentication process
  */
 
-import type { User } from "@/entities/user";
+import type { AuthUser } from "@/shared/api";
 
 export interface AuthState {
-  user: User | null;
+  user: AuthUser | null;
   accessToken: string | null;
   refreshToken: string | null;
   isAuthenticated: boolean;
@@ -29,7 +29,7 @@ export interface AuthTokens {
 }
 
 export interface AuthSession {
-  user: User;
+  user: AuthUser;
   tokens: AuthTokens;
 }
 
@@ -45,7 +45,7 @@ export interface AuthActions {
   refreshTokens: () => Promise<void>;
   initialize: () => Promise<void>;
   clearError: () => void;
-  setUser: (user: User) => void;
+  setUser: (user: AuthUser) => void;
 }
 
 export type AuthStore = AuthState & AuthActions;
