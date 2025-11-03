@@ -85,13 +85,13 @@ export const authHandlers = [
 
     if (config.enableLogging) {
       console.log("📝 MSW: Signup attempt", {
-        email: body.username,
+        email: body.email,
         name: body.name,
       });
     }
 
     // Simulate email already exists
-    if (body.username === "existing@example.com") {
+    if (body.email === "existing@example.com") {
       return HttpResponse.json(
         {
           type: "https://example.com/problems/email-exists",
@@ -106,7 +106,7 @@ export const authHandlers = [
     return HttpResponse.json({
       user: {
         ...mockUser,
-        email: body.username,
+        email: body.email,
         name: body.name,
         id: Math.random().toString(36).substr(2, 9),
       },
