@@ -92,11 +92,13 @@ test.describe("App Smoke Tests", () => {
 
     await authPage.goToLogin();
 
-    // Simulate offline mode
+    // Fill form first so fields are reliably available
+    await authPage.fillLoginForm("testuser", "password123");
+
+    // Simulate offline mode right before submit to trigger network error
     await page.context().setOffline(true);
 
-    // Fill and submit form (should fail gracefully)
-    await authPage.fillLoginForm("testuser", "password123");
+    // Submit form (should fail gracefully)
     await authPage.submitLoginForm();
 
     // App should handle the error (not crash)

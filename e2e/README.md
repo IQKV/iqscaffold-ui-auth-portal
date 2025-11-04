@@ -6,10 +6,6 @@ This directory contains end-to-end tests for the React 19 + Tanstack Query + Tan
 
 ```
 e2e/
-├── auth/                    # Authentication-related tests
-│   ├── auth-flow.spec.ts   # Complete auth flows and navigation
-│   ├── login.spec.ts       # Login page specific tests
-│   └── register.spec.ts    # Registration page specific tests
 ├── config/                 # Test configuration
 │   └── test-config.ts      # Constants and configuration
 ├── setup/                  # Test setup files
@@ -74,31 +70,6 @@ Quick sanity checks that verify:
 - Basic navigation works
 - App is responsive
 - Essential functionality works
-
-### 2. Authentication Tests (`auth/`)
-
-#### Login Tests (`auth/login.spec.ts`)
-
-- Form element visibility
-- Validation error handling
-- Form interactions (keyboard navigation, etc.)
-- Loading states
-- Accessibility compliance
-
-#### Register Tests (`auth/register.spec.ts`)
-
-- Registration form functionality
-- Field validation (username, email, password)
-- Helper text display
-- Form submission handling
-
-#### Auth Flow Tests (`auth/auth-flow.spec.ts`)
-
-- Navigation between login/register
-- Complete registration flow
-- Form state preservation
-- Browser navigation (back/forward)
-- Responsive design across viewports
 
 ## 🛠️ Test Utilities
 

@@ -46,8 +46,8 @@ export class AuthPage {
   // Login page elements
   get loginForm() {
     return {
-      usernameInput: this.page.getByLabel("Username or Email"),
-      passwordInput: this.page.getByLabel("Password"),
+      usernameInput: this.page.getByPlaceholder("Enter your username or email"),
+      passwordInput: this.page.getByPlaceholder("Enter your password"),
       rememberMeCheckbox: this.page.getByLabel("Remember me"),
       submitButton: this.page.getByRole("button", { name: "Sign In" }),
       forgotPasswordLink: this.page.getByText("Forgot password?"),
@@ -61,7 +61,7 @@ export class AuthPage {
       firstNameInput: this.page.getByLabel("First Name"),
       lastNameInput: this.page.getByLabel("Last Name"),
       usernameInput: this.page.getByLabel("Username"),
-      emailInput: this.page.getByLabel("Email"),
+      emailInput: this.page.getByPlaceholder("john.doe@example.com"),
       passwordInput: this.page.getByLabel("Password").first(), // Use first() to get the main password field
       confirmPasswordInput: this.page.getByLabel("Confirm Password"),
       submitButton: this.page.getByRole("button", { name: "Create Account" }),
@@ -103,7 +103,9 @@ export class AuthPage {
 
   // Common actions
   async fillLoginForm(username: string, password: string, rememberMe = false) {
+    await expect(this.loginForm.usernameInput).toBeVisible();
     await this.loginForm.usernameInput.fill(username);
+    await expect(this.loginForm.passwordInput).toBeVisible();
     await this.loginForm.passwordInput.fill(password);
     if (rememberMe) {
       await this.loginForm.rememberMeCheckbox.check();
@@ -164,7 +166,7 @@ export class AuthPage {
   // Assertions
   async expectLoginPageVisible() {
     await expect(
-      this.page.getByRole("heading", { name: "Welcome Back" })
+      this.page.getByRole("heading", { name: "Welcome to IQKV" })
     ).toBeVisible();
     await expect(this.loginForm.usernameInput).toBeVisible();
     await expect(this.loginForm.passwordInput).toBeVisible();
