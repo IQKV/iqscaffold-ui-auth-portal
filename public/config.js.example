@@ -1,0 +1,18 @@
+// Copy this file to public/config.js to override build-time VITE_* envs at runtime
+// Example values shown below.
+// Do NOT commit secrets here.
+
+window.VITE_API_URL_SERVER = "https://api.example.com";
+
+// Auth domains
+window.VITE_AUTH_DOMAIN_AUTH = "https://auth.example.com";
+window.VITE_AUTH_DOMAIN_APP = "https://app.example.com";
+
+// Auth redirects
+window.VITE_AUTH_REDIRECT_AFTER_LOGIN = "https://app.example.com/dashboard";
+window.VITE_AUTH_REDIRECT_AFTER_LOGOUT = "https://auth.example.com/login";
+window.VITE_AUTH_REDIRECT_AFTER_SIGNUP = "https://auth.example.com/welcome";
+
+// Mock Service Worker
+window.VITE_ENABLE_MSW = "false"; // "true" to enable in browser
+window.VITE_LOG_LEVEL = "info";

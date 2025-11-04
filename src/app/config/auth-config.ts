@@ -30,11 +30,19 @@ export interface AuthConfig {
 const DEFAULT_AUTH_DOMAIN = "https://auth.iqkv.com";
 const DEFAULT_APP_DOMAIN = "https://app.iqkv.com";
 
+import { getConfig } from "./runtime-env";
+
 // Build auth configuration from environment variables with fallbacks
 const buildAuthConfig = (): AuthConfig => {
-  const authDomain =
-    import.meta.env.VITE_AUTH_DOMAIN_AUTH ?? DEFAULT_AUTH_DOMAIN;
-  const appDomain = import.meta.env.VITE_AUTH_DOMAIN_APP ?? DEFAULT_APP_DOMAIN;
+  // Prefer runtime window overrides via getConfig, fallback to hard defaults
+  const authDomain = getConfig(
+    "VITE_AUTH_DOMAIN_AUTH",
+    DEFAULT_AUTH_DOMAIN
+  ) as string;
+  const appDomain = getConfig(
+    "VITE_AUTH_DOMAIN_APP",
+    DEFAULT_APP_DOMAIN
+  ) as string;
 
   return {
     endpoints: {
@@ -52,11 +60,18 @@ const buildAuthConfig = (): AuthConfig => {
       refreshTokenKey: "refreshToken",
     },
     redirects: {
-      afterLogin: import.meta.env.VITE_AUTH_REDIRECT_AFTER_LOGIN ?? appDomain,
-      afterLogout:
-        import.meta.env.VITE_AUTH_REDIRECT_AFTER_LOGOUT ?? authDomain,
-      afterSignup:
-        import.meta.env.VITE_AUTH_REDIRECT_AFTER_SIGNUP ?? authDomain,
+      afterLogin: getConfig(
+        "VITE_AUTH_REDIRECT_AFTER_LOGIN",
+        appDomain
+      ) as string,
+      afterLogout: getConfig(
+        "VITE_AUTH_REDIRECT_AFTER_LOGOUT",
+        authDomain
+      ) as string,
+      afterSignup: getConfig(
+        "VITE_AUTH_REDIRECT_AFTER_SIGNUP",
+        authDomain
+      ) as string,
     },
     domains: {
       auth: authDomain,
