@@ -1,10 +1,9 @@
 import { Anchor, Button, Card, Group, Stack, Text } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
 import { IconLock, IconArrowLeft } from "@tabler/icons-react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
-import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { t } from "@lingui/core/macro";
-import { authApi } from "@/shared/api";
+import { useResetPassword } from "@/shared/lib/use-auth-api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
 import { FormField } from "@/shared/ui";
 import {
@@ -35,42 +34,29 @@ export function ResetPasswordFormFeature({
     schema: resetPasswordFormSchema,
   });
 
-  const resetPasswordMutation = useMutation({
-    mutationFn: async (values: ResetPasswordFormSchemaType) => {
-      if (!token) {
-        throw new Error("Reset token is missing");
-      }
-      return await authApi.resetPassword(token, values.password);
-    },
-    onSuccess: () => {
-      notifications.show({
-        title: t`Password Reset Successful`,
-        message: t`Your password has been successfully reset. You can now sign in with your new password.`,
-        color: "green",
-      });
+  // Use custom hook for reset password
+  const resetPasswordMutation = useResetPassword();
 
+  // Handle success
+  useEffect(() => {
+    if (resetPasswordMutation.isSuccess) {
       if (onSuccess) {
         onSuccess();
       } else {
         // Navigate to login after successful reset
         navigate({ to: "/login" });
       }
-    },
-    onError: (error: any) => {
-      const errorMessage =
-        error?.message ||
-        t`Failed to reset password. Please try again or request a new reset link.`;
-
-      notifications.show({
-        title: t`Reset Failed`,
-        message: errorMessage,
-        color: "red",
-      });
-    },
-  });
+    }
+  }, [resetPasswordMutation.isSuccess, onSuccess, navigate]);
 
   const handleSubmit = (values: ResetPasswordFormSchemaType) => {
-    resetPasswordMutation.mutate(values);
+    if (!token) {
+      return;
+    }
+    resetPasswordMutation.mutate({
+      token,
+      newPassword: values.password,
+    });
   };
 
   const handleBackToLogin = () => {

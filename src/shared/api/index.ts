@@ -5,6 +5,10 @@ export type {
   UserRegistrationResponse,
   LoginCredentials,
   RefreshTokenRequest,
+  ValidateTokenRequest,
+  ValidateTokenResponse,
+  ChangePasswordRequest,
+  EmailStatusResponse,
   AuthUser,
   UserRegistration,
 } from "./auth-api";

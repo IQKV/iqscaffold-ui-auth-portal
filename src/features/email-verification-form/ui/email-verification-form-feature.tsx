@@ -1,5 +1,4 @@
 import { Anchor, Button, Card, Group, Stack, Text, Alert } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
 import {
   IconMail,
   IconArrowLeft,
@@ -7,11 +6,13 @@ import {
   IconAlertCircle,
 } from "@tabler/icons-react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
-import { useMutation } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { t } from "@lingui/core/macro";
-import { authApi } from "@/shared/api";
 import { useForm, UseFormInput } from "@/shared/lib/enhanced-form-hook";
+import {
+  useVerifyEmail,
+  useResendVerification,
+} from "@/shared/lib/use-auth-api";
 import { FormField } from "@/shared/ui";
 import {
   emailVerificationFormSchema,
@@ -57,20 +58,14 @@ export function EmailVerificationFormFeature({
     schema: emailVerificationFormSchema,
   } as UseFormInput<EmailVerificationFormSchemaType>);
 
-  // Auto-verify if token is provided
-  const verifyEmailMutation = useMutation({
-    mutationFn: async (verificationToken: string) => {
-      return await authApi.verifyEmail(verificationToken);
-    },
-    onSuccess: () => {
-      setVerificationStatus("success");
-      notifications.show({
-        title: t`Email Verified Successfully`,
-        message: t`Your email has been verified. You can now sign in to your account.`,
-        color: "green",
-        icon: <IconCheck size={16} />,
-      });
+  // Use custom hooks for email verification
+  const verifyEmailMutation = useVerifyEmail();
+  const resendVerificationMutation = useResendVerification();
 
+  // Handle verification success
+  useEffect(() => {
+    if (verifyEmailMutation.isSuccess) {
+      setVerificationStatus("success");
       if (onVerificationSuccess) {
         onVerificationSuccess();
       } else {
@@ -79,53 +74,27 @@ export function EmailVerificationFormFeature({
           navigate({ to: "/login" });
         }, 2000);
       }
-    },
-    onError: (error: any) => {
+    }
+  }, [verifyEmailMutation.isSuccess, onVerificationSuccess, navigate]);
+
+  // Handle verification error
+  useEffect(() => {
+    if (verifyEmailMutation.isError) {
       setVerificationStatus("error");
-      const errorMessage =
-        error?.message ||
-        t`Failed to verify email. The verification link may be invalid or expired.`;
+    }
+  }, [verifyEmailMutation.isError]);
 
-      notifications.show({
-        title: t`Verification Failed`,
-        message: errorMessage,
-        color: "red",
-        icon: <IconAlertCircle size={16} />,
-      });
-    },
-  });
-
-  // Resend verification email
-  const resendVerificationMutation = useMutation({
-    mutationFn: async (values: EmailVerificationFormValues) => {
-      return await authApi.resendVerification(values.email);
-    },
-    onSuccess: (_, variables) => {
-      const email = variables.email;
-      notifications.show({
-        title: t`Verification Email Sent`,
-        message: t`We've sent a new verification email to ${email}. Please check your inbox and click the verification link.`,
-        color: "green",
-        icon: <IconCheck size={16} />,
-      });
-
-      if (onResendSuccess) {
-        onResendSuccess(variables.email);
-      }
-    },
-    onError: (error: any) => {
-      const errorMessage =
-        error?.message ||
-        t`Failed to send verification email. Please try again.`;
-
-      notifications.show({
-        title: t`Send Failed`,
-        message: errorMessage,
-        color: "red",
-        icon: <IconAlertCircle size={16} />,
-      });
-    },
-  });
+  // Handle resend success
+  useEffect(() => {
+    if (resendVerificationMutation.isSuccess && onResendSuccess) {
+      const emailValue = form.values.email;
+      onResendSuccess(emailValue);
+    }
+  }, [
+    resendVerificationMutation.isSuccess,
+    onResendSuccess,
+    form.values.email,
+  ]);
 
   // Auto-verify when component mounts if token is provided
   useEffect(() => {
@@ -141,7 +110,7 @@ export function EmailVerificationFormFeature({
   }, [token, verificationStatus, verifyEmailMutation]);
 
   const handleResendSubmit = (values: EmailVerificationFormValues) => {
-    resendVerificationMutation.mutate(values);
+    resendVerificationMutation.mutate(values.email);
   };
 
   const handleBackToLogin = () => {

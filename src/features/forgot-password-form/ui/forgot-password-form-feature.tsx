@@ -1,10 +1,9 @@
 import { Anchor, Button, Card, Group, Stack, Text } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
 import { IconMail, IconArrowLeft } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
-import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { t } from "@lingui/core/macro";
-import { authApi } from "@/shared/api";
+import { useForgotPassword } from "@/shared/lib/use-auth-api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
 import { FormField } from "@/shared/ui";
 import {
@@ -29,39 +28,29 @@ export function ForgotPasswordFormFeature({
     schema: forgotPasswordFormSchema,
   });
 
-  const forgotPasswordMutation = useMutation({
-    mutationFn: async (values: ForgotPasswordFormSchemaType) => {
-      return await authApi.forgotPassword(values.email);
-    },
-    onSuccess: (_, variables) => {
-      const email = variables.email;
-      notifications.show({
-        title: t`Reset Link Sent`,
-        message: t`We've sent a password reset link to ${email}. Please check your email and follow the instructions.`,
-        color: "green",
-      });
+  // Use custom hook for forgot password
+  const forgotPasswordMutation = useForgotPassword();
 
+  // Handle success
+  useEffect(() => {
+    if (forgotPasswordMutation.isSuccess) {
+      const email = form.values.email;
       if (onSuccess) {
-        onSuccess(variables.email);
+        onSuccess(email);
       } else {
         // Navigate back to login after successful submission
         navigate({ to: "/login" });
       }
-    },
-    onError: (error: any) => {
-      const errorMessage =
-        error?.message || t`Failed to send reset email. Please try again.`;
-
-      notifications.show({
-        title: t`Reset Failed`,
-        message: errorMessage,
-        color: "red",
-      });
-    },
-  });
+    }
+  }, [
+    forgotPasswordMutation.isSuccess,
+    onSuccess,
+    navigate,
+    form.values.email,
+  ]);
 
   const handleSubmit = (values: ForgotPasswordFormSchemaType) => {
-    forgotPasswordMutation.mutate(values);
+    forgotPasswordMutation.mutate(values.email);
   };
 
   const handleBackToLogin = () => {
