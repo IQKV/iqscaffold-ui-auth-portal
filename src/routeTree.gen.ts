@@ -9,27 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from "./pages/__root"
-import { Route as VerifyEmailRouteImport } from "./pages/verify-email"
-import { Route as UnauthorizedRouteImport } from "./pages/unauthorized"
 import { Route as ResetPasswordRouteImport } from "./pages/reset-password"
 import { Route as RegisterRouteImport } from "./pages/register"
-import { Route as MswDemoRouteImport } from "./pages/msw-demo"
 import { Route as LoginRouteImport } from "./pages/login"
 import { Route as ForgotPasswordRouteImport } from "./pages/forgot-password"
-import { Route as DashboardRouteImport } from "./pages/dashboard"
 import { Route as R404RouteImport } from "./pages/404"
 import { Route as IndexRouteImport } from "./pages/index"
 
-const VerifyEmailRoute = VerifyEmailRouteImport.update({
-  id: "/verify-email",
-  path: "/verify-email",
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UnauthorizedRoute = UnauthorizedRouteImport.update({
-  id: "/unauthorized",
-  path: "/unauthorized",
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: "/reset-password",
   path: "/reset-password",
@@ -40,11 +26,6 @@ const RegisterRoute = RegisterRouteImport.update({
   path: "/register",
   getParentRoute: () => rootRouteImport,
 } as any)
-const MswDemoRoute = MswDemoRouteImport.update({
-  id: "/msw-demo",
-  path: "/msw-demo",
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LoginRoute = LoginRouteImport.update({
   id: "/login",
   path: "/login",
@@ -53,11 +34,6 @@ const LoginRoute = LoginRouteImport.update({
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
   id: "/forgot-password",
   path: "/forgot-password",
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: "/dashboard",
-  path: "/dashboard",
   getParentRoute: () => rootRouteImport,
 } as any)
 const R404Route = R404RouteImport.update({
@@ -74,108 +50,66 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute
   "/404": typeof R404Route
-  "/dashboard": typeof DashboardRoute
   "/forgot-password": typeof ForgotPasswordRoute
   "/login": typeof LoginRoute
-  "/msw-demo": typeof MswDemoRoute
   "/register": typeof RegisterRoute
   "/reset-password": typeof ResetPasswordRoute
-  "/unauthorized": typeof UnauthorizedRoute
-  "/verify-email": typeof VerifyEmailRoute
 }
 export interface FileRoutesByTo {
   "/": typeof IndexRoute
   "/404": typeof R404Route
-  "/dashboard": typeof DashboardRoute
   "/forgot-password": typeof ForgotPasswordRoute
   "/login": typeof LoginRoute
-  "/msw-demo": typeof MswDemoRoute
   "/register": typeof RegisterRoute
   "/reset-password": typeof ResetPasswordRoute
-  "/unauthorized": typeof UnauthorizedRoute
-  "/verify-email": typeof VerifyEmailRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   "/": typeof IndexRoute
   "/404": typeof R404Route
-  "/dashboard": typeof DashboardRoute
   "/forgot-password": typeof ForgotPasswordRoute
   "/login": typeof LoginRoute
-  "/msw-demo": typeof MswDemoRoute
   "/register": typeof RegisterRoute
   "/reset-password": typeof ResetPasswordRoute
-  "/unauthorized": typeof UnauthorizedRoute
-  "/verify-email": typeof VerifyEmailRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | "/"
     | "/404"
-    | "/dashboard"
     | "/forgot-password"
     | "/login"
-    | "/msw-demo"
     | "/register"
     | "/reset-password"
-    | "/unauthorized"
-    | "/verify-email"
   fileRoutesByTo: FileRoutesByTo
   to:
     | "/"
     | "/404"
-    | "/dashboard"
     | "/forgot-password"
     | "/login"
-    | "/msw-demo"
     | "/register"
     | "/reset-password"
-    | "/unauthorized"
-    | "/verify-email"
   id:
     | "__root__"
     | "/"
     | "/404"
-    | "/dashboard"
     | "/forgot-password"
     | "/login"
-    | "/msw-demo"
     | "/register"
     | "/reset-password"
-    | "/unauthorized"
-    | "/verify-email"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   R404Route: typeof R404Route
-  DashboardRoute: typeof DashboardRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
-  MswDemoRoute: typeof MswDemoRoute
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
-  UnauthorizedRoute: typeof UnauthorizedRoute
-  VerifyEmailRoute: typeof VerifyEmailRoute
 }
 
 declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    "/verify-email": {
-      id: "/verify-email"
-      path: "/verify-email"
-      fullPath: "/verify-email"
-      preLoaderRoute: typeof VerifyEmailRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    "/unauthorized": {
-      id: "/unauthorized"
-      path: "/unauthorized"
-      fullPath: "/unauthorized"
-      preLoaderRoute: typeof UnauthorizedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     "/reset-password": {
       id: "/reset-password"
       path: "/reset-password"
@@ -190,13 +124,6 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/msw-demo": {
-      id: "/msw-demo"
-      path: "/msw-demo"
-      fullPath: "/msw-demo"
-      preLoaderRoute: typeof MswDemoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     "/login": {
       id: "/login"
       path: "/login"
@@ -209,13 +136,6 @@ declare module "@tanstack/react-router" {
       path: "/forgot-password"
       fullPath: "/forgot-password"
       preLoaderRoute: typeof ForgotPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    "/dashboard": {
-      id: "/dashboard"
-      path: "/dashboard"
-      fullPath: "/dashboard"
-      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     "/404": {
@@ -238,14 +158,10 @@ declare module "@tanstack/react-router" {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   R404Route: R404Route,
-  DashboardRoute: DashboardRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
-  MswDemoRoute: MswDemoRoute,
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
-  UnauthorizedRoute: UnauthorizedRoute,
-  VerifyEmailRoute: VerifyEmailRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

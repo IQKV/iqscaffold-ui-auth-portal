@@ -10,9 +10,37 @@
 
 ---
 
-# 🚀 Mantine UI Project Layout
+# 🔐 Auth Portal - IQKV Authentication Service
 
 ## 📜 Description
+
+**Dedicated authentication portal for IQKV platform** - Handles user sign up, sign in, and password reset functionality.
+
+> This is a standalone authentication service that redirects to the main application (APP_DOMAIN) upon successful login. It does not contain any application-specific features or protected pages.
+
+### 🎯 Purpose
+
+This auth portal serves as the **centralized authentication gateway** for the IQKV platform:
+
+- ✅ **Sign Up** - New user registration
+- ✅ **Sign In** - User authentication
+- ✅ **Forgot Password** - Password reset request
+- ✅ **Reset Password** - Password reset with token
+- ✅ **External Redirect** - Always redirects to APP_DOMAIN root on successful login
+
+### 🚫 What This Portal Does NOT Include
+
+- ❌ Dashboard or internal pages
+- ❌ User profile management
+- ❌ Email verification pages
+- ❌ Security settings
+- ❌ Application-specific features
+
+All post-authentication features are handled by the main application at APP_DOMAIN.
+
+---
+
+## 🛠️ Technical Stack
 
 React + TypeScript + Vite + TanStack Router + Mantine UI Template
 

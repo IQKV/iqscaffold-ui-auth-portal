@@ -47,8 +47,8 @@ export function SignInFormFeature({
         // External redirect to app domain
         window.location.href = authConfig.redirects.afterLogin;
       } else {
-        // Internal navigation
-        navigate({ to: "/dashboard" });
+        // Default: redirect to app domain (auth portal has no internal pages)
+        window.location.href = authConfig.redirects.afterLogin;
       }
     },
     onError: (error: any) => {

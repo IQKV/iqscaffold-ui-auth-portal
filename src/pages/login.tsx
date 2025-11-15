@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { SignInFormFeature } from "@/features/signin-form";
 import { AuthLayout } from "@/widgets/auth-layout";
 import { t } from "@lingui/core/macro";
@@ -17,7 +17,7 @@ function LoginPage() {
       title={t`Welcome Back`}
       subtitle={t`Sign in to your account to continue`}
     >
-      <SignInFormFeature />
+      <SignInFormFeature useExternalRedirect />
     </AuthLayout>
   );
 }

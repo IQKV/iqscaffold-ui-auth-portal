@@ -23,28 +23,28 @@ msgid "{fieldName} is required"
 msgstr "{fieldName} is required"
 
 #: src/pages/msw-demo.tsx:82
-msgid "1. Environment Configuration"
-msgstr "1. Environment Configuration"
+#~ msgid "1. Environment Configuration"
+#~ msgstr "1. Environment Configuration"
 
 #: src/pages/msw-demo.tsx:91
-msgid "2. Development Tools"
-msgstr "2. Development Tools"
+#~ msgid "2. Development Tools"
+#~ msgstr "2. Development Tools"
 
 #: src/features/signup-form/ui/signup-form-feature.tsx:118
 msgid "3-50 characters, letters, numbers, and underscores only"
 msgstr "3-50 characters, letters, numbers, and underscores only"
 
 #: src/pages/msw-demo.tsx:100
-msgid "3. Add New Mocks"
-msgstr "3. Add New Mocks"
+#~ msgid "3. Add New Mocks"
+#~ msgstr "3. Add New Mocks"
 
 #: src/pages/msw-demo.tsx:109
-msgid "4. Testing"
-msgstr "4. Testing"
+#~ msgid "4. Testing"
+#~ msgstr "4. Testing"
 
 #: src/pages/unauthorized.tsx:15
-msgid "Access Denied"
-msgstr "Access Denied"
+#~ msgid "Access Denied"
+#~ msgstr "Access Denied"
 
 #: src/processes/auth/ui/user-menu.tsx:57
 msgid "Account"
@@ -55,12 +55,12 @@ msgstr "Account"
 #~ msgstr "Actions"
 
 #: src/pages/msw-demo.tsx:37
-msgid "Active"
-msgstr "Active"
+#~ msgid "Active"
+#~ msgstr "Active"
 
 #: src/features/security-settings/ui/security-settings-feature.tsx:80
-msgid "Active Sessions"
-msgstr "Active Sessions"
+#~ msgid "Active Sessions"
+#~ msgstr "Active Sessions"
 
 #: src/features/users/components/users-list.tsx:108
 #~ msgid "Add User"
@@ -96,8 +96,6 @@ msgstr "Are you sure you want to proceed?"
 msgid "At least one item is required"
 msgstr "At least one item is required"
 
-#: src/features/email-verification-form/ui/email-verification-form-feature.tsx:167
-#: src/features/email-verification-form/ui/email-verification-form-feature.tsx:212
 #: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:99
 #: src/features/reset-password-form/ui/reset-password-form-feature.tsx:82
 #: src/features/reset-password-form/ui/reset-password-form-feature.tsx:134
@@ -112,7 +110,6 @@ msgstr "Bio must be less than 500 characters"
 msgid "Bypass (allow through)"
 msgstr "Bypass (allow through)"
 
-#: src/features/security-settings/ui/security-settings-feature.tsx:41
 #: src/shared/ui/confirmation-modal/confirm-context-modal.tsx:25
 #: src/shared/ui/confirmation-modal/confirmation-modal.tsx:25
 #: src/shared/ui/confirmation-modal/open-confirm.ts:18
@@ -125,12 +122,12 @@ msgid "Change Password"
 msgstr "Change Password"
 
 #: src/features/email-status-checker/ui/email-status-checker-feature.tsx:42
-msgid "Checking email status..."
-msgstr "Checking email status..."
+#~ msgid "Checking email status..."
+#~ msgstr "Checking email status..."
 
 #: src/pages/verify-email.tsx:20
-msgid "Complete your account setup"
-msgstr "Complete your account setup"
+#~ msgid "Complete your account setup"
+#~ msgstr "Complete your account setup"
 
 #: src/shared/ui/confirmation-modal/confirm-context-modal.tsx:24
 #: src/shared/ui/confirmation-modal/confirmation-modal.tsx:24
@@ -159,8 +156,8 @@ msgid "Confirm your new password"
 msgstr "Confirm your new password"
 
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:151
-msgid "Continue to Sign In"
-msgstr "Continue to Sign In"
+#~ msgid "Continue to Sign In"
+#~ msgstr "Continue to Sign In"
 
 #: src/features/signup-form/ui/signup-form-feature.tsx:137
 msgid "Create a strong password"
@@ -175,8 +172,8 @@ msgid "Create Account"
 msgstr "Create Account"
 
 #: src/pages/msw-demo.tsx:103
-msgid "Create handlers in src/shared/mocks/handlers/ and export them"
-msgstr "Create handlers in src/shared/mocks/handlers/ and export them"
+#~ msgid "Create handlers in src/shared/mocks/handlers/ and export them"
+#~ msgstr "Create handlers in src/shared/mocks/handlers/ and export them"
 
 #: src/features/users/components/user-form-modal.tsx:33
 #~ msgid "Create New User"
@@ -208,8 +205,8 @@ msgid "Current password is required"
 msgstr "Current password is required"
 
 #: src/pages/dashboard.tsx:36
-msgid "Dashboard"
-msgstr "Dashboard"
+#~ msgid "Dashboard"
+#~ msgstr "Dashboard"
 
 #: src/shared/lib/form-validation.ts:269
 msgid "Date must be between {startDateStr} and {endDateStr}"
@@ -224,8 +221,8 @@ msgid "Date must be in the past"
 msgstr "Date must be in the past"
 
 #: src/pages/msw-demo.tsx:62
-msgid "Delay:"
-msgstr "Delay:"
+#~ msgid "Delay:"
+#~ msgstr "Delay:"
 
 #: src/features/users/components/users-list.tsx:177
 #~ msgid "Delete"
@@ -255,8 +252,6 @@ msgstr "Don't have an account? Sign up"
 msgid "Email"
 msgstr "Email"
 
-#: src/features/email-status-checker/ui/email-status-checker-feature.tsx:63
-#: src/features/email-verification-form/ui/email-verification-form-feature.tsx:188
 #: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:75
 msgid "Email Address"
 msgstr "Email Address"
@@ -266,8 +261,8 @@ msgid "Email is required"
 msgstr "Email is required"
 
 #: src/features/email-status-checker/ui/email-status-checker-feature.tsx:33
-msgid "Email Verification Status"
-msgstr "Email Verification Status"
+#~ msgid "Email Verification Status"
+#~ msgstr "Email Verification Status"
 
 #: src/shared/lib/use-auth-api.ts:124
 msgid "Email Verified"
@@ -278,12 +273,12 @@ msgstr "Email Verified"
 #~ msgstr "Email Verified Successfully"
 
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:144
-msgid "Email Verified!"
-msgstr "Email Verified!"
+#~ msgid "Email Verified!"
+#~ msgstr "Email Verified!"
 
 #: src/pages/dashboard.tsx:53
-msgid "Email:"
-msgstr "Email:"
+#~ msgid "Email:"
+#~ msgstr "Email:"
 
 #: src/shared/ui/msw-dev-tools.tsx:86
 msgid "Enable logging"
@@ -294,14 +289,13 @@ msgid "Enable MSW"
 msgstr "Enable MSW"
 
 #: src/pages/msw-demo.tsx:44
-msgid "Enabled:"
-msgstr "Enabled:"
+#~ msgid "Enabled:"
+#~ msgstr "Enabled:"
 
 #: src/features/change-password-form/ui/change-password-form-feature.tsx:94
 msgid "Enter your current password"
 msgstr "Enter your current password"
 
-#: src/features/email-verification-form/ui/email-verification-form-feature.tsx:189
 #: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:76
 msgid "Enter your email address"
 msgstr "Enter your email address"
@@ -311,8 +305,8 @@ msgid "Enter your email address and we'll send you a link to reset your password
 msgstr "Enter your email address and we'll send you a link to reset your password."
 
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:182
-msgid "Enter your email address and we'll send you a new verification link."
-msgstr "Enter your email address and we'll send you a new verification link."
+#~ msgid "Enter your email address and we'll send you a new verification link."
+#~ msgstr "Enter your email address and we'll send you a new verification link."
 
 #: src/features/change-password-form/ui/change-password-form-feature.tsx:103
 #: src/features/reset-password-form/ui/reset-password-form-feature.tsx:101
@@ -344,8 +338,8 @@ msgid "Failed to change password. Please check your current password."
 msgstr "Failed to change password. Please check your current password."
 
 #: src/features/email-status-checker/ui/email-status-checker-feature.tsx:53
-msgid "Failed to check email status. Please try again."
-msgstr "Failed to check email status. Please try again."
+#~ msgid "Failed to check email status. Please try again."
+#~ msgstr "Failed to check email status. Please try again."
 
 #: src/features/users/components/user-form.tsx:59
 #~ msgid "Failed to create user. Please try again."
@@ -432,8 +426,8 @@ msgid "First name must be less than 100 characters"
 msgstr "First name must be less than 100 characters"
 
 #: src/features/security-settings/ui/security-settings-feature.tsx:106
-msgid "For additional security, we recommend changing your password regularly and enabling two-factor authentication when available."
-msgstr "For additional security, we recommend changing your password regularly and enabling two-factor authentication when available."
+#~ msgid "For additional security, we recommend changing your password regularly and enabling two-factor authentication when available."
+#~ msgstr "For additional security, we recommend changing your password regularly and enabling two-factor authentication when available."
 
 #: src/features/signin-form/ui/signin-form-feature.tsx:117
 msgid "Forgot password?"
@@ -444,8 +438,8 @@ msgid "Go Back"
 msgstr "Go Back"
 
 #: src/pages/unauthorized.tsx:32
-msgid "Go Back Home"
-msgstr "Go Back Home"
+#~ msgid "Go Back Home"
+#~ msgstr "Go Back Home"
 
 #: src/pages/404.tsx:53
 msgid "Go Home"
@@ -460,12 +454,12 @@ msgid "How to handle requests without mocks"
 msgstr "How to handle requests without mocks"
 
 #: src/pages/msw-demo.tsx:77
-msgid "How to Use MSW"
-msgstr "How to Use MSW"
+#~ msgid "How to Use MSW"
+#~ msgstr "How to Use MSW"
 
 #: src/pages/msw-demo.tsx:37
-msgid "Inactive"
-msgstr "Inactive"
+#~ msgid "Inactive"
+#~ msgstr "Inactive"
 
 #: src/features/signin-form/ui/signin-form-feature.tsx:72
 #~ msgid "Invalid credentials. Please try again."
@@ -516,8 +510,8 @@ msgid "Logged Out from All Devices"
 msgstr "Logged Out from All Devices"
 
 #: src/pages/msw-demo.tsx:50
-msgid "Logging:"
-msgstr "Logging:"
+#~ msgid "Logging:"
+#~ msgstr "Logging:"
 
 #: src/features/signin-form/ui/signin-form-feature.tsx:75
 #~ msgid "Login Failed"
@@ -527,7 +521,6 @@ msgstr "Logging:"
 #~ msgid "Login Successful"
 #~ msgstr "Login Successful"
 
-#: src/pages/dashboard.tsx:79
 #: src/processes/auth/ui/user-menu.tsx:68
 msgid "Logout"
 msgstr "Logout"
@@ -539,16 +532,16 @@ msgstr "Logout Failed"
 #: src/features/security-settings/ui/security-settings-feature.tsx:24
 #: src/features/security-settings/ui/security-settings-feature.tsx:40
 #: src/features/security-settings/ui/security-settings-feature.tsx:95
-msgid "Logout from All Devices"
-msgstr "Logout from All Devices"
+#~ msgid "Logout from All Devices"
+#~ msgstr "Logout from All Devices"
 
 #: src/features/security-settings/ui/security-settings-feature.tsx:83
-msgid "Logout from all devices where you're currently signed in. This is useful if you've lost a device or suspect unauthorized access."
-msgstr "Logout from all devices where you're currently signed in. This is useful if you've lost a device or suspect unauthorized access."
+#~ msgid "Logout from all devices where you're currently signed in. This is useful if you've lost a device or suspect unauthorized access."
+#~ msgstr "Logout from all devices where you're currently signed in. This is useful if you've lost a device or suspect unauthorized access."
 
 #: src/features/security-settings/ui/security-settings-feature.tsx:69
-msgid "Manage your account security and active sessions."
-msgstr "Manage your account security and active sessions."
+#~ msgid "Manage your account security and active sessions."
+#~ msgstr "Manage your account security and active sessions."
 
 #: src/shared/lib/form-examples.tsx:21
 msgid "Message must be at least 10 characters"
@@ -560,20 +553,20 @@ msgid "Min 8 characters with uppercase, lowercase, number, and special character
 msgstr "Min 8 characters with uppercase, lowercase, number, and special character"
 
 #: src/pages/msw-demo.tsx:112
-msgid "MSW automatically works in tests - no additional setup required"
-msgstr "MSW automatically works in tests - no additional setup required"
+#~ msgid "MSW automatically works in tests - no additional setup required"
+#~ msgstr "MSW automatically works in tests - no additional setup required"
 
 #: src/pages/msw-demo.tsx:26
-msgid "MSW Demo Page"
-msgstr "MSW Demo Page"
+#~ msgid "MSW Demo Page"
+#~ msgstr "MSW Demo Page"
 
 #: src/shared/ui/msw-dev-tools.tsx:55
 msgid "MSW Dev Tools"
 msgstr "MSW Dev Tools"
 
 #: src/pages/msw-demo.tsx:35
-msgid "MSW Status"
-msgstr "MSW Status"
+#~ msgid "MSW Status"
+#~ msgstr "MSW Status"
 
 #: src/shared/lib/form-validation.ts:82
 #: src/shared/lib/form-validation.ts:90
@@ -600,20 +593,20 @@ msgstr "New password must be different from current password"
 
 #: src/pages/msw-demo.tsx:46
 #: src/pages/msw-demo.tsx:52
-msgid "No"
-msgstr "No"
+#~ msgid "No"
+#~ msgstr "No"
 
 #: src/features/users/components/users-list.tsx:190
 #~ msgid "No users found"
 #~ msgstr "No users found"
 
 #: src/pages/msw-demo.tsx:69
-msgid "None"
-msgstr "None"
+#~ msgid "None"
+#~ msgstr "None"
 
 #: src/features/email-status-checker/ui/email-status-checker-feature.tsx:85
-msgid "Not Verified"
-msgstr "Not Verified"
+#~ msgid "Not Verified"
+#~ msgstr "Not Verified"
 
 #: src/shared/lib/form-validation.ts:219
 msgid "Only JPEG, PNG, and WebP images are allowed"
@@ -738,8 +731,8 @@ msgid "Please confirm your password"
 msgstr "Please confirm your password"
 
 #: src/pages/unauthorized.tsx:23
-msgid "Please contact your administrator if you believe this is an error."
-msgstr "Please contact your administrator if you believe this is an error."
+#~ msgid "Please contact your administrator if you believe this is an error."
+#~ msgstr "Please contact your administrator if you believe this is an error."
 
 #: src/features/signup-form/model/validation.ts:16
 #~ msgid "Please enter a valid email"
@@ -774,8 +767,8 @@ msgid "Please select at least one skill"
 msgstr "Please select at least one skill"
 
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:135
-msgid "Please wait while we verify your email address."
-msgstr "Please wait while we verify your email address."
+#~ msgid "Please wait while we verify your email address."
+#~ msgstr "Please wait while we verify your email address."
 
 #: src/processes/auth/ui/user-menu.tsx:59
 msgid "Profile"
@@ -786,8 +779,8 @@ msgid "Re-enter your password"
 msgstr "Re-enter your password"
 
 #: src/features/email-status-checker/ui/email-status-checker-feature.tsx:91
-msgid "Registered"
-msgstr "Registered"
+#~ msgid "Registered"
+#~ msgstr "Registered"
 
 #: src/features/signup-form/ui/signup-form-feature.tsx:66
 msgid "Registration Failed"
@@ -836,8 +829,8 @@ msgstr "Response delay (ms)"
 #~ msgstr "Role"
 
 #: src/pages/dashboard.tsx:60
-msgid "Roles:"
-msgstr "Roles:"
+#~ msgid "Roles:"
+#~ msgstr "Roles:"
 
 #: src/shared/ui/msw-dev-tools.tsx:57
 msgid "Running"
@@ -848,8 +841,8 @@ msgstr "Running"
 #~ msgstr "Search users..."
 
 #: src/features/security-settings/ui/security-settings-feature.tsx:65
-msgid "Security Settings"
-msgstr "Security Settings"
+#~ msgid "Security Settings"
+#~ msgstr "Security Settings"
 
 #: src/features/users/components/user-form.tsx:121
 #~ msgid "Select user role"
@@ -864,22 +857,22 @@ msgid "Send Reset Link"
 msgstr "Send Reset Link"
 
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:200
-msgid "Send Verification Email"
-msgstr "Send Verification Email"
+#~ msgid "Send Verification Email"
+#~ msgstr "Send Verification Email"
 
 #: src/pages/reset-password.tsx:18
 msgid "Set New Password"
 msgstr "Set New Password"
 
 #: src/pages/msw-demo.tsx:85
-msgid "Set VITE_ENABLE_MSW=true in your .env file"
-msgstr "Set VITE_ENABLE_MSW=true in your .env file"
+#~ msgid "Set VITE_ENABLE_MSW=true in your .env file"
+#~ msgstr "Set VITE_ENABLE_MSW=true in your .env file"
 
 #: src/features/signin-form/ui/signin-form-feature.tsx:126
 msgid "Sign In"
 msgstr "Sign In"
 
-#: src/pages/index.tsx:26
+#: src/pages/index.tsx:25
 #: src/pages/login.tsx:18
 msgid "Sign in to your account to continue"
 msgstr "Sign in to your account to continue"
@@ -893,8 +886,8 @@ msgid "Something went wrong"
 msgstr "Something went wrong"
 
 #: src/features/email-status-checker/ui/email-status-checker-feature.tsx:72
-msgid "Status"
-msgstr "Status"
+#~ msgid "Status"
+#~ msgstr "Status"
 
 #: src/shared/ui/msw-dev-tools.tsx:57
 msgid "Stopped"
@@ -905,16 +898,16 @@ msgid "Strong"
 msgstr "Strong"
 
 #: src/pages/dashboard.tsx:67
-msgid "Tenant:"
-msgstr "Tenant:"
+#~ msgid "Tenant:"
+#~ msgstr "Tenant:"
 
 #: src/pages/404.tsx:36
 msgid "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable."
 msgstr "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable."
 
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:164
-msgid "The verification link is invalid or has expired. You can request a new verification email below."
-msgstr "The verification link is invalid or has expired. You can request a new verification email below."
+#~ msgid "The verification link is invalid or has expired. You can request a new verification email below."
+#~ msgstr "The verification link is invalid or has expired. You can request a new verification email below."
 
 #: src/pages/msw-demo.tsx:81
 #~ msgid "This component fetches data from /api/v1/users. When MSW is enabled, it returns mock data. When disabled, it will attempt to call your real API."
@@ -925,8 +918,8 @@ msgid "This field is required"
 msgstr "This field is required"
 
 #: src/pages/msw-demo.tsx:29
-msgid "This page demonstrates Mock Service Worker (MSW) functionality with mocked API responses when MSW is enabled."
-msgstr "This page demonstrates Mock Service Worker (MSW) functionality with mocked API responses when MSW is enabled."
+#~ msgid "This page demonstrates Mock Service Worker (MSW) functionality with mocked API responses when MSW is enabled."
+#~ msgstr "This page demonstrates Mock Service Worker (MSW) functionality with mocked API responses when MSW is enabled."
 
 #: src/pages/msw-demo.tsx:30
 #~ msgid "This page demonstrates Mock Service Worker (MSW) functionality. The users list below uses mocked API responses when MSW is enabled."
@@ -937,8 +930,8 @@ msgid "This password reset link is invalid or has expired. Please request a new 
 msgstr "This password reset link is invalid or has expired. Please request a new password reset."
 
 #: src/features/security-settings/ui/security-settings-feature.tsx:28
-msgid "This will log you out from all devices where you're currently signed in, including this device."
-msgstr "This will log you out from all devices where you're currently signed in, including this device."
+#~ msgid "This will log you out from all devices where you're currently signed in, including this device."
+#~ msgstr "This will log you out from all devices where you're currently signed in, including this device."
 
 #: src/shared/ui/msw-dev-tools.tsx:63
 msgid "Toggle MSW settings"
@@ -953,8 +946,8 @@ msgid "Unhandled requests"
 msgstr "Unhandled requests"
 
 #: src/pages/msw-demo.tsx:56
-msgid "Unhandled Requests:"
-msgstr "Unhandled Requests:"
+#~ msgid "Unhandled Requests:"
+#~ msgstr "Unhandled Requests:"
 
 #: src/features/users/components/user-form.tsx:62
 #~ msgid "Update Failed"
@@ -969,8 +962,8 @@ msgid "Update your password to keep your account secure."
 msgstr "Update your password to keep your account secure."
 
 #: src/pages/msw-demo.tsx:94
-msgid "Use the floating MSW Dev Tools panel (bottom-right) to control MSW at runtime"
-msgstr "Use the floating MSW Dev Tools panel (bottom-right) to control MSW at runtime"
+#~ msgid "Use the floating MSW Dev Tools panel (bottom-right) to control MSW at runtime"
+#~ msgstr "Use the floating MSW Dev Tools panel (bottom-right) to control MSW at runtime"
 
 #: src/features/users/components/user-form.tsx:70
 #: src/features/users/components/users-list.tsx:126
@@ -1041,22 +1034,21 @@ msgstr "Username or email must be at least 3 characters"
 msgid "Verification Email Sent"
 msgstr "Verification Email Sent"
 
-#: src/features/email-verification-form/ui/email-verification-form-feature.tsx:160
 #: src/shared/lib/use-auth-api.ts:131
 msgid "Verification Failed"
 msgstr "Verification Failed"
 
 #: src/features/email-status-checker/ui/email-status-checker-feature.tsx:85
-msgid "Verified"
-msgstr "Verified"
+#~ msgid "Verified"
+#~ msgstr "Verified"
 
 #: src/pages/verify-email.tsx:19
-msgid "Verify Your Email"
-msgstr "Verify Your Email"
+#~ msgid "Verify Your Email"
+#~ msgstr "Verify Your Email"
 
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:132
-msgid "Verifying Your Email..."
-msgstr "Verifying Your Email..."
+#~ msgid "Verifying Your Email..."
+#~ msgstr "Verifying Your Email..."
 
 #: src/shared/ui/form-field/form-field.tsx:355
 #: src/shared/ui/form-field/form-field.tsx:366
@@ -1103,34 +1095,34 @@ msgstr "Welcome Back"
 #~ msgid "Welcome back, {firstName}!"
 #~ msgstr "Welcome back, {firstName}!"
 
-#: src/pages/index.tsx:25
+#: src/pages/index.tsx:24
 msgid "Welcome to IQKV"
 msgstr "Welcome to IQKV"
 
 #: src/pages/dashboard.tsx:42
-msgid "Welcome, {userFullName}!"
-msgstr "Welcome, {userFullName}!"
+#~ msgid "Welcome, {userFullName}!"
+#~ msgstr "Welcome, {userFullName}!"
 
 #: src/pages/msw-demo.tsx:46
 #: src/pages/msw-demo.tsx:52
-msgid "Yes"
-msgstr "Yes"
+#~ msgid "Yes"
+#~ msgstr "Yes"
 
 #: src/pages/dashboard.tsx:48
-msgid "You are successfully authenticated and can access protected content."
-msgstr "You are successfully authenticated and can access protected content."
+#~ msgid "You are successfully authenticated and can access protected content."
+#~ msgstr "You are successfully authenticated and can access protected content."
 
 #: src/pages/unauthorized.tsx:19
-msgid "You don't have permission to access this page."
-msgstr "You don't have permission to access this page."
+#~ msgid "You don't have permission to access this page."
+#~ msgstr "You don't have permission to access this page."
 
 #: src/shared/lib/use-auth-api.ts:67
 msgid "You have been logged out from all devices"
 msgstr "You have been logged out from all devices"
 
 #: src/features/security-settings/ui/security-settings-feature.tsx:35
-msgid "You will need to sign in again on all devices."
-msgstr "You will need to sign in again on all devices."
+#~ msgid "You will need to sign in again on all devices."
+#~ msgstr "You will need to sign in again on all devices."
 
 #: src/features/signup-form/ui/signup-form-feature.tsx:47
 msgid "Your account has been created. Please verify your email."
@@ -1141,8 +1133,8 @@ msgid "Your email has been successfully verified"
 msgstr "Your email has been successfully verified"
 
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:148
-msgid "Your email has been successfully verified. You will be redirected to the login page shortly."
-msgstr "Your email has been successfully verified. You will be redirected to the login page shortly."
+#~ msgid "Your email has been successfully verified. You will be redirected to the login page shortly."
+#~ msgstr "Your email has been successfully verified. You will be redirected to the login page shortly."
 
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:69
 #~ msgid "Your email has been verified. You can now sign in to your account."

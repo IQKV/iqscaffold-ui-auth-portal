@@ -9,9 +9,12 @@ window.VITE_AUTH_DOMAIN_AUTH = "https://auth.example.com";
 window.VITE_AUTH_DOMAIN_APP = "https://app.example.com";
 
 // Auth redirects
-window.VITE_AUTH_REDIRECT_AFTER_LOGIN = "https://app.example.com/dashboard";
+// After successful login, always redirect to app domain root
+window.VITE_AUTH_REDIRECT_AFTER_LOGIN = "https://app.example.com";
+// After logout, redirect back to auth login page
 window.VITE_AUTH_REDIRECT_AFTER_LOGOUT = "https://auth.example.com/login";
-window.VITE_AUTH_REDIRECT_AFTER_SIGNUP = "https://auth.example.com/welcome";
+// After signup, redirect to auth login page
+window.VITE_AUTH_REDIRECT_AFTER_SIGNUP = "https://auth.example.com/login";
 
 // Mock Service Worker
 window.VITE_ENABLE_MSW = "false"; // "true" to enable in browser

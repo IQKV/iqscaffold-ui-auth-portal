@@ -1,19 +1,18 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { SignInFormFeature } from "@/features/signin-form";
 import { AuthLayout } from "@/widgets";
 import { t } from "@lingui/core/macro";
-import { useIsAuthenticated } from "@/processes/auth";
+import { getAuthConfig } from "@/app/config";
 
 export const Route = createFileRoute("/")({
   beforeLoad: async () => {
-    // Check if user is already authenticated
+    // Check if user is already authenticated and redirect to app domain
     const { useAuthStore } = await import("@/processes/auth");
     const { isAuthenticated } = useAuthStore.getState();
 
     if (isAuthenticated) {
-      throw redirect({
-        to: "/dashboard",
-      });
+      const authConfig = getAuthConfig();
+      window.location.href = authConfig.redirects.afterLogin;
     }
   },
   component: HomePage,
@@ -25,7 +24,7 @@ function HomePage() {
       title={t`Welcome to IQKV`}
       subtitle={t`Sign in to your account to continue`}
     >
-      <SignInFormFeature />
+      <SignInFormFeature useExternalRedirect />
     </AuthLayout>
   );
 }

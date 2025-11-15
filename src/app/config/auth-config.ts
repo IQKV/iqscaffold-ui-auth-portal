@@ -68,17 +68,20 @@ const buildAuthConfig = (): AuthConfig => {
       refreshTokenKey: "refreshToken",
     },
     redirects: {
+      // Always redirect to app domain root after successful login
       afterLogin: getConfig(
         "VITE_AUTH_REDIRECT_AFTER_LOGIN",
         appDomain
       ) as string,
+      // Redirect to auth domain login page after logout
       afterLogout: getConfig(
         "VITE_AUTH_REDIRECT_AFTER_LOGOUT",
-        authDomain
+        `${authDomain}/login`
       ) as string,
+      // Redirect to auth domain login page after signup
       afterSignup: getConfig(
         "VITE_AUTH_REDIRECT_AFTER_SIGNUP",
-        authDomain
+        `${authDomain}/login`
       ) as string,
     },
     domains: {
