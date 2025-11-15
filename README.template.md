@@ -80,7 +80,7 @@ IQKV Authentication System is a production-ready authentication and user managem
 ### 🔐 Authentication Features
 
 - **Sign In/Sign Up**: Complete user registration and login flows
-- **Password Management**: Forgot password, reset password with secure tokens
+- **Password Reset API**: Forgot password, reset password with secure tokens
 - **Email Verification**: Account activation and email confirmation
 - **Session Management**: JWT token handling with automatic refresh
 - **Multi-Domain Support**: Configurable auth and app domains
