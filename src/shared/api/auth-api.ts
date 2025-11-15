@@ -139,6 +139,21 @@ export const authApi = {
   },
 
   /**
+   * Validate password reset token
+   */
+  async validateResetToken(token: string): Promise<boolean> {
+    const config = getAuthConfig();
+    try {
+      await apiClient.head(config.endpoints.resetPassword, {
+        params: { token },
+      });
+      return true;
+    } catch (error) {
+      return false;
+    }
+  },
+
+  /**
    * Reset password with token
    */
   async resetPassword(token: string, newPassword: string): Promise<void> {

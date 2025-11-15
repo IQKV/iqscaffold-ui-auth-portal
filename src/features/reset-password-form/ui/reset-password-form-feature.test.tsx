@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MantineProvider } from "@mantine/core";
@@ -11,6 +11,7 @@ import { authApi } from "@/shared/api";
 vi.mock("@/shared/api", () => ({
   authApi: {
     resetPassword: vi.fn(),
+    validateResetToken: vi.fn(),
   },
 }));
 
@@ -48,18 +49,24 @@ describe("ResetPasswordFormFeature", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockUseSearch.mockReturnValue({ token: "valid-token" });
+    // Mock token validation to return true by default
+    vi.mocked(authApi.validateResetToken).mockResolvedValue(true);
   });
 
-  it("renders all form elements correctly with valid token", () => {
+  it("renders all form elements correctly with valid token", async () => {
     render(
       <TestWrapper>
         <ResetPasswordFormFeature token="valid-token" />
       </TestWrapper>
     );
 
-    expect(
-      screen.getByPlaceholderText("Enter your new password")
-    ).toBeInTheDocument();
+    // Wait for validation to complete
+    await waitFor(() => {
+      expect(
+        screen.getByPlaceholderText("Enter your new password")
+      ).toBeInTheDocument();
+    });
+
     expect(
       screen.getByPlaceholderText("Confirm your new password")
     ).toBeInTheDocument();
@@ -101,6 +108,13 @@ describe("ResetPasswordFormFeature", () => {
       </TestWrapper>
     );
 
+    // Wait for validation to complete
+    await waitFor(() => {
+      expect(
+        screen.getByPlaceholderText("Enter your new password")
+      ).toBeInTheDocument();
+    });
+
     const passwordInput = screen.getByPlaceholderText(
       "Enter your new password"
     );
@@ -124,6 +138,13 @@ describe("ResetPasswordFormFeature", () => {
         <ResetPasswordFormFeature token="valid-token" />
       </TestWrapper>
     );
+
+    // Wait for validation to complete
+    await waitFor(() => {
+      expect(
+        screen.getByPlaceholderText("Enter your new password")
+      ).toBeInTheDocument();
+    });
 
     const passwordInput = screen.getByPlaceholderText(
       "Enter your new password"
@@ -150,6 +171,13 @@ describe("ResetPasswordFormFeature", () => {
         <ResetPasswordFormFeature token="valid-token" />
       </TestWrapper>
     );
+
+    // Wait for validation to complete
+    await waitFor(() => {
+      expect(
+        screen.getByPlaceholderText("Enter your new password")
+      ).toBeInTheDocument();
+    });
 
     const passwordInput = screen.getByPlaceholderText(
       "Enter your new password"
@@ -183,6 +211,13 @@ describe("ResetPasswordFormFeature", () => {
       </TestWrapper>
     );
 
+    // Wait for validation to complete
+    await waitFor(() => {
+      expect(
+        screen.getByPlaceholderText("Enter your new password")
+      ).toBeInTheDocument();
+    });
+
     const passwordInput = screen.getByPlaceholderText(
       "Enter your new password"
     );
@@ -209,6 +244,13 @@ describe("ResetPasswordFormFeature", () => {
       </TestWrapper>
     );
 
+    // Wait for validation to complete
+    await waitFor(() => {
+      expect(
+        screen.getByPlaceholderText("Enter your new password")
+      ).toBeInTheDocument();
+    });
+
     const passwordInput = screen.getByPlaceholderText(
       "Enter your new password"
     );
@@ -234,6 +276,13 @@ describe("ResetPasswordFormFeature", () => {
         <ResetPasswordFormFeature token="valid-token" />
       </TestWrapper>
     );
+
+    // Wait for validation to complete
+    await waitFor(() => {
+      expect(
+        screen.getByPlaceholderText("Enter your new password")
+      ).toBeInTheDocument();
+    });
 
     const passwordInput = screen.getByPlaceholderText(
       "Enter your new password"
@@ -264,6 +313,11 @@ describe("ResetPasswordFormFeature", () => {
       </TestWrapper>
     );
 
+    // Wait for validation to complete
+    await waitFor(() => {
+      expect(screen.getByText("Back to Sign In")).toBeInTheDocument();
+    });
+
     const backButton = screen.getByText("Back to Sign In");
     await user.click(backButton);
 
@@ -276,6 +330,11 @@ describe("ResetPasswordFormFeature", () => {
         <ResetPasswordFormFeature token="valid-token" />
       </TestWrapper>
     );
+
+    // Wait for validation to complete
+    await waitFor(() => {
+      expect(screen.getByText("Back to Sign In")).toBeInTheDocument();
+    });
 
     const backButton = screen.getByText("Back to Sign In");
     await user.click(backButton);
@@ -292,6 +351,13 @@ describe("ResetPasswordFormFeature", () => {
         <ResetPasswordFormFeature token="valid-token" />
       </TestWrapper>
     );
+
+    // Wait for validation to complete
+    await waitFor(() => {
+      expect(
+        screen.getByPlaceholderText("Enter your new password")
+      ).toBeInTheDocument();
+    });
 
     const passwordInput = screen.getByPlaceholderText(
       "Enter your new password"
@@ -325,6 +391,13 @@ describe("ResetPasswordFormFeature", () => {
       </TestWrapper>
     );
 
+    // Wait for validation to complete
+    await waitFor(() => {
+      expect(
+        screen.getByPlaceholderText("Enter your new password")
+      ).toBeInTheDocument();
+    });
+
     const passwordInput = screen.getByPlaceholderText(
       "Enter your new password"
     );
@@ -356,6 +429,13 @@ describe("ResetPasswordFormFeature", () => {
       </TestWrapper>
     );
 
+    // Wait for validation to complete
+    await waitFor(() => {
+      expect(
+        screen.getByPlaceholderText("Enter your new password")
+      ).toBeInTheDocument();
+    });
+
     const passwordInput = screen.getByPlaceholderText(
       "Enter your new password"
     );
@@ -381,6 +461,13 @@ describe("ResetPasswordFormFeature", () => {
         <ResetPasswordFormFeature token="valid-token" />
       </TestWrapper>
     );
+
+    // Wait for validation to complete
+    await waitFor(() => {
+      expect(
+        screen.getByPlaceholderText("Enter your new password")
+      ).toBeInTheDocument();
+    });
 
     const passwordInput = screen.getByPlaceholderText(
       "Enter your new password"
@@ -440,7 +527,7 @@ describe("ResetPasswordFormFeature", () => {
     expect(screen.getByText("Invalid Reset Link")).toBeInTheDocument();
   });
 
-  it("uses token from props over search params", () => {
+  it("uses token from props over search params", async () => {
     mockUseSearch.mockReturnValue({ token: "search-token" });
 
     render(
@@ -449,10 +536,66 @@ describe("ResetPasswordFormFeature", () => {
       </TestWrapper>
     );
 
-    // Should render the form (not the invalid token message)
-    expect(
-      screen.getByPlaceholderText("Enter your new password")
-    ).toBeInTheDocument();
+    // Wait for validation to complete
+    await waitFor(() => {
+      expect(
+        screen.getByPlaceholderText("Enter your new password")
+      ).toBeInTheDocument();
+    });
     expect(screen.queryByText("Invalid Reset Link")).not.toBeInTheDocument();
+  });
+
+  it("shows loading state while validating token", () => {
+    // Mock a delayed validation
+    vi.mocked(authApi.validateResetToken).mockImplementation(
+      () => new Promise((resolve) => setTimeout(() => resolve(true), 100))
+    );
+
+    render(
+      <TestWrapper>
+        <ResetPasswordFormFeature token="valid-token" />
+      </TestWrapper>
+    );
+
+    expect(screen.getByText("Validating reset link...")).toBeInTheDocument();
+  });
+
+  it("shows invalid token message when token validation fails", async () => {
+    vi.mocked(authApi.validateResetToken).mockResolvedValue(false);
+
+    render(
+      <TestWrapper>
+        <ResetPasswordFormFeature token="invalid-token" />
+      </TestWrapper>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Invalid Reset Link")).toBeInTheDocument();
+    });
+    expect(
+      screen.getByText(
+        "This password reset link is invalid or has expired. Please request a new password reset."
+      )
+    ).toBeInTheDocument();
+  });
+
+  it("validates token before showing form", async () => {
+    render(
+      <TestWrapper>
+        <ResetPasswordFormFeature token="valid-token" />
+      </TestWrapper>
+    );
+
+    // Token validation should be called
+    await waitFor(() => {
+      expect(authApi.validateResetToken).toHaveBeenCalledWith("valid-token");
+    });
+
+    // Form should be visible after successful validation
+    await waitFor(() => {
+      expect(
+        screen.getByPlaceholderText("Enter your new password")
+      ).toBeInTheDocument();
+    });
   });
 });

@@ -6,6 +6,7 @@ import { apiClient } from "./base";
 vi.mock("./base", () => ({
   apiClient: {
     post: vi.fn(),
+    head: vi.fn(),
   },
 }));
 
@@ -159,9 +160,42 @@ describe("authApi", () => {
 
       await authApi.forgotPassword(email);
 
-      expect(apiClient.post).toHaveBeenCalledWith("/api/v1/auth/password/forgot", {
-        email,
-      });
+      expect(apiClient.post).toHaveBeenCalledWith(
+        "/api/v1/auth/password/forgot",
+        {
+          email,
+        }
+      );
+    });
+  });
+
+  describe("validateResetToken", () => {
+    it("should return true when token is valid", async () => {
+      vi.mocked(apiClient.head).mockResolvedValue({ data: undefined });
+
+      const token = "valid-token";
+
+      const result = await authApi.validateResetToken(token);
+
+      expect(apiClient.head).toHaveBeenCalledWith(
+        "/api/v1/auth/password/reset",
+        { params: { token } }
+      );
+      expect(result).toBe(true);
+    });
+
+    it("should return false when token is invalid", async () => {
+      vi.mocked(apiClient.head).mockRejectedValue(new Error("Not found"));
+
+      const token = "invalid-token";
+
+      const result = await authApi.validateResetToken(token);
+
+      expect(apiClient.head).toHaveBeenCalledWith(
+        "/api/v1/auth/password/reset",
+        { params: { token } }
+      );
+      expect(result).toBe(false);
     });
   });
 

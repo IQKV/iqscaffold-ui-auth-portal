@@ -97,8 +97,8 @@ msgid "At least one item is required"
 msgstr "At least one item is required"
 
 #: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:99
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:82
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:134
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:114
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:166
 msgid "Back to Sign In"
 msgstr "Back to Sign In"
 
@@ -141,7 +141,7 @@ msgstr "Confirm"
 msgid "Confirm Action"
 msgstr "Confirm Action"
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:110
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:142
 msgid "Confirm New Password"
 msgstr "Confirm New Password"
 
@@ -149,7 +149,7 @@ msgstr "Confirm New Password"
 msgid "Confirm Password"
 msgstr "Confirm Password"
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:111
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:143
 msgid "Confirm your new password"
 msgstr "Confirm your new password"
 
@@ -306,11 +306,11 @@ msgstr "Enter your email address and we'll send you a link to reset your passwor
 #~ msgid "Enter your email address and we'll send you a new verification link."
 #~ msgstr "Enter your email address and we'll send you a new verification link."
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:101
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:133
 msgid "Enter your new password"
 msgstr "Enter your new password"
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:94
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:126
 msgid "Enter your new password below. Make sure it's strong and secure."
 msgstr "Enter your new password below. Make sure it's strong and secure."
 
@@ -350,7 +350,7 @@ msgstr "Failed to logout from all devices"
 #~ msgid "Failed to reset password. Please try again or request a new reset link."
 #~ msgstr "Failed to reset password. Please try again or request a new reset link."
 
-#: src/shared/lib/use-auth-api.ts:188
+#: src/shared/lib/use-auth-api.ts:201
 msgid "Failed to reset password. The link may be invalid or expired."
 msgstr "Failed to reset password. The link may be invalid or expired."
 
@@ -462,7 +462,7 @@ msgstr "How to handle requests without mocks"
 #~ msgid "Invalid credentials. Please try again."
 #~ msgstr "Invalid credentials. Please try again."
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:76
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:108
 msgid "Invalid Reset Link"
 msgstr "Invalid Reset Link"
 
@@ -577,7 +577,7 @@ msgstr "Must be a valid number"
 msgid "Name must be less than 100 characters"
 msgstr "Name must be less than 100 characters"
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:100
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:132
 msgid "New Password"
 msgstr "New Password"
 
@@ -684,11 +684,11 @@ msgstr "Password must include at least one special character (@$!%*?&)"
 msgid "Password must include at least one uppercase letter"
 msgstr "Password must include at least one uppercase letter"
 
-#: src/shared/lib/use-auth-api.ts:185
+#: src/shared/lib/use-auth-api.ts:198
 msgid "Password Reset Failed"
 msgstr "Password Reset Failed"
 
-#: src/shared/lib/use-auth-api.ts:178
+#: src/shared/lib/use-auth-api.ts:191
 msgid "Password Reset Successful"
 msgstr "Password Reset Successful"
 
@@ -802,7 +802,7 @@ msgstr "Remember me"
 msgid "Reset Link Sent"
 msgstr "Reset Link Sent"
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:122
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:154
 msgid "Reset Password"
 msgstr "Reset Password"
 
@@ -916,7 +916,7 @@ msgstr "This field is required"
 #~ msgid "This page demonstrates Mock Service Worker (MSW) functionality. The users list below uses mocked API responses when MSW is enabled."
 #~ msgstr "This page demonstrates Mock Service Worker (MSW) functionality. The users list below uses mocked API responses when MSW is enabled."
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:79
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:111
 msgid "This password reset link is invalid or has expired. Please request a new password reset."
 msgstr "This password reset link is invalid or has expired. Please request a new password reset."
 
@@ -1016,6 +1016,10 @@ msgstr "Username or email must be at least 3 characters"
 #: src/pages/msw-demo.tsx:78
 #~ msgid "Users Management Demo"
 #~ msgstr "Users Management Demo"
+
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:94
+msgid "Validating reset link..."
+msgstr "Validating reset link..."
 
 #: src/shared/lib/form-validation.ts:321
 #~ msgid "Verification code is required"
@@ -1135,7 +1139,7 @@ msgstr "Your email has been successfully verified"
 msgid "Your password has been successfully changed"
 msgstr "Your password has been successfully changed"
 
-#: src/shared/lib/use-auth-api.ts:179
+#: src/shared/lib/use-auth-api.ts:192
 msgid "Your password has been successfully reset"
 msgstr "Your password has been successfully reset"
 

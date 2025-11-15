@@ -1,9 +1,21 @@
-import { Anchor, Button, Card, Group, Stack, Text } from "@mantine/core";
+import {
+  Anchor,
+  Button,
+  Card,
+  Group,
+  Stack,
+  Text,
+  Loader,
+  Center,
+} from "@mantine/core";
 import { IconLock, IconArrowLeft } from "@tabler/icons-react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { t } from "@lingui/core/macro";
-import { useResetPassword } from "@/shared/lib/use-auth-api";
+import {
+  useResetPassword,
+  useValidateResetToken,
+} from "@/shared/lib/use-auth-api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
 import { FormField } from "@/shared/ui";
 import {
@@ -28,6 +40,10 @@ export function ResetPasswordFormFeature({
 
   // Get token from props or URL search params
   const token = propToken || search.token;
+
+  // Validate the reset token
+  const { data: isTokenValid, isLoading: isValidating } =
+    useValidateResetToken(token);
 
   const form = useForm<ResetPasswordFormSchemaType>({
     initialValues: initialResetPasswordValues,
@@ -67,8 +83,24 @@ export function ResetPasswordFormFeature({
     }
   };
 
-  // Show error if no token is provided
-  if (!token) {
+  // Show loading state while validating token
+  if (isValidating) {
+    return (
+      <Card shadow="md" padding="xl" radius="md" withBorder>
+        <Center py="xl">
+          <Stack gap="md" align="center">
+            <Loader size="lg" />
+            <Text size="sm" c="dimmed">
+              {t`Validating reset link...`}
+            </Text>
+          </Stack>
+        </Center>
+      </Card>
+    );
+  }
+
+  // Show error if no token is provided or token is invalid
+  if (!token || isTokenValid === false) {
     return (
       <Card shadow="md" padding="xl" radius="md" withBorder>
         <Stack gap="md" align="center">

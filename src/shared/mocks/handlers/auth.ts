@@ -221,6 +221,32 @@ export const authHandlers = [
     });
   }),
 
+  // Validate reset token
+  http.head("/api/v1/auth/password/reset", async ({ request }) => {
+    if (config.delay) {
+      await delay(
+        typeof config.delay === "object"
+          ? Math.random() * (config.delay.max - config.delay.min) +
+              config.delay.min
+          : config.delay
+      );
+    }
+
+    const url = new URL(request.url);
+    const token = url.searchParams.get("token");
+
+    if (config.enableLogging) {
+      console.log("✅ MSW: Validate reset token", { token });
+    }
+
+    // Valid token returns 200, invalid returns 404
+    if (token === "valid-reset-token") {
+      return new HttpResponse(null, { status: 200 });
+    }
+
+    return new HttpResponse(null, { status: 404 });
+  }),
+
   // Reset password
   http.post("/api/v1/auth/password/reset", async ({ request }) => {
     if (config.delay) {

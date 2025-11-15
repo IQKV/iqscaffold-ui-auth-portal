@@ -162,6 +162,19 @@ export function useForgotPassword() {
 }
 
 /**
+ * Hook for validating password reset token
+ */
+export function useValidateResetToken(token: string | undefined) {
+  return useQuery({
+    queryKey: ["validate-reset-token", token],
+    queryFn: () => authApi.validateResetToken(token!),
+    enabled: !!token,
+    retry: false,
+    staleTime: 0,
+  });
+}
+
+/**
  * Hook for resetting password
  */
 export function useResetPassword() {
