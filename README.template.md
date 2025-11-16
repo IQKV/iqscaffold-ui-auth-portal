@@ -2,6 +2,8 @@
 
 > Modern authentication frontend providing user registration, login, password management, and seamless integration with the IQKV microservices platform.
 
+**Note:** This project serves as a starting point for developing an authentication portal for SAAS applications, providing a solid foundation with modern patterns and best practices.
+
 ## Business Purpose
 
 A dedicated authentication portal that handles:
