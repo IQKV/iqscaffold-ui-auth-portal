@@ -1,6 +1,6 @@
-# 🔐 Gripday Auth Portal
+# 🔐 IQKV Auth Portal
 
-> Modern authentication frontend providing user registration, login, password management, and seamless integration with the Gripday microservices platform.
+> Modern authentication frontend providing user registration, login, password management, and seamless integration with the IQKV microservices platform.
 
 ## Business Purpose
 
@@ -15,7 +15,7 @@ A dedicated authentication portal that handles:
 
 ## Overview
 
-This is the authentication frontend for the Gripday microservices platform. It provides a modern, accessible, and performant user interface for identity management, delegating authentication concerns to the backend User Service while maintaining a clean separation between authentication flows and application-specific features.
+This is the authentication frontend for the IQKV microservices platform. It provides a modern, accessible, and performant user interface for identity management, delegating authentication concerns to the backend User Service while maintaining a clean separation between authentication flows and application-specific features.
 
 ## What It Demonstrates
 
