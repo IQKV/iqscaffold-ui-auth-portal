@@ -219,10 +219,39 @@ This project follows **Feature-Sliced Design (FSD)** methodology for scalable fr
 
 ### Environment Variables
 
-| Variable   | Description                | Default       |
-| ---------- | -------------------------- | ------------- |
-| `TZ`       | Defines timezone           | `UTC`         |
-| `NODE_ENV` | Defines nodejs environment | `development` |
+| Variable                          | Description                                   | Default                 | Required |
+| --------------------------------- | --------------------------------------------- | ----------------------- | -------- |
+| `VITE_API_URL_SERVER`             | Backend API base URL (user service)           | `http://localhost:8080` | Yes      |
+| `VITE_AUTH_DOMAIN_AUTH`           | Auth portal domain                            | `https://auth.iqkv.com` | Yes      |
+| `VITE_AUTH_DOMAIN_APP`            | Main application domain                       | `https://app.iqkv.com`  | Yes      |
+| `VITE_AUTH_REDIRECT_AFTER_LOGIN`  | Redirect URL after successful login           | `VITE_AUTH_DOMAIN_APP`  | No       |
+| `VITE_AUTH_REDIRECT_AFTER_LOGOUT` | Redirect URL after logout                     | `{AUTH_DOMAIN}/login`   | No       |
+| `VITE_AUTH_REDIRECT_AFTER_SIGNUP` | Redirect URL after signup                     | `{AUTH_DOMAIN}/login`   | No       |
+| `VITE_ENABLE_MSW`                 | Enable Mock Service Worker for API mocking    | `true`                  | No       |
+| `VITE_LOG_LEVEL`                  | Console logging verbosity (silent/info/debug) | `info`                  | No       |
+| `TZ`                              | Defines timezone                              | `UTC`                   | No       |
+| `NODE_ENV`                        | Defines nodejs environment                    | `development`           | No       |
+
+#### API Endpoints
+
+The auth portal connects to the following backend endpoints (configured via `VITE_API_URL_SERVER`):
+
+**Public Endpoints:**
+
+- `POST /api/v1/auth/signup` - Register new user
+- `POST /api/v1/auth/login` - Authenticate user
+- `POST /api/v1/auth/refresh` - Refresh access token
+- `POST /api/v1/auth/validate` - Validate JWT token
+- `GET /api/v1/auth/email/verify` - Verify email address
+- `POST /api/v1/auth/email/resend` - Resend verification email
+- `POST /api/v1/auth/password/forgot` - Initiate password reset
+- `POST /api/v1/auth/password/reset` - Reset password
+
+**Protected Endpoints:**
+
+- `PATCH /api/v1/me/password` - Change password (requires authentication)
+- `POST /api/v1/auth/logout` - Logout current session
+- `POST /api/v1/auth/logout-all` - Logout all sessions
 
 ---
 
