@@ -249,7 +249,7 @@ The auth portal connects to the following backend endpoints (configured via `VIT
 
 **Protected Endpoints:**
 
-- `PATCH /api/v1/me/password` - Change password (requires authentication)
+- `PATCH /api/v1/users/me/password` - Change password (requires authentication)
 - `POST /api/v1/auth/logout` - Logout current session
 - `POST /api/v1/auth/logout-all` - Logout all sessions
 
