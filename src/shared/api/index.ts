@@ -12,3 +12,11 @@ export type {
   AuthUser,
   UserRegistration,
 } from "./auth-api";
+
+export { tenantApi } from "./tenant-api";
+export type {
+  TenantResponse,
+  CreateTenantRequest,
+  UpdateTenantRequest,
+  TenantStatistics,
+} from "./tenant-api";

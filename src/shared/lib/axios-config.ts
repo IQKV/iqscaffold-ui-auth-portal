@@ -66,6 +66,21 @@ export function createApiClient(config: ApiClientConfig = {}): AxiosInstance {
           `corr-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       }
 
+      // Add tenant ID header if available
+      if (typeof window !== "undefined") {
+        try {
+          // Import tenant store dynamically to avoid circular dependencies
+          const { useTenantStore } = await import("@/processes/tenant");
+          const tenantId = useTenantStore.getState().currentTenantId;
+          if (tenantId && !config.headers["X-Tenant-ID"]) {
+            config.headers["X-Tenant-ID"] = tenantId;
+          }
+        } catch (error) {
+          // Tenant store not available, continue without tenant header
+          console.debug("Tenant store not available for request interceptor");
+        }
+      }
+
       // Log request in development
       if (enableLogging) {
         console.log(`🚀 ${config.method?.toUpperCase()} ${config.url}`, {

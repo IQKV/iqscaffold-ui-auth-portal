@@ -11,7 +11,7 @@ export interface AuthUser {
   lastName: string;
   roles: string[];
   permissions: string[];
-  tenantId: string;
+  tenantId: string | null;
   emailVerified?: boolean;
   customClaims: Record<string, unknown>;
 }

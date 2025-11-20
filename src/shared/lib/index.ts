@@ -14,3 +14,6 @@ export { useMSWControl } from "./use-msw-control";
 // Form validation utilities
 export * from "./form-validation";
 export * from "./enhanced-form-hook";
+
+// Tenant utilities
+export * from "./tenant-utils";

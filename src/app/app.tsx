@@ -18,6 +18,7 @@ import { queryClient } from "@/shared/lib";
 import { ErrorBoundary } from "@/shared/ui";
 import { MSWDevTools } from "@/shared/ui/msw-dev-tools";
 import { AuthProvider, attachAuthInterceptors } from "@/processes/auth";
+import { TenantProvider } from "@/processes/tenant";
 
 import { ConfirmContextModal } from "@/shared/ui/confirmation-modal";
 
@@ -89,11 +90,13 @@ export function App() {
               <ModalsProvider modals={{ confirmation: ConfirmContextModal }}>
                 <Notifications />
                 <QueryClientProvider client={queryClient}>
-                  <AuthProvider>
-                    <RouterProvider router={router} />
-                    <ReactQueryDevtools initialIsOpen={false} />
-                    <MSWDevTools />
-                  </AuthProvider>
+                  <TenantProvider>
+                    <AuthProvider>
+                      <RouterProvider router={router} />
+                      <ReactQueryDevtools initialIsOpen={false} />
+                      <MSWDevTools />
+                    </AuthProvider>
+                  </TenantProvider>
                 </QueryClientProvider>
               </ModalsProvider>
             </MantineProvider>
