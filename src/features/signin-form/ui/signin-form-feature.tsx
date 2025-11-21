@@ -43,12 +43,14 @@ export function SignInFormFeature({
     onSuccess: () => {
       if (onSuccess) {
         onSuccess();
-      } else if (useExternalRedirect) {
-        // External redirect to app domain
-        window.location.href = authConfig.redirects.afterLogin;
       } else {
-        // Default: redirect to app domain (auth portal has no internal pages)
-        window.location.href = authConfig.redirects.afterLogin;
+        // Check for returnTo parameter in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const returnToUrl = urlParams.get("returnTo");
+
+        // Redirect to returnTo URL or default to app domain
+        const targetUrl = returnToUrl || authConfig.redirects.afterLogin;
+        window.location.href = targetUrl;
       }
     },
     onError: (error: any) => {

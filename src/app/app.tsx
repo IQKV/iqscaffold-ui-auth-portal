@@ -17,7 +17,11 @@ import { queryClient } from "@/shared/lib";
 
 import { ErrorBoundary } from "@/shared/ui";
 import { MSWDevTools } from "@/shared/ui/msw-dev-tools";
-import { AuthProvider, attachAuthInterceptors } from "@/processes/auth";
+import {
+  AuthProvider,
+  GuestGuardWrapper,
+  attachAuthInterceptors,
+} from "@/processes/auth";
 import { TenantProvider } from "@/processes/tenant";
 
 import { ConfirmContextModal } from "@/shared/ui/confirmation-modal";
@@ -92,9 +96,11 @@ export function App() {
                 <QueryClientProvider client={queryClient}>
                   <TenantProvider>
                     <AuthProvider>
-                      <RouterProvider router={router} />
-                      <ReactQueryDevtools initialIsOpen={false} />
-                      <MSWDevTools />
+                      <GuestGuardWrapper>
+                        <RouterProvider router={router} />
+                        <ReactQueryDevtools initialIsOpen={false} />
+                        <MSWDevTools />
+                      </GuestGuardWrapper>
                     </AuthProvider>
                   </TenantProvider>
                 </QueryClientProvider>
