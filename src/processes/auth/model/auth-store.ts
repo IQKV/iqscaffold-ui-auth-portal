@@ -9,6 +9,7 @@ import { immer } from "zustand/middleware/immer";
 import { authApi, type TokenResponse, type AuthUser } from "@/shared/api";
 import { TokenManager } from "../lib/token-manager";
 import { notificationService } from "@/shared/lib/notifications";
+import { useTenantStore } from "@/processes/tenant";
 import type { AuthStore, LoginCredentials, AuthError } from "./types";
 
 const tokenManager = TokenManager.getInstance();
@@ -64,6 +65,9 @@ const createAuthStore: AuthStoreCreator = (set, get) => ({
           state.isLoading = false;
           state.isInitialized = true;
         });
+
+        // Note: Tenant ID will be set when user data is loaded
+        // For now, we can try to extract it from the token if needed
       }
       // If token is expired but we have refresh token, try to refresh
       else if (tokenManager.canRefreshSession()) {
@@ -111,6 +115,11 @@ const createAuthStore: AuthStoreCreator = (set, get) => ({
         state.isLoading = false;
         state.error = null;
       });
+
+      // Set tenant context from user data
+      if (response.user.tenantId) {
+        useTenantStore.getState().setTenantId(response.user.tenantId);
+      }
 
       notificationService.success({
         title: "Login Successful",
@@ -163,6 +172,9 @@ const createAuthStore: AuthStoreCreator = (set, get) => ({
         });
       });
 
+      // Clear tenant context on logout
+      useTenantStore.getState().clearTenant();
+
       notificationService.info({
         title: "Logged Out",
         message: "You have been successfully logged out.",
@@ -193,6 +205,11 @@ const createAuthStore: AuthStoreCreator = (set, get) => ({
         state.isAuthenticated = true;
         state.error = null;
       });
+
+      // Update tenant context from refreshed user data
+      if (response.user.tenantId) {
+        useTenantStore.getState().setTenantId(response.user.tenantId);
+      }
     } catch (error: any) {
       // Refresh failed, clear session
       tokenManager.clearTokens();

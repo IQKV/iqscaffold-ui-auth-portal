@@ -6,7 +6,7 @@ import axios, {
 import { getConfig, getFinalMSWConfig } from "@/app/config";
 import { normalizeAxiosError } from "@/shared/lib/http-error";
 import { notificationService } from "@/shared/lib/notifications";
-import { resolveTenantId } from "@/shared/lib/tenant-utils";
+import { useTenantStore } from "@/processes/tenant";
 
 // When MSW is enabled, use relative URLs so handlers with relative paths match.
 const mswEnabled = getFinalMSWConfig().enabled;
@@ -28,11 +28,12 @@ axios.defaults.withCredentials = true;
 
 /**
  * Request interceptor to add tenant header
+ * Tenant ID comes from JWT token after authentication
  */
 apiClient.interceptors.request.use(
   (config) => {
-    // Add tenant ID header if available
-    const tenantId = resolveTenantId();
+    // Add tenant ID header if available from tenant store
+    const tenantId = useTenantStore.getState().currentTenantId;
     if (tenantId && !config.headers["X-Tenant-ID"]) {
       config.headers["X-Tenant-ID"] = tenantId;
     }
