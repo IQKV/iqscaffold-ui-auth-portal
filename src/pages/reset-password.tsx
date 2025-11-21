@@ -17,6 +17,7 @@ function ResetPasswordPage() {
     <AuthLayout
       title={t`Set New Password`}
       subtitle={t`Create a strong password for your account`}
+      pageTitle={t`Reset Password`}
     >
       <ResetPasswordFormFeature />
     </AuthLayout>

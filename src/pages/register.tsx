@@ -12,6 +12,7 @@ function RegisterPage() {
     <AuthLayout
       title={t`Create Your Account`}
       subtitle={t`Join IQKV and start your journey`}
+      pageTitle={t`Sign Up`}
     >
       <SignUpFormFeature redirectToHome />
     </AuthLayout>

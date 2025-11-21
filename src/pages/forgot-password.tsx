@@ -12,6 +12,7 @@ function ForgotPasswordPage() {
     <AuthLayout
       title={t`Reset Your Password`}
       subtitle={t`We'll help you get back into your account`}
+      pageTitle={t`Forgot Password`}
     >
       <ForgotPasswordFormFeature />
     </AuthLayout>

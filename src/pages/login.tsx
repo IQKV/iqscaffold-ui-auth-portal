@@ -16,6 +16,7 @@ function LoginPage() {
     <AuthLayout
       title={t`Welcome Back`}
       subtitle={t`Sign in to your account to continue`}
+      pageTitle={t`Sign In`}
     >
       <SignInFormFeature useExternalRedirect />
     </AuthLayout>
