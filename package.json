@@ -35,6 +35,7 @@
     "preview": "vite preview",
     "release": "release-it --ci",
     "test": "vitest run",
+    "test:arch": "vitest run architecture",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest run --ui",
     "test:wath": "vitest",
