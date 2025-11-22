@@ -161,6 +161,288 @@ interface UserProfileProps {
 - [ ] Unit tests with React Testing Library
 - [ ] Storybook story with variants
 
+## User Confirmation Policy & Decision Framework
+
+### CRITICAL RULE: Always Ask Before Applying Changes
+
+**AI agents MUST obtain explicit user approval before modifying any files, creating new files, or executing commands that alter the codebase.**
+
+This policy ensures:
+
+- User maintains full control over their codebase
+- Changes are reviewed before application
+- Unexpected modifications are prevented
+- Learning opportunities through explanation
+
+### Approval Workflow (MANDATORY)
+
+```
+1. ANALYZE    → Understand the user request and requirements
+2. EXPLAIN    → Describe what changes will be made and why
+3. ASSESS     → Evaluate impact, risks, and alternatives
+4. PRESENT    → Show proposed changes with clear examples
+5. WAIT       → ⚠️ STOP and wait for explicit user approval
+6. APPLY      → Only after approval, make the changes
+7. VERIFY     → Confirm changes work as expected
+```
+
+**NEVER skip step 5 (WAIT) for operations that modify the codebase.**
+
+### Operations Requiring User Approval
+
+The following operations ALWAYS require explicit user confirmation:
+
+#### File System Operations
+
+- ✋ Creating new files or directories
+- ✋ Modifying existing files (any content changes)
+- ✋ Deleting files or directories
+- ✋ Moving or renaming files
+- ✋ Changing file permissions
+
+#### Code Changes
+
+- ✋ Adding new features or components
+- ✋ Refactoring existing code
+- ✋ Fixing bugs or issues
+- ✋ Updating dependencies or configurations
+- ✋ Modifying build scripts or tooling
+- ✋ Changing environment variables or configs
+
+#### Architectural Changes
+
+- ✋ Creating new FSD layers or slices
+- ✋ Restructuring folder organization
+- ✋ Adding new dependencies to package.json
+- ✋ Modifying routing structure
+- ✋ Changing state management patterns
+
+#### Testing & Quality
+
+- ✋ Adding or modifying tests
+- ✋ Updating linting rules
+- ✋ Changing formatting configuration
+- ✋ Modifying CI/CD workflows
+
+#### Commands with Side Effects
+
+- ✋ Installing or removing packages
+- ✋ Running database migrations
+- ✋ Executing build or deployment commands
+- ✋ Modifying git history or branches
+- ✋ Running scripts that modify files
+
+### Operations NOT Requiring Approval
+
+These read-only operations can be performed without explicit approval:
+
+#### Information Gathering
+
+- ✅ Reading files to understand code structure
+- ✅ Searching for patterns or specific code
+- ✅ Listing directory contents
+- ✅ Checking file diagnostics (errors, warnings)
+- ✅ Analyzing dependencies or imports
+
+#### Recommendations & Explanations
+
+- ✅ Providing code examples or suggestions
+- ✅ Explaining concepts or best practices
+- ✅ Answering questions about the codebase
+- ✅ Reviewing code and providing feedback
+- ✅ Suggesting architectural improvements
+
+#### Non-Destructive Analysis
+
+- ✅ Running type checks (read-only)
+- ✅ Analyzing test coverage reports
+- ✅ Checking code quality metrics
+- ✅ Reviewing git history or diffs
+
+### How to Present Changes for Approval
+
+When proposing changes, use this format:
+
+```markdown
+## Proposed Changes
+
+**Goal**: [Brief description of what we're trying to achieve]
+
+**Impact**: [What will change and why]
+
+**Files Affected**:
+
+- `path/to/file1.ts` - [What changes]
+- `path/to/file2.tsx` - [What changes]
+- `path/to/new-file.ts` - [New file, purpose]
+
+**Changes Preview**:
+[Show key code snippets or file structure]
+
+**Risks & Considerations**:
+
+- [Any potential issues or breaking changes]
+- [Dependencies or related changes needed]
+
+**Alternatives Considered**:
+
+- [Other approaches and why this one is better]
+
+**Testing Plan**:
+
+- [How to verify the changes work]
+
+---
+
+**Ready to proceed?** Please confirm and I'll apply these changes.
+```
+
+### User Approval Phrases
+
+The AI should wait for clear approval phrases such as:
+
+- "Yes, go ahead"
+- "Proceed"
+- "Apply the changes"
+- "Make the changes"
+- "Do it"
+- "Looks good"
+- "Approved"
+
+### Handling User Feedback
+
+If the user provides feedback instead of approval:
+
+- **"Change X to Y"** → Update the proposal and present again
+- **"What about Z?"** → Address the question, then re-present
+- **"No" or "Cancel"** → Acknowledge and ask what they'd like instead
+- **"Show me more"** → Provide additional details or examples
+
+### Multi-Step Changes
+
+For complex changes involving multiple files or steps:
+
+1. **Break down into logical phases**
+   - Phase 1: Core functionality
+   - Phase 2: UI components
+   - Phase 3: Tests and documentation
+
+2. **Get approval for each phase** (or all phases upfront)
+
+3. **Apply incrementally** and verify after each phase
+
+4. **Stop if issues arise** and report back to user
+
+### Exception: Emergency Fixes
+
+In rare cases where the user explicitly requests immediate action:
+
+- "Just fix it"
+- "Do whatever is needed"
+- "I trust you, go ahead"
+
+Even then, provide a summary of what was changed after completion.
+
+### Decision Framework Examples
+
+#### Example 1: Adding a New Feature
+
+```
+❌ WRONG:
+User: "Add a logout button"
+AI: [Immediately creates files and modifies code]
+
+✅ CORRECT:
+User: "Add a logout button"
+AI: "I'll add a logout button to the navigation. Here's my plan:
+
+**Changes**:
+1. Create `features/logout-button/` with FSD structure
+2. Add logout mutation using useFormMutation
+3. Integrate into navigation widget
+4. Add i18n translations
+
+**Files to create**:
+- features/logout-button/ui/logout-button.tsx
+- features/logout-button/model/use-logout.ts
+- features/logout-button/index.ts
+
+**Files to modify**:
+- widgets/navigation/ui/navigation.tsx (add button)
+- locales/en/messages.po (add translations)
+
+Would you like me to proceed with this implementation?"
+```
+
+#### Example 2: Fixing a Bug
+
+````
+❌ WRONG:
+User: "The form validation isn't working"
+AI: [Reads code, identifies issue, immediately fixes it]
+
+✅ CORRECT:
+User: "The form validation isn't working"
+AI: [Reads code and analyzes]
+"I found the issue. The form is missing the Zod schema in the useForm hook.
+
+**Problem**:
+The form in `features/signin-form/ui/signin-form-feature.tsx`
+is using useMantineForm directly instead of our enhanced useForm hook.
+
+**Solution**:
+Replace useMantineForm with useForm and pass the signInFormSchema.
+
+**Change**:
+```tsx
+// Before
+const form = useMantineForm({ initialValues });
+
+// After
+const form = useForm({
+  initialValues,
+  schema: signInFormSchema
+});
+````
+
+This will enable Zod validation. Should I apply this fix?"
+
+```
+
+#### Example 3: Information Request (No Approval Needed)
+
+```
+
+✅ CORRECT:
+User: "How does the error handling work?"
+AI: [Reads relevant files and explains]
+"The project uses RFC 7807 Problem Details for error handling:
+
+1. API errors are normalized in `shared/lib/http-error.ts`
+2. The `useFormMutation` hook automatically maps field errors
+3. Global errors show notifications via interceptors
+
+[Provides code examples and explanation]
+
+Would you like me to show you how to implement this in a specific feature?"
+
+````
+
+### Verification After Changes
+
+After applying approved changes:
+
+1. **Run diagnostics** to check for errors
+2. **Verify architecture compliance** (if FSD changes)
+3. **Report results** to user
+4. **Suggest next steps** (testing, documentation, etc.)
+
+### Summary
+
+**The golden rule**: When in doubt, ask for approval. It's better to ask unnecessarily than to make unwanted changes.
+
+**Remember**: Users appreciate transparency and control. Always explain your reasoning and wait for confirmation before modifying their codebase.
+
 ## Development Guidelines
 
 ### Component Development Standards
@@ -220,7 +502,7 @@ export function FormField(props: FormFieldProps) {
     // ... 13 more types
   }
 }
-```
+````
 
 **Usage in Features:**
 
