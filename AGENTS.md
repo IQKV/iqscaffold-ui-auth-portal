@@ -435,7 +435,8 @@ After applying approved changes:
 1. **Run diagnostics** to check for errors
 2. **Verify architecture compliance** (if FSD changes)
 3. **Report results** to user
-4. **Suggest next steps** (testing, documentation, etc.)
+4. **Generate commit message** (for complex tasks, see Commit Message Generation)
+5. **Suggest next steps** (testing, documentation, etc.)
 
 ### Summary
 
@@ -1622,6 +1623,197 @@ feat: add user profile form
 fix: resolve validation error in login form
 docs: update API documentation
 test: add unit tests for form components
+```
+
+### AI Commit Message Generation (REQUIRED)
+
+**After completing complex tasks involving multiple file changes, AI agents MUST generate a concise, well-structured commit message following Conventional Commits format.**
+
+#### When to Generate Commit Messages
+
+Generate commit messages after:
+
+- ✅ Creating new features or components
+- ✅ Fixing bugs across multiple files
+- ✅ Refactoring code structure
+- ✅ Adding or updating tests
+- ✅ Updating documentation
+- ✅ Modifying configuration or build files
+- ✅ Any task that results in file modifications
+
+#### Commit Message Format
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+**Type** (required):
+
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation changes
+- `style`: Code style changes (formatting, no logic change)
+- `refactor`: Code refactoring
+- `test`: Adding or updating tests
+- `chore`: Maintenance tasks (deps, config, build)
+- `perf`: Performance improvements
+
+**Scope** (optional): Feature or module affected (e.g., `signin-form`, `auth`, `api`)
+
+**Subject** (required):
+
+- Concise summary (50 chars or less)
+- Imperative mood ("add" not "added")
+- No period at the end
+- Lowercase after colon
+
+**Body** (optional but recommended for complex changes):
+
+- Explain WHAT changed and WHY
+- Wrap at 72 characters
+- Separate from subject with blank line
+- Use bullet points for multiple changes
+
+**Footer** (optional):
+
+- Breaking changes: `BREAKING CHANGE: description`
+- Issue references: `Closes #123`, `Fixes #456`
+
+#### Examples
+
+**Simple Feature:**
+
+```
+feat(logout): add logout button to navigation
+
+Add logout functionality with confirmation modal and proper state cleanup.
+```
+
+**Bug Fix:**
+
+```
+fix(signin-form): resolve validation error handling
+
+- Fix Zod schema not being applied to form
+- Add proper error message mapping for RFC 7807 responses
+- Update form field error display logic
+```
+
+**Complex Refactoring:**
+
+```
+refactor(auth): migrate to processes layer for cross-feature auth
+
+Move authentication logic from features to processes layer following FSD architecture:
+- Create processes/auth with store, selectors, and API
+- Update all features to use centralized auth store
+- Add proper TypeScript types and error handling
+- Maintain backward compatibility with existing auth flow
+
+This improves code organization and enables better auth state sharing across features.
+```
+
+**Documentation:**
+
+```
+docs: add user confirmation policy to AGENTS.md
+
+Establish mandatory approval workflow for AI agents before applying changes, with clear examples and decision framework.
+```
+
+**Multiple File Types:**
+
+```
+feat(user-profile): add user profile management feature
+
+Implement complete user profile feature following FSD architecture:
+- Create features/user-profile with form, validation, and API
+- Add profile page with edit capabilities
+- Integrate with auth store for current user data
+- Add i18n translations for all UI text
+- Include unit tests and Storybook stories
+
+Closes #234
+```
+
+#### AI Agent Workflow
+
+After completing a task:
+
+1. **Analyze changes**: Review all modified/created files
+2. **Determine type**: Choose appropriate commit type
+3. **Identify scope**: Determine affected feature/module
+4. **Write subject**: Concise summary of changes
+5. **Add body** (if complex): Explain what and why
+6. **Present to user**: Show the generated commit message
+7. **Allow refinement**: User can request modifications
+
+#### Presentation Format
+
+```markdown
+## Task Complete ✓
+
+**Changes Applied**:
+
+- Created 3 files
+- Modified 2 files
+- Added tests and documentation
+
+**Suggested Commit Message**:
+\`\`\`
+feat(feature-name): add new functionality
+
+- Implement core feature logic
+- Add UI components with Mantine
+- Include validation and error handling
+- Add i18n support
+  \`\`\`
+
+You can use this message as-is or modify it as needed.
+```
+
+#### Best Practices
+
+- **Be specific**: "add user profile form" not "add form"
+- **Be concise**: Keep subject under 50 characters
+- **Be consistent**: Follow project conventions
+- **Be informative**: Body should explain non-obvious changes
+- **Be accurate**: Reflect actual changes made
+- **Group related changes**: One logical change per commit
+- **Reference issues**: Link to relevant tickets/issues
+
+#### What NOT to Do
+
+❌ Vague messages:
+
+```
+fix: fix bug
+feat: update code
+chore: changes
+```
+
+❌ Too detailed in subject:
+
+```
+feat: add user profile form with validation, error handling, i18n, tests, and storybook stories
+```
+
+❌ Missing context:
+
+```
+refactor: update auth
+```
+
+✅ Good messages:
+
+```
+fix(signin-form): resolve validation error handling
+feat(user-profile): add profile management feature
+refactor(auth): migrate to processes layer for cross-feature auth
 ```
 
 ### Pre-commit Hooks
