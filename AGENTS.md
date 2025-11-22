@@ -130,6 +130,147 @@ src/
 5. **Accessibility First**: Include ARIA attributes and semantic HTML
 6. **Test-Driven Approach**: Generate tests alongside components
 
+### Communication & Output Standards (CRITICAL)
+
+**AI agents MUST communicate concisely and avoid unnecessary verbosity.**
+
+#### Concise Output Requirements
+
+1. **Be Direct**: Get to the point quickly without lengthy preambles
+2. **Avoid Repetition**: Don't repeat information already stated
+3. **Use Bullet Points**: For lists and multiple items
+4. **Skip Obvious Statements**: Don't state what you're about to do if you're already doing it
+5. **Minimal Summaries**: Keep task completion summaries to 2-3 sentences maximum
+6. **No Fluff**: Avoid phrases like "I'll now proceed to...", "Let me...", "I'm going to..."
+
+#### Examples
+
+❌ **Verbose**:
+
+```
+I understand you want to add a logout button. Let me analyze the requirements
+and create a comprehensive solution. I'll now proceed to create the necessary
+files following the FSD architecture. First, I'll create the feature structure,
+then implement the component, and finally add the necessary exports.
+```
+
+✅ **Concise**:
+
+```
+Adding logout button to navigation.
+
+Files to create:
+- features/logout-button/ui/logout-button.tsx
+- features/logout-button/model/use-logout.ts
+- features/logout-button/index.ts
+
+Proceed?
+```
+
+❌ **Verbose Summary**:
+
+```
+I have successfully completed the task of adding the logout button feature.
+The implementation includes:
+- Created the logout button component with proper styling
+- Implemented the logout mutation hook with error handling
+- Added proper TypeScript types and interfaces
+- Integrated with the authentication store
+- Added internationalization support
+- Exported through the public API as required by FSD
+
+The feature is now ready to use and follows all project conventions.
+```
+
+✅ **Concise Summary**:
+
+```
+✓ Logout button added to navigation with auth integration and i18n support.
+```
+
+#### Prohibited: Auto-Generated Documentation Files
+
+**NEVER automatically create summary or review markdown files unless explicitly requested by the user.**
+
+❌ **Do NOT create**:
+
+- `SUMMARY.md`
+- `REVIEW.md`
+- `CHANGES.md`
+- `IMPLEMENTATION_NOTES.md`
+- `TASK_SUMMARY.md`
+- Any other documentation files summarizing your work
+
+These files are:
+
+- Wasteful and create noise in the repository
+- Rarely useful to the user
+- Not part of the project structure
+- Redundant with git commit messages
+
+✅ **Instead**:
+
+- Provide a brief verbal summary (2-3 sentences)
+- Generate a commit message (as per Commit Message Generation section)
+- Answer specific questions if the user asks
+
+#### Exception: User-Requested Documentation
+
+Only create documentation files when:
+
+- User explicitly requests: "Create a README for this feature"
+- Project structure requires it: Adding to existing docs folder
+- Part of the original task: "Add feature X with documentation"
+
+#### Response Length Guidelines
+
+- **Simple tasks**: 1-2 sentences + commit message
+- **Medium tasks**: 3-5 sentences highlighting key changes
+- **Complex tasks**: Brief summary + commit message + offer to explain details
+
+#### When Presenting Changes for Approval
+
+Keep proposals focused:
+
+```markdown
+## Proposed Changes
+
+**Goal**: Add logout functionality
+
+**Files**:
+
+- features/logout-button/ (new)
+- widgets/navigation/ui/navigation.tsx (modify)
+
+**Key Changes**:
+
+- Logout button with confirmation modal
+- Auth store integration
+- i18n support
+
+Proceed?
+```
+
+Not this:
+
+```markdown
+## Comprehensive Analysis and Proposed Implementation Strategy
+
+I have thoroughly analyzed your request to add logout functionality...
+[3 paragraphs of explanation]
+
+**Detailed Implementation Plan**:
+[10 bullet points with sub-bullets]
+
+**Architectural Considerations**:
+[5 paragraphs about FSD]
+
+**Risk Assessment**:
+[Detailed analysis]
+
+Would you like me to proceed with this carefully planned implementation?
+```
+
 ### AI-Assisted Development Workflow
 
 ```typescript
@@ -434,9 +575,11 @@ After applying approved changes:
 
 1. **Run diagnostics** to check for errors
 2. **Verify architecture compliance** (if FSD changes)
-3. **Report results** to user
+3. **Report results** concisely (2-3 sentences max)
 4. **Generate commit message** (for complex tasks, see Commit Message Generation)
-5. **Suggest next steps** (testing, documentation, etc.)
+5. **Suggest next steps** (if relevant, keep brief)
+
+**Important**: Do NOT create summary markdown files. Provide verbal summary only.
 
 ### Summary
 
