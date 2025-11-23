@@ -62,7 +62,13 @@ export function ForgotPasswordFormFeature({
   };
 
   return (
-    <Card shadow="md" padding="xl" radius="md" withBorder data-testid="forgot-password-form">
+    <Card
+      shadow="md"
+      padding="xl"
+      radius="md"
+      withBorder
+      data-testid="forgot-password-form"
+    >
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <Text size="sm" c="dimmed" ta="center">

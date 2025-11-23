@@ -80,7 +80,13 @@ export function SignInFormFeature({
   };
 
   return (
-    <Card shadow="md" padding="xl" radius="md" withBorder data-testid="signin-form">
+    <Card
+      shadow="md"
+      padding="xl"
+      radius="md"
+      withBorder
+      data-testid="signin-form"
+    >
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <FormField
@@ -134,7 +140,11 @@ export function SignInFormFeature({
           </Button>
 
           <Group justify="center" gap="xs">
-            <Anchor size="sm" onClick={handleNavigateToRegister} data-testid="signin-link-register">
+            <Anchor
+              size="sm"
+              onClick={handleNavigateToRegister}
+              data-testid="signin-link-register"
+            >
               {t`Don't have an account? Sign up`}
             </Anchor>
           </Group>

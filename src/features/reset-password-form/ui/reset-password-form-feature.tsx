@@ -86,7 +86,13 @@ export function ResetPasswordFormFeature({
   // Show loading state while validating token
   if (isValidating) {
     return (
-      <Card shadow="md" padding="xl" radius="md" withBorder data-testid="reset-password-loading">
+      <Card
+        shadow="md"
+        padding="xl"
+        radius="md"
+        withBorder
+        data-testid="reset-password-loading"
+      >
         <Center py="xl">
           <Stack gap="md" align="center">
             <Loader size="lg" />
@@ -102,7 +108,13 @@ export function ResetPasswordFormFeature({
   // Show error if no token is provided or token is invalid
   if (!token || isTokenValid === false) {
     return (
-      <Card shadow="md" padding="xl" radius="md" withBorder data-testid="reset-password-invalid">
+      <Card
+        shadow="md"
+        padding="xl"
+        radius="md"
+        withBorder
+        data-testid="reset-password-invalid"
+      >
         <Stack gap="md" align="center">
           <Text size="lg" fw={500} c="red">
             {t`Invalid Reset Link`}
@@ -110,7 +122,11 @@ export function ResetPasswordFormFeature({
           <Text size="sm" c="dimmed" ta="center">
             {t`This password reset link is invalid or has expired. Please request a new password reset.`}
           </Text>
-          <Button onClick={handleBackToLogin} variant="light" data-testid="reset-password-button-back-invalid">
+          <Button
+            onClick={handleBackToLogin}
+            variant="light"
+            data-testid="reset-password-button-back-invalid"
+          >
             {t`Back to Sign In`}
           </Button>
         </Stack>
@@ -119,7 +135,13 @@ export function ResetPasswordFormFeature({
   }
 
   return (
-    <Card shadow="md" padding="xl" radius="md" withBorder data-testid="reset-password-form">
+    <Card
+      shadow="md"
+      padding="xl"
+      radius="md"
+      withBorder
+      data-testid="reset-password-form"
+    >
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <Text size="sm" c="dimmed" ta="center">

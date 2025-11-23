@@ -87,7 +87,13 @@ export function SignUpFormFeature({
   };
 
   return (
-    <Card shadow="md" padding="xl" radius="md" withBorder data-testid="signup-form">
+    <Card
+      shadow="md"
+      padding="xl"
+      radius="md"
+      withBorder
+      data-testid="signup-form"
+    >
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <Group grow>
@@ -168,7 +174,11 @@ export function SignUpFormFeature({
           </Button>
 
           <Group justify="center" gap="xs">
-            <Anchor size="sm" onClick={handleNavigateToLogin} data-testid="signup-link-login">
+            <Anchor
+              size="sm"
+              onClick={handleNavigateToLogin}
+              data-testid="signup-link-login"
+            >
               {t`Already have an account? Sign in`}
             </Anchor>
           </Group>
