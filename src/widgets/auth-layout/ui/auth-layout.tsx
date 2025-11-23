@@ -50,6 +50,7 @@ export function AuthLayout({
         h="100vh"
         direction={{ base: "column", md: "row" }}
         style={{ overflow: "hidden" }}
+        data-testid="auth-layout"
       >
         {/* Left Side - Form Container (Wider) */}
         <Box
@@ -61,6 +62,7 @@ export function AuthLayout({
             position: "relative",
             zIndex: 1,
           }}
+          data-testid="auth-layout-form-container"
         >
           {/* Theme Toggle - Top Right */}
           <Box pos="absolute" top="1rem" right="1rem" style={{ zIndex: 10 }}>

@@ -87,7 +87,7 @@ export function SignUpFormFeature({
   };
 
   return (
-    <Card shadow="md" padding="xl" radius="md" withBorder>
+    <Card shadow="md" padding="xl" radius="md" withBorder data-testid="signup-form">
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <Group grow>
@@ -98,6 +98,7 @@ export function SignUpFormFeature({
               placeholder={t`John`}
               required
               form={form}
+              data-testid="signup-input-firstname"
             />
             <FormField
               type="text"
@@ -106,6 +107,7 @@ export function SignUpFormFeature({
               placeholder={t`Doe`}
               required
               form={form}
+              data-testid="signup-input-lastname"
             />
           </Group>
 
@@ -118,6 +120,7 @@ export function SignUpFormFeature({
             description={t`3-50 characters, letters, numbers, and underscores only`}
             required
             form={form}
+            data-testid="signup-input-username"
           />
 
           <FormField
@@ -128,6 +131,7 @@ export function SignUpFormFeature({
             leftSection={<IconAt size={16} />}
             required
             form={form}
+            data-testid="signup-input-email"
           />
 
           <FormField
@@ -139,6 +143,7 @@ export function SignUpFormFeature({
             description={t`Min 8 characters with uppercase, lowercase, number, and special character`}
             required
             form={form}
+            data-testid="signup-input-password"
           />
 
           <FormField
@@ -149,6 +154,7 @@ export function SignUpFormFeature({
             leftSection={<IconLock size={16} />}
             required
             form={form}
+            data-testid="signup-input-confirm-password"
           />
 
           <Button
@@ -156,12 +162,13 @@ export function SignUpFormFeature({
             fullWidth
             leftSection={<IconUserPlus size={18} />}
             loading={registerMutation.isPending}
+            data-testid="signup-button-submit"
           >
             {t`Create Account`}
           </Button>
 
           <Group justify="center" gap="xs">
-            <Anchor size="sm" onClick={handleNavigateToLogin}>
+            <Anchor size="sm" onClick={handleNavigateToLogin} data-testid="signup-link-login">
               {t`Already have an account? Sign in`}
             </Anchor>
           </Group>

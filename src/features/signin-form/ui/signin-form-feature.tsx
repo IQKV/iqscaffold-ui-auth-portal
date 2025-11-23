@@ -80,7 +80,7 @@ export function SignInFormFeature({
   };
 
   return (
-    <Card shadow="md" padding="xl" radius="md" withBorder>
+    <Card shadow="md" padding="xl" radius="md" withBorder data-testid="signin-form">
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <FormField
@@ -91,6 +91,7 @@ export function SignInFormFeature({
             leftSection={<IconUser size={16} />}
             required
             form={form}
+            data-testid="signin-input-username"
           />
 
           <FormField
@@ -101,6 +102,7 @@ export function SignInFormFeature({
             leftSection={<IconLock size={16} />}
             required
             form={form}
+            data-testid="signin-input-password"
           />
 
           <Group justify="space-between">
@@ -109,12 +111,14 @@ export function SignInFormFeature({
               name="rememberMe"
               label={t`Remember me`}
               form={form}
+              data-testid="signin-checkbox-remember"
             />
             <Anchor
               component="button"
               type="button"
               size="sm"
               onClick={handleForgotPassword}
+              data-testid="signin-link-forgot-password"
             >
               {t`Forgot password?`}
             </Anchor>
@@ -124,12 +128,13 @@ export function SignInFormFeature({
             type="submit"
             fullWidth
             loading={isLoading || loginMutation.isPending}
+            data-testid="signin-button-submit"
           >
             {t`Sign In`}
           </Button>
 
           <Group justify="center" gap="xs">
-            <Anchor size="sm" onClick={handleNavigateToRegister}>
+            <Anchor size="sm" onClick={handleNavigateToRegister} data-testid="signin-link-register">
               {t`Don't have an account? Sign up`}
             </Anchor>
           </Group>

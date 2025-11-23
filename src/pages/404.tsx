@@ -42,6 +42,7 @@ function NotFoundPage() {
             leftSection={<IconArrowLeft size="1rem" />}
             variant="outline"
             onClick={() => router.history.back()}
+            data-testid="404-button-back"
           >
             {t`Go Back`}
           </Button>
@@ -49,6 +50,7 @@ function NotFoundPage() {
             leftSection={<IconHome size="1rem" />}
             component={Link}
             to="/"
+            data-testid="404-button-home"
           >
             {t`Go Home`}
           </Button>

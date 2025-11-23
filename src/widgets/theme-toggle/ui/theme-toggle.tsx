@@ -10,6 +10,7 @@ export function ThemeToggle() {
       variant="subtle"
       size="lg"
       aria-label="Toggle color scheme"
+      data-testid="theme-toggle-button"
     >
       {colorScheme === "dark" ? <IconSun size={20} /> : <IconMoon size={20} />}
     </ActionIcon>

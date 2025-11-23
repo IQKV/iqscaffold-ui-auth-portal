@@ -62,7 +62,7 @@ export function ForgotPasswordFormFeature({
   };
 
   return (
-    <Card shadow="md" padding="xl" radius="md" withBorder>
+    <Card shadow="md" padding="xl" radius="md" withBorder data-testid="forgot-password-form">
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <Text size="sm" c="dimmed" ta="center">
@@ -77,12 +77,14 @@ export function ForgotPasswordFormFeature({
             leftSection={<IconMail size={16} />}
             required
             form={form}
+            data-testid="forgot-password-input-email"
           />
 
           <Button
             type="submit"
             fullWidth
             loading={forgotPasswordMutation.isPending}
+            data-testid="forgot-password-button-submit"
           >
             {t`Send Reset Link`}
           </Button>
@@ -93,6 +95,7 @@ export function ForgotPasswordFormFeature({
               type="button"
               size="sm"
               onClick={handleBackToLogin}
+              data-testid="forgot-password-link-back"
             >
               <Group gap="xs" align="center">
                 <IconArrowLeft size={14} />
