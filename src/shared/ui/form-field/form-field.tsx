@@ -54,6 +54,8 @@ export interface BaseFormFieldProps {
   variant?: "default" | "filled" | "unstyled";
   /** Whether field is required (for visual indicator only, validation handled by Zod) */
   withAsterisk?: boolean;
+  /** Test ID for testing */
+  "data-testid"?: string;
 }
 
 export interface TextFormFieldProps extends BaseFormFieldProps {
@@ -284,6 +286,7 @@ export function FormField(props: FormFieldProps) {
     size = "sm",
     variant = "default",
     withAsterisk = false,
+    "data-testid": dataTestId,
   } = props;
 
   const fieldError = form.errors[name] || customError;
@@ -412,6 +415,7 @@ export function FormField(props: FormFieldProps) {
     size,
     variant,
     className,
+    "data-testid": dataTestId,
     ...form.getInputProps(name),
   };
 
