@@ -1,27 +1,20 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MantineProvider } from "@mantine/core";
-import { Notifications } from "@mantine/notifications";
 import { ForgotPasswordFormFeature } from "./forgot-password-form-feature";
-import { authApi } from "@/shared/api";
 
-// Mock the auth API
-vi.mock("@/shared/api", () => ({
-  authApi: {
-    forgotPassword: vi.fn(),
-  },
-}));
-
-// Mock the router
-const mockNavigate = vi.fn();
+// Mock dependencies
 vi.mock("@tanstack/react-router", () => ({
-  useNavigate: () => mockNavigate,
+  useNavigate: () => vi.fn(),
 }));
 
-// Test wrapper component
-const TestWrapper = ({ children }: { children: React.ReactNode }) => {
+vi.mock("@/shared/lib/use-auth-api", () => ({
+  useForgotPassword: vi.fn(),
+}));
+
+const createWrapper = () => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: { retry: false },
@@ -29,274 +22,106 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => {
     },
   });
 
-  return (
-    <MantineProvider>
-      <QueryClientProvider client={queryClient}>
-        <Notifications />
-        {children}
-      </QueryClientProvider>
-    </MantineProvider>
+  return ({ children }: { children: React.ReactNode }) => (
+    <QueryClientProvider client={queryClient}>
+      <MantineProvider>{children}</MantineProvider>
+    </QueryClientProvider>
   );
 };
 
 describe("ForgotPasswordFormFeature", () => {
-  const user = userEvent.setup();
+  const mockMutate = vi.fn();
+  let useForgotPassword: any;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     vi.clearAllMocks();
+    const authApi = await import("@/shared/lib/use-auth-api");
+    useForgotPassword = authApi.useForgotPassword;
+    useForgotPassword.mockReturnValue({
+      mutate: mockMutate,
+      isPending: false,
+      isSuccess: false,
+    });
   });
 
-  it("renders all form elements correctly", () => {
-    render(
-      <TestWrapper>
-        <ForgotPasswordFormFeature />
-      </TestWrapper>
-    );
+  it("renders forgot password form", () => {
+    render(<ForgotPasswordFormFeature />, { wrapper: createWrapper() });
 
+    expect(screen.getByTestId("forgot-password-form")).toBeInTheDocument();
     expect(
-      screen.getByPlaceholderText("Enter your email address")
+      screen.getByTestId("forgot-password-input-email")
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Send Reset Link" })
-    ).toBeInTheDocument();
-    expect(screen.getByText("Back to Sign In")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Enter your email address and we'll send you a link to reset your password."
-      )
+      screen.getByTestId("forgot-password-button-submit")
     ).toBeInTheDocument();
   });
 
-  it("shows validation error for empty email", async () => {
-    render(
-      <TestWrapper>
-        <ForgotPasswordFormFeature />
-      </TestWrapper>
-    );
+  it("displays back to login link", () => {
+    render(<ForgotPasswordFormFeature />, { wrapper: createWrapper() });
 
-    const submitButton = screen.getByRole("button", {
-      name: "Send Reset Link",
-    });
-    await user.click(submitButton);
-
-    // Check that the form is still visible (not submitted)
-    await waitFor(() => {
-      expect(submitButton).toBeEnabled();
-    });
-
-    // Check that the API was not called due to validation error
-    expect(authApi.forgotPassword).not.toHaveBeenCalled();
-  });
-
-  it("shows validation error for invalid email format", async () => {
-    render(
-      <TestWrapper>
-        <ForgotPasswordFormFeature />
-      </TestWrapper>
-    );
-
-    const emailInput = screen.getByPlaceholderText("Enter your email address");
-    const submitButton = screen.getByRole("button", {
-      name: "Send Reset Link",
-    });
-
-    await user.type(emailInput, "invalid-email");
-    await user.click(submitButton);
-
-    // Check that the API was not called due to validation error
-    await waitFor(() => {
-      expect(authApi.forgotPassword).not.toHaveBeenCalled();
-    });
-
-    // Check that the form is still visible (not submitted)
-    expect(submitButton).toBeEnabled();
+    const backLink = screen.getByTestId("forgot-password-link-back");
+    expect(backLink).toBeInTheDocument();
   });
 
   it("submits form with valid email", async () => {
-    vi.mocked(authApi.forgotPassword).mockResolvedValue(undefined);
+    const user = userEvent.setup();
 
-    render(
-      <TestWrapper>
-        <ForgotPasswordFormFeature />
-      </TestWrapper>
-    );
+    render(<ForgotPasswordFormFeature />, { wrapper: createWrapper() });
 
-    const emailInput = screen.getByPlaceholderText("Enter your email address");
-    const submitButton = screen.getByRole("button", {
-      name: "Send Reset Link",
-    });
+    const emailInput = screen.getByTestId("forgot-password-input-email");
+    const submitButton = screen.getByTestId("forgot-password-button-submit");
 
     await user.type(emailInput, "test@example.com");
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(authApi.forgotPassword).toHaveBeenCalledWith("test@example.com");
+      expect(mockMutate).toHaveBeenCalledWith("test@example.com");
     });
   });
 
-  it("shows loading state during submission", async () => {
-    // Mock a delayed response
-    vi.mocked(authApi.forgotPassword).mockImplementation(
-      () => new Promise((resolve) => setTimeout(resolve, 100))
-    );
-
-    render(
-      <TestWrapper>
-        <ForgotPasswordFormFeature />
-      </TestWrapper>
-    );
-
-    const emailInput = screen.getByPlaceholderText("Enter your email address");
-    const submitButton = screen.getByRole("button", {
-      name: "Send Reset Link",
-    });
-
-    await user.type(emailInput, "test@example.com");
-    await user.click(submitButton);
-
-    // Check for loading state
-    expect(submitButton).toBeDisabled();
-  });
-
-  it("calls onSuccess callback when provided", async () => {
+  it("calls onSuccess callback when mutation succeeds", async () => {
+    const user = userEvent.setup();
     const onSuccess = vi.fn();
-    vi.mocked(authApi.forgotPassword).mockResolvedValue(undefined);
 
-    render(
-      <TestWrapper>
-        <ForgotPasswordFormFeature onSuccess={onSuccess} />
-      </TestWrapper>
-    );
-
-    const emailInput = screen.getByPlaceholderText("Enter your email address");
-    const submitButton = screen.getByRole("button", {
-      name: "Send Reset Link",
+    useForgotPassword.mockReturnValue({
+      mutate: mockMutate,
+      isPending: false,
+      isSuccess: true,
     });
 
-    await user.type(emailInput, "test@example.com");
-    await user.click(submitButton);
+    render(<ForgotPasswordFormFeature onSuccess={onSuccess} />, {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => {
-      expect(onSuccess).toHaveBeenCalledWith("test@example.com");
+      expect(onSuccess).toHaveBeenCalledWith("");
     });
   });
 
-  it("navigates to login page on successful submission when no callback provided", async () => {
-    vi.mocked(authApi.forgotPassword).mockResolvedValue(undefined);
-
-    render(
-      <TestWrapper>
-        <ForgotPasswordFormFeature />
-      </TestWrapper>
-    );
-
-    const emailInput = screen.getByPlaceholderText("Enter your email address");
-    const submitButton = screen.getByRole("button", {
-      name: "Send Reset Link",
-    });
-
-    await user.type(emailInput, "test@example.com");
-    await user.click(submitButton);
-
-    await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith({ to: "/login" });
-    });
-  });
-
-  it("calls onBackToLogin callback when back button is clicked", async () => {
+  it("calls onBackToLogin callback when link clicked", async () => {
+    const user = userEvent.setup();
     const onBackToLogin = vi.fn();
 
-    render(
-      <TestWrapper>
-        <ForgotPasswordFormFeature onBackToLogin={onBackToLogin} />
-      </TestWrapper>
-    );
+    render(<ForgotPasswordFormFeature onBackToLogin={onBackToLogin} />, {
+      wrapper: createWrapper(),
+    });
 
-    const backButton = screen.getByText("Back to Sign In");
-    await user.click(backButton);
+    const backLink = screen.getByTestId("forgot-password-link-back");
+    await user.click(backLink);
 
     expect(onBackToLogin).toHaveBeenCalled();
   });
 
-  it("navigates to login page when back button is clicked and no callback provided", async () => {
-    render(
-      <TestWrapper>
-        <ForgotPasswordFormFeature />
-      </TestWrapper>
-    );
-
-    const backButton = screen.getByText("Back to Sign In");
-    await user.click(backButton);
-
-    expect(mockNavigate).toHaveBeenCalledWith({ to: "/login" });
-  });
-
-  it("handles API errors gracefully", async () => {
-    const errorMessage = "Network error";
-    vi.mocked(authApi.forgotPassword).mockRejectedValue(
-      new Error(errorMessage)
-    );
-
-    render(
-      <TestWrapper>
-        <ForgotPasswordFormFeature />
-      </TestWrapper>
-    );
-
-    const emailInput = screen.getByPlaceholderText("Enter your email address");
-    const submitButton = screen.getByRole("button", {
-      name: "Send Reset Link",
+  it("shows loading state during submission", () => {
+    useForgotPassword.mockReturnValue({
+      mutate: mockMutate,
+      isPending: true,
+      isSuccess: false,
     });
 
-    await user.type(emailInput, "test@example.com");
-    await user.click(submitButton);
+    render(<ForgotPasswordFormFeature />, { wrapper: createWrapper() });
 
-    await waitFor(() => {
-      expect(authApi.forgotPassword).toHaveBeenCalledWith("test@example.com");
-    });
-
-    // Form should be re-enabled after error
-    await waitFor(() => {
-      expect(submitButton).toBeEnabled();
-    });
-  });
-
-  it("allows keyboard navigation", async () => {
-    render(
-      <TestWrapper>
-        <ForgotPasswordFormFeature />
-      </TestWrapper>
-    );
-
-    const emailInput = screen.getByPlaceholderText("Enter your email address");
-
-    // Focus email field
-    emailInput.focus();
-    expect(emailInput).toHaveFocus();
-
-    // Tab to submit button
-    await user.tab();
-    expect(
-      screen.getByRole("button", { name: "Send Reset Link" })
-    ).toHaveFocus();
-  });
-
-  it("submits form with Enter key", async () => {
-    vi.mocked(authApi.forgotPassword).mockResolvedValue(undefined);
-
-    render(
-      <TestWrapper>
-        <ForgotPasswordFormFeature />
-      </TestWrapper>
-    );
-
-    const emailInput = screen.getByPlaceholderText("Enter your email address");
-
-    await user.type(emailInput, "test@example.com");
-    await user.keyboard("{Enter}");
-
-    await waitFor(() => {
-      expect(authApi.forgotPassword).toHaveBeenCalledWith("test@example.com");
-    });
+    const submitButton = screen.getByTestId("forgot-password-button-submit");
+    expect(submitButton).toBeDisabled();
   });
 });

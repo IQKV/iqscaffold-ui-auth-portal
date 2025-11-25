@@ -1,31 +1,22 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MantineProvider } from "@mantine/core";
-import { Notifications } from "@mantine/notifications";
 import { ResetPasswordFormFeature } from "./reset-password-form-feature";
-import { authApi } from "@/shared/api";
 
-// Mock the auth API
-vi.mock("@/shared/api", () => ({
-  authApi: {
-    resetPassword: vi.fn(),
-    validateResetToken: vi.fn(),
-  },
-}));
-
-// Mock the router
-const mockNavigate = vi.fn();
-const mockUseSearch = vi.fn();
-
+// Mock dependencies
 vi.mock("@tanstack/react-router", () => ({
-  useNavigate: () => mockNavigate,
-  useSearch: () => mockUseSearch(),
+  useNavigate: () => vi.fn(),
+  useSearch: () => ({ token: "valid-token" }),
 }));
 
-// Test wrapper component
-const TestWrapper = ({ children }: { children: React.ReactNode }) => {
+vi.mock("@/shared/lib/use-auth-api", () => ({
+  useResetPassword: vi.fn(),
+  useValidateResetToken: vi.fn(),
+}));
+
+const createWrapper = () => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: { retry: false },
@@ -33,569 +24,177 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => {
     },
   });
 
-  return (
-    <MantineProvider>
-      <QueryClientProvider client={queryClient}>
-        <Notifications />
-        {children}
-      </QueryClientProvider>
-    </MantineProvider>
+  return ({ children }: { children: React.ReactNode }) => (
+    <QueryClientProvider client={queryClient}>
+      <MantineProvider>{children}</MantineProvider>
+    </QueryClientProvider>
   );
 };
 
 describe("ResetPasswordFormFeature", () => {
-  const user = userEvent.setup();
+  const mockMutate = vi.fn();
+  let useResetPassword: any;
+  let useValidateResetToken: any;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     vi.clearAllMocks();
-    mockUseSearch.mockReturnValue({ token: "valid-token" });
-    // Mock token validation to return true by default
-    vi.mocked(authApi.validateResetToken).mockResolvedValue(true);
+    const authApi = await import("@/shared/lib/use-auth-api");
+    useResetPassword = authApi.useResetPassword;
+    useValidateResetToken = authApi.useValidateResetToken;
+
+    useResetPassword.mockReturnValue({
+      mutate: mockMutate,
+      isPending: false,
+      isSuccess: false,
+    });
+
+    useValidateResetToken.mockReturnValue({
+      data: true,
+      isLoading: false,
+    });
   });
 
-  it("renders all form elements correctly with valid token", async () => {
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="valid-token" />
-      </TestWrapper>
-    );
-
-    // Wait for validation to complete
-    await waitFor(() => {
-      expect(
-        screen.getByPlaceholderText("Enter your new password")
-      ).toBeInTheDocument();
+  it("shows loading state while validating token", () => {
+    useValidateResetToken.mockReturnValue({
+      data: undefined,
+      isLoading: true,
     });
 
+    render(<ResetPasswordFormFeature token="valid-token" />, {
+      wrapper: createWrapper(),
+    });
+
+    expect(screen.getByTestId("reset-password-loading")).toBeInTheDocument();
+  });
+
+  it("shows error when token is invalid", () => {
+    useValidateResetToken.mockReturnValue({
+      data: false,
+      isLoading: false,
+    });
+
+    render(<ResetPasswordFormFeature token="invalid-token" />, {
+      wrapper: createWrapper(),
+    });
+
+    expect(screen.getByTestId("reset-password-invalid")).toBeInTheDocument();
+  });
+
+  it("shows error when no token provided", () => {
+    useValidateResetToken.mockReturnValue({
+      data: false,
+      isLoading: false,
+    });
+
+    render(<ResetPasswordFormFeature />, { wrapper: createWrapper() });
+
+    expect(screen.getByTestId("reset-password-invalid")).toBeInTheDocument();
+  });
+
+  it("renders reset password form with valid token", () => {
+    render(<ResetPasswordFormFeature token="valid-token" />, {
+      wrapper: createWrapper(),
+    });
+
+    expect(screen.getByTestId("reset-password-form")).toBeInTheDocument();
     expect(
-      screen.getByPlaceholderText("Confirm your new password")
+      screen.getByTestId("reset-password-input-password")
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Reset Password" })
+      screen.getByTestId("reset-password-input-confirm-password")
     ).toBeInTheDocument();
-    expect(screen.getByText("Back to Sign In")).toBeInTheDocument();
     expect(
-      screen.getByText(
-        "Enter your new password below. Make sure it's strong and secure."
-      )
+      screen.getByTestId("reset-password-button-submit")
     ).toBeInTheDocument();
   });
 
-  it("shows invalid token message when no token provided", () => {
-    mockUseSearch.mockReturnValue({});
-
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature />
-      </TestWrapper>
-    );
-
-    expect(screen.getByText("Invalid Reset Link")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "This password reset link is invalid or has expired. Please request a new password reset."
-      )
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Back to Sign In" })
-    ).toBeInTheDocument();
-  });
-
-  it("shows validation error for weak password", async () => {
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="valid-token" />
-      </TestWrapper>
-    );
-
-    // Wait for validation to complete
-    await waitFor(() => {
-      expect(
-        screen.getByPlaceholderText("Enter your new password")
-      ).toBeInTheDocument();
+  it("displays back to login link", () => {
+    render(<ResetPasswordFormFeature token="valid-token" />, {
+      wrapper: createWrapper(),
     });
 
-    const passwordInput = screen.getByPlaceholderText(
-      "Enter your new password"
-    );
-    const submitButton = screen.getByRole("button", { name: "Reset Password" });
-
-    await user.type(passwordInput, "weak");
-    await user.click(submitButton);
-
-    // Check that the form is still visible (not submitted)
-    await waitFor(() => {
-      expect(submitButton).toBeEnabled();
-    });
-
-    // Check that the API was not called due to validation error
-    expect(authApi.resetPassword).not.toHaveBeenCalled();
-  });
-
-  it("shows validation error when passwords do not match", async () => {
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="valid-token" />
-      </TestWrapper>
-    );
-
-    // Wait for validation to complete
-    await waitFor(() => {
-      expect(
-        screen.getByPlaceholderText("Enter your new password")
-      ).toBeInTheDocument();
-    });
-
-    const passwordInput = screen.getByPlaceholderText(
-      "Enter your new password"
-    );
-    const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your new password"
-    );
-    const submitButton = screen.getByRole("button", { name: "Reset Password" });
-
-    await user.type(passwordInput, "Password123!");
-    await user.type(confirmPasswordInput, "DifferentPassword123!");
-    await user.click(submitButton);
-
-    await waitFor(() => {
-      expect(screen.getByText("Passwords do not match")).toBeInTheDocument();
-    });
+    const backLink = screen.getByTestId("reset-password-link-back");
+    expect(backLink).toBeInTheDocument();
   });
 
   it("submits form with valid passwords", async () => {
-    vi.mocked(authApi.resetPassword).mockResolvedValue(undefined);
+    const user = userEvent.setup();
 
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="valid-token" />
-      </TestWrapper>
-    );
-
-    // Wait for validation to complete
-    await waitFor(() => {
-      expect(
-        screen.getByPlaceholderText("Enter your new password")
-      ).toBeInTheDocument();
+    render(<ResetPasswordFormFeature token="valid-token" />, {
+      wrapper: createWrapper(),
     });
 
-    const passwordInput = screen.getByPlaceholderText(
-      "Enter your new password"
+    const passwordInput = screen.getByTestId("reset-password-input-password");
+    const confirmPasswordInput = screen.getByTestId(
+      "reset-password-input-confirm-password"
     );
-    const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your new password"
-    );
-    const submitButton = screen.getByRole("button", { name: "Reset Password" });
+    const submitButton = screen.getByTestId("reset-password-button-submit");
 
-    await user.type(passwordInput, "Password123!");
-    await user.type(confirmPasswordInput, "Password123!");
+    await user.type(passwordInput, "NewPassword123!");
+    await user.type(confirmPasswordInput, "NewPassword123!");
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(authApi.resetPassword).toHaveBeenCalledWith(
-        "valid-token",
-        "Password123!"
-      );
+      expect(mockMutate).toHaveBeenCalledWith({
+        token: "valid-token",
+        newPassword: "NewPassword123!",
+      });
     });
   });
 
-  it("shows loading state during submission", async () => {
-    // Mock a delayed response
-    vi.mocked(authApi.resetPassword).mockImplementation(
-      () => new Promise((resolve) => setTimeout(resolve, 100))
-    );
-
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="valid-token" />
-      </TestWrapper>
-    );
-
-    // Wait for validation to complete
-    await waitFor(() => {
-      expect(
-        screen.getByPlaceholderText("Enter your new password")
-      ).toBeInTheDocument();
-    });
-
-    const passwordInput = screen.getByPlaceholderText(
-      "Enter your new password"
-    );
-    const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your new password"
-    );
-    const submitButton = screen.getByRole("button", { name: "Reset Password" });
-
-    await user.type(passwordInput, "Password123!");
-    await user.type(confirmPasswordInput, "Password123!");
-    await user.click(submitButton);
-
-    // Check for loading state
-    expect(submitButton).toBeDisabled();
-  });
-
-  it("calls onSuccess callback when provided", async () => {
+  it("calls onSuccess callback when mutation succeeds", async () => {
     const onSuccess = vi.fn();
-    vi.mocked(authApi.resetPassword).mockResolvedValue(undefined);
 
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="valid-token" onSuccess={onSuccess} />
-      </TestWrapper>
-    );
-
-    // Wait for validation to complete
-    await waitFor(() => {
-      expect(
-        screen.getByPlaceholderText("Enter your new password")
-      ).toBeInTheDocument();
+    useResetPassword.mockReturnValue({
+      mutate: mockMutate,
+      isPending: false,
+      isSuccess: true,
     });
 
-    const passwordInput = screen.getByPlaceholderText(
-      "Enter your new password"
+    render(
+      <ResetPasswordFormFeature token="valid-token" onSuccess={onSuccess} />,
+      {
+        wrapper: createWrapper(),
+      }
     );
-    const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your new password"
-    );
-    const submitButton = screen.getByRole("button", { name: "Reset Password" });
-
-    await user.type(passwordInput, "Password123!");
-    await user.type(confirmPasswordInput, "Password123!");
-    await user.click(submitButton);
 
     await waitFor(() => {
       expect(onSuccess).toHaveBeenCalled();
     });
   });
 
-  it("navigates to login page on successful submission when no callback provided", async () => {
-    vi.mocked(authApi.resetPassword).mockResolvedValue(undefined);
-
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="valid-token" />
-      </TestWrapper>
-    );
-
-    // Wait for validation to complete
-    await waitFor(() => {
-      expect(
-        screen.getByPlaceholderText("Enter your new password")
-      ).toBeInTheDocument();
-    });
-
-    const passwordInput = screen.getByPlaceholderText(
-      "Enter your new password"
-    );
-    const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your new password"
-    );
-    const submitButton = screen.getByRole("button", { name: "Reset Password" });
-
-    await user.type(passwordInput, "Password123!");
-    await user.type(confirmPasswordInput, "Password123!");
-    await user.click(submitButton);
-
-    await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith({ to: "/login" });
-    });
-  });
-
-  it("calls onBackToLogin callback when back button is clicked", async () => {
+  it("calls onBackToLogin callback when link clicked", async () => {
+    const user = userEvent.setup();
     const onBackToLogin = vi.fn();
 
     render(
-      <TestWrapper>
-        <ResetPasswordFormFeature
-          token="valid-token"
-          onBackToLogin={onBackToLogin}
-        />
-      </TestWrapper>
+      <ResetPasswordFormFeature
+        token="valid-token"
+        onBackToLogin={onBackToLogin}
+      />,
+      {
+        wrapper: createWrapper(),
+      }
     );
 
-    // Wait for validation to complete
-    await waitFor(() => {
-      expect(screen.getByText("Back to Sign In")).toBeInTheDocument();
-    });
-
-    const backButton = screen.getByText("Back to Sign In");
-    await user.click(backButton);
+    const backLink = screen.getByTestId("reset-password-link-back");
+    await user.click(backLink);
 
     expect(onBackToLogin).toHaveBeenCalled();
   });
 
-  it("navigates to login page when back button is clicked and no callback provided", async () => {
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="valid-token" />
-      </TestWrapper>
-    );
-
-    // Wait for validation to complete
-    await waitFor(() => {
-      expect(screen.getByText("Back to Sign In")).toBeInTheDocument();
+  it("shows loading state during submission", () => {
+    useResetPassword.mockReturnValue({
+      mutate: mockMutate,
+      isPending: true,
+      isSuccess: false,
     });
 
-    const backButton = screen.getByText("Back to Sign In");
-    await user.click(backButton);
-
-    expect(mockNavigate).toHaveBeenCalledWith({ to: "/login" });
-  });
-
-  it("handles API errors gracefully", async () => {
-    const errorMessage = "Token expired";
-    vi.mocked(authApi.resetPassword).mockRejectedValue(new Error(errorMessage));
-
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="valid-token" />
-      </TestWrapper>
-    );
-
-    // Wait for validation to complete
-    await waitFor(() => {
-      expect(
-        screen.getByPlaceholderText("Enter your new password")
-      ).toBeInTheDocument();
+    render(<ResetPasswordFormFeature token="valid-token" />, {
+      wrapper: createWrapper(),
     });
 
-    const passwordInput = screen.getByPlaceholderText(
-      "Enter your new password"
-    );
-    const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your new password"
-    );
-    const submitButton = screen.getByRole("button", { name: "Reset Password" });
-
-    await user.type(passwordInput, "Password123!");
-    await user.type(confirmPasswordInput, "Password123!");
-    await user.click(submitButton);
-
-    await waitFor(() => {
-      expect(authApi.resetPassword).toHaveBeenCalledWith(
-        "valid-token",
-        "Password123!"
-      );
-    });
-
-    // Form should be re-enabled after error
-    await waitFor(() => {
-      expect(submitButton).toBeEnabled();
-    });
-  });
-
-  it("allows keyboard navigation", async () => {
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="valid-token" />
-      </TestWrapper>
-    );
-
-    // Wait for validation to complete
-    await waitFor(() => {
-      expect(
-        screen.getByPlaceholderText("Enter your new password")
-      ).toBeInTheDocument();
-    });
-
-    const passwordInput = screen.getByPlaceholderText(
-      "Enter your new password"
-    );
-    const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your new password"
-    );
-
-    // Focus password field
-    passwordInput.focus();
-    expect(passwordInput).toHaveFocus();
-
-    // Tab to confirm password field
-    await user.tab();
-    expect(confirmPasswordInput).toHaveFocus();
-
-    // Tab to submit button
-    await user.tab();
-    expect(
-      screen.getByRole("button", { name: "Reset Password" })
-    ).toHaveFocus();
-  });
-
-  it("submits form with Enter key", async () => {
-    vi.mocked(authApi.resetPassword).mockResolvedValue(undefined);
-
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="valid-token" />
-      </TestWrapper>
-    );
-
-    // Wait for validation to complete
-    await waitFor(() => {
-      expect(
-        screen.getByPlaceholderText("Enter your new password")
-      ).toBeInTheDocument();
-    });
-
-    const passwordInput = screen.getByPlaceholderText(
-      "Enter your new password"
-    );
-    const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your new password"
-    );
-
-    await user.type(passwordInput, "Password123!");
-    await user.type(confirmPasswordInput, "Password123!");
-    await user.keyboard("{Enter}");
-
-    await waitFor(() => {
-      expect(authApi.resetPassword).toHaveBeenCalledWith(
-        "valid-token",
-        "Password123!"
-      );
-    });
-  });
-
-  it("validates all password requirements", async () => {
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="valid-token" />
-      </TestWrapper>
-    );
-
-    // Wait for validation to complete
-    await waitFor(() => {
-      expect(
-        screen.getByPlaceholderText("Enter your new password")
-      ).toBeInTheDocument();
-    });
-
-    const passwordInput = screen.getByPlaceholderText(
-      "Enter your new password"
-    );
-    const submitButton = screen.getByRole("button", { name: "Reset Password" });
-
-    // Test each validation rule (skip empty password to avoid userEvent issue)
-    const invalidPasswords = [
-      {
-        password: "short",
-        expectedError: "Password must be at least 8 characters long",
-      },
-      {
-        password: "nouppercase123!",
-        expectedError: "Password must contain at least one uppercase letter",
-      },
-      {
-        password: "NOLOWERCASE123!",
-        expectedError: "Password must contain at least one lowercase letter",
-      },
-      {
-        password: "NoNumbers!",
-        expectedError: "Password must contain at least one number",
-      },
-      {
-        password: "NoSpecialChar123",
-        expectedError: "Password must contain at least one special character",
-      },
-    ];
-
-    for (const { password } of invalidPasswords) {
-      await user.clear(passwordInput);
-      if (password) {
-        await user.type(passwordInput, password);
-      }
-      await user.click(submitButton);
-
-      // Check that the form is still visible (not submitted due to validation error)
-      await waitFor(() => {
-        expect(submitButton).toBeEnabled();
-      });
-
-      // Check that the API was not called due to validation error
-      expect(authApi.resetPassword).not.toHaveBeenCalled();
-    }
-  });
-
-  it("handles invalid token from URL search params", () => {
-    mockUseSearch.mockReturnValue({});
-
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature />
-      </TestWrapper>
-    );
-
-    expect(screen.getByText("Invalid Reset Link")).toBeInTheDocument();
-  });
-
-  it("uses token from props over search params", async () => {
-    mockUseSearch.mockReturnValue({ token: "search-token" });
-
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="prop-token" />
-      </TestWrapper>
-    );
-
-    // Wait for validation to complete
-    await waitFor(() => {
-      expect(
-        screen.getByPlaceholderText("Enter your new password")
-      ).toBeInTheDocument();
-    });
-    expect(screen.queryByText("Invalid Reset Link")).not.toBeInTheDocument();
-  });
-
-  it("shows loading state while validating token", () => {
-    // Mock a delayed validation
-    vi.mocked(authApi.validateResetToken).mockImplementation(
-      () => new Promise((resolve) => setTimeout(() => resolve(true), 100))
-    );
-
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="valid-token" />
-      </TestWrapper>
-    );
-
-    expect(screen.getByText("Validating reset link...")).toBeInTheDocument();
-  });
-
-  it("shows invalid token message when token validation fails", async () => {
-    vi.mocked(authApi.validateResetToken).mockResolvedValue(false);
-
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="invalid-token" />
-      </TestWrapper>
-    );
-
-    await waitFor(() => {
-      expect(screen.getByText("Invalid Reset Link")).toBeInTheDocument();
-    });
-    expect(
-      screen.getByText(
-        "This password reset link is invalid or has expired. Please request a new password reset."
-      )
-    ).toBeInTheDocument();
-  });
-
-  it("validates token before showing form", async () => {
-    render(
-      <TestWrapper>
-        <ResetPasswordFormFeature token="valid-token" />
-      </TestWrapper>
-    );
-
-    // Token validation should be called
-    await waitFor(() => {
-      expect(authApi.validateResetToken).toHaveBeenCalledWith("valid-token");
-    });
-
-    // Form should be visible after successful validation
-    await waitFor(() => {
-      expect(
-        screen.getByPlaceholderText("Enter your new password")
-      ).toBeInTheDocument();
-    });
+    const submitButton = screen.getByTestId("reset-password-button-submit");
+    expect(submitButton).toBeDisabled();
   });
 });

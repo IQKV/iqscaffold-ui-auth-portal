@@ -299,8 +299,9 @@ interface UserProfileProps {
 - [ ] Internationalization with Lingui macros
 - [ ] Accessibility attributes (ARIA, semantic HTML)
 - [ ] Performance optimizations (memoization)
-- [ ] Unit tests with React Testing Library
-- [ ] Storybook story with variants
+- [ ] Unit tests co-located with source files
+- [ ] Tests follow existing patterns (Vitest + React Testing Library)
+- [ ] Storybook story with variants (when applicable)
 
 ## User Confirmation Policy & Decision Framework
 
@@ -1317,6 +1318,51 @@ pnpm storybook:build       # Build Storybook
 - **E2E Tests**: Playwright
 - **Component Tests**: Storybook with interactions
 - **Coverage**: Vitest coverage with v8
+
+### Test Co-location Pattern (CRITICAL)
+
+**Tests MUST be co-located with their source files** following FSD architecture:
+
+```
+src/
+├── features/
+│   └── signin-form/
+│       └── ui/
+│           ├── signin-form-feature.tsx
+│           └── signin-form-feature.test.tsx  ← Test alongside component
+├── processes/
+│   └── auth/
+│       └── model/
+│           ├── auth-store.ts
+│           └── auth-store.test.ts  ← Test alongside store
+├── shared/
+│   └── ui/
+│       └── form-field/
+│           ├── form-field.tsx
+│           └── form-field.test.tsx  ← Test alongside component
+```
+
+**Benefits:**
+
+- ✅ Tests are easier to find and maintain
+- ✅ Changes to components naturally prompt test updates
+- ✅ Clear 1:1 relationship between code and tests
+- ✅ Follows FSD principles of feature isolation
+- ✅ Reduces cognitive load when working on features
+
+**Naming Convention:**
+
+- Component: `component-name.tsx`
+- Test: `component-name.test.tsx`
+- Store: `store-name.ts`
+- Test: `store-name.test.ts`
+
+**When Creating Tests:**
+
+1. Place test file in the same directory as the source file
+2. Use `.test.tsx` for component tests
+3. Use `.test.ts` for logic/store tests
+4. Follow existing test patterns in the project
 
 ### Unit Testing with Mantine Components
 

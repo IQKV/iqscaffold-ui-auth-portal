@@ -75,6 +75,7 @@ React + TypeScript + Vite + TanStack Router + Mantine UI Template
 - 🧪 **Playwright** - Reliable end-to-end testing with UI mode
 - 🧪 **Mock Service Worker** - Client-agnostic API mocking for development and testing
 - 🧪 **Testing Library** - Simple and complete testing utilities for React
+- 🧪 **Co-located Tests** - Tests are placed alongside source files for better maintainability
 
 ### 🔍 **Code Quality & Development**
 
@@ -255,7 +256,40 @@ The auth portal connects to the following backend endpoints (configured via `VIT
 
 ---
 
-## 🧪 E2E Testing (Playwright)
+## 🧪 Testing Strategy
+
+### Unit Tests (Vitest)
+
+Unit tests are **co-located with source files** following the FSD architecture:
+
+```
+src/
+├── features/
+│   └── signin-form/
+│       └── ui/
+│           ├── signin-form-feature.tsx
+│           └── signin-form-feature.test.tsx  ← Test alongside component
+├── shared/
+│   └── ui/
+│       └── form-field/
+│           ├── form-field.tsx
+│           └── form-field.test.tsx  ← Test alongside component
+```
+
+**Benefits of co-location:**
+
+- Tests are easier to find and maintain
+- Changes to components naturally prompt test updates
+- Clear 1:1 relationship between code and tests
+- Follows FSD principles of feature isolation
+
+**Running tests:**
+
+- `pnpm test` - Run all unit tests
+- `pnpm test:ui` - Run tests with UI interface
+- `pnpm test:coverage` - Generate coverage report
+
+### E2E Testing (Playwright)
 
 - Install browsers (first time): `pnpm playwright:install`
 - Run tests: `pnpm e2e`
