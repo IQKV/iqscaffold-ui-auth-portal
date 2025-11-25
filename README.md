@@ -12,99 +12,94 @@
 
 # 🔐 Auth Portal - IQKV Authentication Service
 
+**Dedicated authentication portal for IQKV platform** - A standalone authentication gateway built with modern React architecture.
+
 ## 📜 Description
 
-**Dedicated authentication portal for IQKV platform** - Handles user sign up, sign in, and password reset functionality.
+This auth portal serves as the **centralized authentication gateway** for the IQKV platform, handling all authentication flows before redirecting users to the main application.
 
-> This is a standalone authentication service that redirects to the main application (APP_DOMAIN) upon successful login. It does not contain any application-specific features or protected pages.
+### 🎯 Features
 
-### 🎯 Purpose
-
-This auth portal serves as the **centralized authentication gateway** for the IQKV platform:
-
-- ✅ **Sign Up** - New user registration
-- ✅ **Sign In** - User authentication
-- ✅ **Forgot Password** - Password reset request
-- ✅ **Reset Password** - Password reset with token
-- ✅ **External Redirect** - Always redirects to APP_DOMAIN root on successful login
-
-### 🚫 What This Portal Does NOT Include
-
-- ❌ Dashboard or internal pages
-- ❌ User profile management
-- ❌ Email verification pages
-- ❌ Security settings
-- ❌ Application-specific features
-
-All post-authentication features are handled by the main application at APP_DOMAIN.
+- ✅ **Sign Up** - New user registration with validation
+- ✅ **Sign In** - User authentication with remember me
+- ✅ **Forgot Password** - Password reset request flow
+- ✅ **Reset Password** - Secure password reset with token
+- ✅ **Multi-tenant Support** - Tenant-aware authentication via X-Tenant-ID header
+- ✅ **Cookie-based Auth** - Secure HTTP-only cookie authentication
+- ✅ **RFC 7807 Error Handling** - Standardized error responses with field-level validation
 
 ---
 
 ## 🛠️ Technical Stack
 
-React + TypeScript + Vite + TanStack Router + Mantine UI Template
+**React 19 + TypeScript + Vite 7 + TanStack Router + Mantine UI v8**
 
-> A modern, feature-rich template for building scalable React applications with the latest tools and best practices.
+> Modern, type-safe authentication portal built with Feature-Sliced Design architecture and comprehensive testing.
 
 ## 🔑 Key Features
 
 ### 🚀 **Core Technologies**
 
-- ✨ **React 19** - Latest React with concurrent features and improved performance
-- ⚡ **Vite 7** - Lightning-fast development with instant HMR and optimized builds
-- 🎯 **TypeScript** - Type-safe development with latest language features
-- 📦 **PNPM** - Fast, disk space efficient package manager with workspaces support
+- ✨ **React 19** - Latest React with concurrent features
+- ⚡ **Vite 7** - Lightning-fast development with SWC compiler
+- 🎯 **TypeScript 5.9** - Strict type safety with latest language features
+- 📦 **PNPM 10.20** - Fast, disk space efficient package manager
+- 🎨 **Mantine UI v8** - Complete component library with theming
 
 ### 🔄 **State Management & Data**
 
-- 🔄 **TanStack Router** - Type-safe routing with code splitting and search params
-- 🔄 **TanStack Query** - Powerful data synchronization and caching
-- 🔄 **Axios** - Promise-based HTTP client for API calls
-- ✅ **React Hook Form + Zod** - Type-safe form validation and management
-- 🍪 **JS Cookie** - Simple cookie management
+- 🔄 **TanStack Router v1** - Type-safe file-based routing with code splitting
+- 🔄 **TanStack Query v5** - Server state management and caching
+- 🔄 **Zustand** - Lightweight client state with Immer middleware (processes layer)
+- 🔄 **Axios** - HTTP client with RFC 7807 error handling and interceptors
+- ✅ **Mantine Form + Zod** - Type-safe form validation with custom resolver
 - 🔗 **nuqs** - Type-safe URL search params state management
 
 ### 🌐 **Internationalization & Accessibility**
 
-- 🌍 **Lingui** - Modern i18n framework with macro support and pluralization
-- ♿ **A11y Support** - Built-in accessibility features and Storybook a11y addon
+- 🌍 **Lingui v5** - Modern i18n with lazy-loaded translations and macro support
+- ♿ **A11y First** - ARIA attributes, semantic HTML, and keyboard navigation
 
 ### 🧪 **Testing & Quality**
 
-- 🧪 **Vitest** - Fast unit testing with coverage reports and UI
-- 🧪 **Playwright** - Reliable end-to-end testing with UI mode
-- 🧪 **Mock Service Worker** - Client-agnostic API mocking for development and testing
-- 🧪 **Testing Library** - Simple and complete testing utilities for React
-- 🧪 **Co-located Tests** - Tests are placed alongside source files for better maintainability
+- 🧪 **Vitest 3** - Fast unit testing with coverage (v8) and UI mode
+- 🧪 **Playwright 1.56** - E2E testing with auto-start dev server
+- 🧪 **Testing Library** - React Testing Library for component tests
+- 🧪 **MSW 2** - Mock Service Worker for API mocking in dev/test
+- 🧪 **Co-located Tests** - Tests alongside source files following FSD architecture
+- 🧪 **Architecture Tests** - Automated FSD compliance verification
 
 ### 🔍 **Code Quality & Development**
 
-- 🔍 **ESLint 9** - Modern linting with flat config and React/TypeScript rules
-- 💅 **Prettier** - Opinionated code formatting with package.json plugin
-- 🎨 **Stylelint** - CSS/SCSS linting for consistent styling
+- 🔍 **ESLint 9** - Flat config with Mantine preset + TanStack plugins
+- 💅 **Prettier 3.6** - Code formatting with packagejson plugin
+- 🎨 **Stylelint 16** - CSS/SCSS linting with standard-scss config
 - 🪝 **Husky** - Git hooks for pre-commit validation
-- 📝 **Commitlint** - Conventional commit message validation
-- 🔪 **Knip** - Dead code elimination and dependency analysis
+- 📝 **Commitlint** - Conventional commit enforcement
+- 🔪 **Knip 5** - Dead code elimination and unused dependency detection
 
 ### 🧱 **Development Tools**
 
-- 🔧 **SWC** - Fast TypeScript/JavaScript compiler for React
-- 📦 **Bundle Analyzer** - Visualize and optimize bundle size
-- 🧹 **Console Remover** - Remove console statements in production builds
+- 🔧 **SWC** - Fast TypeScript/JavaScript compiler via @vitejs/plugin-react-swc
+- 📦 **Bundle Visualizer** - Analyze and optimize bundle size
+- 🧹 **Console Remover** - Strip console statements in production
+- 🔧 **TanStack Router Plugin** - File-based routing with type generation
 
 ### 🚀 **DevOps & Automation**
 
-- 👷 **GitHub Actions** - CI/CD workflows for testing, building, and deployment
-- 🔒 **Dependabot** - Automated dependency updates and security monitoring
-- 📦 **Release-it** - Automated versioning and changelog generation
-- 🐳 **Docker Compose** - Local development environment setup
-- 📊 **SonarQube** - Code quality and security analysis
+- 👷 **GitHub Actions** - CI workflows for build, test, and quality checks
+- 🔒 **Dependabot** - Automated dependency updates with auto-approve
+- 📦 **Release-it** - Automated versioning with conventional changelog
+- 🐳 **Docker Compose** - Dev container with multi-stage builds
+- 📊 **SonarQube** - Code quality analysis (sonar-project.properties)
 
 ### 🏗️ **Architecture & Patterns**
 
-- 🏗️ **Feature-Sliced Design** - Scalable frontend architecture methodology
-- 🎯 **TypeScript Strict Mode** - Enhanced type safety with strict configuration
-- 🔄 **Hot Module Replacement** - Instant updates during development
+- 🏗️ **Feature-Sliced Design** - Enforced layer boundaries with automated tests
+- 🏗️ **Processes Layer** - Cross-feature concerns (auth, tenant management)
+- 🎯 **TypeScript Strict Mode** - Maximum type safety with strict configuration
+- 🔄 **Public API Pattern** - All slices export through index.ts (enforced by tests)
+- 🔄 **Co-located Tests** - Tests alongside source files for maintainability
 
 ## 📚 Documentation
 
@@ -187,36 +182,56 @@ After creating your project from this template, you'll want to customize it:
 
 ### 📃 Available Scripts
 
-| Command                   | Description                                |
-| ------------------------- | ------------------------------------------ |
-| `pnpm dev`                | Start development server                   |
-| `pnpm build`              | Build for production                       |
-| `pnpm preview`            | Preview production build                   |
-| `pnpm test`               | Run unit tests with Vitest                 |
-| `pnpm test:ui`            | Run tests with UI interface                |
-| `pnpm test:coverage`      | Run tests with coverage report             |
-| `pnpm e2e`                | Run end-to-end tests with Playwright       |
-| `pnpm e2e:ui`             | Run e2e tests with UI interface            |
-| `pnpm e2e:headed`         | Run e2e tests in headed mode               |
-| `pnpm e2e:report`         | Open last Playwright HTML report           |
-| `pnpm e2e:update`         | Update Playwright snapshots                |
-| `pnpm e2e:debug`          | Debug e2e tests (PWDEBUG)                  |
-| `pnpm playwright:install` | Install Playwright browsers                |
-| `pnpm storybook`          | Start Storybook development server         |
-| `pnpm storybook:build`    | Build Storybook for production             |
-| `pnpm lint`               | Lint code with ESLint                      |
-| `pnpm lint:fix`           | Fix linting issues automatically           |
-| `pnpm lint:stylelint`     | Lint CSS/SCSS files                        |
-| `pnpm prettier:check`     | Check code formatting                      |
-| `pnpm prettier:write`     | Format code with Prettier                  |
-| `pnpm type-check`         | Check TypeScript types                     |
-| `pnpm messages:extract`   | Extract i18n messages                      |
-| `pnpm messages:compile`   | Compile i18n messages                      |
-| `pnpm release`            | Automate versioning and package publishing |
+| Command                   | Description                                     |
+| ------------------------- | ----------------------------------------------- |
+| `pnpm dev`                | Start development server (port 5173)            |
+| `pnpm build`              | Build for production (with i18n compilation)    |
+| `pnpm preview`            | Preview production build                        |
+| `pnpm test`               | Run unit tests with Vitest                      |
+| `pnpm test:arch`          | Run FSD architecture compliance tests           |
+| `pnpm test:ui`            | Run tests with UI interface                     |
+| `pnpm test:coverage`      | Run tests with coverage report (v8)             |
+| `pnpm e2e`                | Run E2E tests with Playwright (Chromium)        |
+| `pnpm e2e:ui`             | Run E2E tests with Playwright UI mode           |
+| `pnpm e2e:headed`         | Run E2E tests in headed mode                    |
+| `pnpm e2e:debug`          | Debug E2E tests with PWDEBUG                    |
+| `pnpm e2e:report`         | Open last Playwright HTML report                |
+| `pnpm e2e:all-browsers`   | Run E2E tests on Chromium, Firefox, and WebKit  |
+| `pnpm playwright:install` | Install Playwright browsers with dependencies   |
+| `pnpm lint`               | Lint code with ESLint                           |
+| `pnpm lint:fix`           | Fix linting issues automatically                |
+| `pnpm lint:stylelint`     | Lint CSS/SCSS files                             |
+| `pnpm prettier:check`     | Check code formatting                           |
+| `pnpm prettier:write`     | Format code with Prettier                       |
+| `pnpm type-check`         | Check TypeScript types (no emit)                |
+| `pnpm messages:extract`   | Extract i18n messages from source               |
+| `pnpm messages:compile`   | Compile i18n messages for production            |
+| `pnpm knip`               | Find unused files, dependencies, and exports    |
+| `pnpm release`            | Automated versioning and changelog (release-it) |
+| `pnpm ci`                 | Run CI checks (lint + test)                     |
 
 ### 🏗️ **Feature-Sliced Design Architecture**
 
-This project follows **Feature-Sliced Design (FSD)** methodology for scalable frontend architecture.
+This project follows **Feature-Sliced Design (FSD)** methodology with **automated architecture tests** that enforce:
+
+- ✅ Layer structure (app, processes, pages, widgets, features, entities, shared)
+- ✅ Public API exports (all slices must have index.ts)
+- ✅ Required segments (features must have ui/ and model/)
+- ✅ Naming conventions (kebab-case for pages and shared UI)
+
+**Run architecture tests:** `pnpm test:arch`
+
+```
+src/
+├── app/          # Application layer (providers, routing, config)
+├── processes/    # Process layer (auth, tenant - cross-feature concerns)
+├── pages/        # Page layer (route components)
+├── widgets/      # Widget layer (auth-layout, tenant-info, theme-toggle)
+├── features/     # Feature layer (signin-form, signup-form, forgot/reset password)
+├── entities/     # Entity layer (form entity)
+├── shared/       # Shared layer (ui, lib, api, types, locales, mocks)
+└── architecture.test.ts  # Automated FSD compliance tests
+```
 
 ### Environment Variables
 
@@ -233,72 +248,136 @@ This project follows **Feature-Sliced Design (FSD)** methodology for scalable fr
 | `TZ`                              | Defines timezone                              | `UTC`                   | No       |
 | `NODE_ENV`                        | Defines nodejs environment                    | `development`           | No       |
 
-#### API Endpoints
+#### API Integration
 
-The auth portal connects to the following backend endpoints (configured via `VITE_API_URL_SERVER`):
+The auth portal connects to backend services via `VITE_API_URL_SERVER` with:
 
-**Public Endpoints:**
+- **Cookie-based Authentication** - HTTP-only cookies with `withCredentials: true`
+- **Multi-tenant Support** - Automatic `X-Tenant-ID` header injection
+- **RFC 7807 Error Handling** - Standardized Problem Details format
+- **Field-level Validation** - Backend validation errors mapped to form fields
+- **Global Error Notifications** - Automatic error notifications for server errors
 
-- `POST /api/v1/auth/signup` - Register new user
-- `POST /api/v1/auth/login` - Authenticate user
-- `POST /api/v1/auth/refresh` - Refresh access token
-- `POST /api/v1/auth/validate` - Validate JWT token
-- `GET /api/v1/auth/email/verify` - Verify email address
-- `POST /api/v1/auth/email/resend` - Resend verification email
-- `POST /api/v1/auth/password/forgot` - Initiate password reset
-- `POST /api/v1/auth/password/reset` - Reset password
+**Expected Backend Endpoints:**
 
-**Protected Endpoints:**
+- `POST /api/v1/auth/signup` - User registration
+- `POST /api/v1/auth/login` - User authentication
+- `POST /api/v1/auth/password/forgot` - Password reset request
+- `POST /api/v1/auth/password/reset` - Password reset with token
 
-- `PATCH /api/v1/users/me/password` - Change password (requires authentication)
-- `POST /api/v1/auth/logout` - Logout current session
-- `POST /api/v1/auth/logout-all` - Logout all sessions
+**Error Response Format (RFC 7807):**
+
+```json
+{
+  "type": "validation-error",
+  "title": "Validation Failed",
+  "status": 400,
+  "detail": "One or more fields are invalid",
+  "fields": [
+    {
+      "field": "email",
+      "message": "Email is already registered",
+      "rejectedValue": "user@example.com"
+    }
+  ],
+  "correlationId": "abc-123",
+  "requestId": "req-456"
+}
+```
 
 ---
 
 ## 🧪 Testing Strategy
 
-### Unit Tests (Vitest)
+### Unit Tests (Vitest 3)
 
-Unit tests are **co-located with source files** following the FSD architecture:
+Unit tests are **co-located with source files** following FSD architecture:
 
 ```
 src/
 ├── features/
 │   └── signin-form/
-│       └── ui/
-│           ├── signin-form-feature.tsx
-│           └── signin-form-feature.test.tsx  ← Test alongside component
+│       ├── ui/
+│       │   ├── signin-form-feature.tsx
+│       │   └── signin-form-feature.test.tsx  ← Co-located test
+│       └── model/
+│           ├── validation.ts
+│           └── validation.test.ts  ← Co-located test
 ├── shared/
 │   └── ui/
 │       └── form-field/
 │           ├── form-field.tsx
-│           └── form-field.test.tsx  ← Test alongside component
+│           └── form-field.test.tsx  ← Co-located test
 ```
 
-**Benefits of co-location:**
+**Test Configuration:**
 
-- Tests are easier to find and maintain
-- Changes to components naturally prompt test updates
-- Clear 1:1 relationship between code and tests
-- Follows FSD principles of feature isolation
+- **Test Runner:** Vitest 3 with happy-dom environment
+- **Testing Library:** @testing-library/react v16 + user-event v14
+- **Coverage:** v8 provider with HTML/text reporters
+- **Setup:** `src/setupTests.ts` with Mantine mocks
 
-**Running tests:**
+**Running Tests:**
 
-- `pnpm test` - Run all unit tests
-- `pnpm test:ui` - Run tests with UI interface
-- `pnpm test:coverage` - Generate coverage report
+```bash
+pnpm test              # Run all unit tests
+pnpm test:arch         # Run FSD architecture tests
+pnpm test:ui           # Run with Vitest UI
+pnpm test:coverage     # Generate coverage report
+```
 
-### E2E Testing (Playwright)
+### E2E Testing (Playwright 1.56)
 
-- Install browsers (first time): `pnpm playwright:install`
-- Run tests: `pnpm e2e`
-- UI mode: `pnpm e2e:ui`
-- Headed: `pnpm e2e:headed`
-- Report: `pnpm e2e:report`
+**Configuration:**
 
-The dev server is auto-started by Playwright via `webServer` in `playwright.config.ts`.
-CI runs Playwright on PRs/pushes via `.github/workflows/e2e-playwright.yml`.
+- **Auto-start Dev Server:** Configured in `playwright.config.ts`
+- **Browsers:** Chromium (default), Firefox, WebKit (CI or ALL_BROWSERS=true)
+- **Parallel Execution:** Enabled locally, sequential in CI
+- **Retries:** 1 retry locally, 2 in CI
+- **Artifacts:** Screenshots, videos, traces on failure
+
+**Running E2E Tests:**
+
+```bash
+pnpm playwright:install  # First time: install browsers
+pnpm e2e                 # Run tests (Chromium only)
+pnpm e2e:ui              # Interactive UI mode
+pnpm e2e:headed          # Watch tests run
+pnpm e2e:debug           # Debug with Playwright Inspector
+pnpm e2e:report          # View HTML report
+pnpm e2e:all-browsers    # Test on all browsers
+```
+
+**Test Organization:**
+
+```
+e2e/
+├── setup/
+│   └── global-setup.ts
+├── auth/
+│   ├── login.spec.ts
+│   ├── signup.spec.ts
+│   └── password-reset.spec.ts
+└── smoke/
+    └── homepage.spec.ts
+```
+
+### Architecture Tests
+
+**Automated FSD compliance verification:**
+
+```bash
+pnpm test:arch
+```
+
+**What's Tested:**
+
+- ✅ All FSD layers exist (app, processes, pages, widgets, features, entities, shared)
+- ✅ All slices have public API (index.ts)
+- ✅ Features have required segments (ui/, model/)
+- ✅ Widgets have ui/ or component file
+- ✅ Shared segments have index.ts
+- ✅ Naming conventions (kebab-case for pages and shared UI)
 
 ## 📆 Changelog
 
