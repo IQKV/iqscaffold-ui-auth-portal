@@ -64,9 +64,12 @@ describe("TenantStore", () => {
   describe("setTenant", () => {
     it("sets tenant data", () => {
       const tenant = {
+        id: 1,
         tenantId: "tenant-789",
         name: "Test Tenant",
         enabled: true,
+        createdAt: "2024-01-01T00:00:00Z",
+        updatedAt: "2024-01-01T00:00:00Z",
       };
 
       useTenantStore.getState().setTenant(tenant);
@@ -81,7 +84,14 @@ describe("TenantStore", () => {
     it("clears tenant context", () => {
       useTenantStore.setState({
         currentTenantId: "tenant-123",
-        tenant: { tenantId: "tenant-123", name: "Test", enabled: true },
+        tenant: {
+          id: 1,
+          tenantId: "tenant-123",
+          name: "Test",
+          enabled: true,
+          createdAt: "2024-01-01T00:00:00Z",
+          updatedAt: "2024-01-01T00:00:00Z",
+        },
         error: "Some error",
       });
 
