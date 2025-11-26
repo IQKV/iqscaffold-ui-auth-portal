@@ -1208,7 +1208,7 @@ export type { SignInFormValues } from "./model/types";
 ### Development Requirements
 
 - **Node.js**: >= 22.0.0 (LTS)
-- **Package Manager**: pnpm (required, version 10.20.0)
+- **Package Manager**: pnpm (required, version 10.23.0)
 - **Editor**: VS Code with recommended extensions
 
 ### Environment Variables (ACTUAL)
