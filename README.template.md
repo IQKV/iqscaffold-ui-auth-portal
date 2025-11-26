@@ -1,4 +1,4 @@
-# 🔐 IQKV Auth Portal
+# 🔐 IQ Scaffold Auth Portal
 
 > Modern authentication frontend providing user registration, login, password management, and seamless integration with the IQKV microservices platform.
 

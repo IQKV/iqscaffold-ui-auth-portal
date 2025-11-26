@@ -10,7 +10,7 @@
 
 ---
 
-# 🔐 Auth Portal - IQKV Authentication Service
+# 🔐 Auth Portal - IQ Scaffold Authentication Service
 
 **Dedicated authentication portal for IQKV platform** - A standalone authentication gateway built with modern React architecture.
 
