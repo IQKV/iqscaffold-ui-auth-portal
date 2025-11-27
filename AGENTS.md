@@ -1218,8 +1218,8 @@ export type { SignInFormValues } from "./model/types";
 VITE_API_URL_SERVER=http://localhost:8080  # User service backend
 
 # Domain Configuration
-VITE_AUTH_DOMAIN_AUTH=https://auth.iqkv.com  # Auth portal domain
-VITE_AUTH_DOMAIN_APP=https://app.iqkv.com    # Main app domain
+VITE_AUTH_DOMAIN_AUTH=https://auth.iqscaffold.com  # Auth portal domain
+VITE_AUTH_DOMAIN_APP=https://app.iqscaffold.com    # Main app domain
 
 # Redirect Configuration
 VITE_AUTH_REDIRECT_AFTER_LOGIN=VITE_AUTH_DOMAIN_APP  # After successful login
