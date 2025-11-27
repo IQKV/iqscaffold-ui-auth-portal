@@ -22,8 +22,8 @@ function RootComponent() {
   return (
     <AppLayout>
       <Helmet
-        defaultTitle="Mantine UI Template"
-        titleTemplate="%s | Mantine UI Template"
+        defaultTitle="IQ Scaffold Platform"
+        titleTemplate="%s | IQ Scaffold Platform"
       />
       <Outlet />
       <TanStackRouterDevtools />
