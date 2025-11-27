@@ -289,8 +289,8 @@ importers:
         specifier: 2.6.1
         version: 2.6.1
       jsdom:
-        specifier: ^27.0.1
-        version: 27.0.1(postcss@8.5.6)
+        specifier: ^27.2.0
+        version: 27.2.0
       knip:
         specifier: 5.70.2
         version: 5.70.2(@types/node@24.9.1)(typescript@5.9.3)
@@ -362,9 +362,12 @@ importers:
         version: 5.1.4(typescript@5.9.3)(vite@7.1.12(@types/node@24.9.1)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/node@24.9.1)(@vitest/ui@3.2.4)(happy-dom@20.0.8)(jiti@2.6.1)(jsdom@27.0.1(postcss@8.5.6))(msw@2.12.3(@types/node@24.9.1)(typescript@5.9.3))(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
+        version: 3.2.4(@types/node@24.9.1)(@vitest/ui@3.2.4)(happy-dom@20.0.8)(jiti@2.6.1)(jsdom@27.2.0)(msw@2.12.3(@types/node@24.9.1)(typescript@5.9.3))(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
 packages:
+
+  '@acemir/cssom@0.9.24':
+    resolution: {integrity: sha512-5YjgMmAiT2rjJZU7XK1SNI7iqTy92DpaYVgG6x63FxkJ11UpYfLndHJATtinWJClAXiOlW9XWaUyAQf8pMrQPg==}
 
   '@adobe/css-tools@4.4.4':
     resolution: {integrity: sha512-Elp+iwUx5rN5+Y8xLt5/GRoG20WGoDCQ/1Fb+1LiGtvwbDavuSk0jhD/eZdckHAuzcDzccnkv+rEjyWfRx18gg==}
@@ -373,11 +376,11 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@asamuzakjp/css-color@4.0.5':
-    resolution: {integrity: sha512-lMrXidNhPGsDjytDy11Vwlb6OIGrT3CmLg3VWNFyWkLWtijKl7xjvForlh8vuj0SHGjgl4qZEQzUmYTeQA2JFQ==}
+  '@asamuzakjp/css-color@4.1.0':
+    resolution: {integrity: sha512-9xiBAtLn4aNsa4mDnpovJvBn72tNEIACyvlqaNJ+ADemR+yeMJWnBudOi2qGDviJa7SwcDOU/TRh5dnET7qk0w==}
 
-  '@asamuzakjp/dom-selector@6.7.3':
-    resolution: {integrity: sha512-kiGFeY+Hxf5KbPpjRLf+ffWbkos1aGo8MBfd91oxS3O57RgU3XhZrt/6UzoVF9VMpWbC3v87SRc9jxGrc9qHtQ==}
+  '@asamuzakjp/dom-selector@6.7.4':
+    resolution: {integrity: sha512-buQDjkm+wDPXd6c13534URWZqbz0RP5PAhXZ+LIoa5LgwInT9HVJvGIJivg75vi8I13CxDGdTnz+aY5YUJlIAA==}
 
   '@asamuzakjp/nwsapi@2.3.9':
     resolution: {integrity: sha512-n8GuYSrI9bF7FFZ/SjhwevlHc8xaVlb/7HmHelnc/PZXBD2ZR49NnN9sMMuDdEGPeeRQ5d0hqlSlEpgCX3Wl0Q==}
@@ -645,11 +648,9 @@ packages:
     peerDependencies:
       '@csstools/css-tokenizer': ^3.0.4
 
-  '@csstools/css-syntax-patches-for-csstree@1.0.14':
-    resolution: {integrity: sha512-zSlIxa20WvMojjpCSy8WrNpcZ61RqfTfX3XTaOeVlGJrt/8HF3YbzgFZa01yTbT4GWQLwfTcC3EB8i3XnB647Q==}
+  '@csstools/css-syntax-patches-for-csstree@1.0.19':
+    resolution: {integrity: sha512-QW5/SM2ARltEhoKcmRI1LoLf3/C7dHGswwCnfLcoMgqurBT4f8GvwXMgAbK/FwcxthmJRK5MGTtddj0yQn0J9g==}
     engines: {node: '>=18'}
-    peerDependencies:
-      postcss: ^8.4
 
   '@csstools/css-tokenizer@3.0.4':
     resolution: {integrity: sha512-Vd/9EVDiu6PPJt9yAh6roZP6El1xHrdvIVGjyBsHR0RYwNHgL7FJPyIIW4fANJNG6FtyZfvlRPpFI4ZM/lubvw==}
@@ -2937,8 +2938,8 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
 
-  cssstyle@5.3.1:
-    resolution: {integrity: sha512-g5PC9Aiph9eiczFpcgUhd9S4UUO3F+LHGRIi5NUMZ+4xtoIYbHNZwZnWA2JsFGe8OU8nl4WyaEFiZuGuxlutJQ==}
+  cssstyle@5.3.3:
+    resolution: {integrity: sha512-OytmFH+13/QXONJcC75QNdMtKpceNk3u8ThBjyyYjkEcy/ekBwR1mMAuNvi3gdBPW3N5TlCzQ0WZw8H0lN/bDw==}
     engines: {node: '>=20'}
 
   csstype@3.1.3:
@@ -4308,9 +4309,9 @@ packages:
     resolution: {integrity: sha512-qQKT4zQxXl8lLwBtHMWwaTcGfFOZviOJet3Oy/xmGk2gZH677CJM9EvtfdSkgWcATZhj/55JZ0rmy3myCT5lsA==}
     hasBin: true
 
-  jsdom@27.0.1:
-    resolution: {integrity: sha512-SNSQteBL1IlV2zqhwwolaG9CwhIhTvVHWg3kTss/cLE7H/X4644mtPQqYvCfsSrGQWt9hSZcgOXX8bOZaMN+kA==}
-    engines: {node: '>=20'}
+  jsdom@27.2.0:
+    resolution: {integrity: sha512-454TI39PeRDW1LgpyLPyURtB4Zx1tklSr6+OFOipsxGUH1WMTvk6C65JQdrj455+DP2uJ1+veBEHTGFKWVLFoA==}
+    engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
     peerDependencies:
       canvas: ^3.0.0
     peerDependenciesMeta:
@@ -5435,9 +5436,6 @@ packages:
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
-  rrweb-cssom@0.8.0:
-    resolution: {integrity: sha512-guoltQEx+9aMf2gDZ0s62EcV8lsXR+0w8915TC3ITdn2YueuNjdAYh/levpU9nFaoChh9RUS5ZdQMrKfVEN9tw==}
-
   run-applescript@7.1.0:
     resolution: {integrity: sha512-DPe5pVFaAsinSaV6QjQ6gdiedWDcRCbUuiQfQa2wmWV7+xC9bGulGI8+TdRmoFkAPaBXk8CrAbnlY2ISniJ47Q==}
     engines: {node: '>=18'}
@@ -6451,6 +6449,8 @@ packages:
 
 snapshots:
 
+  '@acemir/cssom@0.9.24': {}
+
   '@adobe/css-tools@4.4.4': {}
 
   '@ampproject/remapping@2.3.0':
@@ -6458,7 +6458,7 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.31
 
-  '@asamuzakjp/css-color@4.0.5':
+  '@asamuzakjp/css-color@4.1.0':
     dependencies:
       '@csstools/css-calc': 2.1.4(@csstools/css-parser-algorithms@3.0.5(@csstools/css-tokenizer@3.0.4))(@csstools/css-tokenizer@3.0.4)
       '@csstools/css-color-parser': 3.1.0(@csstools/css-parser-algorithms@3.0.5(@csstools/css-tokenizer@3.0.4))(@csstools/css-tokenizer@3.0.4)
@@ -6466,7 +6466,7 @@ snapshots:
       '@csstools/css-tokenizer': 3.0.4
       lru-cache: 11.2.2
 
-  '@asamuzakjp/dom-selector@6.7.3':
+  '@asamuzakjp/dom-selector@6.7.4':
     dependencies:
       '@asamuzakjp/nwsapi': 2.3.9
       bidi-js: 1.0.3
@@ -6827,9 +6827,7 @@ snapshots:
     dependencies:
       '@csstools/css-tokenizer': 3.0.4
 
-  '@csstools/css-syntax-patches-for-csstree@1.0.14(postcss@8.5.6)':
-    dependencies:
-      postcss: 8.5.6
+  '@csstools/css-syntax-patches-for-csstree@1.0.19': {}
 
   '@csstools/css-tokenizer@3.0.4': {}
 
@@ -8340,7 +8338,7 @@ snapshots:
       std-env: 3.10.0
       test-exclude: 7.0.1
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/node@24.9.1)(@vitest/ui@3.2.4)(happy-dom@20.0.8)(jiti@2.6.1)(jsdom@27.0.1(postcss@8.5.6))(msw@2.12.3(@types/node@24.9.1)(typescript@5.9.3))(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
+      vitest: 3.2.4(@types/node@24.9.1)(@vitest/ui@3.2.4)(happy-dom@20.0.8)(jiti@2.6.1)(jsdom@27.2.0)(msw@2.12.3(@types/node@24.9.1)(typescript@5.9.3))(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8390,7 +8388,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/node@24.9.1)(@vitest/ui@3.2.4)(happy-dom@20.0.8)(jiti@2.6.1)(jsdom@27.0.1(postcss@8.5.6))(msw@2.12.3(@types/node@24.9.1)(typescript@5.9.3))(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
+      vitest: 3.2.4(@types/node@24.9.1)(@vitest/ui@3.2.4)(happy-dom@20.0.8)(jiti@2.6.1)(jsdom@27.2.0)(msw@2.12.3(@types/node@24.9.1)(typescript@5.9.3))(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   '@vitest/utils@3.2.4':
     dependencies:
@@ -9207,13 +9205,11 @@ snapshots:
 
   cssesc@3.0.0: {}
 
-  cssstyle@5.3.1(postcss@8.5.6):
+  cssstyle@5.3.3:
     dependencies:
-      '@asamuzakjp/css-color': 4.0.5
-      '@csstools/css-syntax-patches-for-csstree': 1.0.14(postcss@8.5.6)
+      '@asamuzakjp/css-color': 4.1.0
+      '@csstools/css-syntax-patches-for-csstree': 1.0.19
       css-tree: 3.1.0
-    transitivePeerDependencies:
-      - postcss
 
   csstype@3.1.3: {}
 
@@ -10803,10 +10799,11 @@ snapshots:
     dependencies:
       argparse: 2.0.1
 
-  jsdom@27.0.1(postcss@8.5.6):
+  jsdom@27.2.0:
     dependencies:
-      '@asamuzakjp/dom-selector': 6.7.3
-      cssstyle: 5.3.1(postcss@8.5.6)
+      '@acemir/cssom': 0.9.24
+      '@asamuzakjp/dom-selector': 6.7.4
+      cssstyle: 5.3.3
       data-urls: 6.0.0
       decimal.js: 10.6.0
       html-encoding-sniffer: 4.0.0
@@ -10814,7 +10811,6 @@ snapshots:
       https-proxy-agent: 7.0.6
       is-potential-custom-element-name: 1.0.1
       parse5: 8.0.0
-      rrweb-cssom: 0.8.0
       saxes: 6.0.0
       symbol-tree: 3.2.4
       tough-cookie: 6.0.0
@@ -10827,7 +10823,6 @@ snapshots:
       xml-name-validator: 5.0.0
     transitivePeerDependencies:
       - bufferutil
-      - postcss
       - supports-color
       - utf-8-validate
 
@@ -12026,8 +12021,6 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.52.5
       fsevents: 2.3.3
 
-  rrweb-cssom@0.8.0: {}
-
   run-applescript@7.1.0: {}
 
   run-async@2.4.1: {}
@@ -12873,7 +12866,7 @@ snapshots:
       tsx: 4.20.6
       yaml: 2.8.1
 
-  vitest@3.2.4(@types/node@24.9.1)(@vitest/ui@3.2.4)(happy-dom@20.0.8)(jiti@2.6.1)(jsdom@27.0.1(postcss@8.5.6))(msw@2.12.3(@types/node@24.9.1)(typescript@5.9.3))(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1):
+  vitest@3.2.4(@types/node@24.9.1)(@vitest/ui@3.2.4)(happy-dom@20.0.8)(jiti@2.6.1)(jsdom@27.2.0)(msw@2.12.3(@types/node@24.9.1)(typescript@5.9.3))(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1):
     dependencies:
       '@types/chai': 5.2.3
       '@vitest/expect': 3.2.4
@@ -12902,7 +12895,7 @@ snapshots:
       '@types/node': 24.9.1
       '@vitest/ui': 3.2.4(vitest@3.2.4)
       happy-dom: 20.0.8
-      jsdom: 27.0.1(postcss@8.5.6)
+      jsdom: 27.2.0
     transitivePeerDependencies:
       - jiti
       - less
