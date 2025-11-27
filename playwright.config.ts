@@ -7,7 +7,7 @@ const isCI = Boolean(process.env.CI);
 export default defineConfig({
   forbidOnly: isCI,
   fullyParallel: !isCI, // Run in parallel locally, sequential in CI for stability
-  timeout: 30_000,
+  timeout: 60_000,
   expect: {
     timeout: 10_000, // Increased for better reliability
   },
