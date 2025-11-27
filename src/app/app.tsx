@@ -57,8 +57,9 @@ export function App() {
 
     // Load locale messages asynchronously after component mounts
     const loadLocale = async () => {
-      const { dynamicActivateLocale, getClientLocale } =
-        await import("@/shared/locales");
+      const { dynamicActivateLocale, getClientLocale } = await import(
+        "@/shared/locales"
+      );
       await dynamicActivateLocale(getClientLocale());
     };
 
