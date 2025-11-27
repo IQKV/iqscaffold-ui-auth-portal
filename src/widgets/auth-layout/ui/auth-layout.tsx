@@ -1,6 +1,6 @@
 import { Box, Flex, Stack, Text, Title } from "@mantine/core";
 import { ReactNode, useMemo } from "react";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@dr.pogodin/react-helmet";
 import { ThemeToggle } from "@/widgets/theme-toggle";
 import classes from "./auth-layout.module.css";
 

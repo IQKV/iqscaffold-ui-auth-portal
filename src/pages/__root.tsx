@@ -1,7 +1,7 @@
 import React from "react";
 
 import { createRootRoute, Outlet } from "@tanstack/react-router";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@dr.pogodin/react-helmet";
 
 import { AppLayout } from "@/shared/ui/app-layout";
 
