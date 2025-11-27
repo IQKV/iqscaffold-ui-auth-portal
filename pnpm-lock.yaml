@@ -27,7 +27,7 @@ importers:
         specifier: ^8.3.5
         version: 8.3.5(@mantine/hooks@8.3.5(react@19.2.0))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@mantine/form':
-        specifier: ^8.3.9
+        specifier: ^8.3.5
         version: 8.3.9(react@19.2.0)
       '@mantine/hooks':
         specifier: ^8.3.5
@@ -45,7 +45,7 @@ importers:
         specifier: ^3.35.0
         version: 3.35.0(react@19.2.0)
       '@tanstack/react-query':
-        specifier: ^5.90.11
+        specifier: ^5.90.5
         version: 5.90.11(react@19.2.0)
       '@tanstack/react-router':
         specifier: ^1.133.32
@@ -105,7 +105,7 @@ importers:
         specifier: ^1.3.0
         version: 1.3.0(@mantine/form@8.3.9(react@19.2.0))(zod@3.25.76)
       nuqs:
-        specifier: ^2.8.1
+        specifier: ^2.7.2
         version: 2.8.1(@tanstack/react-router@1.133.32(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
       query-string:
         specifier: ^9.3.1
@@ -151,7 +151,7 @@ importers:
         specifier: ^2.2.4
         version: 2.2.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       '@eslint/js':
-        specifier: ^9.39.1
+        specifier: ^9.38.0
         version: 9.39.1
       '@lingui/cli':
         specifier: ^5.5.1
@@ -160,7 +160,7 @@ importers:
         specifier: ^5.6.1
         version: 5.6.1(@lingui/core@5.5.1(@lingui/babel-plugin-lingui-macro@5.6.0(babel-plugin-macros@3.1.0)(typescript@5.9.3))(babel-plugin-macros@3.1.0))(@swc/core@1.15.3)
       '@lingui/vite-plugin':
-        specifier: ^5.6.0
+        specifier: ^5.5.1
         version: 5.6.0(babel-plugin-macros@3.1.0)(typescript@5.9.3)(vite@7.2.4(@types/node@24.9.1)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
       '@playwright/test':
         specifier: 1.56.1
@@ -208,7 +208,7 @@ importers:
         specifier: ^19.2.2
         version: 19.2.2
       '@types/react-dom':
-        specifier: ^19.2.3
+        specifier: ^19.2.2
         version: 19.2.3(@types/react@19.2.2)
       '@vitejs/plugin-react-swc':
         specifier: ^4.2.0
@@ -220,13 +220,13 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4)
       autoprefixer:
-        specifier: ^10.4.22
+        specifier: ^10.4.21
         version: 10.4.22(postcss@8.5.6)
       cz-conventional-changelog:
         specifier: ^3.3.0
         version: 3.3.0(@types/node@24.9.1)(typescript@5.9.3)
       eslint:
-        specifier: ^9.39.1
+        specifier: ^9.38.0
         version: 9.39.1(jiti@2.6.1)
       eslint-config-mantine:
         specifier: 4.0.3
@@ -251,7 +251,7 @@ importers:
         version: 0.11.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-prettier:
         specifier: ^5.5.4
-        version: 5.5.4(@types/eslint@9.6.1)(eslint-config-prettier@10.1.8(eslint@9.39.1(jiti@2.6.1)))(eslint@9.39.1(jiti@2.6.1))(prettier@3.7.1)
+        version: 5.5.4(@types/eslint@9.6.1)(eslint-config-prettier@10.1.8(eslint@9.39.1(jiti@2.6.1)))(eslint@9.39.1(jiti@2.6.1))(prettier@3.6.2)
       eslint-plugin-react:
         specifier: ^7.37.5
         version: 7.37.5(eslint@9.39.1(jiti@2.6.1))
@@ -271,7 +271,7 @@ importers:
         specifier: 6.4.1
         version: 6.4.1
       globals:
-        specifier: ^16.5.0
+        specifier: ^16.4.0
         version: 16.5.0
       happy-dom:
         specifier: 20.0.8
@@ -289,11 +289,11 @@ importers:
         specifier: 2.6.1
         version: 2.6.1
       jsdom:
-        specifier: ^27.2.0
+        specifier: ^27.0.1
         version: 27.2.0
       knip:
-        specifier: 5.70.2
-        version: 5.70.2(@types/node@24.9.1)(typescript@5.9.3)
+        specifier: 5.66.3
+        version: 5.66.3(@types/node@24.9.1)(typescript@5.9.3)
       lint-staged:
         specifier: ^16.2.6
         version: 16.2.6
@@ -301,7 +301,7 @@ importers:
         specifier: ^11.2.2
         version: 11.2.2
       msw:
-        specifier: ^2.12.3
+        specifier: ^2.11.6
         version: 2.12.3(@types/node@24.9.1)(typescript@5.9.3)
       nx:
         specifier: ^22.0.1
@@ -316,11 +316,11 @@ importers:
         specifier: ^7.0.1
         version: 7.0.1(postcss@8.5.6)
       prettier:
-        specifier: 3.7.1
-        version: 3.7.1
+        specifier: 3.6.2
+        version: 3.6.2
       prettier-plugin-packagejson:
         specifier: 2.5.19
-        version: 2.5.19(prettier@3.7.1)
+        version: 2.5.19(prettier@3.6.2)
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -334,7 +334,7 @@ importers:
         specifier: ^3.4.0
         version: 3.4.0
       stylelint:
-        specifier: ^16.26.0
+        specifier: ^16.25.0
         version: 16.26.0(typescript@5.9.3)
       stylelint-config-standard-scss:
         specifier: ^16.0.0
@@ -343,10 +343,10 @@ importers:
         specifier: ~5.9.3
         version: 5.9.3
       typescript-eslint:
-        specifier: ^8.48.0
+        specifier: ^8.46.2
         version: 8.48.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       vite:
-        specifier: ^7.2.4
+        specifier: ^7.1.12
         version: 7.2.4(@types/node@24.9.1)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vite-bundle-visualizer:
         specifier: ^1.2.1
@@ -4639,8 +4639,8 @@ packages:
     resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
     engines: {node: '>= 8'}
 
-  knip@5.70.2:
-    resolution: {integrity: sha512-LI7DbeVnk7h9+FAet5KzzHNdDwJyqDa2+cn4uQfZYTfpuVjEqtGmYD9r5b9JEuOs4eVkf/7sskNhWXxELm3C/Q==}
+  knip@5.66.3:
+    resolution: {integrity: sha512-BEe9ZCI8fm4TJzehnrCt+L/Faqu6qfMH6VrwSfck+lCGotQzf0jh5dVXysPWjWqMpdUSr6+MpMu9JW/G6wiAcQ==}
     engines: {node: '>=18.18.0'}
     hasBin: true
     peerDependencies:
@@ -5412,8 +5412,8 @@ packages:
       prettier:
         optional: true
 
-  prettier@3.7.1:
-    resolution: {integrity: sha512-RWKXE4qB3u5Z6yz7omJkjWwmTfLdcbv44jUVHC5NpfXwFGzvpQM798FGv/6WNK879tc+Cn0AAyherCl1KjbyZQ==}
+  prettier@3.6.2:
+    resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -6010,8 +6010,8 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
 
-  strip-json-comments@5.0.3:
-    resolution: {integrity: sha512-1tB5mhVo7U+ETBKNf92xT4hrQa3pm0MZ0PQvuDnWgAAGHDsfp4lPSpiS6psrSiet87wyGPh9ft6wmhOMQ0hDiw==}
+  strip-json-comments@5.0.2:
+    resolution: {integrity: sha512-4X2FR3UwhNUE9G49aIsJW5hRRR3GXGTBTZRMfv568O60ojM8HcWjV/VxAxCDW3SUND33O6ZY66ZuRcdkj73q2g==}
     engines: {node: '>=14.16'}
 
   strip-literal@3.1.0:
@@ -8412,7 +8412,7 @@ snapshots:
       '@tanstack/router-core': 1.133.28
       '@tanstack/router-utils': 1.133.19
       '@tanstack/virtual-file-routes': 1.133.19
-      prettier: 3.7.1
+      prettier: 3.6.2
       recast: 0.23.11
       source-map: 0.7.6
       tsx: 4.20.6
@@ -10200,10 +10200,10 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-prettier@5.5.4(@types/eslint@9.6.1)(eslint-config-prettier@10.1.8(eslint@9.39.1(jiti@2.6.1)))(eslint@9.39.1(jiti@2.6.1))(prettier@3.7.1):
+  eslint-plugin-prettier@5.5.4(@types/eslint@9.6.1)(eslint-config-prettier@10.1.8(eslint@9.39.1(jiti@2.6.1)))(eslint@9.39.1(jiti@2.6.1))(prettier@3.6.2):
     dependencies:
       eslint: 9.39.1(jiti@2.6.1)
-      prettier: 3.7.1
+      prettier: 3.6.2
       prettier-linter-helpers: 1.0.0
       synckit: 0.11.11
     optionalDependencies:
@@ -11410,7 +11410,7 @@ snapshots:
 
   klona@2.0.6: {}
 
-  knip@5.70.2(@types/node@24.9.1)(typescript@5.9.3):
+  knip@5.66.3(@types/node@24.9.1)(typescript@5.9.3):
     dependencies:
       '@nodelib/fs.walk': 1.2.8
       '@types/node': 24.9.1
@@ -11423,7 +11423,7 @@ snapshots:
       picocolors: 1.1.1
       picomatch: 4.0.3
       smol-toml: 1.5.2
-      strip-json-comments: 5.0.3
+      strip-json-comments: 5.0.2
       typescript: 5.9.3
       zod: 4.1.13
 
@@ -12197,14 +12197,14 @@ snapshots:
     dependencies:
       fast-diff: 1.3.0
 
-  prettier-plugin-packagejson@2.5.19(prettier@3.7.1):
+  prettier-plugin-packagejson@2.5.19(prettier@3.6.2):
     dependencies:
       sort-package-json: 3.4.0
       synckit: 0.11.11
     optionalDependencies:
-      prettier: 3.7.1
+      prettier: 3.6.2
 
-  prettier@3.7.1: {}
+  prettier@3.6.2: {}
 
   pretty-format@27.5.1:
     dependencies:
@@ -12899,7 +12899,7 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  strip-json-comments@5.0.3: {}
+  strip-json-comments@5.0.2: {}
 
   strip-literal@3.1.0:
     dependencies:
