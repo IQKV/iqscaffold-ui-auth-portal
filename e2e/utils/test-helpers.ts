@@ -166,7 +166,7 @@ export class AuthPage {
   // Assertions
   async expectLoginPageVisible() {
     await expect(
-      this.page.getByRole("heading", { name: "Welcome to IQKV" })
+      this.page.getByRole("heading", { name: "Welcome to IQ Scaffold" })
     ).toBeVisible();
     await expect(this.loginForm.usernameInput).toBeVisible();
     await expect(this.loginForm.passwordInput).toBeVisible();

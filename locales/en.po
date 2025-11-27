@@ -479,8 +479,8 @@ msgid "johndoe"
 msgstr "johndoe"
 
 #: src/pages/register.tsx:14
-msgid "Join IQKV and start your journey"
-msgstr "Join IQKV and start your journey"
+msgid "Join IQ Scaffold and start your journey"
+msgstr "Join IQ Scaffold and start your journey"
 
 #: src/features/signup-form/ui/signup-form-feature.tsx:105
 msgid "Last Name"
@@ -1091,8 +1091,8 @@ msgstr "Welcome Back"
 #~ msgstr "Welcome back, {firstName}!"
 
 #: src/pages/index.tsx:24
-msgid "Welcome to IQKV"
-msgstr "Welcome to IQKV"
+msgid "Welcome to IQ Scaffold"
+msgstr "Welcome to IQ Scaffold"
 
 #: src/pages/dashboard.tsx:42
 #~ msgid "Welcome, {userFullName}!"

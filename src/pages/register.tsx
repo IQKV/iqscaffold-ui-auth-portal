@@ -11,7 +11,7 @@ function RegisterPage() {
   return (
     <AuthLayout
       title={t`Create Your Account`}
-      subtitle={t`Join IQKV and start your journey`}
+      subtitle={t`Join IQ Scaffold and start your journey`}
       pageTitle={t`Sign Up`}
     >
       <SignUpFormFeature redirectToHome />

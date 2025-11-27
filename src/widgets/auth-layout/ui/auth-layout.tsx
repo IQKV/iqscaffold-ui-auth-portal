@@ -38,7 +38,7 @@ export function AuthLayout({
   return (
     <>
       <Helmet>
-        <title>{pageTitle || title} | IQKV</title>
+        <title>{pageTitle || title} | IQ Scaffold</title>
       </Helmet>
       <Flex
         pos="fixed"
