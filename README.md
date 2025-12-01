@@ -117,7 +117,7 @@ This auth portal serves as the **centralized authentication gateway** for the IQ
 
 #### Option 1: Use GitHub Template (Recommended)
 
-1. Click **[Use this template](https://github.com/IQKV/standard-mantine-ui-project-layout/generate)** button
+1. Click **[Use this template](https://github.com/IQKV/ui-starter-dedicated-authentication-portal/generate)** button
 2. Create your new repository
 3. Clone your new repository
 4. Follow the setup steps below
