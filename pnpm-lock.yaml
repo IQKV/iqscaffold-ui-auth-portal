@@ -48,7 +48,7 @@ importers:
         specifier: ^5.90.5
         version: 5.90.5(react@19.2.0)
       '@tanstack/react-router':
-        specifier: ^1.139.10
+        specifier: ^1.133.32
         version: 1.139.10(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@tanstack/zod-adapter':
         specifier: ^1.133.32
