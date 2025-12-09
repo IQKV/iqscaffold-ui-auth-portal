@@ -1103,8 +1103,10 @@ import {
 import { z } from "zod";
 import { createFormResolver } from "./form-validation";
 
-export interface UseFormInput<T extends Record<string, any>>
-  extends Omit<UseFormInput<T>, "validate"> {
+export interface UseFormInput<T extends Record<string, any>> extends Omit<
+  UseFormInput<T>,
+  "validate"
+> {
   schema: z.ZodType<any, any, any>;
 }
 
@@ -1561,8 +1563,10 @@ import { memo, useMemo } from "react";
 import { DataTable as MantineDataTable } from "mantine-datatable";
 import type { DataTableProps } from "mantine-datatable";
 
-interface OptimizedDataTableProps<T>
-  extends Omit<DataTableProps<T>, "records"> {
+interface OptimizedDataTableProps<T> extends Omit<
+  DataTableProps<T>,
+  "records"
+> {
   data: T[];
   searchQuery?: string;
   searchFields?: (keyof T)[];
@@ -1661,9 +1665,8 @@ export function getClientLocale(): string {
 // app/app.tsx - Lazy load locale after mount
 useEffect(() => {
   const loadLocale = async () => {
-    const { dynamicActivateLocale, getClientLocale } = await import(
-      "@/shared/locales"
-    );
+    const { dynamicActivateLocale, getClientLocale } =
+      await import("@/shared/locales");
     await dynamicActivateLocale(getClientLocale());
   };
   loadLocale().catch(console.error);
