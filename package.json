@@ -109,7 +109,7 @@
     "@lingui/cli": "^5.7.0",
     "@lingui/swc-plugin": "^5.6.1",
     "@lingui/vite-plugin": "^5.5.1",
-    "@playwright/test": "1.56.1",
+    "@playwright/test": "1.57.0",
     "@release-it/conventional-changelog": "^10.0.1",
     "@tanstack/eslint-plugin-query": "^5.91.2",
     "@tanstack/eslint-plugin-router": "^1.133.19",
