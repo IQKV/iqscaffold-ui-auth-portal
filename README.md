@@ -6,7 +6,7 @@
 > - Manage issues with **20 issue labels**.
 > - Make _community healthier_ with all the guides like code of conduct, contributing, support, security...
 > - Learn more with the [official GitHub guide on creating repositories from a template](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template).
-> - To start using it, click **[Use this template](https://github.com/IQKV/ui-starter-auth-portal/generate)** to create your new repository.
+> - To start using it, click **[Use this template](https://github.com/IQKV/quickstart-ui-auth-portal/generate)** to create your new repository.
 
 ---
 
@@ -117,7 +117,7 @@ This auth portal serves as the **centralized authentication gateway** for the IQ
 
 #### Option 1: Use GitHub Template (Recommended)
 
-1. Click **[Use this template](https://github.com/IQKV/ui-starter-auth-portal/generate)** button
+1. Click **[Use this template](https://github.com/IQKV/quickstart-ui-auth-portal/generate)** button
 2. Create your new repository
 3. Clone your new repository
 4. Follow the setup steps below
@@ -126,7 +126,7 @@ This auth portal serves as the **centralized authentication gateway** for the IQ
 
 ```shell script
 # Clone the repository
-git clone https://github.com/IQKV/ui-starter-auth-portal.git my-app
+git clone https://github.com/IQKV/quickstart-ui-auth-portal.git my-app
 
 # Navigate to project directory
 cd my-app
