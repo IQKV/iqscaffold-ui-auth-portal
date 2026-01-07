@@ -7,6 +7,9 @@ import { getConfig, getFinalMSWConfig } from "@/app/config";
 import { normalizeAxiosError } from "@/shared/lib/http-error";
 import { notificationService } from "@/shared/lib/notifications";
 import { useTenantStore } from "@/processes/tenant";
+import { i18n } from "@lingui/core";
+import { getUserLocalePreference } from "@/shared/lib/locale-preference";
+import { getClientLocale } from "@/shared/locales";
 
 // When MSW is enabled, use relative URLs so handlers with relative paths match.
 const mswEnabled = getFinalMSWConfig().enabled;
@@ -27,8 +30,9 @@ export const apiClient: AxiosInstance = axios.create({
 axios.defaults.withCredentials = true;
 
 /**
- * Request interceptor to add tenant header
+ * Request interceptor to add tenant header and locale headers
  * Tenant ID comes from JWT token after authentication
+ * Locale headers support unified backend i18n approach
  */
 apiClient.interceptors.request.use(
   (config) => {
@@ -37,6 +41,27 @@ apiClient.interceptors.request.use(
     if (tenantId && !config.headers["X-Tenant-ID"]) {
       config.headers["X-Tenant-ID"] = tenantId;
     }
+
+    // Add locale headers for unified backend i18n support
+    // Backend LocaleResolver priority: X-User-Locale > Accept-Language > Default
+    config.headers = config.headers ?? {};
+
+    // Always send Accept-Language header (RFC 7231 standard)
+    // Used by backend as fallback when X-User-Locale is not present
+    const currentLocale = i18n.locale || getClientLocale();
+    (config.headers as any)["Accept-Language"] = currentLocale;
+
+    // Send X-User-Locale header if user has explicit preference
+    // Backend prioritizes this over Accept-Language for:
+    // - API response messages
+    // - Validation error messages
+    // - Email notifications
+    // - Any localized content
+    const userPreference = getUserLocalePreference();
+    if (userPreference) {
+      (config.headers as any)["X-User-Locale"] = userPreference;
+    }
+
     return config;
   },
   (error) => Promise.reject(error)
