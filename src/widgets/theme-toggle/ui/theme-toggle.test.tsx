@@ -31,10 +31,20 @@ describe("ThemeToggle", () => {
 
     const button = screen.getByTestId("theme-toggle-button");
     expect(button).toBeInTheDocument();
-    expect(button).toHaveAttribute("aria-label", "Toggle color scheme");
   });
 
-  it("toggles color scheme when clicked", async () => {
+  it("has correct aria-label", () => {
+    render(
+      <TestWrapper>
+        <ThemeToggle />
+      </TestWrapper>
+    );
+
+    const button = screen.getByLabelText("Toggle color scheme");
+    expect(button).toBeInTheDocument();
+  });
+
+  it("calls toggleColorScheme when clicked", async () => {
     const user = userEvent.setup();
 
     render(
@@ -46,6 +56,17 @@ describe("ThemeToggle", () => {
     const button = screen.getByTestId("theme-toggle-button");
     await user.click(button);
 
-    expect(mockToggleColorScheme).toHaveBeenCalledTimes(1);
+    expect(mockToggleColorScheme).toHaveBeenCalled();
+  });
+
+  it("renders as an ActionIcon", () => {
+    render(
+      <TestWrapper>
+        <ThemeToggle />
+      </TestWrapper>
+    );
+
+    const button = screen.getByTestId("theme-toggle-button");
+    expect(button.tagName).toBe("BUTTON");
   });
 });

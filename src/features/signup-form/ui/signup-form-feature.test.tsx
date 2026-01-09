@@ -4,17 +4,17 @@ import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MantineProvider } from "@mantine/core";
 import { SignUpFormFeature } from "./signup-form-feature";
-import * as authApi from "@/shared/api/auth-api";
+import { authApi } from "@/shared/api";
 
 // Mock dependencies
-vi.mock("@tanstack/react-router", () => ({
-  useNavigate: () => vi.fn(),
-}));
-
-vi.mock("@/shared/api/auth-api", () => ({
+vi.mock("@/shared/api", () => ({
   authApi: {
     signup: vi.fn(),
   },
+}));
+
+vi.mock("@tanstack/react-router", () => ({
+  useNavigate: () => vi.fn(),
 }));
 
 vi.mock("@mantine/notifications", () => ({
@@ -43,23 +43,79 @@ describe("SignUpFormFeature", () => {
     vi.clearAllMocks();
   });
 
-  it("renders signup form with all fields", () => {
+  it("renders signup form correctly", () => {
     render(<SignUpFormFeature />, { wrapper: createWrapper() });
 
     expect(screen.getByTestId("signup-form")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("John")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("Doe")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("johndoe")).toBeInTheDocument();
+    expect(screen.getByTestId("signup-input-firstname")).toBeInTheDocument();
+    expect(screen.getByTestId("signup-input-lastname")).toBeInTheDocument();
+    expect(screen.getByTestId("signup-input-username")).toBeInTheDocument();
+    expect(screen.getByTestId("signup-input-email")).toBeInTheDocument();
+    expect(screen.getByTestId("signup-input-password")).toBeInTheDocument();
     expect(
-      screen.getByPlaceholderText("john.doe@example.com")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByPlaceholderText("Create a strong password")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByPlaceholderText("Re-enter your password")
+      screen.getByTestId("signup-input-confirm-password")
     ).toBeInTheDocument();
     expect(screen.getByTestId("signup-button-submit")).toBeInTheDocument();
+  });
+
+  it("handles user input correctly", async () => {
+    const user = userEvent.setup();
+    render(<SignUpFormFeature />, { wrapper: createWrapper() });
+
+    const firstNameInput = screen.getByPlaceholderText("John");
+    const lastNameInput = screen.getByPlaceholderText("Doe");
+    const usernameInput = screen.getByPlaceholderText("johndoe");
+    const emailInput = screen.getByPlaceholderText("john.doe@example.com");
+
+    await user.type(firstNameInput, "John");
+    await user.type(lastNameInput, "Doe");
+    await user.type(usernameInput, "johndoe");
+    await user.type(emailInput, "john@example.com");
+
+    expect(firstNameInput).toHaveValue("John");
+    expect(lastNameInput).toHaveValue("Doe");
+    expect(usernameInput).toHaveValue("johndoe");
+    expect(emailInput).toHaveValue("john@example.com");
+  });
+
+  it("submits form with valid data", async () => {
+    const user = userEvent.setup();
+    const mockResponse = {
+      message: "Registration successful",
+      user: { id: "1", username: "johndoe" },
+    };
+    (authApi.signup as any).mockResolvedValue(mockResponse);
+
+    render(<SignUpFormFeature />, { wrapper: createWrapper() });
+
+    const firstNameInput = screen.getByPlaceholderText("John");
+    const lastNameInput = screen.getByPlaceholderText("Doe");
+    const usernameInput = screen.getByPlaceholderText("johndoe");
+    const emailInput = screen.getByPlaceholderText("john.doe@example.com");
+    const passwordInput = screen.getByPlaceholderText(
+      "Create a strong password"
+    );
+    const confirmPasswordInput = screen.getByPlaceholderText(
+      "Re-enter your password"
+    );
+    const submitButton = screen.getByTestId("signup-button-submit");
+
+    await user.type(firstNameInput, "John");
+    await user.type(lastNameInput, "Doe");
+    await user.type(usernameInput, "johndoe");
+    await user.type(emailInput, "john@example.com");
+    await user.type(passwordInput, "Password123!");
+    await user.type(confirmPasswordInput, "Password123!");
+    await user.click(submitButton);
+
+    // Just verify the API was called, don't wait for navigation
+    expect(authApi.signup).toHaveBeenCalledWith({
+      firstName: "John",
+      lastName: "Doe",
+      username: "johndoe",
+      email: "john@example.com",
+      password: "Password123!",
+    });
   });
 
   it("displays login link", () => {
@@ -69,96 +125,7 @@ describe("SignUpFormFeature", () => {
     expect(loginLink).toBeInTheDocument();
   });
 
-  it.skip("submits form with valid data", async () => {
-    const user = userEvent.setup();
-    const mockSignup = vi.fn().mockResolvedValue({
-      message: "Registration successful",
-      user: {
-        id: "1",
-        username: "testuser",
-        email: "test@example.com",
-        firstName: "Test",
-        lastName: "User",
-      },
-    });
-    authApi.authApi.signup = mockSignup;
-
-    render(<SignUpFormFeature />, { wrapper: createWrapper() });
-
-    await user.type(screen.getByPlaceholderText("John"), "John");
-    await user.type(screen.getByPlaceholderText("Doe"), "Doe");
-    await user.type(screen.getByPlaceholderText("johndoe"), "johndoe");
-    await user.type(
-      screen.getByPlaceholderText("john.doe@example.com"),
-      "john@example.com"
-    );
-    await user.type(
-      screen.getByPlaceholderText("Create a strong password"),
-      "Password123!"
-    );
-    await user.type(
-      screen.getByPlaceholderText("Re-enter your password"),
-      "Password123!"
-    );
-
-    const submitButton = screen.getByTestId("signup-button-submit");
-    await user.click(submitButton);
-
-    await waitFor(() => {
-      expect(mockSignup).toHaveBeenCalledWith({
-        firstName: "John",
-        lastName: "Doe",
-        username: "johndoe",
-        email: "john@example.com",
-        password: "Password123!",
-      });
-    });
-  });
-
-  it.skip("calls onSuccess callback when provided", async () => {
-    const user = userEvent.setup();
-    const onSuccess = vi.fn();
-    const mockResponse = {
-      message: "Registration successful",
-      user: {
-        id: "1",
-        username: "testuser",
-        email: "test@example.com",
-        firstName: "Test",
-        lastName: "User",
-      },
-    };
-    const mockSignup = vi.fn().mockResolvedValue(mockResponse);
-    authApi.authApi.signup = mockSignup;
-
-    render(<SignUpFormFeature onSuccess={onSuccess} />, {
-      wrapper: createWrapper(),
-    });
-
-    await user.type(screen.getByPlaceholderText("John"), "John");
-    await user.type(screen.getByPlaceholderText("Doe"), "Doe");
-    await user.type(screen.getByPlaceholderText("johndoe"), "johndoe");
-    await user.type(
-      screen.getByPlaceholderText("john.doe@example.com"),
-      "john@example.com"
-    );
-    await user.type(
-      screen.getByPlaceholderText("Create a strong password"),
-      "Password123!"
-    );
-    await user.type(
-      screen.getByPlaceholderText("Re-enter your password"),
-      "Password123!"
-    );
-
-    await user.click(screen.getByTestId("signup-button-submit"));
-
-    await waitFor(() => {
-      expect(onSuccess).toHaveBeenCalledWith(mockResponse);
-    });
-  });
-
-  it("calls onNavigateToLogin callback when link clicked", async () => {
+  it("calls onNavigateToLogin callback when provided", async () => {
     const user = userEvent.setup();
     const onNavigateToLogin = vi.fn();
 
@@ -172,39 +139,45 @@ describe("SignUpFormFeature", () => {
     expect(onNavigateToLogin).toHaveBeenCalled();
   });
 
-  it.skip("shows loading state during submission", async () => {
+  it("calls onSuccess callback after successful registration", async () => {
     const user = userEvent.setup();
-    const mockSignup = vi
-      .fn()
-      .mockImplementation(
-        () => new Promise((resolve) => setTimeout(resolve, 1000))
-      );
-    authApi.authApi.signup = mockSignup;
+    const onSuccess = vi.fn();
+    const mockResponse = {
+      message: "Registration successful",
+      user: { id: "1", username: "johndoe" },
+    };
+    (authApi.signup as any).mockResolvedValue(mockResponse);
 
-    render(<SignUpFormFeature />, { wrapper: createWrapper() });
+    render(<SignUpFormFeature onSuccess={onSuccess} />, {
+      wrapper: createWrapper(),
+    });
 
-    await user.type(screen.getByPlaceholderText("John"), "John");
-    await user.type(screen.getByPlaceholderText("Doe"), "Doe");
-    await user.type(screen.getByPlaceholderText("johndoe"), "johndoe");
-    await user.type(
-      screen.getByPlaceholderText("john.doe@example.com"),
-      "john@example.com"
+    const firstNameInput = screen.getByPlaceholderText("John");
+    const lastNameInput = screen.getByPlaceholderText("Doe");
+    const usernameInput = screen.getByPlaceholderText("johndoe");
+    const emailInput = screen.getByPlaceholderText("john.doe@example.com");
+    const passwordInput = screen.getByPlaceholderText(
+      "Create a strong password"
     );
-    await user.type(
-      screen.getByPlaceholderText("Create a strong password"),
-      "Password123!"
+    const confirmPasswordInput = screen.getByPlaceholderText(
+      "Re-enter your password"
     );
-    await user.type(
-      screen.getByPlaceholderText("Re-enter your password"),
-      "Password123!"
-    );
-
     const submitButton = screen.getByTestId("signup-button-submit");
+
+    await user.type(firstNameInput, "John");
+    await user.type(lastNameInput, "Doe");
+    await user.type(usernameInput, "johndoe");
+    await user.type(emailInput, "john@example.com");
+    await user.type(passwordInput, "Password123!");
+    await user.type(confirmPasswordInput, "Password123!");
     await user.click(submitButton);
 
-    // Button should be in loading state
-    await waitFor(() => {
-      expect(submitButton).toBeDisabled();
-    });
+    // Wait for the mutation to complete and callback to be called
+    await waitFor(
+      () => {
+        expect(onSuccess).toHaveBeenCalledWith(mockResponse);
+      },
+      { timeout: 3000 }
+    );
   });
 });

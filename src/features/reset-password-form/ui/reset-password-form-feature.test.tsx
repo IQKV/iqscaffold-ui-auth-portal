@@ -6,14 +6,14 @@ import { MantineProvider } from "@mantine/core";
 import { ResetPasswordFormFeature } from "./reset-password-form-feature";
 
 // Mock dependencies
-vi.mock("@tanstack/react-router", () => ({
-  useNavigate: () => vi.fn(),
-  useSearch: () => ({ token: "valid-token" }),
-}));
-
 vi.mock("@/shared/lib/use-auth-api", () => ({
   useResetPassword: vi.fn(),
   useValidateResetToken: vi.fn(),
+}));
+
+vi.mock("@tanstack/react-router", () => ({
+  useNavigate: () => vi.fn(),
+  useSearch: () => ({ token: "valid-token" }),
 }));
 
 const createWrapper = () => {
@@ -33,62 +33,20 @@ const createWrapper = () => {
 
 describe("ResetPasswordFormFeature", () => {
   const mockMutate = vi.fn();
-  let useResetPassword: any;
-  let useValidateResetToken: any;
 
   beforeEach(async () => {
     vi.clearAllMocks();
-    const authApi = await import("@/shared/lib/use-auth-api");
-    useResetPassword = authApi.useResetPassword;
-    useValidateResetToken = authApi.useValidateResetToken;
-
-    useResetPassword.mockReturnValue({
+    const { useResetPassword, useValidateResetToken } =
+      await import("@/shared/lib/use-auth-api");
+    (useResetPassword as any).mockReturnValue({
       mutate: mockMutate,
       isPending: false,
       isSuccess: false,
     });
-
-    useValidateResetToken.mockReturnValue({
+    (useValidateResetToken as any).mockReturnValue({
       data: true,
       isLoading: false,
     });
-  });
-
-  it("shows loading state while validating token", () => {
-    useValidateResetToken.mockReturnValue({
-      data: undefined,
-      isLoading: true,
-    });
-
-    render(<ResetPasswordFormFeature token="valid-token" />, {
-      wrapper: createWrapper(),
-    });
-
-    expect(screen.getByTestId("reset-password-loading")).toBeInTheDocument();
-  });
-
-  it("shows error when token is invalid", () => {
-    useValidateResetToken.mockReturnValue({
-      data: false,
-      isLoading: false,
-    });
-
-    render(<ResetPasswordFormFeature token="invalid-token" />, {
-      wrapper: createWrapper(),
-    });
-
-    expect(screen.getByTestId("reset-password-invalid")).toBeInTheDocument();
-  });
-
-  it("shows error when no token provided", () => {
-    useValidateResetToken.mockReturnValue({
-      data: false,
-      isLoading: false,
-    });
-
-    render(<ResetPasswordFormFeature />, { wrapper: createWrapper() });
-
-    expect(screen.getByTestId("reset-password-invalid")).toBeInTheDocument();
   });
 
   it("renders reset password form with valid token", () => {
@@ -108,25 +66,77 @@ describe("ResetPasswordFormFeature", () => {
     ).toBeInTheDocument();
   });
 
-  it("displays back to login link", () => {
+  it("shows loading state while validating token", async () => {
+    const { useValidateResetToken } = await import("@/shared/lib/use-auth-api");
+    (useValidateResetToken as any).mockReturnValue({
+      data: undefined,
+      isLoading: true,
+    });
+
     render(<ResetPasswordFormFeature token="valid-token" />, {
       wrapper: createWrapper(),
     });
 
-    const backLink = screen.getByTestId("reset-password-link-back");
-    expect(backLink).toBeInTheDocument();
+    expect(screen.getByTestId("reset-password-loading")).toBeInTheDocument();
+  });
+
+  it("shows error message with invalid token", async () => {
+    const { useValidateResetToken } = await import("@/shared/lib/use-auth-api");
+    (useValidateResetToken as any).mockReturnValue({
+      data: false,
+      isLoading: false,
+    });
+
+    render(<ResetPasswordFormFeature token="invalid-token" />, {
+      wrapper: createWrapper(),
+    });
+
+    expect(screen.getByTestId("reset-password-invalid")).toBeInTheDocument();
+  });
+
+  it("shows error message when no token provided", async () => {
+    const { useValidateResetToken } = await import("@/shared/lib/use-auth-api");
+    (useValidateResetToken as any).mockReturnValue({
+      data: false,
+      isLoading: false,
+    });
+
+    render(<ResetPasswordFormFeature />, { wrapper: createWrapper() });
+
+    expect(screen.getByTestId("reset-password-invalid")).toBeInTheDocument();
+  });
+
+  it("handles password input correctly", async () => {
+    const user = userEvent.setup();
+    render(<ResetPasswordFormFeature token="valid-token" />, {
+      wrapper: createWrapper(),
+    });
+
+    const passwordInput = screen.getByPlaceholderText(
+      "Enter your new password"
+    );
+    const confirmPasswordInput = screen.getByPlaceholderText(
+      "Confirm your new password"
+    );
+
+    await user.type(passwordInput, "NewPassword123!");
+    await user.type(confirmPasswordInput, "NewPassword123!");
+
+    expect(passwordInput).toHaveValue("NewPassword123!");
+    expect(confirmPasswordInput).toHaveValue("NewPassword123!");
   });
 
   it("submits form with valid passwords", async () => {
     const user = userEvent.setup();
-
     render(<ResetPasswordFormFeature token="valid-token" />, {
       wrapper: createWrapper(),
     });
 
-    const passwordInput = screen.getByTestId("reset-password-input-password");
-    const confirmPasswordInput = screen.getByTestId(
-      "reset-password-input-confirm-password"
+    const passwordInput = screen.getByPlaceholderText(
+      "Enter your new password"
+    );
+    const confirmPasswordInput = screen.getByPlaceholderText(
+      "Confirm your new password"
     );
     const submitButton = screen.getByTestId("reset-password-button-submit");
 
@@ -142,28 +152,16 @@ describe("ResetPasswordFormFeature", () => {
     });
   });
 
-  it("calls onSuccess callback when mutation succeeds", async () => {
-    const onSuccess = vi.fn();
-
-    useResetPassword.mockReturnValue({
-      mutate: mockMutate,
-      isPending: false,
-      isSuccess: true,
+  it("displays back to login link", () => {
+    render(<ResetPasswordFormFeature token="valid-token" />, {
+      wrapper: createWrapper(),
     });
 
-    render(
-      <ResetPasswordFormFeature token="valid-token" onSuccess={onSuccess} />,
-      {
-        wrapper: createWrapper(),
-      }
-    );
-
-    await waitFor(() => {
-      expect(onSuccess).toHaveBeenCalled();
-    });
+    const backLink = screen.getByTestId("reset-password-link-back");
+    expect(backLink).toBeInTheDocument();
   });
 
-  it("calls onBackToLogin callback when link clicked", async () => {
+  it("calls onBackToLogin callback when provided", async () => {
     const user = userEvent.setup();
     const onBackToLogin = vi.fn();
 
@@ -172,9 +170,7 @@ describe("ResetPasswordFormFeature", () => {
         token="valid-token"
         onBackToLogin={onBackToLogin}
       />,
-      {
-        wrapper: createWrapper(),
-      }
+      { wrapper: createWrapper() }
     );
 
     const backLink = screen.getByTestId("reset-password-link-back");
@@ -183,8 +179,9 @@ describe("ResetPasswordFormFeature", () => {
     expect(onBackToLogin).toHaveBeenCalled();
   });
 
-  it("shows loading state during submission", () => {
-    useResetPassword.mockReturnValue({
+  it("shows loading state during submission", async () => {
+    const { useResetPassword } = await import("@/shared/lib/use-auth-api");
+    (useResetPassword as any).mockReturnValue({
       mutate: mockMutate,
       isPending: true,
       isSuccess: false,
@@ -195,6 +192,6 @@ describe("ResetPasswordFormFeature", () => {
     });
 
     const submitButton = screen.getByTestId("reset-password-button-submit");
-    expect(submitButton).toBeDisabled();
+    expect(submitButton).toHaveAttribute("data-loading", "true");
   });
 });

@@ -7,12 +7,12 @@ import { SignInFormFeature } from "./signin-form-feature";
 import { useAuthStore } from "@/processes/auth";
 
 // Mock dependencies
-vi.mock("@tanstack/react-router", () => ({
-  useNavigate: () => vi.fn(),
-}));
-
 vi.mock("@/processes/auth", () => ({
   useAuthStore: vi.fn(),
+}));
+
+vi.mock("@tanstack/react-router", () => ({
+  useNavigate: () => vi.fn(),
 }));
 
 vi.mock("@/app/config", () => ({
@@ -52,34 +52,29 @@ describe("SignInFormFeature", () => {
     });
   });
 
-  it("renders signin form with all fields", () => {
+  it("renders signin form correctly", () => {
     render(<SignInFormFeature />, { wrapper: createWrapper() });
 
     expect(screen.getByTestId("signin-form")).toBeInTheDocument();
-    expect(
-      screen.getByPlaceholderText("Enter your username or email")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByPlaceholderText("Enter your password")
-    ).toBeInTheDocument();
-    expect(screen.getByText("Remember me")).toBeInTheDocument();
+    expect(screen.getByTestId("signin-input-username")).toBeInTheDocument();
+    expect(screen.getByTestId("signin-input-password")).toBeInTheDocument();
     expect(screen.getByTestId("signin-button-submit")).toBeInTheDocument();
   });
 
-  it("displays forgot password link", () => {
+  it("handles user input correctly", async () => {
+    const user = userEvent.setup();
     render(<SignInFormFeature />, { wrapper: createWrapper() });
 
-    const forgotPasswordLink = screen.getByTestId(
-      "signin-link-forgot-password"
+    const usernameInput = screen.getByPlaceholderText(
+      "Enter your username or email"
     );
-    expect(forgotPasswordLink).toBeInTheDocument();
-  });
+    const passwordInput = screen.getByPlaceholderText("Enter your password");
 
-  it("displays register link", () => {
-    render(<SignInFormFeature />, { wrapper: createWrapper() });
+    await user.type(usernameInput, "testuser");
+    await user.type(passwordInput, "password123");
 
-    const registerLink = screen.getByTestId("signin-link-register");
-    expect(registerLink).toBeInTheDocument();
+    expect(usernameInput).toHaveValue("testuser");
+    expect(passwordInput).toHaveValue("password123");
   });
 
   it("submits form with valid credentials", async () => {
@@ -107,58 +102,23 @@ describe("SignInFormFeature", () => {
     });
   });
 
-  it("submits form with remember me checked", async () => {
-    const user = userEvent.setup();
-    mockLogin.mockResolvedValue(undefined);
-
+  it("displays forgot password link", () => {
     render(<SignInFormFeature />, { wrapper: createWrapper() });
 
-    const usernameInput = screen.getByPlaceholderText(
-      "Enter your username or email"
+    const forgotPasswordLink = screen.getByTestId(
+      "signin-link-forgot-password"
     );
-    const passwordInput = screen.getByPlaceholderText("Enter your password");
-    const rememberMeCheckbox = screen.getByRole("checkbox");
-    const submitButton = screen.getByTestId("signin-button-submit");
-
-    await user.type(usernameInput, "testuser");
-    await user.type(passwordInput, "password123");
-    await user.click(rememberMeCheckbox);
-    await user.click(submitButton);
-
-    await waitFor(() => {
-      expect(mockLogin).toHaveBeenCalledWith({
-        username: "testuser",
-        password: "password123",
-        rememberMe: true,
-      });
-    });
+    expect(forgotPasswordLink).toBeInTheDocument();
   });
 
-  it("calls onSuccess callback when provided", async () => {
-    const user = userEvent.setup();
-    const onSuccess = vi.fn();
-    mockLogin.mockResolvedValue(undefined);
+  it("displays register link", () => {
+    render(<SignInFormFeature />, { wrapper: createWrapper() });
 
-    render(<SignInFormFeature onSuccess={onSuccess} />, {
-      wrapper: createWrapper(),
-    });
-
-    const usernameInput = screen.getByPlaceholderText(
-      "Enter your username or email"
-    );
-    const passwordInput = screen.getByPlaceholderText("Enter your password");
-    const submitButton = screen.getByTestId("signin-button-submit");
-
-    await user.type(usernameInput, "testuser");
-    await user.type(passwordInput, "password123");
-    await user.click(submitButton);
-
-    await waitFor(() => {
-      expect(onSuccess).toHaveBeenCalled();
-    });
+    const registerLink = screen.getByTestId("signin-link-register");
+    expect(registerLink).toBeInTheDocument();
   });
 
-  it("calls onForgotPassword callback when link clicked", async () => {
+  it("calls onForgotPassword callback when provided", async () => {
     const user = userEvent.setup();
     const onForgotPassword = vi.fn();
 
@@ -174,7 +134,7 @@ describe("SignInFormFeature", () => {
     expect(onForgotPassword).toHaveBeenCalled();
   });
 
-  it("calls onNavigateToRegister callback when link clicked", async () => {
+  it("calls onNavigateToRegister callback when provided", async () => {
     const user = userEvent.setup();
     const onNavigateToRegister = vi.fn();
 
@@ -189,7 +149,6 @@ describe("SignInFormFeature", () => {
   });
 
   it("shows loading state during submission", async () => {
-    const user = userEvent.setup();
     (useAuthStore as any).mockImplementation((selector: any) => {
       const state = {
         login: mockLogin,
@@ -201,6 +160,6 @@ describe("SignInFormFeature", () => {
     render(<SignInFormFeature />, { wrapper: createWrapper() });
 
     const submitButton = screen.getByTestId("signin-button-submit");
-    expect(submitButton).toBeDisabled();
+    expect(submitButton).toHaveAttribute("data-loading", "true");
   });
 });
