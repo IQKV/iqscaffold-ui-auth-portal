@@ -67,7 +67,9 @@ export const useHasAnyAuthority = (authorities: string[]): boolean => {
     if (!state.user?.authorities) {
       return false;
     }
-    return authorities.some((authority) => state.user!.authorities.includes(authority));
+    return authorities.some((authority) =>
+      state.user!.authorities.includes(authority)
+    );
   });
 };
 

@@ -47,10 +47,11 @@ export const getUserInitials = (user: AuthUser): string => {
 export const isAdmin = (user?: AuthUser | null): boolean => {
   const currentUser = user || useAuthStore.getState().user;
   return (
-    currentUser?.authorities.includes("ADMIN") ||
-    currentUser?.authorities.includes("TENANT_OWNER") ||
-    currentUser?.authorities.includes("SUPER_ADMIN")
-  ) ?? false;
+    (currentUser?.authorities.includes("ADMIN") ||
+      currentUser?.authorities.includes("TENANT_OWNER") ||
+      currentUser?.authorities.includes("SUPER_ADMIN")) ??
+    false
+  );
 };
 
 /**
@@ -88,7 +89,9 @@ export const getUserAuthorityPriority = (user?: AuthUser | null): number => {
   };
 
   return Math.max(
-    ...currentUser.authorities.map((authority) => authorityPriorities[authority] || 0)
+    ...currentUser.authorities.map(
+      (authority) => authorityPriorities[authority] || 0
+    )
   );
 };
 
