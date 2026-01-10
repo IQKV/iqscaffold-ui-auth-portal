@@ -14,12 +14,15 @@ export {
   useAuthLoading,
   useAuthInitialized,
   useAuthError,
-  useHasRole,
+  useHasAuthority,
   useHasPermission,
-  useHasAnyRole,
+  useHasAnyAuthority,
   useHasAnyPermission,
   useUserFullName,
   useUserInitials,
+  // Backward compatibility aliases
+  useHasRole,
+  useHasAnyRole,
 } from "./model/auth-selectors";
 
 // Guards and protection
@@ -39,9 +42,12 @@ export {
   getUserInitials,
   isAdmin,
   isSuperAdmin,
-  getUserRolePriority,
+  isTenantOwner,
+  getUserAuthorityPriority,
   isSessionExpiringSoon,
   getTimeUntilExpiration,
+  // Backward compatibility alias
+  getUserRolePriority,
 } from "./lib/auth-utils";
 
 // HTTP Interceptors setup

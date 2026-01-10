@@ -42,11 +42,11 @@ export const useAuthError = (): string | null => {
 };
 
 /**
- * Hook to check if user has specific role
+ * Hook to check if user has specific authority
  */
-export const useHasRole = (role: string): boolean => {
+export const useHasAuthority = (authority: string): boolean => {
   return useAuthStore((state) => {
-    return state.user?.roles.includes(role) ?? false;
+    return state.user?.authorities.includes(authority) ?? false;
   });
 };
 
@@ -60,16 +60,20 @@ export const useHasPermission = (permission: string): boolean => {
 };
 
 /**
- * Hook to check if user has any of the specified roles
+ * Hook to check if user has any of the specified authorities
  */
-export const useHasAnyRole = (roles: string[]): boolean => {
+export const useHasAnyAuthority = (authorities: string[]): boolean => {
   return useAuthStore((state) => {
-    if (!state.user?.roles) {
+    if (!state.user?.authorities) {
       return false;
     }
-    return roles.some((role) => state.user!.roles.includes(role));
+    return authorities.some((authority) => state.user!.authorities.includes(authority));
   });
 };
+
+// Backward compatibility aliases
+export const useHasRole = useHasAuthority;
+export const useHasAnyRole = useHasAnyAuthority;
 
 /**
  * Hook to check if user has any of the specified permissions

@@ -9,7 +9,7 @@ export interface AuthUser {
   email: string;
   firstName: string;
   lastName: string;
-  roles: string[];
+  authorities: string[];
   permissions: string[];
   tenantId: string | null;
   emailVerified?: boolean;

@@ -42,10 +42,15 @@ export const getUserInitials = (user: AuthUser): string => {
 
 /**
  * Check if user has admin privileges
+ * Includes: ADMIN, TENANT_OWNER, or SUPER_ADMIN
  */
 export const isAdmin = (user?: AuthUser | null): boolean => {
   const currentUser = user || useAuthStore.getState().user;
-  return currentUser?.roles.includes("admin") ?? false;
+  return (
+    currentUser?.authorities.includes("ADMIN") ||
+    currentUser?.authorities.includes("TENANT_OWNER") ||
+    currentUser?.authorities.includes("SUPER_ADMIN")
+  ) ?? false;
 };
 
 /**
@@ -53,31 +58,42 @@ export const isAdmin = (user?: AuthUser | null): boolean => {
  */
 export const isSuperAdmin = (user?: AuthUser | null): boolean => {
   const currentUser = user || useAuthStore.getState().user;
-  return currentUser?.roles.includes("super_admin") ?? false;
+  return currentUser?.authorities.includes("SUPER_ADMIN") ?? false;
 };
 
 /**
- * Get user's highest role priority
+ * Check if user is tenant owner
  */
-export const getUserRolePriority = (user?: AuthUser | null): number => {
+export const isTenantOwner = (user?: AuthUser | null): boolean => {
   const currentUser = user || useAuthStore.getState().user;
-  if (!currentUser?.roles) {
+  return currentUser?.authorities.includes("TENANT_OWNER") ?? false;
+};
+
+/**
+ * Get user's highest authority priority
+ */
+export const getUserAuthorityPriority = (user?: AuthUser | null): number => {
+  const currentUser = user || useAuthStore.getState().user;
+  if (!currentUser?.authorities) {
     return 0;
   }
 
-  const rolePriorities: Record<string, number> = {
-    super_admin: 100,
-    admin: 90,
-    manager: 80,
-    moderator: 70,
-    user: 10,
-    guest: 1,
+  const authorityPriorities: Record<string, number> = {
+    SUPER_ADMIN: 100,
+    TENANT_OWNER: 90,
+    ADMIN: 80,
+    BILLING_ADMIN: 70,
+    FINANCE_VIEWER: 60,
+    USER: 10,
   };
 
   return Math.max(
-    ...currentUser.roles.map((role) => rolePriorities[role] || 0)
+    ...currentUser.authorities.map((authority) => authorityPriorities[authority] || 0)
   );
 };
+
+// Backward compatibility alias
+export const getUserRolePriority = getUserAuthorityPriority;
 
 /**
  * Check if current session is about to expire
