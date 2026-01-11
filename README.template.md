@@ -219,16 +219,11 @@ The auth portal integrates with the User Service API:
 - `POST /api/v1/auth/login` - Authenticate user
 - `POST /api/v1/auth/refresh` - Refresh access token
 - `POST /api/v1/auth/validate` - Validate JWT token
-- `GET /api/v1/auth/email/verify` - Verify email address
+- `POST /api/v1/auth/email/verify` - Verify email address with token
 - `POST /api/v1/auth/email/resend` - Resend verification email
 - `POST /api/v1/auth/password/forgot` - Initiate password reset
 - `POST /api/v1/auth/password/reset` - Reset password with token
-
-**Protected Endpoints:**
-
-- `PATCH /api/v1/users/me/password` - Change password
-- `POST /api/v1/auth/logout` - Logout current session
-- `POST /api/v1/auth/logout-all` - Logout all sessions
+- `HEAD /api/v1/auth/password/reset` - Validate password reset token
 - `GET /api/v1/auth/email/status` - Get email verification status
 
 ### Configuration
