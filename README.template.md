@@ -4,6 +4,19 @@
 
 **Note:** This project serves as a starting point for developing an authentication portal for SAAS applications, providing a solid foundation with modern patterns and best practices.
 
+## Table of Contents
+
+- [Business Purpose](#business-purpose)
+- [Overview](#overview)
+- [Use Cases Implemented](#use-cases-implemented)
+- [API Integration](#api-integration)
+- [What It Demonstrates](#what-it-demonstrates)
+- [Architecture Patterns](#architecture-patterns)
+- [Technical Highlights](#technical-highlights)
+- [Learning Points](#learning-points)
+- [Adapting for Your Domain](#adapting-for-your-domain)
+- [Integration with Backend Services](#integration-with-backend-services)
+
 ## Business Purpose
 
 A dedicated authentication portal that handles:
@@ -18,17 +31,6 @@ A dedicated authentication portal that handles:
 ## Overview
 
 This is the authentication frontend for the IQ Scaffold Platform. It provides a modern, accessible, and performant user interface for identity management, delegating authentication concerns to the backend User Service while maintaining a clean separation between authentication flows and application-specific features.
-
-## Table of Contents
-
-- [Use Cases Implemented](#use-cases-implemented)
-- [API Integration](#api-integration)
-- [What It Demonstrates](#what-it-demonstrates)
-- [Architecture Patterns](#architecture-patterns)
-- [Technical Highlights](#technical-highlights)
-- [Learning Points](#learning-points)
-- [Adapting for Your Domain](#adapting-for-your-domain)
-- [Integration with Backend Services](#integration-with-backend-services)
 
 ## Use Cases Implemented
 
