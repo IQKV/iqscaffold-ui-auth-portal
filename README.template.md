@@ -19,9 +19,97 @@ A dedicated authentication portal that handles:
 
 This is the authentication frontend for the IQ Scaffold Platform. It provides a modern, accessible, and performant user interface for identity management, delegating authentication concerns to the backend User Service while maintaining a clean separation between authentication flows and application-specific features.
 
+## Table of Contents
+
+- [Use Cases Implemented](#use-cases-implemented)
+- [API Integration](#api-integration)
+- [What It Demonstrates](#what-it-demonstrates)
+- [Architecture Patterns](#architecture-patterns)
+- [Technical Highlights](#technical-highlights)
+- [Learning Points](#learning-points)
+- [Adapting for Your Domain](#adapting-for-your-domain)
+- [Integration with Backend Services](#integration-with-backend-services)
+
+## Use Cases Implemented
+
+### User Registration Flow
+
+- Registration form with validation (username, email, password, names)
+- Password strength requirements enforcement
+- Email verification workflow initiation
+- Tenant ID support for multi-tenancy
+- Success redirect to login page
+- Error handling with user feedback
+
+### User Authentication Flow
+
+- Login form with username/email and password
+- Remember me functionality for extended sessions
+- JWT token reception and storage
+- Automatic redirect to main application domain
+- Session persistence across page reloads
+- Multi-device session support
+
+### Password Management
+
+- Forgot password form with email input
+- Password reset request with backend validation
+- Reset password form with token validation
+- Token expiration handling
+- Password strength validation
+- Success confirmation and redirect
+
+### Session Management
+
+- Automatic token refresh before expiration
+- Logout with token cleanup
+- Logout from all devices support
+- Session expiration handling
+- Multi-tab synchronization via storage events
+- Page visibility change detection
+
+### Route Protection
+
+- Public routes (login, signup, forgot password, reset password)
+- Protected routes (change password, user profile)
+- Automatic redirect for unauthenticated users
+- Role-based access control support
+- Permission-based access control support
+- Email verification requirement enforcement
+
+## API Integration
+
+### Backend Endpoints
+
+The auth portal integrates with the User Service API:
+
+**Public Endpoints:**
+
+- `POST /api/v1/auth/signup` - Register new user
+- `POST /api/v1/auth/login` - Authenticate user
+- `POST /api/v1/auth/refresh` - Refresh access token
+- `POST /api/v1/auth/validate` - Validate JWT token
+- `POST /api/v1/auth/email/verify` - Verify email address with token
+- `POST /api/v1/auth/email/resend` - Resend verification email
+- `POST /api/v1/auth/password/forgot` - Initiate password reset
+- `POST /api/v1/auth/password/reset` - Reset password with token
+- `HEAD /api/v1/auth/password/reset` - Validate password reset token
+- `GET /api/v1/auth/email/status` - Get email verification status
+
+### Configuration
+
+Environment variables for API integration:
+
+- `VITE_API_URL_SERVER` - Backend API base URL (User Service)
+- `VITE_AUTH_DOMAIN_AUTH` - Auth portal domain
+- `VITE_AUTH_DOMAIN_APP` - Main application domain
+- `VITE_AUTH_REDIRECT_AFTER_LOGIN` - Post-login redirect URL
+- `VITE_AUTH_REDIRECT_AFTER_LOGOUT` - Post-logout redirect URL
+- `VITE_AUTH_REDIRECT_AFTER_SIGNUP` - Post-signup redirect URL
+
 ## What It Demonstrates
 
-### 🎨 Modern Frontend Architecture
+### Modern Frontend Architecture
 
 - Feature-Sliced Design (FSD) methodology for scalable architecture
 - React 19 with concurrent features and improved performance
@@ -29,7 +117,7 @@ This is the authentication frontend for the IQ Scaffold Platform. It provides a 
 - Vite 7 for lightning-fast development and optimized builds
 - TanStack Router for type-safe routing with code splitting
 
-### 🔐 Authentication Patterns
+### Authentication Patterns
 
 - JWT-based stateless authentication with token lifecycle management
 - Automatic token refresh before expiration
@@ -38,7 +126,7 @@ This is the authentication frontend for the IQ Scaffold Platform. It provides a 
 - Route protection with declarative guards
 - User context extraction and propagation
 
-### 📊 State Management
+### State Management
 
 - Zustand store for centralized auth state
 - TanStack Query for server state synchronization and caching
@@ -46,7 +134,7 @@ This is the authentication frontend for the IQ Scaffold Platform. It provides a 
 - Type-safe selectors and actions
 - DevTools support for debugging
 
-### 🎯 Form Management
+### Form Management
 
 - React Hook Form with Zod validation
 - Type-safe form schemas
@@ -54,7 +142,7 @@ This is the authentication frontend for the IQ Scaffold Platform. It provides a 
 - Accessible form controls with Mantine UI
 - Error handling with user-friendly messages
 
-### 🌍 Internationalization
+### Internationalization
 
 - Lingui framework with macro support
 - Message extraction and compilation
@@ -62,7 +150,7 @@ This is the authentication frontend for the IQ Scaffold Platform. It provides a 
 - Language switching without page reload
 - Translation-ready component architecture
 
-### ♿ Accessibility & UX
+### Accessibility & UX
 
 - WCAG 2.1 AA compliance
 - Keyboard navigation support
@@ -71,7 +159,7 @@ This is the authentication frontend for the IQ Scaffold Platform. It provides a 
 - Responsive design for all devices
 - Dark mode support with Mantine theme
 
-### 🧪 Testing & Quality
+### Testing & Quality
 
 - Vitest for unit and integration testing
 - Playwright for end-to-end testing with UI mode
@@ -79,7 +167,7 @@ This is the authentication frontend for the IQ Scaffold Platform. It provides a 
 - Testing Library for component testing
 - Coverage reporting and CI integration
 
-### 🔍 Code Quality
+### Code Quality
 
 - ESLint 9 with flat config and React rules
 - Prettier for consistent code formatting
@@ -159,83 +247,6 @@ src/
 - Structured logging for production
 - CI/CD integration with GitHub Actions
 - Automated dependency updates with Dependabot
-
-## Use Cases Implemented
-
-### User Registration Flow
-
-- Registration form with validation (username, email, password, names)
-- Password strength requirements enforcement
-- Email verification workflow initiation
-- Tenant ID support for multi-tenancy
-- Success redirect to login page
-- Error handling with user feedback
-
-### User Authentication Flow
-
-- Login form with username/email and password
-- Remember me functionality for extended sessions
-- JWT token reception and storage
-- Automatic redirect to main application domain
-- Session persistence across page reloads
-- Multi-device session support
-
-### Password Management
-
-- Forgot password form with email input
-- Password reset request with backend validation
-- Reset password form with token validation
-- Token expiration handling
-- Password strength validation
-- Success confirmation and redirect
-
-### Session Management
-
-- Automatic token refresh before expiration
-- Logout with token cleanup
-- Logout from all devices support
-- Session expiration handling
-- Multi-tab synchronization via storage events
-- Page visibility change detection
-
-### Route Protection
-
-- Public routes (login, signup, forgot password, reset password)
-- Protected routes (change password, user profile)
-- Automatic redirect for unauthenticated users
-- Role-based access control support
-- Permission-based access control support
-- Email verification requirement enforcement
-
-## API Integration
-
-### Backend Endpoints
-
-The auth portal integrates with the User Service API:
-
-**Public Endpoints:**
-
-- `POST /api/v1/auth/signup` - Register new user
-- `POST /api/v1/auth/login` - Authenticate user
-- `POST /api/v1/auth/refresh` - Refresh access token
-- `POST /api/v1/auth/validate` - Validate JWT token
-- `POST /api/v1/auth/email/verify` - Verify email address with token
-- `POST /api/v1/auth/email/resend` - Resend verification email
-- `POST /api/v1/auth/password/forgot` - Initiate password reset
-- `POST /api/v1/auth/password/reset` - Reset password with token
-- `HEAD /api/v1/auth/password/reset` - Validate password reset token
-- `GET /api/v1/auth/email/status` - Get email verification status
-
-### Configuration
-
-Environment variables for API integration:
-
-- `VITE_API_URL_SERVER` - Backend API base URL (User Service)
-- `VITE_AUTH_DOMAIN_AUTH` - Auth portal domain
-- `VITE_AUTH_DOMAIN_APP` - Main application domain
-- `VITE_AUTH_REDIRECT_AFTER_LOGIN` - Post-login redirect URL
-- `VITE_AUTH_REDIRECT_AFTER_LOGOUT` - Post-logout redirect URL
-- `VITE_AUTH_REDIRECT_AFTER_SIGNUP` - Post-signup redirect URL
 
 ## Learning Points
 
