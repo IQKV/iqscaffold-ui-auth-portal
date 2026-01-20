@@ -68,7 +68,7 @@
     "@microsoft/fetch-event-source": "^2.0.1",
     "@tabler/icons-react": "^3.36.1",
     "@tanstack/react-query": "^5.90.16",
-    "@tanstack/react-router": "^1.150.0",
+    "@tanstack/react-router": "^1.153.2",
     "@tanstack/zod-adapter": "^1.150.0",
     "@types/sanitize-html": "^2.16.0",
     "@xyflow/react": "^12.10.0",
