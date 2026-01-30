@@ -111,7 +111,7 @@
     "@lingui/vite-plugin": "^5.9.0",
     "@playwright/test": "1.58.0",
     "@release-it/conventional-changelog": "^10.0.4",
-    "@tanstack/eslint-plugin-query": "^5.91.3",
+    "@tanstack/eslint-plugin-query": "^5.91.4",
     "@tanstack/eslint-plugin-router": "^1.155.0",
     "@tanstack/react-query-devtools": "^5.91.2",
     "@tanstack/react-router-devtools": "^1.157.16",
