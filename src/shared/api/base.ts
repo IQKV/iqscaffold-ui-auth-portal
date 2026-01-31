@@ -11,9 +11,9 @@ import { i18n } from "@lingui/core";
 import { getUserLocalePreference } from "@/shared/lib/locale-preference";
 import { getClientLocale } from "@/shared/locales";
 
-// When MSW is enabled, use relative URLs so handlers with relative paths match.
+// When MSW is enabled, still use the API server URL for consistency
 const mswEnabled = getFinalMSWConfig().enabled;
-const BASE_URL = mswEnabled ? undefined : getConfig("VITE_API_SERVER_URL");
+const BASE_URL = getConfig("VITE_API_SERVER_URL");
 
 /**
  * Create base axios instance with common configuration
