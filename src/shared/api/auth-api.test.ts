@@ -99,10 +99,7 @@ describe("authApi", () => {
 
       const result = await authApi.signup(userData);
 
-      expect(apiClient.post).toHaveBeenCalledWith(
-        "/v1/auth/signup",
-        userData
-      );
+      expect(apiClient.post).toHaveBeenCalledWith("/v1/auth/signup", userData);
       expect(result).toEqual(mockResponse.data);
     });
   });
@@ -161,12 +158,9 @@ describe("authApi", () => {
 
       await authApi.forgotPassword(email);
 
-      expect(apiClient.post).toHaveBeenCalledWith(
-        "/v1/auth/password/forgot",
-        {
-          email,
-        }
-      );
+      expect(apiClient.post).toHaveBeenCalledWith("/v1/auth/password/forgot", {
+        email,
+      });
     });
   });
 
@@ -178,10 +172,9 @@ describe("authApi", () => {
 
       const result = await authApi.validateResetToken(token);
 
-      expect(apiClient.head).toHaveBeenCalledWith(
-        "/v1/auth/password/reset",
-        { params: { token } }
-      );
+      expect(apiClient.head).toHaveBeenCalledWith("/v1/auth/password/reset", {
+        params: { token },
+      });
       expect(result).toBe(true);
     });
 
@@ -192,10 +185,9 @@ describe("authApi", () => {
 
       const result = await authApi.validateResetToken(token);
 
-      expect(apiClient.head).toHaveBeenCalledWith(
-        "/v1/auth/password/reset",
-        { params: { token } }
-      );
+      expect(apiClient.head).toHaveBeenCalledWith("/v1/auth/password/reset", {
+        params: { token },
+      });
       expect(result).toBe(false);
     });
   });
@@ -209,10 +201,10 @@ describe("authApi", () => {
 
       await authApi.resetPassword(token, newPassword);
 
-      expect(apiClient.post).toHaveBeenCalledWith(
-        "/v1/auth/password/reset",
-        { token, newPassword }
-      );
+      expect(apiClient.post).toHaveBeenCalledWith("/v1/auth/password/reset", {
+        token,
+        newPassword,
+      });
     });
   });
 
