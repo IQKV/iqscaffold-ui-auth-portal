@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. placeholder {0}: localeToNameMap[locale]
-#: src/shared/locales/index.ts:22
+#: src/shared/locales/index.ts:23
 msgid "{0}"
 msgstr "{0}"
 
