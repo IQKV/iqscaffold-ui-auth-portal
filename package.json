@@ -69,7 +69,7 @@
     "@tabler/icons-react": "^3.36.1",
     "@tanstack/react-query": "^5.90.20",
     "@tanstack/react-router": "^1.157.16",
-    "@tanstack/zod-adapter": "^1.157.16",
+    "@tanstack/zod-adapter": "^1.157.17",
     "@types/sanitize-html": "^2.16.0",
     "@xyflow/react": "^12.10.0",
     "axios": "^1.13.4",
