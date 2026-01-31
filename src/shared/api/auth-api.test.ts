@@ -14,15 +14,15 @@ vi.mock("./base", () => ({
 vi.mock("@/app/config", () => ({
   getAuthConfig: () => ({
     endpoints: {
-      login: "/api/v1/auth/login",
-      signup: "/api/v1/auth/signup",
-      refresh: "/api/v1/auth/refresh",
-      logout: "/api/v1/auth/logout",
-      forgotPassword: "/api/v1/auth/password/forgot",
-      resetPassword: "/api/v1/auth/password/reset",
-      verifyEmail: "/api/v1/auth/email/verify",
-      resendVerification: "/api/v1/auth/email/resend",
-      changePassword: "/api/v1/users/me/password",
+      login: "/v1/auth/login",
+      signup: "/v1/auth/signup",
+      refresh: "/v1/auth/refresh",
+      logout: "/v1/auth/logout",
+      forgotPassword: "/v1/auth/password/forgot",
+      resetPassword: "/v1/auth/password/reset",
+      verifyEmail: "/v1/auth/email/verify",
+      resendVerification: "/v1/auth/email/resend",
+      changePassword: "/v1/users/me/password",
     },
   }),
 }));
@@ -65,7 +65,7 @@ describe("authApi", () => {
       const result = await authApi.login(credentials);
 
       expect(apiClient.post).toHaveBeenCalledWith(
-        "/api/v1/auth/login",
+        "/v1/auth/login",
         credentials
       );
       expect(result).toEqual(mockResponse.data);
@@ -100,7 +100,7 @@ describe("authApi", () => {
       const result = await authApi.signup(userData);
 
       expect(apiClient.post).toHaveBeenCalledWith(
-        "/api/v1/auth/signup",
+        "/v1/auth/signup",
         userData
       );
       expect(result).toEqual(mockResponse.data);
@@ -136,7 +136,7 @@ describe("authApi", () => {
       const result = await authApi.refresh(refreshData);
 
       expect(apiClient.post).toHaveBeenCalledWith(
-        "/api/v1/auth/refresh",
+        "/v1/auth/refresh",
         refreshData
       );
       expect(result).toEqual(mockResponse.data);
@@ -149,7 +149,7 @@ describe("authApi", () => {
 
       await authApi.logout();
 
-      expect(apiClient.post).toHaveBeenCalledWith("/api/v1/auth/logout");
+      expect(apiClient.post).toHaveBeenCalledWith("/v1/auth/logout");
     });
   });
 
@@ -162,7 +162,7 @@ describe("authApi", () => {
       await authApi.forgotPassword(email);
 
       expect(apiClient.post).toHaveBeenCalledWith(
-        "/api/v1/auth/password/forgot",
+        "/v1/auth/password/forgot",
         {
           email,
         }
@@ -179,7 +179,7 @@ describe("authApi", () => {
       const result = await authApi.validateResetToken(token);
 
       expect(apiClient.head).toHaveBeenCalledWith(
-        "/api/v1/auth/password/reset",
+        "/v1/auth/password/reset",
         { params: { token } }
       );
       expect(result).toBe(true);
@@ -193,7 +193,7 @@ describe("authApi", () => {
       const result = await authApi.validateResetToken(token);
 
       expect(apiClient.head).toHaveBeenCalledWith(
-        "/api/v1/auth/password/reset",
+        "/v1/auth/password/reset",
         { params: { token } }
       );
       expect(result).toBe(false);
@@ -210,7 +210,7 @@ describe("authApi", () => {
       await authApi.resetPassword(token, newPassword);
 
       expect(apiClient.post).toHaveBeenCalledWith(
-        "/api/v1/auth/password/reset",
+        "/v1/auth/password/reset",
         { token, newPassword }
       );
     });
@@ -224,7 +224,7 @@ describe("authApi", () => {
 
       await authApi.verifyEmail(token);
 
-      expect(apiClient.post).toHaveBeenCalledWith("/api/v1/auth/email/verify", {
+      expect(apiClient.post).toHaveBeenCalledWith("/v1/auth/email/verify", {
         token,
       });
     });
@@ -238,7 +238,7 @@ describe("authApi", () => {
 
       await authApi.resendVerification(email);
 
-      expect(apiClient.post).toHaveBeenCalledWith("/api/v1/auth/email/resend", {
+      expect(apiClient.post).toHaveBeenCalledWith("/v1/auth/email/resend", {
         email,
       });
     });

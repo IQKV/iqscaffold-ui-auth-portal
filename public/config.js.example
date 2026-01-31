@@ -2,7 +2,7 @@
 // Example values shown below.
 // Do NOT commit secrets here.
 
-window.VITE_API_SERVER_URL = "https://api.example.com";
+window.VITE_API_SERVER_URL = "https://api.example.com/api";
 
 // Auth domains
 window.VITE_AUTH_DOMAIN_AUTH = "https://auth.example.com";

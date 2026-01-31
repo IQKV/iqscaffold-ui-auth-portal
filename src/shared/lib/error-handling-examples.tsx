@@ -160,7 +160,7 @@ export function ManualErrorHandlingExample() {
   const handleApiCall = async () => {
     setLoading(true);
     try {
-      await apiClient.get("/api/some-endpoint");
+      await apiClient.get("/some-endpoint");
     } catch (error) {
       // Handle error with notification
       handleError(error, {
@@ -175,7 +175,7 @@ export function ManualErrorHandlingExample() {
   const handleApiCallWithConfirmation = async () => {
     setLoading(true);
     try {
-      await apiClient.post("/api/critical-operation");
+      await apiClient.post("/critical-operation");
     } catch (error) {
       // Handle critical operation error
       handleError(error, {
@@ -208,7 +208,7 @@ export function ComprehensiveErrorExample() {
 
   const handleComplexOperation = async () => {
     try {
-      await apiClient.post("/api/complex-operation");
+      await apiClient.post("/complex-operation");
       setRetryCount(0); // Reset on success
     } catch (error) {
       handleError(error, {

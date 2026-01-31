@@ -20,7 +20,7 @@ const mockTokens = {
 
 export const authHandlers = [
   // Login
-  http.post("/api/v1/auth/login", async ({ request }) => {
+  http.post("/v1/auth/login", async ({ request }) => {
     if (config.delay) {
       await delay(
         typeof config.delay === "object"
@@ -67,7 +67,7 @@ export const authHandlers = [
   }),
 
   // Signup
-  http.post("/api/v1/auth/signup", async ({ request }) => {
+  http.post("/v1/auth/signup", async ({ request }) => {
     if (config.delay) {
       await delay(
         typeof config.delay === "object"
@@ -115,7 +115,7 @@ export const authHandlers = [
   }),
 
   // Refresh token
-  http.post("/api/v1/auth/refresh", async ({ request }) => {
+  http.post("/v1/auth/refresh", async ({ request }) => {
     if (config.delay) {
       await delay(
         typeof config.delay === "object"
@@ -150,7 +150,7 @@ export const authHandlers = [
   }),
 
   // Logout
-  http.post("/api/v1/auth/logout", async () => {
+  http.post("/v1/auth/logout", async () => {
     if (config.delay) {
       await delay(
         typeof config.delay === "object"
@@ -168,7 +168,7 @@ export const authHandlers = [
   }),
 
   // Get current user
-  http.get("/api/v1/users/me", async ({ request }) => {
+  http.get("/v1/users/me", async ({ request }) => {
     if (config.delay) {
       await delay(
         typeof config.delay === "object"
@@ -200,7 +200,7 @@ export const authHandlers = [
   }),
 
   // Forgot password
-  http.post("/api/v1/auth/password/forgot", async ({ request }) => {
+  http.post("/v1/auth/password/forgot", async ({ request }) => {
     if (config.delay) {
       await delay(
         typeof config.delay === "object"
@@ -222,7 +222,7 @@ export const authHandlers = [
   }),
 
   // Validate reset token
-  http.head("/api/v1/auth/password/reset", async ({ request }) => {
+  http.head("/v1/auth/password/reset", async ({ request }) => {
     if (config.delay) {
       await delay(
         typeof config.delay === "object"
@@ -248,7 +248,7 @@ export const authHandlers = [
   }),
 
   // Reset password
-  http.post("/api/v1/auth/password/reset", async ({ request }) => {
+  http.post("/v1/auth/password/reset", async ({ request }) => {
     if (config.delay) {
       await delay(
         typeof config.delay === "object"
