@@ -86,7 +86,7 @@ import { useAuthStore } from "@/processes/auth";
 
 async function fetchUserData() {
   try {
-    const response = await apiClient.get("/api/user/profile");
+    const response = await apiClient.get("/v1/user/profile");
     return response.data;
   } catch (error) {
     // The API client automatically handles 401 errors and token refresh

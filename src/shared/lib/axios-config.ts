@@ -38,7 +38,7 @@ export interface ApiClientConfig {
  */
 export function createApiClient(config: ApiClientConfig = {}): AxiosInstance {
   const {
-    baseURL = "/api",
+    baseURL = "/",
     timeout = 30000,
     headers = {},
     enableLogging = import.meta.env.DEV,

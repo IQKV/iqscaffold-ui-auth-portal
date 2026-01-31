@@ -187,7 +187,7 @@ import { http, HttpResponse } from 'msw';
 test('handles API error', async () => {
   // Override handler for this test
   server.use(
-    http.get('/api/v1/users', () => {
+    http.get('/v1/users', () => {
       return HttpResponse.json(
         { error: 'Server error' },
         { status: 500 }

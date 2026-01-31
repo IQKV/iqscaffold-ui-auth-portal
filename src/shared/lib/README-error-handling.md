@@ -92,7 +92,7 @@ import { apiClient } from "./axios-config";
 // - Request/response logging
 // - Correlation ID injection
 // - Error normalization
-const response = await apiClient.get("/api/users");
+const response = await apiClient.get("/v1/users");
 ```
 
 ### 5. Error Boundary (`error-boundary.tsx`)
