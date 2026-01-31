@@ -1,5 +1,5 @@
 // Shared types
-export type ConfigKeys = "VITE_API_URL_SERVER";
+export type ConfigKeys = "VITE_API_SERVER_URL";
 
 export interface GenericDataResponse<T> {
   data: T;

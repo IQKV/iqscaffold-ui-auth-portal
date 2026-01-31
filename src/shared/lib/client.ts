@@ -8,7 +8,7 @@ import { normalizeAxiosError } from "./http-error";
 import { notificationService } from "./notifications";
 import { resolveTenantId } from "./tenant-utils";
 
-const BASE_URL = getConfig("VITE_API_URL_SERVER");
+const BASE_URL = getConfig("VITE_API_SERVER_URL");
 
 export const api = axios.create({
   baseURL: BASE_URL,

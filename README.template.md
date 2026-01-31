@@ -102,7 +102,7 @@ The auth portal integrates with the User Service API:
 
 Environment variables for API integration:
 
-- `VITE_API_URL_SERVER` - Backend API base URL (User Service)
+- `VITE_API_SERVER_URL` - Backend API base URL (User Service)
 - `VITE_AUTH_DOMAIN_AUTH` - Auth portal domain
 - `VITE_AUTH_DOMAIN_APP` - Main application domain
 - `VITE_AUTH_REDIRECT_AFTER_LOGIN` - Post-login redirect URL

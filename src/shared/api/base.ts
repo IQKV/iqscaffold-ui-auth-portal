@@ -13,7 +13,7 @@ import { getClientLocale } from "@/shared/locales";
 
 // When MSW is enabled, use relative URLs so handlers with relative paths match.
 const mswEnabled = getFinalMSWConfig().enabled;
-const BASE_URL = mswEnabled ? undefined : getConfig("VITE_API_URL_SERVER");
+const BASE_URL = mswEnabled ? undefined : getConfig("VITE_API_SERVER_URL");
 
 /**
  * Create base axios instance with common configuration

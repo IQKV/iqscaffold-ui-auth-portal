@@ -864,7 +864,7 @@ import { normalizeAxiosError } from "./http-error";
 import { notificationService } from "./notifications";
 import { resolveTenantId } from "./tenant-utils";
 
-const BASE_URL = getConfig("VITE_API_URL_SERVER");
+const BASE_URL = getConfig("VITE_API_SERVER_URL");
 
 export const api = axios.create({
   baseURL: BASE_URL,
@@ -1217,7 +1217,7 @@ export type { SignInFormValues } from "./model/types";
 
 ```env
 # Backend API Configuration
-VITE_API_URL_SERVER=http://localhost:8080  # User service backend
+VITE_API_SERVER_URL=http://localhost:8080  # User service backend
 
 # Domain Configuration
 VITE_AUTH_DOMAIN_AUTH=https://auth.iqscaffold.com  # Auth portal domain
@@ -1240,7 +1240,7 @@ NODE_ENV=development           # Environment
 ```tsx
 // app/config/runtime-env.ts (ACTUAL PATTERN)
 const env = {
-  VITE_API_URL_SERVER: import.meta.env.VITE_API_URL_SERVER,
+  VITE_API_SERVER_URL: import.meta.env.VITE_API_SERVER_URL,
   VITE_AUTH_DOMAIN_AUTH: import.meta.env.VITE_AUTH_DOMAIN_AUTH,
   VITE_AUTH_DOMAIN_APP: import.meta.env.VITE_AUTH_DOMAIN_APP,
   VITE_ENABLE_MSW: import.meta.env.VITE_ENABLE_MSW === "true",
