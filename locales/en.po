@@ -79,12 +79,12 @@ msgid "Already have an account? Sign in"
 msgstr "Already have an account? Sign in"
 
 #: src/shared/ui/error-boundary/error-boundary.tsx:47
-msgid "An unexpected error occurred"
-msgstr "An unexpected error occurred"
+#~ msgid "An unexpected error occurred"
+#~ msgstr "An unexpected error occurred"
 
 #: src/shared/ui/error-boundary/error-boundary.tsx:43
-msgid "Application Error"
-msgstr "Application Error"
+#~ msgid "Application Error"
+#~ msgstr "Application Error"
 
 #: src/shared/ui/confirmation-modal/confirm-context-modal.tsx:23
 #: src/shared/ui/confirmation-modal/confirmation-modal.tsx:23
@@ -103,8 +103,8 @@ msgid "Back to Sign In"
 msgstr "Back to Sign In"
 
 #: src/shared/lib/form-examples.tsx:135
-msgid "Bio must be less than 500 characters"
-msgstr "Bio must be less than 500 characters"
+#~ msgid "Bio must be less than 500 characters"
+#~ msgstr "Bio must be less than 500 characters"
 
 #: src/shared/ui/msw-dev-tools.tsx:100
 msgid "Bypass (allow through)"
@@ -545,8 +545,8 @@ msgstr "Logout Failed"
 #~ msgstr "Manage your account security and active sessions."
 
 #: src/shared/lib/form-examples.tsx:21
-msgid "Message must be at least 10 characters"
-msgstr "Message must be at least 10 characters"
+#~ msgid "Message must be at least 10 characters"
+#~ msgstr "Message must be at least 10 characters"
 
 #: src/features/signup-form/ui/signup-form-feature.tsx:149
 msgid "Min 8 characters with uppercase, lowercase, number, and special character"
@@ -750,16 +750,16 @@ msgid "Please enter a valid username or email address"
 msgstr "Please enter a valid username or email address"
 
 #: src/shared/lib/form-examples.tsx:298
-msgid "Please fill in all required fields for your account type"
-msgstr "Please fill in all required fields for your account type"
+#~ msgid "Please fill in all required fields for your account type"
+#~ msgstr "Please fill in all required fields for your account type"
 
 #: src/shared/lib/form-examples.tsx:23
-msgid "Please select a contact method"
-msgstr "Please select a contact method"
+#~ msgid "Please select a contact method"
+#~ msgstr "Please select a contact method"
 
 #: src/shared/lib/form-examples.tsx:141
-msgid "Please select at least one skill"
-msgstr "Please select at least one skill"
+#~ msgid "Please select at least one skill"
+#~ msgstr "Please select at least one skill"
 
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:135
 #~ msgid "Please wait while we verify your email address."
@@ -790,8 +790,8 @@ msgid "Registration Successful"
 msgstr "Registration Successful"
 
 #: src/shared/ui/error-boundary/error-boundary.tsx:54
-msgid "Reload Page"
-msgstr "Reload Page"
+#~ msgid "Reload Page"
+#~ msgstr "Reload Page"
 
 #: src/features/signin-form/ui/signin-form-feature.tsx:118
 msgid "Remember me"
@@ -883,8 +883,8 @@ msgid "Simulate network latency"
 msgstr "Simulate network latency"
 
 #: src/shared/ui/error-boundary/error-boundary.tsx:39
-msgid "Something went wrong"
-msgstr "Something went wrong"
+#~ msgid "Something went wrong"
+#~ msgstr "Something went wrong"
 
 #: src/features/email-status-checker/ui/email-status-checker-feature.tsx:72
 #~ msgid "Status"
