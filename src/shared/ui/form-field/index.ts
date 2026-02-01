@@ -1,2 +1,2 @@
-export { FormField, EnhancedFormField } from "./form-field-compat";
+export { FormField } from "./form-field";
 export { useEnhancedFormValidation } from "./validation-utils";

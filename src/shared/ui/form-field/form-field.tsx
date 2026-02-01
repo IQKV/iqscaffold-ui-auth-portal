@@ -54,6 +54,8 @@ export interface BaseFormFieldProps {
   variant?: "default" | "filled" | "unstyled";
   /** Whether field is required (for visual indicator only, validation handled by Zod) */
   withAsterisk?: boolean;
+  /** Legacy support for required prop */
+  required?: boolean;
   /** Test ID for testing */
   "data-testid"?: string;
 }
@@ -75,6 +77,9 @@ export interface PasswordFormFieldProps extends BaseFormFieldProps {
   onVisibilityChange?: (visible: boolean) => void;
   /** Show password strength indicator */
   showStrengthIndicator?: boolean;
+  /** Input icon */
+  leftSection?: React.ReactNode;
+  rightSection?: React.ReactNode;
   /** Custom strength calculation */
   strengthCalculator?: (password: string) => {
     strength: number;
@@ -286,8 +291,12 @@ export function FormField(props: FormFieldProps) {
     size = "sm",
     variant = "default",
     withAsterisk = false,
+    required = false,
     "data-testid": dataTestId,
   } = props;
+
+  // Handle legacy required prop
+  const showAsterisk = withAsterisk || required;
 
   const fieldError = form.errors[name] || customError;
   const fieldValue = form.values[name];
@@ -393,7 +402,7 @@ export function FormField(props: FormFieldProps) {
       <Group gap="xs" align="center">
         <Text size="sm" fw={500}>
           {resolveMessage(label)}
-          {withAsterisk && (
+          {showAsterisk && (
             <Text component="span" c="red" ml={4}>
               *
             </Text>
@@ -464,7 +473,8 @@ export function FormField(props: FormFieldProps) {
               {...baseProps}
               visible={passwordProps.visible}
               onVisibilityChange={passwordProps.onVisibilityChange}
-              rightSection={validationStatus}
+              leftSection={passwordProps.leftSection}
+              rightSection={passwordProps.rightSection || validationStatus}
             />
             {passwordStrength && (
               <Stack gap="xs">
@@ -710,6 +720,3 @@ export function FormField(props: FormFieldProps) {
 
   return renderField();
 }
-
-// Export as both FormField and EnhancedFormField for backward compatibility
-export { FormField as EnhancedFormField };

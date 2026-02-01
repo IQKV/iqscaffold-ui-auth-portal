@@ -394,7 +394,7 @@ msgstr "Failed to verify email. The link may be invalid or expired."
 #~ msgid "Failed to verify email. The verification link may be invalid or expired."
 #~ msgstr "Failed to verify email. The verification link may be invalid or expired."
 
-#: src/shared/ui/form-field/form-field.tsx:360
+#: src/shared/ui/form-field/form-field.tsx:369
 msgid "Fair"
 msgstr "Fair"
 
@@ -446,7 +446,7 @@ msgstr "Go Back"
 msgid "Go Home"
 msgstr "Go Home"
 
-#: src/shared/ui/form-field/form-field.tsx:361
+#: src/shared/ui/form-field/form-field.tsx:370
 msgid "Good"
 msgstr "Good"
 
@@ -696,7 +696,7 @@ msgstr "Password Reset Failed"
 msgid "Password Reset Successful"
 msgstr "Password Reset Successful"
 
-#: src/shared/ui/form-field/form-field.tsx:473
+#: src/shared/ui/form-field/form-field.tsx:483
 msgid "Password strength"
 msgstr "Password strength"
 
@@ -894,7 +894,7 @@ msgstr "Simulate network latency"
 msgid "Stopped"
 msgstr "Stopped"
 
-#: src/shared/ui/form-field/form-field.tsx:362
+#: src/shared/ui/form-field/form-field.tsx:371
 msgid "Strong"
 msgstr "Strong"
 
@@ -1055,8 +1055,8 @@ msgstr "Verification Failed"
 #~ msgid "Verifying Your Email..."
 #~ msgstr "Verifying Your Email..."
 
-#: src/shared/ui/form-field/form-field.tsx:358
-#: src/shared/ui/form-field/form-field.tsx:369
+#: src/shared/ui/form-field/form-field.tsx:367
+#: src/shared/ui/form-field/form-field.tsx:378
 msgid "Very Weak"
 msgstr "Very Weak"
 
@@ -1084,7 +1084,7 @@ msgstr "We'll help you get back into your account"
 #~ msgid "We've sent a password reset link to {email}. Please check your email and follow the instructions."
 #~ msgstr "We've sent a password reset link to {email}. Please check your email and follow the instructions."
 
-#: src/shared/ui/form-field/form-field.tsx:359
+#: src/shared/ui/form-field/form-field.tsx:368
 msgid "Weak"
 msgstr "Weak"
 
