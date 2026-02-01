@@ -1,7 +1,14 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MantineProvider } from "@mantine/core";
+import {
+  MantineProvider,
+  TextInput,
+  PasswordInput,
+  Textarea,
+  Select,
+  Checkbox,
+} from "@mantine/core";
 import { z } from "zod";
 import {
   useForm as useMantineForm,
@@ -33,7 +40,6 @@ const testValidationSchemas = {
 const createFormSchema = <T extends z.ZodRawShape>(shape: T) => {
   return z.object(shape);
 };
-import { FormField } from "../ui/form-field";
 
 const TestWrapper = ({ children }: { children: React.ReactNode }) => (
   <MantineProvider>{children}</MantineProvider>
@@ -43,7 +49,7 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => (
 const testSchema = createFormSchema({
   email: testValidationSchemas.email,
   username: z.string().min(3, "Username must be at least 3 characters"),
-  age: z.number().min(18, "Must be at least 18"),
+  age: z.coerce.number().min(18, "Must be at least 18"),
 });
 
 type TestFormType = z.infer<typeof testSchema>;
@@ -61,9 +67,9 @@ const TestFormComponent = () => {
 
   return (
     <form onSubmit={form.onSubmit((values) => console.log(values))}>
-      <FormField type="email" name="email" label="Email" form={form} />
-      <FormField type="text" name="username" label="Username" form={form} />
-      <FormField type="number" name="age" label="Age" form={form} />
+      <TextInput type="email" label="Email" {...form.getInputProps("email")} />
+      <TextInput label="Username" {...form.getInputProps("username")} />
+      <TextInput type="number" label="Age" {...form.getInputProps("age")} />
       <button type="submit">Submit</button>
     </form>
   );
@@ -85,7 +91,7 @@ const SimpleFormComponent = () => {
       text: z.string(),
       email: testValidationSchemas.email,
       password: z.string(),
-      number: z.number(),
+      number: z.coerce.number(),
       textarea: z.string(),
       select: z.string(),
       checkbox: z.boolean(),
@@ -94,33 +100,30 @@ const SimpleFormComponent = () => {
 
   return (
     <form>
-      <FormField type="text" name="text" label="Text Field" form={form} />
-      <FormField type="email" name="email" label="Email Field" form={form} />
-      <FormField
-        type="password"
-        name="password"
+      <TextInput label="Text Field" {...form.getInputProps("text")} />
+      <TextInput
+        type="email"
+        label="Email Field"
+        {...form.getInputProps("email")}
+      />
+      <PasswordInput
         label="Password Field"
-        form={form}
+        {...form.getInputProps("password")}
       />
-      <FormField type="number" name="number" label="Number Field" form={form} />
-      <FormField
-        type="textarea"
-        name="textarea"
-        label="Textarea Field"
-        form={form}
+      <TextInput
+        type="number"
+        label="Number Field"
+        {...form.getInputProps("number")}
       />
-      <FormField
-        type="select"
-        name="select"
+      <Textarea label="Textarea Field" {...form.getInputProps("textarea")} />
+      <Select
         label="Select Field"
         data={[{ value: "option1", label: "Option 1" }]}
-        form={form}
+        {...form.getInputProps("select")}
       />
-      <FormField
-        type="checkbox"
-        name="checkbox"
+      <Checkbox
         label="Checkbox Field"
-        form={form}
+        {...form.getInputProps("checkbox", { type: "checkbox" })}
       />
     </form>
   );
@@ -214,7 +217,7 @@ describe("useForm", () => {
       expect(consoleSpy).toHaveBeenCalledWith({
         email: "test@example.com",
         username: "testuser",
-        age: 25,
+        age: "25", // HTML number inputs return strings
       });
     });
 

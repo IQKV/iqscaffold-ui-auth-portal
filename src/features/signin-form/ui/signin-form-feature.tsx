@@ -1,12 +1,15 @@
 import { Anchor, Button, Card, Group, Stack } from "@mantine/core";
-import { IconLock, IconUser } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
 import { t } from "@lingui/core/macro";
 import { useAuthStore } from "@/processes/auth";
 import { getAuthConfig } from "@/app/config";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
-import { FormField } from "@/shared/ui";
+import {
+  SignInUsernameField,
+  PasswordField,
+  RememberMeCheckbox,
+} from "@/shared/ui";
 import {
   signInFormSchema,
   initialSignInValues,
@@ -89,33 +92,20 @@ export function SignInFormFeature({
     >
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
-          <FormField
-            type="text"
-            name="username"
-            label={t`Username or Email`}
-            placeholder={t`Enter your username or email`}
-            leftSection={<IconUser size={16} />}
-            required
+          <SignInUsernameField
             form={form}
             data-testid="signin-input-username"
           />
 
-          <FormField
-            type="password"
-            name="password"
-            label={t`Password`}
-            placeholder={t`Enter your password`}
-            leftSection={<IconLock size={16} />}
-            required
+          <PasswordField
             form={form}
+            placeholder={t`Enter your password`}
+            description=""
             data-testid="signin-input-password"
           />
 
           <Group justify="space-between">
-            <FormField
-              type="checkbox"
-              name="rememberMe"
-              label={t`Remember me`}
+            <RememberMeCheckbox
               form={form}
               data-testid="signin-checkbox-remember"
             />

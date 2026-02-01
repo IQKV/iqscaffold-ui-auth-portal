@@ -96,7 +96,7 @@ describe("SignUpFormFeature", () => {
       "Create a strong password"
     );
     const confirmPasswordInput = screen.getByPlaceholderText(
-      "Re-enter your password"
+      "Confirm your new password"
     );
     const submitButton = screen.getByTestId("signup-button-submit");
 
@@ -160,7 +160,7 @@ describe("SignUpFormFeature", () => {
       "Create a strong password"
     );
     const confirmPasswordInput = screen.getByPlaceholderText(
-      "Re-enter your password"
+      "Confirm your new password"
     );
     const submitButton = screen.getByTestId("signup-button-submit");
 

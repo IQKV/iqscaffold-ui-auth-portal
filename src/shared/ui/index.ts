@@ -2,5 +2,15 @@
 export { AppLayout } from "./app-layout";
 export { LoadingOverlay } from "./loading-overlay";
 export { ErrorBoundary } from "./error-boundary";
-export { FormField } from "./form-field";
 export { ConfirmationModal, useConfirmationModal } from "./confirmation-modal";
+
+// Auth-specific form fields
+export {
+  SignInUsernameField,
+  SignUpUsernameField,
+  EmailField,
+  PasswordField,
+  ConfirmPasswordField,
+  RememberMeCheckbox,
+  NameField,
+} from "./auth-form-fields";

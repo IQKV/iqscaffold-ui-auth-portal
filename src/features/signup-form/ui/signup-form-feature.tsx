@@ -1,6 +1,6 @@
 import { Anchor, Button, Card, Group, Stack } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { IconAt, IconLock, IconUser, IconUserPlus } from "@tabler/icons-react";
+import { IconUserPlus } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
 import { t } from "@lingui/core/macro";
@@ -10,7 +10,13 @@ import {
   type UserRegistration,
 } from "@/shared/api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
-import { FormField } from "@/shared/ui";
+import {
+  NameField,
+  SignUpUsernameField,
+  EmailField,
+  PasswordField,
+  ConfirmPasswordField,
+} from "@/shared/ui";
 import {
   signUpFormSchema,
   initialSignUpValues,
@@ -97,68 +103,28 @@ export function SignUpFormFeature({
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <Group grow>
-            <FormField
-              type="text"
+            <NameField
               name="firstName"
-              label={t`First Name`}
-              placeholder={t`John`}
-              required
               form={form}
               data-testid="signup-input-firstname"
             />
-            <FormField
-              type="text"
+            <NameField
               name="lastName"
-              label={t`Last Name`}
-              placeholder={t`Doe`}
-              required
               form={form}
               data-testid="signup-input-lastname"
             />
           </Group>
 
-          <FormField
-            type="text"
-            name="username"
-            label={t`Username`}
-            placeholder={t`johndoe`}
-            leftSection={<IconUser size={16} />}
-            description={t`3-50 characters, letters, numbers, and underscores only`}
-            required
+          <SignUpUsernameField
             form={form}
             data-testid="signup-input-username"
           />
 
-          <FormField
-            type="email"
-            name="email"
-            label={t`Email`}
-            placeholder={t`john.doe@example.com`}
-            leftSection={<IconAt size={16} />}
-            required
-            form={form}
-            data-testid="signup-input-email"
-          />
+          <EmailField form={form} data-testid="signup-input-email" />
 
-          <FormField
-            type="password"
-            name="password"
-            label={t`Password`}
-            placeholder={t`Create a strong password`}
-            leftSection={<IconLock size={16} />}
-            description={t`Min 8 characters with uppercase, lowercase, number, and special character`}
-            required
-            form={form}
-            data-testid="signup-input-password"
-          />
+          <PasswordField form={form} data-testid="signup-input-password" />
 
-          <FormField
-            type="password"
-            name="confirmPassword"
-            label={t`Confirm Password`}
-            placeholder={t`Re-enter your password`}
-            leftSection={<IconLock size={16} />}
-            required
+          <ConfirmPasswordField
             form={form}
             data-testid="signup-input-confirm-password"
           />

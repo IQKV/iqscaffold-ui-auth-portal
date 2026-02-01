@@ -8,7 +8,7 @@ import {
   Loader,
   Center,
 } from "@mantine/core";
-import { IconLock, IconArrowLeft } from "@tabler/icons-react";
+import { IconArrowLeft } from "@tabler/icons-react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { t } from "@lingui/core/macro";
@@ -17,7 +17,7 @@ import {
   useValidateResetToken,
 } from "@/shared/lib/use-auth-api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
-import { FormField } from "@/shared/ui";
+import { PasswordField, ConfirmPasswordField } from "@/shared/ui";
 import {
   resetPasswordFormSchema,
   initialResetPasswordValues,
@@ -148,25 +148,17 @@ export function ResetPasswordFormFeature({
             {t`Enter your new password below. Make sure it's strong and secure.`}
           </Text>
 
-          <FormField
-            type="password"
-            name="password"
+          <PasswordField
+            form={form}
             label={t`New Password`}
             placeholder={t`Enter your new password`}
-            leftSection={<IconLock size={16} />}
-            required
-            form={form}
+            description=""
             data-testid="reset-password-input-password"
           />
 
-          <FormField
-            type="password"
-            name="confirmPassword"
-            label={t`Confirm New Password`}
-            placeholder={t`Confirm your new password`}
-            leftSection={<IconLock size={16} />}
-            required
+          <ConfirmPasswordField
             form={form}
+            name="confirmPassword"
             data-testid="reset-password-input-confirm-password"
           />
 

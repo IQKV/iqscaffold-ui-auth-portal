@@ -1,11 +1,11 @@
 import { Anchor, Button, Card, Group, Stack, Text } from "@mantine/core";
-import { IconMail, IconArrowLeft } from "@tabler/icons-react";
+import { IconArrowLeft } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { t } from "@lingui/core/macro";
 import { useForgotPassword } from "@/shared/lib/use-auth-api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
-import { FormField } from "@/shared/ui";
+import { EmailField } from "@/shared/ui";
 import {
   forgotPasswordFormSchema,
   initialForgotPasswordValues,
@@ -75,14 +75,10 @@ export function ForgotPasswordFormFeature({
             {t`Enter your email address and we'll send you a link to reset your password.`}
           </Text>
 
-          <FormField
-            type="email"
-            name="email"
+          <EmailField
+            form={form}
             label={t`Email Address`}
             placeholder={t`Enter your email address`}
-            leftSection={<IconMail size={16} />}
-            required
-            form={form}
             data-testid="forgot-password-input-email"
           />
 
