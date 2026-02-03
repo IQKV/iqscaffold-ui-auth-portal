@@ -55,7 +55,7 @@
     }
   },
   "dependencies": {
-    "@dr.pogodin/react-helmet": "^3.0.5",
+    "@dr.pogodin/react-helmet": "^3.0.6",
     "@hookform/resolvers": "^5.2.2",
     "@lingui/core": "^5.9.0",
     "@lingui/macro": "^5.9.0",
