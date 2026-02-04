@@ -149,7 +149,7 @@ src/
 
 ```
 I understand you want to add a logout button. Let me analyze the requirements
-and create a comprehensive solution. I'll now proceed to create the necessary
+and create solution. I'll now proceed to create the necessary
 files following the FSD architecture. First, I'll create the feature structure,
 then implement the component, and finally add the necessary exports.
 ```
@@ -598,7 +598,7 @@ After applying approved changes:
 4. **Feature-Sliced Structure**: Organize by features, not by file types
 5. **Lingui Integration**: Use `msg` macro for labels and `useLingui()._()` for runtime translation
 
-**Example: The project has a comprehensive FormField component in `shared/ui/form-field/`**
+**Example: The project has FormField component in `shared/ui/form-field/`**
 
 ```tsx
 // shared/ui/form-field/form-field.tsx
