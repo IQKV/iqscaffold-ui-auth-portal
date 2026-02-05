@@ -2,13 +2,9 @@ import { Button, Group, Stack } from "@mantine/core";
 import { IconUserPlus } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
 import { t } from "@lingui/core/macro";
-import {
-  authApi,
-  type UserRegistrationResponse,
-  type UserRegistration,
-} from "@/shared/api";
+import { type UserRegistrationResponse } from "@/shared/api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
-import { useFormMutation } from "@/shared/lib/use-form-mutation";
+import { useSignup } from "@/shared/lib/use-auth-api";
 import {
   NameField,
   SignUpUsernameField,
@@ -42,19 +38,11 @@ export function SignUpFormFeature({
     schema: signUpFormSchema,
   });
 
-  const registerMutation = useFormMutation(
-    form,
-    async (values: UserRegistration) => {
-      return await authApi.signup(values);
-    },
-    {
-      notifySuccess: {
-        title: t`Registration Successful`,
-        message: t`Your account has been created. Please verify your email.`,
-      },
-      notifyError: {
-        title: t`Registration Failed`,
-      },
+  const signupMutation = useSignup();
+
+  const handleSubmit = (values: SignUpFormSchemaType) => {
+    const { confirmPassword, ...signupData } = values;
+    signupMutation.mutate(signupData, {
       onSuccess: (data) => {
         if (onSuccess) {
           onSuccess(data);
@@ -66,12 +54,7 @@ export function SignUpFormFeature({
           navigate({ to: "/login" });
         }
       },
-    }
-  );
-
-  const handleSubmit = (values: SignUpFormSchemaType) => {
-    const { confirmPassword, ...signupData } = values;
-    registerMutation.mutate(signupData);
+    });
   };
 
   const handleNavigateToLogin = () => {
@@ -120,7 +103,7 @@ export function SignUpFormFeature({
             type="submit"
             fullWidth
             leftSection={<IconUserPlus size={18} />}
-            loading={registerMutation.isPending}
+            loading={signupMutation.isPending}
             data-testid="signup-button-submit"
           >
             {t`Create Account`}

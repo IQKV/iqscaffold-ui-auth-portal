@@ -3,9 +3,10 @@ import { useSearch, useNavigate } from "@tanstack/react-router";
 import { Button, Text, Alert, Stack, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconCheck, IconX, IconMail } from "@tabler/icons-react";
-import { useMutation } from "@tanstack/react-query";
-import { authApi } from "@/shared/api";
-import { notificationService } from "@/shared/lib/notifications";
+import {
+  useVerifyEmail,
+  useResendVerification,
+} from "@/shared/lib/use-auth-api";
 import { t } from "@lingui/core/macro";
 import type { VerifyEmailFormValues } from "../model/types";
 
@@ -22,64 +23,49 @@ export function VerifyEmailFeature() {
     },
     validate: {
       email: (value) => {
-        if (!value) return t`Email is required`;
-        if (!/^\S+@\S+\.\S+$/.test(value)) return t`Invalid email format`;
+        if (!value) {
+          return t`Email is required`;
+        }
+        if (!/^\S+@\S+\.\S+$/.test(value)) {
+          return t`Invalid email format`;
+        }
         return null;
       },
     },
   });
 
   // Auto-verify if token is present in URL
-  const verifyEmailMutation = useMutation({
-    mutationFn: (token: string) => authApi.verifyEmail(token),
-    onSuccess: () => {
-      setVerificationStatus("success");
-      notificationService.success({
-        title: t`Email Verified`,
-        message: t`Your email has been successfully verified. You can now sign in.`,
-      });
-      setTimeout(() => {
-        navigate({ to: "/login" });
-      }, 3000);
-    },
-    onError: () => {
-      setVerificationStatus("error");
-      notificationService.error({
-        title: t`Verification Failed`,
-        message: t`The verification link is invalid or has expired.`,
-      });
-    },
-  });
+  const verifyEmailMutation = useVerifyEmail();
 
   // Resend verification email
-  const resendVerificationMutation = useMutation({
-    mutationFn: (email: string) => authApi.resendVerification(email),
-    onSuccess: () => {
-      notificationService.success({
-        title: t`Verification Email Sent`,
-        message: t`Please check your email for the verification link.`,
-      });
-      setVerificationStatus("pending");
-    },
-    onError: () => {
-      notificationService.error({
-        title: t`Failed to Send Email`,
-        message: t`Could not send verification email. Please try again.`,
-      });
-    },
-  });
+  const resendVerificationMutation = useResendVerification();
 
   useEffect(() => {
     if (search.token) {
-      verifyEmailMutation.mutate(search.token);
+      verifyEmailMutation.mutate(search.token, {
+        onSuccess: () => {
+          setVerificationStatus("success");
+          setTimeout(() => {
+            navigate({ to: "/login" });
+          }, 3000);
+        },
+        onError: () => {
+          setVerificationStatus("error");
+        },
+      });
     } else if (!search.email) {
       setVerificationStatus("resend");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search.token, search.email]);
 
   const handleResendVerification = (values: VerifyEmailFormValues) => {
     if (values.email) {
-      resendVerificationMutation.mutate(values.email);
+      resendVerificationMutation.mutate(values.email, {
+        onSuccess: () => {
+          setVerificationStatus("pending");
+        },
+      });
     }
   };
 
@@ -94,7 +80,9 @@ export function VerifyEmailFeature() {
         </Alert>
         <Button
           variant="light"
-          onClick={() => navigate({ to: "/login" })}
+          onClick={() => {
+            navigate({ to: "/login" });
+          }}
           fullWidth
         >
           {t`Continue to Sign In`}
@@ -132,7 +120,9 @@ export function VerifyEmailFeature() {
         </form>
         <Button
           variant="subtle"
-          onClick={() => navigate({ to: "/login" })}
+          onClick={() => {
+            navigate({ to: "/login" });
+          }}
           fullWidth
         >
           {t`Back to Sign In`}
@@ -167,7 +157,9 @@ export function VerifyEmailFeature() {
           </Button>
           <Button
             variant="subtle"
-            onClick={() => navigate({ to: "/login" })}
+            onClick={() => {
+              navigate({ to: "/login" });
+            }}
             fullWidth
           >
             {t`Back to Sign In`}

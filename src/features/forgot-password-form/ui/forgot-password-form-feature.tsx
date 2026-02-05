@@ -1,8 +1,7 @@
 import { Button, Stack, Text } from "@mantine/core";
 import { useNavigate } from "@tanstack/react-router";
 import { t } from "@lingui/core/macro";
-import { authApi } from "@/shared/api";
-import { useFormMutation } from "@/shared/lib/use-form-mutation";
+import { useForgotPassword } from "@/shared/lib/use-auth-api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
 import { EmailField, AuthFormCard, AuthLinkBackToLogin } from "@/shared/ui";
 import {
@@ -27,33 +26,19 @@ export function ForgotPasswordFormFeature({
     schema: forgotPasswordFormSchema,
   });
 
-  const forgotPasswordMutation = useFormMutation(
-    form,
-    async (email: string) => {
-      return await authApi.forgotPassword(email);
-    },
-    {
-      notifySuccess: {
-        title: t`Reset Link Sent`,
-        message: t`Please check your email for the password reset link`,
-      },
-      notifyError: {
-        title: t`Failed to Send Reset Link`,
-      },
+  const forgotPasswordMutation = useForgotPassword();
+
+  const handleSubmit = (values: ForgotPasswordFormSchemaType) => {
+    forgotPasswordMutation.mutate(values.email, {
       onSuccess: () => {
-        const email = form.values.email;
         if (onSuccess) {
-          onSuccess(email);
+          onSuccess(values.email);
         } else {
           // Navigate back to login after successful submission
           navigate({ to: "/login" });
         }
       },
-    }
-  );
-
-  const handleSubmit = (values: ForgotPasswordFormSchemaType) => {
-    forgotPasswordMutation.mutate(values.email);
+    });
   };
 
   const handleBackToLogin = () => {

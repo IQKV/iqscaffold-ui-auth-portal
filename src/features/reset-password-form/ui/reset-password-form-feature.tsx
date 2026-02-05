@@ -1,9 +1,10 @@
 import { Button, Stack, Text, Loader, Center } from "@mantine/core";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { t } from "@lingui/core/macro";
-import { useValidateResetToken } from "@/shared/lib/use-auth-api";
-import { authApi } from "@/shared/api";
-import { useFormMutation } from "@/shared/lib/use-form-mutation";
+import {
+  useValidateResetToken,
+  useResetPassword,
+} from "@/shared/lib/use-auth-api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
 import {
   PasswordField,
@@ -43,40 +44,25 @@ export function ResetPasswordFormFeature({
     schema: resetPasswordFormSchema,
   });
 
-  const resetPasswordMutation = useFormMutation(
-    form,
-    async (values: ResetPasswordFormSchemaType) => {
-      // The type check is actually handled by mutator function, but we double check or cast if needed
-      // Actually values doesn't contain token.
-      if (!token) {
-        throw new Error("Token missing");
-      }
-      return await authApi.resetPassword(token, values.password);
-    },
-    {
-      notifySuccess: {
-        title: t`Password Reset Successful`,
-        message: t`Your password has been successfully reset`,
-      },
-      notifyError: {
-        title: t`Password Reset Failed`,
-      },
-      onSuccess: () => {
-        if (onSuccess) {
-          onSuccess();
-        } else {
-          // Navigate to login after successful reset
-          navigate({ to: "/login" });
-        }
-      },
-    }
-  );
+  const resetPasswordMutation = useResetPassword();
 
   const handleSubmit = (values: ResetPasswordFormSchemaType) => {
     if (!token) {
       return;
     }
-    resetPasswordMutation.mutate(values);
+    resetPasswordMutation.mutate(
+      { token, password: values.password },
+      {
+        onSuccess: () => {
+          if (onSuccess) {
+            onSuccess();
+          } else {
+            // Navigate to login after successful reset
+            navigate({ to: "/login" });
+          }
+        },
+      }
+    );
   };
 
   const handleBackToLogin = () => {

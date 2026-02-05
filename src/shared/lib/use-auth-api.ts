@@ -82,3 +82,68 @@ export function useValidateResetToken(token: string | undefined) {
     staleTime: 0,
   });
 }
+
+/**
+ * Hook for forgot password
+ */
+export function useForgotPassword() {
+  return useMutation({
+    mutationFn: (email: string) => authApi.forgotPassword(email),
+    onSuccess: () => {
+      notificationService.success({
+        title: t`Reset Link Sent`,
+        message: t`Please check your email for the password reset link`,
+      });
+    },
+    onError: (error: any) => {
+      notificationService.error({
+        title: t`Failed to Send Reset Link`,
+        message: error?.message || t`Failed to send password reset link`,
+      });
+    },
+  });
+}
+
+/**
+ * Hook for reset password
+ */
+export function useResetPassword() {
+  return useMutation({
+    mutationFn: ({ token, password }: { token: string; password: string }) =>
+      authApi.resetPassword(token, password),
+    onSuccess: () => {
+      notificationService.success({
+        title: t`Password Reset Successful`,
+        message: t`Your password has been successfully reset`,
+      });
+    },
+    onError: (error: any) => {
+      notificationService.error({
+        title: t`Password Reset Failed`,
+        message: error?.message || t`Failed to reset password`,
+      });
+    },
+  });
+}
+
+/**
+ * Hook for user signup/registration
+ */
+export function useSignup() {
+  return useMutation({
+    mutationFn: (data: Parameters<typeof authApi.signup>[0]) =>
+      authApi.signup(data),
+    onSuccess: () => {
+      notificationService.success({
+        title: t`Registration Successful`,
+        message: t`Your account has been created. Please verify your email.`,
+      });
+    },
+    onError: (error: any) => {
+      notificationService.error({
+        title: t`Registration Failed`,
+        message: error?.message || t`Failed to create account`,
+      });
+    },
+  });
+}
