@@ -81,9 +81,13 @@ describe("UserMenu", () => {
     const menuButton = screen.getByText("John Doe").closest("button")!;
     await user.click(menuButton);
 
-    // Menu items are rendered in a portal, wait for them
+    // Menu items are rendered in a portal, wait for them (they may be hidden)
     await waitFor(() => {
-      expect(screen.queryByRole("menu")).toBeInTheDocument();
+      expect(
+        screen.getByRole("menu", {
+          hidden: true,
+        })
+      ).toBeInTheDocument();
     });
   });
 
@@ -99,9 +103,13 @@ describe("UserMenu", () => {
     const menuButton = screen.getByText("John Doe").closest("button")!;
     await user.click(menuButton);
 
-    // Menu items are rendered in a portal, wait for them to be visible
+    // Menu items are rendered in a portal, wait for them (they may be hidden)
     await waitFor(() => {
-      expect(screen.queryByRole("menu")).toBeInTheDocument();
+      expect(
+        screen.getByRole("menu", {
+          hidden: true,
+        })
+      ).toBeInTheDocument();
     });
 
     // Find logout button by text content

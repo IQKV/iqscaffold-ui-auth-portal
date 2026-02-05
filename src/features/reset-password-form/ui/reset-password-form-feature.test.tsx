@@ -158,8 +158,8 @@ describe("ResetPasswordFormFeature", () => {
 
     await waitFor(() => {
       expect(mockMutate).toHaveBeenCalledWith({
-        token: "valid-token",
-        newPassword: "NewPassword123!",
+        password: "NewPassword123!",
+        confirmPassword: "NewPassword123!",
       });
     });
   });

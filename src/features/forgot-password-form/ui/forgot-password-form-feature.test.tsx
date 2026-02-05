@@ -163,8 +163,10 @@ describe("ForgotPasswordFormFeature", () => {
     });
 
     const emailInput = screen.getByPlaceholderText("Enter your email address");
+    const submitButton = screen.getByTestId("forgot-password-button-submit");
 
     await user.type(emailInput, "test@example.com");
+    await user.click(submitButton);
 
     await waitFor(() => {
       expect(onSuccess).toHaveBeenCalledWith("test@example.com");
