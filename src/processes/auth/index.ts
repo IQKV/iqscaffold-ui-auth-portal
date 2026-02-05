@@ -20,9 +20,6 @@ export {
   useHasAnyPermission,
   useUserFullName,
   useUserInitials,
-  // Backward compatibility aliases
-  useHasRole,
-  useHasAnyRole,
 } from "./model/auth-selectors";
 
 // Guards and protection
@@ -46,8 +43,6 @@ export {
   getUserAuthorityPriority,
   isSessionExpiringSoon,
   getTimeUntilExpiration,
-  // Backward compatibility alias
-  getUserRolePriority,
 } from "./lib/auth-utils";
 
 // HTTP Interceptors setup

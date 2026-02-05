@@ -56,7 +56,7 @@ describe("ResetPasswordFormFeature", () => {
     );
 
     (useValidateResetToken as any).mockReturnValue({
-      data: true,
+      data: { valid: true },
       isLoading: false,
     });
   });
@@ -95,7 +95,7 @@ describe("ResetPasswordFormFeature", () => {
   it("shows error message with invalid token", async () => {
     const { useValidateResetToken } = await import("@/shared/lib/use-auth-api");
     (useValidateResetToken as any).mockReturnValue({
-      data: false,
+      data: { valid: false },
       isLoading: false,
     });
 
@@ -109,7 +109,7 @@ describe("ResetPasswordFormFeature", () => {
   it("shows error message when no token provided", async () => {
     const { useValidateResetToken } = await import("@/shared/lib/use-auth-api");
     (useValidateResetToken as any).mockReturnValue({
-      data: false,
+      data: { valid: false },
       isLoading: false,
     });
 

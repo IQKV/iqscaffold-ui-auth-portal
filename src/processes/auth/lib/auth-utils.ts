@@ -95,9 +95,6 @@ export const getUserAuthorityPriority = (user?: AuthUser | null): number => {
   );
 };
 
-// Backward compatibility alias
-export const getUserRolePriority = getUserAuthorityPriority;
-
 /**
  * Check if current session is about to expire
  */
