@@ -1,6 +1,7 @@
-import { Anchor, Button, Card, Group, Stack } from "@mantine/core";
+import { Button, Group, Stack } from "@mantine/core";
 import { useNavigate } from "@tanstack/react-router";
-import { useMutation } from "@tanstack/react-query";
+// import { useMutation } from "@tanstack/react-query"; // Removed
+import { useFormMutation } from "@/shared/lib/use-form-mutation";
 import { t } from "@lingui/core/macro";
 import { useAuthStore } from "@/processes/auth";
 import { getAuthConfig } from "@/app/config";
@@ -9,6 +10,9 @@ import {
   SignInUsernameField,
   PasswordField,
   RememberMeCheckbox,
+  AuthFormCard,
+  AuthLinkToRegister,
+  AuthLinkToForgotPassword,
 } from "@/shared/ui";
 import {
   signInFormSchema,
@@ -39,28 +43,34 @@ export function SignInFormFeature({
     schema: signInFormSchema,
   });
 
-  const loginMutation = useMutation({
-    mutationFn: async (values: SignInFormSchemaType) => {
+  const loginMutation = useFormMutation(
+    form,
+    async (values: SignInFormSchemaType) => {
       await login(values);
     },
-    onSuccess: () => {
-      if (onSuccess) {
-        onSuccess();
-      } else {
-        // Check for returnTo parameter in URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const returnToUrl = urlParams.get("returnTo");
+    {
+      notifySuccess: {
+        title: t`Login Successful`,
+        message: t`Welcome back!`,
+      },
+      notifyError: {
+        title: t`Login Failed`,
+      },
+      onSuccess: () => {
+        if (onSuccess) {
+          onSuccess();
+        } else {
+          // Check for returnTo parameter in URL
+          const urlParams = new URLSearchParams(window.location.search);
+          const returnToUrl = urlParams.get("returnTo");
 
-        // Redirect to returnTo URL or default to app domain
-        const targetUrl = returnToUrl || authConfig.redirects.afterLogin;
-        window.location.href = targetUrl;
-      }
-    },
-    onError: (error: any) => {
-      // Error handling is now done in the auth store
-      console.error("Login error:", error);
-    },
-  });
+          // Redirect to returnTo URL or default to app domain
+          const targetUrl = returnToUrl || authConfig.redirects.afterLogin;
+          window.location.href = targetUrl;
+        }
+      },
+    }
+  );
 
   const handleSubmit = (values: SignInFormSchemaType) => {
     loginMutation.mutate(values);
@@ -83,13 +93,7 @@ export function SignInFormFeature({
   };
 
   return (
-    <Card
-      shadow="md"
-      padding="xl"
-      radius="md"
-      withBorder
-      data-testid="signin-form"
-    >
+    <AuthFormCard data-testid="signin-form">
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <SignInUsernameField
@@ -109,15 +113,10 @@ export function SignInFormFeature({
               form={form}
               data-testid="signin-checkbox-remember"
             />
-            <Anchor
-              component="button"
-              type="button"
-              size="sm"
+            <AuthLinkToForgotPassword
               onClick={handleForgotPassword}
               data-testid="signin-link-forgot-password"
-            >
-              {t`Forgot password?`}
-            </Anchor>
+            />
           </Group>
 
           <Button
@@ -129,17 +128,12 @@ export function SignInFormFeature({
             {t`Sign In`}
           </Button>
 
-          <Group justify="center" gap="xs">
-            <Anchor
-              size="sm"
-              onClick={handleNavigateToRegister}
-              data-testid="signin-link-register"
-            >
-              {t`Don't have an account? Sign up`}
-            </Anchor>
-          </Group>
+          <AuthLinkToRegister
+            onClick={handleNavigateToRegister}
+            data-testid="signin-link-register"
+          />
         </Stack>
       </form>
-    </Card>
+    </AuthFormCard>
   );
 }

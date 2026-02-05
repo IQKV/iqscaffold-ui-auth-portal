@@ -121,27 +121,15 @@ const createAuthStore: AuthStoreCreator = (set, get) => ({
         useTenantStore.getState().setTenantId(response.user.tenantId);
       }
 
-      notificationService.success({
-        title: "Login Successful",
-        message: `Welcome back, ${response.user.firstName}!`,
-      });
+      // Notification is handled by the caller (UI layer)
     } catch (error: any) {
-      const authError: AuthError = {
-        type: "auth",
-        message: error?.message || "Login failed. Please try again.",
-      };
-
       set((state) => {
         state.isLoading = false;
-        state.error = authError.message;
+        state.error = error?.message || "Login failed";
       });
 
-      notificationService.error({
-        title: "Login Failed",
-        message: authError.message,
-      });
-
-      throw authError;
+      // Rethrow error so that UI can handle it (field errors, notifications)
+      throw error;
     }
   },
 
@@ -174,11 +162,6 @@ const createAuthStore: AuthStoreCreator = (set, get) => ({
 
       // Clear tenant context on logout
       useTenantStore.getState().clearTenant();
-
-      notificationService.info({
-        title: "Logged Out",
-        message: "You have been successfully logged out.",
-      });
     }
   },
 

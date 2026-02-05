@@ -1,8 +1,8 @@
-import { Anchor, Button, Card, Group, Stack } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
+import { Button, Group, Stack } from "@mantine/core";
+// import { notifications } from "@mantine/notifications"; // Removed
 import { IconUserPlus } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
-import { useMutation } from "@tanstack/react-query";
+// import { useMutation } from "@tanstack/react-query"; // Removed as useFormMutation is used
 import { t } from "@lingui/core/macro";
 import {
   authApi,
@@ -10,12 +10,15 @@ import {
   type UserRegistration,
 } from "@/shared/api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
+import { useFormMutation } from "@/shared/lib/use-form-mutation";
 import {
   NameField,
   SignUpUsernameField,
   EmailField,
   PasswordField,
   ConfirmPasswordField,
+  AuthFormCard,
+  AuthLinkToLogin,
 } from "@/shared/ui";
 import {
   signUpFormSchema,
@@ -41,40 +44,32 @@ export function SignUpFormFeature({
     schema: signUpFormSchema,
   });
 
-  const registerMutation = useMutation({
-    mutationFn: async (values: UserRegistration) => {
+  const registerMutation = useFormMutation(
+    form,
+    async (values: UserRegistration) => {
       return await authApi.signup(values);
     },
-    onSuccess: (data) => {
-      notifications.show({
+    {
+      notifySuccess: {
         title: t`Registration Successful`,
-        message:
-          data.message ||
-          t`Your account has been created. Please verify your email.`,
-        color: "green",
-      });
-
-      if (onSuccess) {
-        onSuccess(data);
-      } else if (redirectToHome) {
-        // Redirect back to auth homepage (login page)
-        navigate({ to: "/" });
-      } else {
-        // Default behavior: navigate to login
-        navigate({ to: "/login" });
-      }
-    },
-    onError: (error: any) => {
-      const errorMessage =
-        error?.message || t`Registration failed. Please try again.`;
-
-      notifications.show({
+        message: t`Your account has been created. Please verify your email.`,
+      },
+      notifyError: {
         title: t`Registration Failed`,
-        message: errorMessage,
-        color: "red",
-      });
-    },
-  });
+      },
+      onSuccess: (data) => {
+        if (onSuccess) {
+          onSuccess(data);
+        } else if (redirectToHome) {
+          // Redirect back to auth homepage (login page)
+          navigate({ to: "/" });
+        } else {
+          // Default behavior: navigate to login
+          navigate({ to: "/login" });
+        }
+      },
+    }
+  );
 
   const handleSubmit = (values: SignUpFormSchemaType) => {
     const { confirmPassword, ...signupData } = values;
@@ -93,13 +88,7 @@ export function SignUpFormFeature({
   };
 
   return (
-    <Card
-      shadow="md"
-      padding="xl"
-      radius="md"
-      withBorder
-      data-testid="signup-form"
-    >
+    <AuthFormCard data-testid="signup-form">
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <Group grow>
@@ -139,17 +128,12 @@ export function SignUpFormFeature({
             {t`Create Account`}
           </Button>
 
-          <Group justify="center" gap="xs">
-            <Anchor
-              size="sm"
-              onClick={handleNavigateToLogin}
-              data-testid="signup-link-login"
-            >
-              {t`Already have an account? Sign in`}
-            </Anchor>
-          </Group>
+          <AuthLinkToLogin
+            onClick={handleNavigateToLogin}
+            data-testid="signup-link-login"
+          />
         </Stack>
       </form>
-    </Card>
+    </AuthFormCard>
   );
 }
