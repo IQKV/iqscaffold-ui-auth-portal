@@ -30,18 +30,11 @@ export const apiClient: AxiosInstance = axios.create({
 axios.defaults.withCredentials = true;
 
 /**
- * Request interceptor to add tenant header and locale headers
- * Tenant ID comes from JWT token after authentication
+ * Request interceptor to add locale headers
  * Locale headers support unified backend i18n approach
  */
 apiClient.interceptors.request.use(
   (config) => {
-    // Add tenant ID header if available from tenant store
-    const tenantId = useTenantStore.getState().currentTenantId;
-    if (tenantId && !config.headers["X-Tenant-ID"]) {
-      config.headers["X-Tenant-ID"] = tenantId;
-    }
-
     // Add locale headers for unified backend i18n support
     // Backend LocaleResolver priority: X-User-Locale > Accept-Language > Default
     config.headers = config.headers ?? {};
@@ -60,6 +53,16 @@ apiClient.interceptors.request.use(
     const userPreference = getUserLocalePreference();
     if (userPreference) {
       (config.headers as any)["X-User-Locale"] = userPreference;
+    }
+
+    // Add tenant ID header if available (for multi-tenant auth flows)
+    try {
+      const tenantId = useTenantStore.getState().currentTenantId;
+      if (tenantId && !config.headers["X-Tenant-ID"]) {
+        config.headers["X-Tenant-ID"] = tenantId;
+      }
+    } catch (error) {
+      // Tenant store might not be initialized, ignore
     }
 
     return config;

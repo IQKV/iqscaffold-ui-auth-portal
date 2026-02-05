@@ -16,17 +16,32 @@
 
 ## 📜 Description
 
-This auth portal serves as the **centralized authentication gateway** for the IQKV platform, handling all authentication flows before redirecting users to the main application.
+This auth portal serves as the **centralized authentication gateway** for the IQKV platform, handling all **unauthenticated user flows** before redirecting users to the main application.
+
+### 🔐 Auth Portal vs App Portal Separation
+
+This portal is specifically designed for **unauthenticated users** and handles:
+
+- **User Registration** - New account creation with email verification
+- **User Login** - Initial authentication and session establishment
+- **Password Recovery** - Forgot password and reset password flows
+- **Email Verification** - Email address verification with tokens
+
+**Authenticated user operations** (change password, account settings, profile management) are handled by the main application portal at `app.iqscaffold.com`.
+
+See [AUTH_APP_SEPARATION.md](../AUTH_APP_SEPARATION.md) for detailed separation documentation.
 
 ### 🎯 Features
 
-- ✅ **Sign Up** - New user registration with validation
+- ✅ **Sign Up** - New user registration with email verification
 - ✅ **Sign In** - User authentication with remember me
 - ✅ **Forgot Password** - Password reset request flow
-- ✅ **Reset Password** - Secure password reset with token
+- ✅ **Reset Password** - Secure password reset with token validation
+- ✅ **Email Verification** - Email verification with token and resend capability
 - ✅ **Multi-tenant Support** - Tenant-aware authentication via X-Tenant-ID header
 - ✅ **Cookie-based Auth** - Secure HTTP-only cookie authentication
 - ✅ **RFC 7807 Error Handling** - Standardized error responses with field-level validation
+- ✅ **External Redirect** - Seamless redirect to main app after authentication
 
 ---
 
@@ -225,9 +240,9 @@ This project follows **Feature-Sliced Design (FSD)** methodology with **automate
 src/
 ├── app/          # Application layer (providers, routing, config)
 ├── processes/    # Process layer (auth, tenant - cross-feature concerns)
-├── pages/        # Page layer (route components)
+├── pages/        # Page layer (route components: login, register, forgot-password, reset-password, verify-email)
 ├── widgets/      # Widget layer (auth-layout, tenant-info, theme-toggle)
-├── features/     # Feature layer (signin-form, signup-form, forgot/reset password)
+├── features/     # Feature layer (signin-form, signup-form, forgot-password-form, reset-password-form, verify-email)
 ├── entities/     # Entity layer (form entity)
 ├── shared/       # Shared layer (ui, lib, api, types, locales, mocks)
 └── architecture.test.ts  # Automated FSD compliance tests
@@ -258,12 +273,20 @@ The auth portal connects to backend services via `VITE_API_SERVER_URL` with:
 - **Field-level Validation** - Backend validation errors mapped to form fields
 - **Global Error Notifications** - Automatic error notifications for server errors
 
-**Expected Backend Endpoints:**
+**Expected Backend Endpoints (Unauthenticated Flows Only):**
 
-- `POST /api/v1/auth/signup` - User registration
-- `POST /api/v1/auth/login` - User authentication
-- `POST /api/v1/auth/password/forgot` - Password reset request
-- `POST /api/v1/auth/password/reset` - Password reset with token
+- `POST /v1/auth/signup` - User registration
+- `POST /v1/auth/login` - User authentication
+- `POST /v1/auth/refresh` - Refresh access token
+- `POST /v1/auth/logout` - User logout
+- `POST /v1/auth/password/forgot` - Password reset request
+- `POST /v1/auth/password/reset` - Password reset with token
+- `HEAD /v1/auth/password/reset` - Validate password reset token
+- `POST /v1/auth/email/verify` - Verify email with token
+- `POST /v1/auth/email/resend` - Resend verification email
+- `POST /v1/auth/validate` - Validate JWT token
+
+> **Note:** Authenticated user operations (change password, logout all devices, email status) are handled by the main app portal at `app.iqscaffold.com`.
 
 **Error Response Format (RFC 7807):**
 

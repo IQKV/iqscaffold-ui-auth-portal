@@ -1,12 +1,15 @@
 /**
- * Custom hooks for authentication API operations
- * Provides React Query hooks for all auth endpoints
+ * Custom hooks for authentication API operations (Unauthenticated flows only)
+ * Provides React Query hooks for public auth endpoints
+ *
+ * Note: Authenticated user hooks (changePassword, logoutAll, emailStatus)
+ * are in the app portal at app.iqscaffold.com
  */
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { notificationService } from "@/shared/lib/notifications";
 import { t } from "@lingui/core/macro";
-import { authApi, type EmailStatusResponse } from "@/shared/api";
+import { authApi } from "@/shared/api";
 
 /**
  * Hook for validating JWT tokens
@@ -20,68 +23,6 @@ export function useValidateToken() {
         message: error?.message || t`Failed to validate token`,
       });
     },
-  });
-}
-
-/**
- * Hook for changing password
- */
-export function useChangePassword() {
-  return useMutation({
-    mutationFn: ({
-      currentPassword,
-      newPassword,
-    }: {
-      currentPassword: string;
-      newPassword: string;
-    }) => authApi.changePassword(currentPassword, newPassword),
-    onSuccess: () => {
-      notificationService.success({
-        title: t`Password Changed`,
-        message: t`Your password has been successfully changed`,
-      });
-    },
-    onError: (error: any) => {
-      notificationService.error({
-        title: t`Password Change Failed`,
-        message:
-          error?.message ||
-          t`Failed to change password. Please check your current password.`,
-      });
-    },
-  });
-}
-
-/**
- * Hook for logging out from all devices
- */
-export function useLogoutAll() {
-  return useMutation({
-    mutationFn: () => authApi.logoutAll(),
-    onSuccess: () => {
-      notificationService.success({
-        title: t`Logged Out from All Devices`,
-        message: t`You have been logged out from all devices`,
-      });
-    },
-    onError: (error: any) => {
-      notificationService.error({
-        title: t`Logout Failed`,
-        message: error?.message || t`Failed to logout from all devices`,
-      });
-    },
-  });
-}
-
-/**
- * Hook for getting email verification status
- */
-export function useEmailStatus(email: string, enabled = true) {
-  return useQuery<EmailStatusResponse>({
-    queryKey: ["email-status", email],
-    queryFn: () => authApi.getEmailStatus(email),
-    enabled: enabled && !!email,
-    retry: false,
   });
 }
 

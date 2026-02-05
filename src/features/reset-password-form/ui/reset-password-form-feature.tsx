@@ -104,7 +104,7 @@ export function ResetPasswordFormFeature({
   }
 
   // Show error if no token is provided or token is invalid
-  if (!token || isTokenValid === false) {
+  if (!token || isTokenValid?.valid === false) {
     return (
       <AuthFormCard data-testid="reset-password-invalid">
         <Stack gap="md" align="center">

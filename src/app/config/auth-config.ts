@@ -8,9 +8,6 @@ export interface AuthEndpoints {
   verifyEmail: string;
   resendVerification: string;
   validateToken: string;
-  changePassword: string;
-  logoutAll: string;
-  emailStatus: string;
 }
 
 export interface AuthConfig {
@@ -59,9 +56,6 @@ const buildAuthConfig = (): AuthConfig => {
       verifyEmail: "/v1/auth/email/verify",
       resendVerification: "/v1/auth/email/resend",
       validateToken: "/v1/auth/validate",
-      changePassword: "/v1/users/me/password",
-      logoutAll: "/v1/auth/logout-all",
-      emailStatus: "/v1/auth/email/status",
     },
     tokenStorage: {
       accessTokenKey: "accessToken",
