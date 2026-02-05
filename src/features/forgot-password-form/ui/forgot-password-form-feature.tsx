@@ -1,9 +1,6 @@
 import { Button, Stack, Text } from "@mantine/core";
-// import { IconArrowLeft } from "@tabler/icons-react"; // Removed
 import { useNavigate } from "@tanstack/react-router";
-// import { useEffect } from "react"; // Removed
 import { t } from "@lingui/core/macro";
-// import { useForgotPassword } from "@/shared/lib/use-auth-api"; // Removed
 import { authApi } from "@/shared/api";
 import { useFormMutation } from "@/shared/lib/use-form-mutation";
 import { useForm } from "@/shared/lib/enhanced-form-hook";

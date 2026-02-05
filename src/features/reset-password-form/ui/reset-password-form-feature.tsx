@@ -1,21 +1,7 @@
-import {
-  //   Anchor, // Removed
-  Button,
-  //   Card, // Removed
-  //   Group, // Removed
-  Stack,
-  Text,
-  Loader,
-  Center,
-} from "@mantine/core";
-// import { IconArrowLeft } from "@tabler/icons-react"; // Removed
+import { Button, Stack, Text, Loader, Center } from "@mantine/core";
 import { useNavigate, useSearch } from "@tanstack/react-router";
-// import { useEffect } from "react"; // Removed
 import { t } from "@lingui/core/macro";
-import {
-  //   useResetPassword, // Removed
-  useValidateResetToken,
-} from "@/shared/lib/use-auth-api";
+import { useValidateResetToken } from "@/shared/lib/use-auth-api";
 import { authApi } from "@/shared/api";
 import { useFormMutation } from "@/shared/lib/use-form-mutation";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
