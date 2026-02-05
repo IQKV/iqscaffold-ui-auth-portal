@@ -51,7 +51,6 @@ export { attachAuthInterceptors } from "./lib/http-interceptors";
 // UI Components
 export { AuthProvider } from "./ui/auth-provider";
 export { GuestGuardWrapper } from "./ui/guest-guard-wrapper";
-export { UserMenu } from "./ui/user-menu";
 
 // Token management
 export { TokenManager } from "./lib/token-manager";

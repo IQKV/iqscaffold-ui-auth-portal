@@ -4,13 +4,10 @@ import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MantineProvider } from "@mantine/core";
 import { SignUpFormFeature } from "./signup-form-feature";
-import { authApi } from "@/shared/api";
 
 // Mock dependencies
-vi.mock("@/shared/api", () => ({
-  authApi: {
-    signup: vi.fn(),
-  },
+vi.mock("@/shared/lib/use-auth-api", () => ({
+  useSignup: vi.fn(),
 }));
 
 vi.mock("@tanstack/react-router", () => ({
@@ -39,8 +36,16 @@ const createWrapper = () => {
 };
 
 describe("SignUpFormFeature", () => {
-  beforeEach(() => {
+  const mockMutate = vi.fn();
+
+  beforeEach(async () => {
     vi.clearAllMocks();
+    const { useSignup } = await import("@/shared/lib/use-auth-api");
+    (useSignup as any).mockReturnValue({
+      mutate: mockMutate,
+      isPending: false,
+      isSuccess: false,
+    });
   });
 
   it("renders signup form correctly", () => {
@@ -81,10 +86,25 @@ describe("SignUpFormFeature", () => {
   it("submits form with valid data", async () => {
     const user = userEvent.setup();
     const mockResponse = {
+      userId: 1,
+      username: "johndoe",
+      email: "john@example.com",
+      firstName: "John",
+      lastName: "Doe",
+      emailVerified: false,
+      createdAt: new Date().toISOString(),
       message: "Registration successful",
-      user: { id: "1", username: "johndoe" },
     };
-    (authApi.signup as any).mockResolvedValue(mockResponse);
+
+    const { useSignup } = await import("@/shared/lib/use-auth-api");
+    (useSignup as any).mockImplementation(() => ({
+      mutate: (data: any, options: any) => {
+        mockMutate(data, options);
+        options?.onSuccess?.(mockResponse);
+      },
+      isPending: false,
+      isSuccess: false,
+    }));
 
     render(<SignUpFormFeature />, { wrapper: createWrapper() });
 
@@ -108,13 +128,17 @@ describe("SignUpFormFeature", () => {
     await user.type(confirmPasswordInput, "Password123!");
     await user.click(submitButton);
 
-    // Just verify the API was called, don't wait for navigation
-    expect(authApi.signup).toHaveBeenCalledWith({
-      firstName: "John",
-      lastName: "Doe",
-      username: "johndoe",
-      email: "john@example.com",
-      password: "Password123!",
+    await waitFor(() => {
+      expect(mockMutate).toHaveBeenCalledWith(
+        expect.objectContaining({
+          firstName: "John",
+          lastName: "Doe",
+          username: "johndoe",
+          email: "john@example.com",
+          password: "Password123!",
+        }),
+        expect.any(Object)
+      );
     });
   });
 
@@ -143,10 +167,25 @@ describe("SignUpFormFeature", () => {
     const user = userEvent.setup();
     const onSuccess = vi.fn();
     const mockResponse = {
+      userId: 1,
+      username: "johndoe",
+      email: "john@example.com",
+      firstName: "John",
+      lastName: "Doe",
+      emailVerified: false,
+      createdAt: new Date().toISOString(),
       message: "Registration successful",
-      user: { id: "1", username: "johndoe" },
     };
-    (authApi.signup as any).mockResolvedValue(mockResponse);
+
+    const { useSignup } = await import("@/shared/lib/use-auth-api");
+    (useSignup as any).mockImplementation(() => ({
+      mutate: (data: any, options: any) => {
+        mockMutate(data, options);
+        options?.onSuccess?.(mockResponse);
+      },
+      isPending: false,
+      isSuccess: false,
+    }));
 
     render(<SignUpFormFeature onSuccess={onSuccess} />, {
       wrapper: createWrapper(),

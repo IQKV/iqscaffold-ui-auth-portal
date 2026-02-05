@@ -53,8 +53,6 @@ export const requireGuest = () => {
  * Note: Auth portal doesn't have protected pages, so this redirects to app domain
  */
 export const requireRole = (role: string) => {
-  const { user } = useAuthStore.getState();
-
   if (!isAuthenticated()) {
     throw redirect({
       to: "/login",
@@ -74,8 +72,6 @@ export const requireRole = (role: string) => {
  * Note: Auth portal doesn't have protected pages, so this redirects to app domain
  */
 export const requireAnyRole = (roles: string[]) => {
-  const { user } = useAuthStore.getState();
-
   if (!isAuthenticated()) {
     throw redirect({
       to: "/login",
@@ -95,8 +91,6 @@ export const requireAnyRole = (roles: string[]) => {
  * Note: Auth portal doesn't have protected pages, so this redirects to app domain
  */
 export const requirePermission = (permission: string) => {
-  const { user } = useAuthStore.getState();
-
   if (!isAuthenticated()) {
     throw redirect({
       to: "/login",
@@ -116,8 +110,6 @@ export const requirePermission = (permission: string) => {
  * Note: Auth portal doesn't have protected pages, so this redirects to app domain
  */
 export const requireAnyPermission = (permissions: string[]) => {
-  const { user } = useAuthStore.getState();
-
   if (!isAuthenticated()) {
     throw redirect({
       to: "/login",
@@ -137,8 +129,6 @@ export const requireAnyPermission = (permissions: string[]) => {
  * Note: Auth portal doesn't handle email verification, redirect to app domain
  */
 export const requireEmailVerification = () => {
-  const { user } = useAuthStore.getState();
-
   if (!isAuthenticated()) {
     throw redirect({
       to: "/login",

@@ -7,12 +7,7 @@ import { ForgotPasswordFormFeature } from "./forgot-password-form-feature";
 
 // Mock dependencies
 vi.mock("@/shared/lib/use-auth-api", () => ({
-  // No imports used from here in this file anymore, or keep if needed?
-  // Actually the component imports authApi from shared/api, not use-auth-api
-}));
-
-vi.mock("@/shared/lib/use-form-mutation", () => ({
-  useFormMutation: vi.fn(),
+  useForgotPassword: vi.fn(),
 }));
 
 vi.mock("@tanstack/react-router", () => ({
@@ -39,8 +34,8 @@ describe("ForgotPasswordFormFeature", () => {
 
   beforeEach(async () => {
     vi.clearAllMocks();
-    const { useFormMutation } = await import("@/shared/lib/use-form-mutation");
-    (useFormMutation as any).mockReturnValue({
+    const { useForgotPassword } = await import("@/shared/lib/use-auth-api");
+    (useForgotPassword as any).mockReturnValue({
       mutate: mockMutate,
       isPending: false,
       isSuccess: false,
@@ -82,7 +77,12 @@ describe("ForgotPasswordFormFeature", () => {
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(mockMutate).toHaveBeenCalledWith("test@example.com");
+      expect(mockMutate).toHaveBeenCalledWith(
+        "test@example.com",
+        expect.objectContaining({
+          onSuccess: expect.any(Function),
+        })
+      );
     });
   });
 
@@ -108,8 +108,8 @@ describe("ForgotPasswordFormFeature", () => {
   });
 
   it("shows loading state during submission", async () => {
-    const { useFormMutation } = await import("@/shared/lib/use-form-mutation");
-    (useFormMutation as any).mockReturnValue({
+    const { useForgotPassword } = await import("@/shared/lib/use-auth-api");
+    (useForgotPassword as any).mockReturnValue({
       mutate: mockMutate,
       isPending: true,
       isSuccess: false,
@@ -125,38 +125,15 @@ describe("ForgotPasswordFormFeature", () => {
     const user = userEvent.setup();
     const onSuccess = vi.fn();
 
-    const { useFormMutation } = await import("@/shared/lib/use-form-mutation");
-    // Simulate onSuccess callback execution which is handled by mutation options in component
-    // But since we mock useFormMutation, we need to simulate the onSuccess behavior or trigger it manually?
-    // The component passes options to useFormMutation.
-    // If we mock useFormMutation to return isSuccess: true, the component MIGHT rely on isSuccess prop (old way) OR onSuccess callback (new way).
-    // In refactored component: "onSuccess: () => { ... }" is in options.
-    // The old component used useEffect on isSuccess.
-    // The NEW component uses `onSuccess` callback in mutation options.
-    // To test this with mocked useFormMutation, we should capture the options passed to it and call onSuccess?
-    // Or simpler: The test checks if `onSuccess` prop of the FEATURE is called.
-    // If we mock `mutate` to call the onSuccess option?
-    // Let's adjust the mock to capture options.
-
-    // For now, let's keep simple replacement to fix import error.
-    // However, since we refactored logic to NOT use useEffect but mutation callback,
-    // merely setting isSuccess: true might NOT trigger the callback if the mock doesn't execute options.onSuccess.
-    // But wait, the test says "calls onSuccess callback after successful submission".
-    // In the previous implementation, it relied on `isSuccess` state.
-    // In the NEW implementation, `useFormMutation` calls `onSuccess` from options.
-    // So masking `useFormMutation` needs to be smart enough or we need to update test strategy.
-
-    // Strategy: Mock useFormMutationImplementation to call options.onSuccess immediately or on mutate.
-    (useFormMutation as any).mockImplementation(
-      (form: any, mutationFn: any, options: any) => ({
-        mutate: (vars: any) => {
-          mockMutate(vars);
-          options.onSuccess?.(null, vars, null);
-        },
-        isPending: false,
-        isSuccess: true,
-      })
-    );
+    const { useForgotPassword } = await import("@/shared/lib/use-auth-api");
+    (useForgotPassword as any).mockImplementation(() => ({
+      mutate: (email: string, options: any) => {
+        mockMutate(email, options);
+        options?.onSuccess?.();
+      },
+      isPending: false,
+      isSuccess: true,
+    }));
 
     render(<ForgotPasswordFormFeature onSuccess={onSuccess} />, {
       wrapper: createWrapper(),

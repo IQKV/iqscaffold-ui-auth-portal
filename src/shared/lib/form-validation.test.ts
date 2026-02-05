@@ -1,4 +1,8 @@
 import { z } from "zod";
+import {
+  createFormSchema,
+  createPasswordConfirmationSchema,
+} from "./form-validation";
 
 // Test-specific validation schemas without Lingui
 const testValidationSchemas = {
@@ -33,92 +37,6 @@ const testValidationSchemas = {
     .trim()
     .min(1, "This field is required")
     .max(100, "Name must be less than 100 characters"),
-
-  phone: z
-    .string()
-    .regex(/^\+?[\d\s\-()]+$/, "Please enter a valid phone number")
-    .optional()
-    .or(z.literal("")),
-
-  url: z.string().url("Please enter a valid URL").optional().or(z.literal("")),
-};
-
-const createFormSchema = <T extends z.ZodRawShape>(shape: T) => {
-  return z.object(shape);
-};
-
-const createPasswordConfirmationSchema = (passwordField = "password") => {
-  return z
-    .object({
-      [passwordField]: testValidationSchemas.password,
-      confirmPassword: z.string().min(1, "Please confirm your password"),
-    })
-    .refine(
-      (data) =>
-        data[passwordField as keyof typeof data] === data.confirmPassword,
-      {
-        message: "Passwords do not match",
-        path: ["confirmPassword"],
-      }
-    );
-};
-
-const arraySchemas = {
-  nonEmptyArray: <T>(itemSchema: z.ZodSchema<T>, message?: string) =>
-    z.array(itemSchema).min(1, message || "At least one item is required"),
-
-  uniqueArray: <T>(itemSchema: z.ZodSchema<T>, message?: string) =>
-    z
-      .array(itemSchema)
-      .refine(
-        (items) => new Set(items).size === items.length,
-        message || "All items must be unique"
-      ),
-};
-
-const fileSchemas = {
-  image: z
-    .instanceof(File)
-    .refine(
-      (file) => file.size <= 5 * 1024 * 1024,
-      "File size must be less than 5MB"
-    )
-    .refine(
-      (file) => ["image/jpeg", "image/png", "image/webp"].includes(file.type),
-      "Only JPEG, PNG, and WebP images are allowed"
-    ),
-
-  document: z
-    .instanceof(File)
-    .refine(
-      (file) => file.size <= 10 * 1024 * 1024,
-      "File size must be less than 10MB"
-    )
-    .refine(
-      (file) =>
-        [
-          "application/pdf",
-          "application/msword",
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        ].includes(file.type),
-      "Only PDF and Word documents are allowed"
-    ),
-};
-
-const dateSchemas = {
-  futureDate: z
-    .date()
-    .refine((date) => date > new Date(), "Date must be in the future"),
-  pastDate: z
-    .date()
-    .refine((date) => date < new Date(), "Date must be in the past"),
-  dateRange: (startDate: Date, endDate: Date) =>
-    z
-      .date()
-      .refine(
-        (date) => date >= startDate && date <= endDate,
-        `Date must be between ${startDate.toLocaleDateString()} and ${endDate.toLocaleDateString()}`
-      ),
 };
 
 describe("validationSchemas", () => {
@@ -216,53 +134,6 @@ describe("validationSchemas", () => {
       expect(result.success).toBe(false);
     });
   });
-
-  describe("phone", () => {
-    it("validates phone numbers", () => {
-      expect(testValidationSchemas.phone.safeParse("+1234567890").success).toBe(
-        true
-      );
-      expect(
-        testValidationSchemas.phone.safeParse("(555) 123-4567").success
-      ).toBe(true);
-      expect(
-        testValidationSchemas.phone.safeParse("555-123-4567").success
-      ).toBe(true);
-      expect(testValidationSchemas.phone.safeParse("").success).toBe(true); // Optional
-    });
-
-    it("rejects invalid phone numbers", () => {
-      expect(testValidationSchemas.phone.safeParse("abc123").success).toBe(
-        false
-      );
-      expect(testValidationSchemas.phone.safeParse("123abc").success).toBe(
-        false
-      );
-    });
-  });
-
-  describe("url", () => {
-    it("validates URLs", () => {
-      expect(
-        testValidationSchemas.url.safeParse("https://example.com").success
-      ).toBe(true);
-      expect(
-        testValidationSchemas.url.safeParse("http://localhost:3000").success
-      ).toBe(true);
-      expect(testValidationSchemas.url.safeParse("").success).toBe(true); // Optional
-    });
-
-    it("rejects invalid URLs", () => {
-      expect(testValidationSchemas.url.safeParse("not-a-url").success).toBe(
-        false
-      );
-      // Note: Zod's url() validator accepts various protocols including ftp://
-      // Let's test with a clearly invalid URL instead
-      expect(
-        testValidationSchemas.url.safeParse("invalid-url-format").success
-      ).toBe(false);
-    });
-  });
 });
 
 describe("createFormSchema", () => {
@@ -313,100 +184,5 @@ describe("createPasswordConfirmationSchema", () => {
     };
 
     expect(schema.safeParse(validData).success).toBe(true);
-  });
-});
-
-describe("arraySchemas", () => {
-  describe("nonEmptyArray", () => {
-    it("validates non-empty arrays", () => {
-      const schema = arraySchemas.nonEmptyArray(z.string());
-      expect(schema.safeParse(["item1", "item2"]).success).toBe(true);
-    });
-
-    it("rejects empty arrays", () => {
-      const schema = arraySchemas.nonEmptyArray(z.string());
-      expect(schema.safeParse([]).success).toBe(false);
-    });
-  });
-
-  describe("uniqueArray", () => {
-    it("validates arrays with unique items", () => {
-      const schema = arraySchemas.uniqueArray(z.string());
-      expect(schema.safeParse(["item1", "item2", "item3"]).success).toBe(true);
-    });
-
-    it("rejects arrays with duplicate items", () => {
-      const schema = arraySchemas.uniqueArray(z.string());
-      expect(schema.safeParse(["item1", "item2", "item1"]).success).toBe(false);
-    });
-  });
-});
-
-describe("dateSchemas", () => {
-  describe("futureDate", () => {
-    it("validates future dates", () => {
-      const futureDate = new Date(Date.now() + 24 * 60 * 60 * 1000); // Tomorrow
-      expect(dateSchemas.futureDate.safeParse(futureDate).success).toBe(true);
-    });
-
-    it("rejects past dates", () => {
-      const pastDate = new Date(Date.now() - 24 * 60 * 60 * 1000); // Yesterday
-      expect(dateSchemas.futureDate.safeParse(pastDate).success).toBe(false);
-    });
-  });
-
-  describe("pastDate", () => {
-    it("validates past dates", () => {
-      const pastDate = new Date(Date.now() - 24 * 60 * 60 * 1000); // Yesterday
-      expect(dateSchemas.pastDate.safeParse(pastDate).success).toBe(true);
-    });
-
-    it("rejects future dates", () => {
-      const futureDate = new Date(Date.now() + 24 * 60 * 60 * 1000); // Tomorrow
-      expect(dateSchemas.pastDate.safeParse(futureDate).success).toBe(false);
-    });
-  });
-
-  describe("dateRange", () => {
-    it("validates dates within range", () => {
-      const startDate = new Date("2023-01-01");
-      const endDate = new Date("2023-12-31");
-      const schema = dateSchemas.dateRange(startDate, endDate);
-
-      const validDate = new Date("2023-06-15");
-      expect(schema.safeParse(validDate).success).toBe(true);
-    });
-
-    it("rejects dates outside range", () => {
-      const startDate = new Date("2023-01-01");
-      const endDate = new Date("2023-12-31");
-      const schema = dateSchemas.dateRange(startDate, endDate);
-
-      const invalidDate = new Date("2024-01-01");
-      expect(schema.safeParse(invalidDate).success).toBe(false);
-    });
-  });
-});
-
-describe("fileSchemas", () => {
-  describe("image", () => {
-    it("validates image files", () => {
-      const imageFile = new File([""], "test.jpg", { type: "image/jpeg" });
-      Object.defineProperty(imageFile, "size", { value: 1024 * 1024 }); // 1MB
-
-      expect(fileSchemas.image.safeParse(imageFile).success).toBe(true);
-    });
-
-    it("rejects non-image files", () => {
-      const textFile = new File([""], "test.txt", { type: "text/plain" });
-      expect(fileSchemas.image.safeParse(textFile).success).toBe(false);
-    });
-
-    it("rejects files that are too large", () => {
-      const largeFile = new File([""], "test.jpg", { type: "image/jpeg" });
-      Object.defineProperty(largeFile, "size", { value: 10 * 1024 * 1024 }); // 10MB
-
-      expect(fileSchemas.image.safeParse(largeFile).success).toBe(false);
-    });
   });
 });
