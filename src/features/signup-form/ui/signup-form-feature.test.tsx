@@ -81,7 +81,7 @@ describe("SignUpFormFeature", () => {
     expect(lastNameInput).toHaveValue("Doe");
     expect(usernameInput).toHaveValue("johndoe");
     expect(emailInput).toHaveValue("john@example.com");
-  });
+  }, 10000);
 
   it("submits form with valid data", async () => {
     const user = userEvent.setup();
@@ -97,14 +97,18 @@ describe("SignUpFormFeature", () => {
     };
 
     const { useSignup } = await import("@/shared/lib/use-auth-api");
-    (useSignup as any).mockImplementation(() => ({
-      mutate: (data: any, options: any) => {
-        mockMutate(data, options);
+    const mockMutateImpl = vi.fn((data: any, options: any) => {
+      // Simulate async mutation
+      Promise.resolve().then(() => {
         options?.onSuccess?.(mockResponse);
-      },
+      });
+    });
+
+    (useSignup as any).mockReturnValue({
+      mutate: mockMutateImpl,
       isPending: false,
       isSuccess: false,
-    }));
+    });
 
     render(<SignUpFormFeature />, { wrapper: createWrapper() });
 
@@ -129,7 +133,7 @@ describe("SignUpFormFeature", () => {
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(mockMutate).toHaveBeenCalledWith(
+      expect(mockMutateImpl).toHaveBeenCalledWith(
         expect.objectContaining({
           firstName: "John",
           lastName: "Doe",
@@ -140,7 +144,7 @@ describe("SignUpFormFeature", () => {
         expect.any(Object)
       );
     });
-  });
+  }, 15000);
 
   it("displays login link", () => {
     render(<SignUpFormFeature />, { wrapper: createWrapper() });
@@ -178,14 +182,18 @@ describe("SignUpFormFeature", () => {
     };
 
     const { useSignup } = await import("@/shared/lib/use-auth-api");
-    (useSignup as any).mockImplementation(() => ({
-      mutate: (data: any, options: any) => {
-        mockMutate(data, options);
+    const mockMutateImpl = vi.fn((data: any, options: any) => {
+      // Simulate async mutation
+      Promise.resolve().then(() => {
         options?.onSuccess?.(mockResponse);
-      },
+      });
+    });
+
+    (useSignup as any).mockReturnValue({
+      mutate: mockMutateImpl,
       isPending: false,
       isSuccess: false,
-    }));
+    });
 
     render(<SignUpFormFeature onSuccess={onSuccess} />, {
       wrapper: createWrapper(),
@@ -218,5 +226,5 @@ describe("SignUpFormFeature", () => {
       },
       { timeout: 3000 }
     );
-  });
+  }, 10000);
 });

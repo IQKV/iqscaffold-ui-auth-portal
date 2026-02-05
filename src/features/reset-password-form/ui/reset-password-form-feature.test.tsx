@@ -147,10 +147,15 @@ describe("ResetPasswordFormFeature", () => {
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(mockMutate).toHaveBeenCalledWith({
-        password: "NewPassword123!",
-        confirmPassword: "NewPassword123!",
-      });
+      expect(mockMutate).toHaveBeenCalledWith(
+        {
+          token: "valid-token",
+          password: "NewPassword123!",
+        },
+        {
+          onSuccess: expect.any(Function),
+        }
+      );
     });
   });
 
@@ -182,8 +187,8 @@ describe("ResetPasswordFormFeature", () => {
   });
 
   it("shows loading state during submission", async () => {
-    const { useFormMutation } = await import("@/shared/lib/use-form-mutation");
-    (useFormMutation as any).mockReturnValue({
+    const { useResetPassword } = await import("@/shared/lib/use-auth-api");
+    (useResetPassword as any).mockReturnValue({
       mutate: mockMutate,
       isPending: true,
       isSuccess: false,
