@@ -57,17 +57,20 @@ const createAuthStore: AuthStoreCreator = (set, get) => ({
 
       // If token is valid, we're authenticated
       if (tokenManager.isTokenValid(accessToken)) {
-        // TODO: Optionally fetch user data from token or API
+        // Note: User data is intentionally NOT populated in auth portal
+        // Reason: Auth portal is a gateway that immediately redirects authenticated users
+        // to app portal. User data decoding happens once in app portal, avoiding duplicate work.
+        // See AUTH_INITIALIZATION_ANALYSIS.md for detailed rationale.
         set((state) => {
           state.accessToken = accessToken;
           state.refreshToken = refreshToken;
           state.isAuthenticated = true;
           state.isLoading = false;
           state.isInitialized = true;
+          // state.user remains null - correct for auth portal
         });
 
-        // Note: Tenant ID will be set when user data is loaded
-        // For now, we can try to extract it from the token if needed
+        // Tenant context will be set in app portal after redirect
       }
       // If token is expired but we have refresh token, try to refresh
       else if (tokenManager.canRefreshSession()) {
