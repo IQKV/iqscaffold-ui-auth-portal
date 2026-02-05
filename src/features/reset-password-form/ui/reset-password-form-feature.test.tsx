@@ -42,16 +42,18 @@ describe("ResetPasswordFormFeature", () => {
     const { useValidateResetToken } = await import("@/shared/lib/use-auth-api");
     const { useFormMutation } = await import("@/shared/lib/use-form-mutation");
 
-    (useFormMutation as any).mockImplementation((_form: any, _fn: any, options: any) => ({
-      mutate: (data: any) => {
-        mockMutate(data);
-        // Simulate success if needed, but for simple tests mockMutate is enough
-        // If test waits for success, we might need to trigger options.onSuccess
-        // We'll update specific tests if they rely on success callback
-      },
-      isPending: false,
-      isSuccess: false,
-    }));
+    (useFormMutation as any).mockImplementation(
+      (_form: any, _fn: any, options: any) => ({
+        mutate: (data: any) => {
+          mockMutate(data);
+          // Simulate success if needed, but for simple tests mockMutate is enough
+          // If test waits for success, we might need to trigger options.onSuccess
+          // We'll update specific tests if they rely on success callback
+        },
+        isPending: false,
+        isSuccess: false,
+      })
+    );
 
     (useValidateResetToken as any).mockReturnValue({
       data: true,

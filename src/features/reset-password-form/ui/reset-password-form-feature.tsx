@@ -19,7 +19,12 @@ import {
 import { authApi } from "@/shared/api";
 import { useFormMutation } from "@/shared/lib/use-form-mutation";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
-import { PasswordField, ConfirmPasswordField, AuthFormCard, AuthLinkBackToLogin } from "@/shared/ui";
+import {
+  PasswordField,
+  ConfirmPasswordField,
+  AuthFormCard,
+  AuthLinkBackToLogin,
+} from "@/shared/ui";
 import {
   resetPasswordFormSchema,
   initialResetPasswordValues,

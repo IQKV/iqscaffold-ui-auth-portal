@@ -141,4 +141,3 @@ export function useValidateResetToken(token: string | undefined) {
     staleTime: 0,
   });
 }
-

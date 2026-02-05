@@ -1,1 +1,6 @@
-export { AuthLinkToLogin, AuthLinkToRegister, AuthLinkToForgotPassword, AuthLinkBackToLogin } from "./auth-navigation";
+export {
+  AuthLinkToLogin,
+  AuthLinkToRegister,
+  AuthLinkToForgotPassword,
+  AuthLinkBackToLogin,
+} from "./auth-navigation";

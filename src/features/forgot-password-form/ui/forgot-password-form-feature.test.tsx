@@ -147,14 +147,16 @@ describe("ForgotPasswordFormFeature", () => {
     // So masking `useFormMutation` needs to be smart enough or we need to update test strategy.
 
     // Strategy: Mock useFormMutationImplementation to call options.onSuccess immediately or on mutate.
-    (useFormMutation as any).mockImplementation((form: any, mutationFn: any, options: any) => ({
-      mutate: (vars: any) => {
-        mockMutate(vars);
-        options.onSuccess?.(null, vars, null);
-      },
-      isPending: false,
-      isSuccess: true,
-    }));
+    (useFormMutation as any).mockImplementation(
+      (form: any, mutationFn: any, options: any) => ({
+        mutate: (vars: any) => {
+          mockMutate(vars);
+          options.onSuccess?.(null, vars, null);
+        },
+        isPending: false,
+        isSuccess: true,
+      })
+    );
 
     render(<ForgotPasswordFormFeature onSuccess={onSuccess} />, {
       wrapper: createWrapper(),
