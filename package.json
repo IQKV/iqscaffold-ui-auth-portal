@@ -61,7 +61,7 @@
     "@lingui/macro": "^5.9.0",
     "@lingui/react": "^5.9.0",
     "@mantine/core": "^8.3.13",
-    "@mantine/form": "^8.3.13",
+    "@mantine/form": "^8.3.14",
     "@mantine/hooks": "^8.3.13",
     "@mantine/modals": "^8.3.13",
     "@mantine/notifications": "^8.3.13",
