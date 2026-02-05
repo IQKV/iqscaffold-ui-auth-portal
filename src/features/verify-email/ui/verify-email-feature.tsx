@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import { useSearch, useNavigate } from "@tanstack/react-router";
-import { Button, Text, Alert, Stack, TextInput } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Button, Text, Alert, Stack } from "@mantine/core";
 import { IconCheck, IconX, IconMail } from "@tabler/icons-react";
 import {
   useVerifyEmail,
   useResendVerification,
 } from "@/shared/lib/use-auth-api";
+import { useForm } from "@/shared/lib/enhanced-form-hook";
+import { EmailField } from "@/shared/ui";
 import { t } from "@lingui/core/macro";
-import type { VerifyEmailFormValues } from "../model/types";
+import {
+  verifyEmailFormSchema,
+  initialVerifyEmailValues,
+  type VerifyEmailFormSchemaType,
+} from "../model/validation";
 
 export function VerifyEmailFeature() {
   const search = useSearch({ from: "/verify-email" });
@@ -17,21 +22,12 @@ export function VerifyEmailFeature() {
     "pending" | "success" | "error" | "resend"
   >("pending");
 
-  const form = useForm<VerifyEmailFormValues>({
+  const form = useForm<VerifyEmailFormSchemaType>({
     initialValues: {
+      ...initialVerifyEmailValues,
       email: search.email || "",
     },
-    validate: {
-      email: (value) => {
-        if (!value) {
-          return t`Email is required`;
-        }
-        if (!/^\S+@\S+\.\S+$/.test(value)) {
-          return t`Invalid email format`;
-        }
-        return null;
-      },
-    },
+    schema: verifyEmailFormSchema,
   });
 
   // Auto-verify if token is present in URL
@@ -59,14 +55,12 @@ export function VerifyEmailFeature() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search.token, search.email]);
 
-  const handleResendVerification = (values: VerifyEmailFormValues) => {
-    if (values.email) {
-      resendVerificationMutation.mutate(values.email, {
-        onSuccess: () => {
-          setVerificationStatus("pending");
-        },
-      });
-    }
+  const handleResendVerification = (values: VerifyEmailFormSchemaType) => {
+    resendVerificationMutation.mutate(values.email, {
+      onSuccess: () => {
+        setVerificationStatus("pending");
+      },
+    });
   };
 
   if (verificationStatus === "success") {
@@ -102,12 +96,11 @@ export function VerifyEmailFeature() {
         </Alert>
         <form onSubmit={form.onSubmit(handleResendVerification)}>
           <Stack gap="md">
-            <TextInput
+            <EmailField
+              form={form}
               label={t`Email Address`}
               placeholder={t`Enter your email address`}
-              leftSection={<IconMail size={16} />}
-              {...form.getInputProps("email")}
-              required
+              data-testid="verify-email-input-email"
             />
             <Button
               type="submit"
@@ -141,12 +134,11 @@ export function VerifyEmailFeature() {
               {t`Please enter your email address to receive a verification link.`}
             </Text>
           </Alert>
-          <TextInput
+          <EmailField
+            form={form}
             label={t`Email Address`}
             placeholder={t`Enter your email address`}
-            leftSection={<IconMail size={16} />}
-            {...form.getInputProps("email")}
-            required
+            data-testid="verify-email-input-email"
           />
           <Button
             type="submit"
