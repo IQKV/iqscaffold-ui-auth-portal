@@ -8,6 +8,8 @@
     "ci": "pnpm ci:lint && pnpm ci:test",
     "ci:lint": "pnpm lint",
     "ci:test": "pnpm test",
+    "cleanup": "rimraf dist .tanstack coverage storybook-static .stylelintcache",
+    "cleanup:all": "pnpm cleanup && pnpm node_modules:cleanup",
     "dev": "vite",
     "e2e": "playwright test",
     "e2e:all-browsers": "cross-env ALL_BROWSERS=true playwright test",
