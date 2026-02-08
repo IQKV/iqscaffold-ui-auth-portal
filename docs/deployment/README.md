@@ -53,7 +53,7 @@ The pipeline uses these Helm commands for deployment:
 
 ```bash
 # Development (WIP branches)
-helm upgrade --install --atomic --wait --timeout 5m quickstart-ui-auth-portal ./ \
+helm upgrade --install --atomic --wait --timeout 5m iqscaffold-ui-auth-portal ./ \
   --values ./values.yaml \
   --values ./values-dev.yaml \
   --set image.tag=wip \
@@ -61,7 +61,7 @@ helm upgrade --install --atomic --wait --timeout 5m quickstart-ui-auth-portal ./
   --namespace iqscaffold-dev-env
 
 # Production (Tagged releases)
-helm upgrade --install --atomic --wait --timeout 5m quickstart-ui-auth-portal ./ \
+helm upgrade --install --atomic --wait --timeout 5m iqscaffold-ui-auth-portal ./ \
   --values ./values.yaml \
   --values ./values-production.yaml \
   --set image.tag=${DRONE_TAG} \
@@ -81,7 +81,7 @@ helm upgrade --install --atomic --wait --timeout 5m quickstart-ui-auth-portal ./
 ```bash
 # Clone Helm charts
 git clone <HELM_CHARTS_REPOSITORY> charts
-cd charts/IQKV/quickstart-ui-auth-portal
+cd charts/IQKV/iqscaffold-ui-auth-portal
 
 # Deploy to development
 helm upgrade --install auth-portal ./ \
@@ -203,13 +203,13 @@ Production deployments include:
 
 ```bash
 # Check service logs
-kubectl logs deployment/quickstart-ui-auth-portal -n iqscaffold-dev-env
+kubectl logs deployment/iqscaffold-ui-auth-portal -n iqscaffold-dev-env
 
 # Check pod status
-kubectl get pods -l app.kubernetes.io/name=quickstart-ui-auth-portal -n iqscaffold-dev-env
+kubectl get pods -l app.kubernetes.io/name=iqscaffold-ui-auth-portal -n iqscaffold-dev-env
 
 # Check ingress configuration
-kubectl describe ingress quickstart-ui-auth-portal -n iqscaffold-dev-env
+kubectl describe ingress iqscaffold-ui-auth-portal -n iqscaffold-dev-env
 ```
 
 </details>
@@ -219,10 +219,10 @@ kubectl describe ingress quickstart-ui-auth-portal -n iqscaffold-dev-env
 
 ```bash
 # View ConfigMap
-kubectl describe configmap quickstart-ui-auth-portal-config -n iqscaffold-dev-env
+kubectl describe configmap iqscaffold-ui-auth-portal-config -n iqscaffold-dev-env
 
 # Check runtime configuration
-kubectl exec -it deployment/quickstart-ui-auth-portal -n iqscaffold-dev-env -- \
+kubectl exec -it deployment/iqscaffold-ui-auth-portal -n iqscaffold-dev-env -- \
   cat /usr/share/nginx/html/config.js
 ```
 
@@ -233,7 +233,7 @@ kubectl exec -it deployment/quickstart-ui-auth-portal -n iqscaffold-dev-env -- \
 
 ```bash
 # Port forward to access health endpoints
-kubectl port-forward deployment/quickstart-ui-auth-portal 8080:8080 -n iqscaffold-dev-env
+kubectl port-forward deployment/iqscaffold-ui-auth-portal 8080:8080 -n iqscaffold-dev-env
 
 # Test health endpoints
 curl http://localhost:8080/
@@ -250,10 +250,10 @@ curl http://localhost:8080/health
 
 ```bash
 # Check ingress CORS configuration
-kubectl get ingress quickstart-ui-auth-portal -n iqscaffold-dev-env -o yaml
+kubectl get ingress iqscaffold-ui-auth-portal -n iqscaffold-dev-env -o yaml
 
 # View CSP configuration
-kubectl exec -it deployment/quickstart-ui-auth-portal -n iqscaffold-dev-env -- \
+kubectl exec -it deployment/iqscaffold-ui-auth-portal -n iqscaffold-dev-env -- \
   cat /usr/share/nginx/content-security-policy.conf
 
 # Test CORS headers
@@ -272,10 +272,10 @@ curl -H "Origin: https://app.iqscaffold.com" \
 
 ```bash
 # Rollback to previous version
-helm rollback quickstart-ui-auth-portal -n iqscaffold-production-env
+helm rollback iqscaffold-ui-auth-portal -n iqscaffold-production-env
 
 # Or uninstall completely
-helm uninstall quickstart-ui-auth-portal -n iqscaffold-production-env
+helm uninstall iqscaffold-ui-auth-portal -n iqscaffold-production-env
 ```
 
 </details>
