@@ -14,13 +14,13 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. placeholder {0}: localeToNameMap[locale]
-#: src/shared/locales/index.ts:22
+#: src/shared/locales/index.ts:23
 msgid "{0}"
 msgstr "{0}"
 
 #: src/shared/lib/form-validation.ts:76
-msgid "{fieldName} is required"
-msgstr "{fieldName} is required"
+#~ msgid "{fieldName} is required"
+#~ msgstr "{fieldName} is required"
 
 #: src/pages/msw-demo.tsx:82
 #~ msgid "1. Environment Configuration"
@@ -30,7 +30,7 @@ msgstr "{fieldName} is required"
 #~ msgid "2. Development Tools"
 #~ msgstr "2. Development Tools"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:126
+#: src/shared/ui/auth-form-fields/username-field.tsx:39
 msgid "3-50 characters, letters, numbers, and underscores only"
 msgstr "3-50 characters, letters, numbers, and underscores only"
 
@@ -47,8 +47,8 @@ msgstr "3-50 characters, letters, numbers, and underscores only"
 #~ msgstr "Access Denied"
 
 #: src/processes/auth/ui/user-menu.tsx:57
-msgid "Account"
-msgstr "Account"
+#~ msgid "Account"
+#~ msgstr "Account"
 
 #: src/features/users/components/users-list.tsx:130
 #~ msgid "Actions"
@@ -71,20 +71,20 @@ msgstr "Account"
 #~ msgstr "Admin"
 
 #: src/shared/lib/form-validation.ts:190
-msgid "All items must be unique"
-msgstr "All items must be unique"
+#~ msgid "All items must be unique"
+#~ msgstr "All items must be unique"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:182
+#: src/shared/ui/auth-navigation/auth-navigation.tsx:17
 msgid "Already have an account? Sign in"
 msgstr "Already have an account? Sign in"
 
 #: src/shared/ui/error-boundary/error-boundary.tsx:47
-msgid "An unexpected error occurred"
-msgstr "An unexpected error occurred"
+#~ msgid "An unexpected error occurred"
+#~ msgstr "An unexpected error occurred"
 
 #: src/shared/ui/error-boundary/error-boundary.tsx:43
-msgid "Application Error"
-msgstr "Application Error"
+#~ msgid "Application Error"
+#~ msgstr "Application Error"
 
 #: src/shared/ui/confirmation-modal/confirm-context-modal.tsx:23
 #: src/shared/ui/confirmation-modal/confirmation-modal.tsx:23
@@ -93,18 +93,19 @@ msgid "Are you sure you want to proceed?"
 msgstr "Are you sure you want to proceed?"
 
 #: src/shared/lib/form-validation.ts:183
-msgid "At least one item is required"
-msgstr "At least one item is required"
+#~ msgid "At least one item is required"
+#~ msgstr "At least one item is required"
 
-#: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:108
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:130
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:192
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:108
+#: src/features/verify-email/ui/verify-email-feature.tsx:121
+#: src/features/verify-email/ui/verify-email-feature.tsx:157
+#: src/shared/ui/auth-navigation/auth-navigation.tsx:72
 msgid "Back to Sign In"
 msgstr "Back to Sign In"
 
 #: src/shared/lib/form-examples.tsx:135
-msgid "Bio must be less than 500 characters"
-msgstr "Bio must be less than 500 characters"
+#~ msgid "Bio must be less than 500 characters"
+#~ msgstr "Bio must be less than 500 characters"
 
 #: src/shared/ui/msw-dev-tools.tsx:100
 msgid "Bypass (allow through)"
@@ -129,6 +130,10 @@ msgstr "Cancel"
 #~ msgid "Complete your account setup"
 #~ msgstr "Complete your account setup"
 
+#: src/pages/verify-email.tsx:20
+msgid "Complete your account setup by verifying your email address"
+msgstr "Complete your account setup by verifying your email address"
+
 #: src/shared/ui/confirmation-modal/confirm-context-modal.tsx:24
 #: src/shared/ui/confirmation-modal/confirmation-modal.tsx:24
 #: src/shared/ui/confirmation-modal/open-confirm.ts:17
@@ -141,23 +146,27 @@ msgstr "Confirm"
 msgid "Confirm Action"
 msgstr "Confirm Action"
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:165
+#: src/shared/ui/auth-form-fields/confirm-password-field.tsx:21
 msgid "Confirm New Password"
 msgstr "Confirm New Password"
 
 #: src/features/signup-form/ui/signup-form-feature.tsx:158
-msgid "Confirm Password"
-msgstr "Confirm Password"
+#~ msgid "Confirm Password"
+#~ msgstr "Confirm Password"
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:166
+#: src/shared/ui/auth-form-fields/confirm-password-field.tsx:22
 msgid "Confirm your new password"
 msgstr "Confirm your new password"
 
-#: src/features/email-verification-form/ui/email-verification-form-feature.tsx:151
-#~ msgid "Continue to Sign In"
-#~ msgstr "Continue to Sign In"
+#: src/features/verify-email/ui/verify-email-feature.tsx:82
+msgid "Continue to Sign In"
+msgstr "Continue to Sign In"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:147
+#: src/features/verify-email/ui/verify-email-feature.tsx:67
+#~ msgid "Could not send verification email. Please try again."
+#~ msgstr "Could not send verification email. Please try again."
+
+#: src/shared/ui/auth-form-fields/password-field.tsx:26
 msgid "Create a strong password"
 msgstr "Create a strong password"
 
@@ -165,7 +174,7 @@ msgstr "Create a strong password"
 msgid "Create a strong password for your account"
 msgstr "Create a strong password for your account"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:173
+#: src/features/signup-form/ui/signup-form-feature.tsx:109
 msgid "Create Account"
 msgstr "Create Account"
 
@@ -207,16 +216,16 @@ msgstr "Create Your Account"
 #~ msgstr "Dashboard"
 
 #: src/shared/lib/form-validation.ts:269
-msgid "Date must be between {startDateStr} and {endDateStr}"
-msgstr "Date must be between {startDateStr} and {endDateStr}"
+#~ msgid "Date must be between {startDateStr} and {endDateStr}"
+#~ msgstr "Date must be between {startDateStr} and {endDateStr}"
 
 #: src/shared/lib/form-validation.ts:258
-msgid "Date must be in the future"
-msgstr "Date must be in the future"
+#~ msgid "Date must be in the future"
+#~ msgstr "Date must be in the future"
 
 #: src/shared/lib/form-validation.ts:261
-msgid "Date must be in the past"
-msgstr "Date must be in the past"
+#~ msgid "Date must be in the past"
+#~ msgstr "Date must be in the past"
 
 #: src/pages/msw-demo.tsx:62
 #~ msgid "Delay:"
@@ -230,11 +239,11 @@ msgstr "Date must be in the past"
 msgid "Disable MSW"
 msgstr "Disable MSW"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:113
+#: src/shared/ui/auth-form-fields/name-field.tsx:23
 msgid "Doe"
 msgstr "Doe"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:148
+#: src/shared/ui/auth-navigation/auth-navigation.tsx:34
 msgid "Don't have an account? Sign up"
 msgstr "Don't have an account? Sign up"
 
@@ -246,11 +255,13 @@ msgstr "Don't have an account? Sign up"
 #~ msgid "Edit User"
 #~ msgstr "Edit User"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:135
+#: src/shared/ui/auth-form-fields/email-field.tsx:18
 msgid "Email"
 msgstr "Email"
 
-#: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:81
+#: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:62
+#: src/features/verify-email/ui/verify-email-feature.tsx:101
+#: src/features/verify-email/ui/verify-email-feature.tsx:139
 msgid "Email Address"
 msgstr "Email Address"
 
@@ -258,11 +269,23 @@ msgstr "Email Address"
 msgid "Email is required"
 msgstr "Email is required"
 
+#: src/features/verify-email/ui/verify-email-feature.tsx:70
+msgid "Email Successfully Verified"
+msgstr "Email Successfully Verified"
+
+#: src/pages/verify-email.tsx:21
+msgid "Email Verification"
+msgstr "Email Verification"
+
+#: src/features/verify-email/ui/verify-email-feature.tsx:132
+msgid "Email Verification Required"
+msgstr "Email Verification Required"
+
 #: src/features/email-status-checker/ui/email-status-checker-feature.tsx:33
 #~ msgid "Email Verification Status"
 #~ msgstr "Email Verification Status"
 
-#: src/shared/lib/use-auth-api.ts:124
+#: src/shared/lib/use-auth-api.ts:58
 msgid "Email Verified"
 msgstr "Email Verified"
 
@@ -294,11 +317,13 @@ msgstr "Enable MSW"
 #~ msgid "Enter your current password"
 #~ msgstr "Enter your current password"
 
-#: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:82
+#: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:63
+#: src/features/verify-email/ui/verify-email-feature.tsx:102
+#: src/features/verify-email/ui/verify-email-feature.tsx:140
 msgid "Enter your email address"
 msgstr "Enter your email address"
 
-#: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:75
+#: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:57
 msgid "Enter your email address and we'll send you a link to reset your password."
 msgstr "Enter your email address and we'll send you a link to reset your password."
 
@@ -306,19 +331,19 @@ msgstr "Enter your email address and we'll send you a link to reset your passwor
 #~ msgid "Enter your email address and we'll send you a new verification link."
 #~ msgstr "Enter your email address and we'll send you a new verification link."
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:155
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:126
 msgid "Enter your new password"
 msgstr "Enter your new password"
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:148
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:120
 msgid "Enter your new password below. Make sure it's strong and secure."
 msgstr "Enter your new password below. Make sure it's strong and secure."
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:107
+#: src/features/signin-form/ui/signin-form-feature.tsx:105
 msgid "Enter your password"
 msgstr "Enter your password"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:96
+#: src/shared/ui/auth-form-fields/username-field.tsx:20
 msgid "Enter your username or email"
 msgstr "Enter your username or email"
 
@@ -330,35 +355,43 @@ msgstr "Error (throw error)"
 #~ msgid "Error loading users"
 #~ msgstr "Error loading users"
 
-#: src/shared/lib/use-auth-api.ts:51
-msgid "Failed to change password. Please check your current password."
-msgstr "Failed to change password. Please check your current password."
+#: src/shared/lib/use-auth-api.ts:49
+#~ msgid "Failed to change password. Please check your current password."
+#~ msgstr "Failed to change password. Please check your current password."
 
 #: src/features/email-status-checker/ui/email-status-checker-feature.tsx:53
 #~ msgid "Failed to check email status. Please try again."
 #~ msgstr "Failed to check email status. Please try again."
 
+#: src/shared/lib/use-auth-api.ts:145
+msgid "Failed to create account"
+msgstr "Failed to create account"
+
 #: src/features/users/components/user-form.tsx:59
 #~ msgid "Failed to create user. Please try again."
 #~ msgstr "Failed to create user. Please try again."
 
-#: src/shared/lib/use-auth-api.ts:74
-msgid "Failed to logout from all devices"
-msgstr "Failed to logout from all devices"
+#: src/shared/lib/use-auth-api.ts:70
+#~ msgid "Failed to logout from all devices"
+#~ msgstr "Failed to logout from all devices"
+
+#: src/shared/lib/use-auth-api.ts:123
+msgid "Failed to reset password"
+msgstr "Failed to reset password"
 
 #: src/features/reset-password-form/ui/reset-password-form-feature.tsx:62
 #~ msgid "Failed to reset password. Please try again or request a new reset link."
 #~ msgstr "Failed to reset password. Please try again or request a new reset link."
 
-#: src/shared/lib/use-auth-api.ts:201
-msgid "Failed to reset password. The link may be invalid or expired."
-msgstr "Failed to reset password. The link may be invalid or expired."
+#: src/shared/lib/use-auth-api.ts:189
+#~ msgid "Failed to reset password. The link may be invalid or expired."
+#~ msgstr "Failed to reset password. The link may be invalid or expired."
 
-#: src/shared/lib/use-auth-api.ts:108
+#: src/shared/lib/use-auth-api.ts:43
 msgid "Failed to Send Email"
 msgstr "Failed to Send Email"
 
-#: src/shared/lib/use-auth-api.ts:157
+#: src/shared/lib/use-auth-api.ts:101
 msgid "Failed to send password reset link"
 msgstr "Failed to send password reset link"
 
@@ -366,11 +399,11 @@ msgstr "Failed to send password reset link"
 #~ msgid "Failed to send reset email. Please try again."
 #~ msgstr "Failed to send reset email. Please try again."
 
-#: src/shared/lib/use-auth-api.ts:156
+#: src/shared/lib/use-auth-api.ts:100
 msgid "Failed to Send Reset Link"
 msgstr "Failed to Send Reset Link"
 
-#: src/shared/lib/use-auth-api.ts:109
+#: src/shared/lib/use-auth-api.ts:44
 msgid "Failed to send verification email"
 msgstr "Failed to send verification email"
 
@@ -382,11 +415,11 @@ msgstr "Failed to send verification email"
 #~ msgid "Failed to update user. Please try again."
 #~ msgstr "Failed to update user. Please try again."
 
-#: src/shared/lib/use-auth-api.ts:20
+#: src/shared/lib/use-auth-api.ts:23
 msgid "Failed to validate token"
 msgstr "Failed to validate token"
 
-#: src/shared/lib/use-auth-api.ts:134
+#: src/shared/lib/use-auth-api.ts:67
 msgid "Failed to verify email. The link may be invalid or expired."
 msgstr "Failed to verify email. The link may be invalid or expired."
 
@@ -394,19 +427,19 @@ msgstr "Failed to verify email. The link may be invalid or expired."
 #~ msgid "Failed to verify email. The verification link may be invalid or expired."
 #~ msgstr "Failed to verify email. The verification link may be invalid or expired."
 
-#: src/shared/ui/form-field/form-field.tsx:360
-msgid "Fair"
-msgstr "Fair"
+#: src/shared/ui/form-field/form-field.tsx:369
+#~ msgid "Fair"
+#~ msgstr "Fair"
 
 #: src/shared/lib/form-validation.ts:226
-msgid "File size must be less than 10MB"
-msgstr "File size must be less than 10MB"
+#~ msgid "File size must be less than 10MB"
+#~ msgstr "File size must be less than 10MB"
 
 #: src/shared/lib/form-validation.ts:215
-msgid "File size must be less than 5MB"
-msgstr "File size must be less than 5MB"
+#~ msgid "File size must be less than 5MB"
+#~ msgstr "File size must be less than 5MB"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:103
+#: src/shared/ui/auth-form-fields/name-field.tsx:22
 msgid "First Name"
 msgstr "First Name"
 
@@ -430,7 +463,7 @@ msgstr "First name must be less than 100 characters"
 msgid "Forgot Password"
 msgstr "Forgot Password"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:129
+#: src/shared/ui/auth-navigation/auth-navigation.tsx:52
 msgid "Forgot password?"
 msgstr "Forgot password?"
 
@@ -446,9 +479,9 @@ msgstr "Go Back"
 msgid "Go Home"
 msgstr "Go Home"
 
-#: src/shared/ui/form-field/form-field.tsx:361
-msgid "Good"
-msgstr "Good"
+#: src/shared/ui/form-field/form-field.tsx:370
+#~ msgid "Good"
+#~ msgstr "Good"
 
 #: src/shared/ui/msw-dev-tools.tsx:94
 msgid "How to handle requests without mocks"
@@ -466,19 +499,23 @@ msgstr "How to handle requests without mocks"
 #~ msgid "Invalid credentials. Please try again."
 #~ msgstr "Invalid credentials. Please try again."
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:120
+#: src/features/verify-email/ui/verify-email-feature.tsx:26
+#~ msgid "Invalid email format"
+#~ msgstr "Invalid email format"
+
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:98
 msgid "Invalid Reset Link"
 msgstr "Invalid Reset Link"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:104
+#: src/shared/ui/auth-form-fields/name-field.tsx:23
 msgid "John"
 msgstr "John"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:136
+#: src/shared/ui/auth-form-fields/email-field.tsx:19
 msgid "john.doe@example.com"
 msgstr "john.doe@example.com"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:124
+#: src/shared/ui/auth-form-fields/username-field.tsx:37
 msgid "johndoe"
 msgstr "johndoe"
 
@@ -486,7 +523,7 @@ msgstr "johndoe"
 msgid "Join IQ Scaffold and start your journey"
 msgstr "Join IQ Scaffold and start your journey"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:112
+#: src/shared/ui/auth-form-fields/name-field.tsx:22
 msgid "Last Name"
 msgstr "Last Name"
 
@@ -506,29 +543,29 @@ msgstr "Last name must be less than 100 characters"
 msgid "Log MSW requests to console"
 msgstr "Log MSW requests to console"
 
-#: src/shared/lib/use-auth-api.ts:66
-msgid "Logged Out from All Devices"
-msgstr "Logged Out from All Devices"
+#: src/shared/lib/use-auth-api.ts:63
+#~ msgid "Logged Out from All Devices"
+#~ msgstr "Logged Out from All Devices"
 
 #: src/pages/msw-demo.tsx:50
 #~ msgid "Logging:"
 #~ msgstr "Logging:"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:75
-#~ msgid "Login Failed"
-#~ msgstr "Login Failed"
+#: src/features/signin-form/ui/signin-form-feature.tsx:56
+msgid "Login Failed"
+msgstr "Login Failed"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:55
-#~ msgid "Login Successful"
-#~ msgstr "Login Successful"
+#: src/features/signin-form/ui/signin-form-feature.tsx:52
+msgid "Login Successful"
+msgstr "Login Successful"
 
 #: src/processes/auth/ui/user-menu.tsx:68
-msgid "Logout"
-msgstr "Logout"
+#~ msgid "Logout"
+#~ msgstr "Logout"
 
-#: src/shared/lib/use-auth-api.ts:73
-msgid "Logout Failed"
-msgstr "Logout Failed"
+#: src/shared/lib/use-auth-api.ts:69
+#~ msgid "Logout Failed"
+#~ msgstr "Logout Failed"
 
 #: src/features/security-settings/ui/security-settings-feature.tsx:24
 #: src/features/security-settings/ui/security-settings-feature.tsx:40
@@ -545,10 +582,10 @@ msgstr "Logout Failed"
 #~ msgstr "Manage your account security and active sessions."
 
 #: src/shared/lib/form-examples.tsx:21
-msgid "Message must be at least 10 characters"
-msgstr "Message must be at least 10 characters"
+#~ msgid "Message must be at least 10 characters"
+#~ msgstr "Message must be at least 10 characters"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:149
+#: src/shared/ui/auth-form-fields/password-field.tsx:27
 msgid "Min 8 characters with uppercase, lowercase, number, and special character"
 msgstr "Min 8 characters with uppercase, lowercase, number, and special character"
 
@@ -570,18 +607,18 @@ msgstr "MSW Dev Tools"
 
 #: src/shared/lib/form-validation.ts:82
 #: src/shared/lib/form-validation.ts:90
-msgid "Must be a positive number"
-msgstr "Must be a positive number"
+#~ msgid "Must be a positive number"
+#~ msgstr "Must be a positive number"
 
 #: src/shared/lib/form-validation.ts:87
-msgid "Must be a valid number"
-msgstr "Must be a valid number"
+#~ msgid "Must be a valid number"
+#~ msgstr "Must be a valid number"
 
 #: src/shared/lib/form-validation.ts:46
 msgid "Name must be less than 100 characters"
 msgstr "Name must be less than 100 characters"
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:154
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:125
 msgid "New Password"
 msgstr "New Password"
 
@@ -608,31 +645,30 @@ msgstr "New Password"
 #~ msgstr "Not Verified"
 
 #: src/shared/lib/form-validation.ts:219
-msgid "Only JPEG, PNG, and WebP images are allowed"
-msgstr "Only JPEG, PNG, and WebP images are allowed"
+#~ msgid "Only JPEG, PNG, and WebP images are allowed"
+#~ msgstr "Only JPEG, PNG, and WebP images are allowed"
 
 #: src/shared/lib/form-validation.ts:235
-msgid "Only PDF and Word documents are allowed"
-msgstr "Only PDF and Word documents are allowed"
+#~ msgid "Only PDF and Word documents are allowed"
+#~ msgstr "Only PDF and Word documents are allowed"
 
 #: src/pages/404.tsx:33
 msgid "Page Not Found"
 msgstr "Page Not Found"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:106
-#: src/features/signup-form/ui/signup-form-feature.tsx:146
+#: src/shared/ui/auth-form-fields/password-field.tsx:25
 msgid "Password"
 msgstr "Password"
 
-#: src/shared/lib/use-auth-api.ts:48
-msgid "Password Change Failed"
-msgstr "Password Change Failed"
+#: src/shared/lib/use-auth-api.ts:46
+#~ msgid "Password Change Failed"
+#~ msgstr "Password Change Failed"
 
-#: src/shared/lib/use-auth-api.ts:41
-msgid "Password Changed"
-msgstr "Password Changed"
+#: src/shared/lib/use-auth-api.ts:40
+#~ msgid "Password Changed"
+#~ msgstr "Password Changed"
 
-#: src/shared/lib/form-validation.ts:114
+#: src/shared/lib/form-validation.ts:78
 msgid "Password is required"
 msgstr "Password is required"
 
@@ -688,29 +724,33 @@ msgstr "Password must include at least one special character (@$!%*?&)"
 msgid "Password must include at least one uppercase letter"
 msgstr "Password must include at least one uppercase letter"
 
-#: src/shared/lib/use-auth-api.ts:198
+#: src/shared/lib/use-auth-api.ts:122
 msgid "Password Reset Failed"
 msgstr "Password Reset Failed"
 
-#: src/shared/lib/use-auth-api.ts:191
+#: src/shared/lib/use-auth-api.ts:116
 msgid "Password Reset Successful"
 msgstr "Password Reset Successful"
 
-#: src/shared/ui/form-field/form-field.tsx:473
-msgid "Password strength"
-msgstr "Password strength"
+#: src/shared/ui/form-field/form-field.tsx:483
+#~ msgid "Password strength"
+#~ msgstr "Password strength"
 
+#: src/shared/lib/form-validation.ts:121
+#: src/shared/lib/form-validation.ts:145
 #: src/shared/lib/form-validation.ts:157
-#: src/shared/lib/form-validation.ts:307
-#: src/shared/lib/form-validation.ts:319
 msgid "Passwords do not match"
 msgstr "Passwords do not match"
 
-#: src/shared/lib/use-auth-api.ts:150
+#: src/shared/lib/use-auth-api.ts:95
 msgid "Please check your email for the password reset link"
 msgstr "Please check your email for the password reset link"
 
-#: src/shared/lib/use-auth-api.ts:102
+#: src/features/verify-email/ui/verify-email-feature.tsx:60
+#~ msgid "Please check your email for the verification link."
+#~ msgstr "Please check your email for the verification link."
+
+#: src/shared/lib/use-auth-api.ts:38
 msgid "Please check your inbox for the verification link"
 msgstr "Please check your inbox for the verification link"
 
@@ -719,9 +759,9 @@ msgstr "Please check your inbox for the verification link"
 #~ msgid "Please confirm your new password"
 #~ msgstr "Please confirm your new password"
 
-#: src/shared/lib/form-validation.ts:151
-#: src/shared/lib/form-validation.ts:305
-#: src/shared/lib/form-validation.ts:317
+#: src/shared/lib/form-validation.ts:115
+#: src/shared/lib/form-validation.ts:143
+#: src/shared/lib/form-validation.ts:155
 msgid "Please confirm your password"
 msgstr "Please confirm your password"
 
@@ -738,75 +778,83 @@ msgid "Please enter a valid email address"
 msgstr "Please enter a valid email address"
 
 #: src/shared/lib/form-validation.ts:62
-msgid "Please enter a valid phone number"
-msgstr "Please enter a valid phone number"
+#~ msgid "Please enter a valid phone number"
+#~ msgstr "Please enter a valid phone number"
 
 #: src/shared/lib/form-validation.ts:68
-msgid "Please enter a valid URL"
-msgstr "Please enter a valid URL"
+#~ msgid "Please enter a valid URL"
+#~ msgstr "Please enter a valid URL"
 
-#: src/shared/lib/form-validation.ts:111
+#: src/shared/lib/form-validation.ts:75
 msgid "Please enter a valid username or email address"
 msgstr "Please enter a valid username or email address"
 
+#: src/features/verify-email/ui/verify-email-feature.tsx:134
+msgid "Please enter your email address to receive a verification link."
+msgstr "Please enter your email address to receive a verification link."
+
 #: src/shared/lib/form-examples.tsx:298
-msgid "Please fill in all required fields for your account type"
-msgstr "Please fill in all required fields for your account type"
+#~ msgid "Please fill in all required fields for your account type"
+#~ msgstr "Please fill in all required fields for your account type"
 
 #: src/shared/lib/form-examples.tsx:23
-msgid "Please select a contact method"
-msgstr "Please select a contact method"
+#~ msgid "Please select a contact method"
+#~ msgstr "Please select a contact method"
 
 #: src/shared/lib/form-examples.tsx:141
-msgid "Please select at least one skill"
-msgstr "Please select at least one skill"
+#~ msgid "Please select at least one skill"
+#~ msgstr "Please select at least one skill"
 
-#: src/features/email-verification-form/ui/email-verification-form-feature.tsx:135
-#~ msgid "Please wait while we verify your email address."
-#~ msgstr "Please wait while we verify your email address."
+#: src/features/verify-email/ui/verify-email-feature.tsx:170
+msgid "Please wait while we verify your email address."
+msgstr "Please wait while we verify your email address."
 
 #: src/processes/auth/ui/user-menu.tsx:59
-msgid "Profile"
-msgstr "Profile"
+#~ msgid "Profile"
+#~ msgstr "Profile"
 
 #: src/features/signup-form/ui/signup-form-feature.tsx:159
-msgid "Re-enter your password"
-msgstr "Re-enter your password"
+#~ msgid "Re-enter your password"
+#~ msgstr "Re-enter your password"
 
 #: src/features/email-status-checker/ui/email-status-checker-feature.tsx:91
 #~ msgid "Registered"
 #~ msgstr "Registered"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:66
+#: src/shared/lib/use-auth-api.ts:144
 msgid "Registration Failed"
 msgstr "Registration Failed"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:63
-msgid "Registration failed. Please try again."
-msgstr "Registration failed. Please try again."
+#: src/features/signup-form/ui/signup-form-feature.tsx:69
+#~ msgid "Registration failed. Please try again."
+#~ msgstr "Registration failed. Please try again."
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:44
+#: src/shared/lib/use-auth-api.ts:138
 msgid "Registration Successful"
 msgstr "Registration Successful"
 
 #: src/shared/ui/error-boundary/error-boundary.tsx:54
-msgid "Reload Page"
-msgstr "Reload Page"
+#~ msgid "Reload Page"
+#~ msgstr "Reload Page"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:118
+#: src/shared/ui/auth-form-fields/remember-me-checkbox.tsx:17
 msgid "Remember me"
 msgstr "Remember me"
+
+#: src/features/verify-email/ui/verify-email-feature.tsx:110
+msgid "Resend Verification Email"
+msgstr "Resend Verification Email"
 
 #: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:56
 #: src/features/reset-password-form/ui/reset-password-form-feature.tsx:65
 #~ msgid "Reset Failed"
 #~ msgstr "Reset Failed"
 
-#: src/shared/lib/use-auth-api.ts:149
+#: src/shared/lib/use-auth-api.ts:94
 msgid "Reset Link Sent"
 msgstr "Reset Link Sent"
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:179
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:143
 #: src/pages/reset-password.tsx:20
 msgid "Reset Password"
 msgstr "Reset Password"
@@ -848,13 +896,13 @@ msgstr "Running"
 #~ msgid "Send Failed"
 #~ msgstr "Send Failed"
 
-#: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:95
+#: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:73
 msgid "Send Reset Link"
 msgstr "Send Reset Link"
 
-#: src/features/email-verification-form/ui/email-verification-form-feature.tsx:200
-#~ msgid "Send Verification Email"
-#~ msgstr "Send Verification Email"
+#: src/features/verify-email/ui/verify-email-feature.tsx:148
+msgid "Send Verification Email"
+msgstr "Send Verification Email"
 
 #: src/pages/reset-password.tsx:18
 msgid "Set New Password"
@@ -864,7 +912,7 @@ msgstr "Set New Password"
 #~ msgid "Set VITE_ENABLE_MSW=true in your .env file"
 #~ msgstr "Set VITE_ENABLE_MSW=true in your .env file"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:139
+#: src/features/signin-form/ui/signin-form-feature.tsx:127
 #: src/pages/login.tsx:19
 msgid "Sign In"
 msgstr "Sign In"
@@ -883,8 +931,8 @@ msgid "Simulate network latency"
 msgstr "Simulate network latency"
 
 #: src/shared/ui/error-boundary/error-boundary.tsx:39
-msgid "Something went wrong"
-msgstr "Something went wrong"
+#~ msgid "Something went wrong"
+#~ msgstr "Something went wrong"
 
 #: src/features/email-status-checker/ui/email-status-checker-feature.tsx:72
 #~ msgid "Status"
@@ -894,9 +942,9 @@ msgstr "Something went wrong"
 msgid "Stopped"
 msgstr "Stopped"
 
-#: src/shared/ui/form-field/form-field.tsx:362
-msgid "Strong"
-msgstr "Strong"
+#: src/shared/ui/form-field/form-field.tsx:371
+#~ msgid "Strong"
+#~ msgstr "Strong"
 
 #: src/pages/dashboard.tsx:67
 #~ msgid "Tenant:"
@@ -906,9 +954,13 @@ msgstr "Strong"
 msgid "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable."
 msgstr "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable."
 
-#: src/features/email-verification-form/ui/email-verification-form-feature.tsx:164
-#~ msgid "The verification link is invalid or has expired. You can request a new verification email below."
-#~ msgstr "The verification link is invalid or has expired. You can request a new verification email below."
+#: src/features/verify-email/ui/verify-email-feature.tsx:49
+#~ msgid "The verification link is invalid or has expired."
+#~ msgstr "The verification link is invalid or has expired."
+
+#: src/features/verify-email/ui/verify-email-feature.tsx:94
+msgid "The verification link is invalid or has expired. You can request a new verification email below."
+msgstr "The verification link is invalid or has expired. You can request a new verification email below."
 
 #: src/pages/msw-demo.tsx:81
 #~ msgid "This component fetches data from /api/v1/users. When MSW is enabled, it returns mock data. When disabled, it will attempt to call your real API."
@@ -926,7 +978,7 @@ msgstr "This field is required"
 #~ msgid "This page demonstrates Mock Service Worker (MSW) functionality. The users list below uses mocked API responses when MSW is enabled."
 #~ msgstr "This page demonstrates Mock Service Worker (MSW) functionality. The users list below uses mocked API responses when MSW is enabled."
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:123
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:101
 msgid "This password reset link is invalid or has expired. Please request a new password reset."
 msgstr "This password reset link is invalid or has expired. Please request a new password reset."
 
@@ -938,7 +990,7 @@ msgstr "This password reset link is invalid or has expired. Please request a new
 msgid "Toggle MSW settings"
 msgstr "Toggle MSW settings"
 
-#: src/shared/lib/use-auth-api.ts:19
+#: src/shared/lib/use-auth-api.ts:22
 msgid "Token Validation Failed"
 msgstr "Token Validation Failed"
 
@@ -987,7 +1039,7 @@ msgstr "Unhandled requests"
 #~ msgid "User Updated"
 #~ msgstr "User Updated"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:123
+#: src/shared/ui/auth-form-fields/username-field.tsx:36
 msgid "Username"
 msgstr "Username"
 
@@ -1007,11 +1059,11 @@ msgstr "Username must be at least 3 characters"
 msgid "Username must be less than 50 characters"
 msgstr "Username must be less than 50 characters"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:95
+#: src/shared/ui/auth-form-fields/username-field.tsx:19
 msgid "Username or Email"
 msgstr "Username or Email"
 
-#: src/shared/lib/form-validation.ts:100
+#: src/shared/lib/form-validation.ts:64
 msgid "Username or email must be at least 3 characters"
 msgstr "Username or email must be at least 3 characters"
 
@@ -1027,7 +1079,7 @@ msgstr "Username or email must be at least 3 characters"
 #~ msgid "Users Management Demo"
 #~ msgstr "Users Management Demo"
 
-#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:100
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:84
 msgid "Validating reset link..."
 msgstr "Validating reset link..."
 
@@ -1035,11 +1087,12 @@ msgstr "Validating reset link..."
 #~ msgid "Verification code is required"
 #~ msgstr "Verification code is required"
 
-#: src/shared/lib/use-auth-api.ts:101
+#: src/shared/lib/use-auth-api.ts:37
 msgid "Verification Email Sent"
 msgstr "Verification Email Sent"
 
-#: src/shared/lib/use-auth-api.ts:131
+#: src/features/verify-email/ui/verify-email-feature.tsx:92
+#: src/shared/lib/use-auth-api.ts:64
 msgid "Verification Failed"
 msgstr "Verification Failed"
 
@@ -1048,17 +1101,21 @@ msgstr "Verification Failed"
 #~ msgstr "Verified"
 
 #: src/pages/verify-email.tsx:19
-#~ msgid "Verify Your Email"
-#~ msgstr "Verify Your Email"
+msgid "Verify Your Email"
+msgstr "Verify Your Email"
+
+#: src/features/verify-email/ui/verify-email-feature.tsx:168
+msgid "Verifying Email..."
+msgstr "Verifying Email..."
 
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:132
 #~ msgid "Verifying Your Email..."
 #~ msgstr "Verifying Your Email..."
 
-#: src/shared/ui/form-field/form-field.tsx:358
-#: src/shared/ui/form-field/form-field.tsx:369
-msgid "Very Weak"
-msgstr "Very Weak"
+#: src/shared/ui/form-field/form-field.tsx:367
+#: src/shared/ui/form-field/form-field.tsx:378
+#~ msgid "Very Weak"
+#~ msgstr "Very Weak"
 
 #: src/shared/ui/msw-dev-tools.tsx:101
 msgid "Warn (log warning)"
@@ -1084,9 +1141,9 @@ msgstr "We'll help you get back into your account"
 #~ msgid "We've sent a password reset link to {email}. Please check your email and follow the instructions."
 #~ msgstr "We've sent a password reset link to {email}. Please check your email and follow the instructions."
 
-#: src/shared/ui/form-field/form-field.tsx:359
-msgid "Weak"
-msgstr "Weak"
+#: src/shared/ui/form-field/form-field.tsx:368
+#~ msgid "Weak"
+#~ msgstr "Weak"
 
 #: src/pages/login.tsx:17
 msgid "Welcome Back"
@@ -1099,6 +1156,10 @@ msgstr "Welcome Back"
 #: src/features/signin-form/ui/signin-form-feature.tsx:56
 #~ msgid "Welcome back, {firstName}!"
 #~ msgstr "Welcome back, {firstName}!"
+
+#: src/features/signin-form/ui/signin-form-feature.tsx:53
+msgid "Welcome back!"
+msgstr "Welcome back!"
 
 #: src/pages/index.tsx:24
 msgid "Welcome to IQ Scaffold"
@@ -1121,21 +1182,29 @@ msgstr "Welcome to IQ Scaffold"
 #~ msgid "You don't have permission to access this page."
 #~ msgstr "You don't have permission to access this page."
 
-#: src/shared/lib/use-auth-api.ts:67
-msgid "You have been logged out from all devices"
-msgstr "You have been logged out from all devices"
+#: src/shared/lib/use-auth-api.ts:64
+#~ msgid "You have been logged out from all devices"
+#~ msgstr "You have been logged out from all devices"
 
 #: src/features/security-settings/ui/security-settings-feature.tsx:35
 #~ msgid "You will need to sign in again on all devices."
 #~ msgstr "You will need to sign in again on all devices."
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:47
+#: src/shared/lib/use-auth-api.ts:139
 msgid "Your account has been created. Please verify your email."
 msgstr "Your account has been created. Please verify your email."
 
-#: src/shared/lib/use-auth-api.ts:125
+#: src/features/verify-email/ui/verify-email-feature.tsx:72
+msgid "Your email address has been verified. Redirecting to login..."
+msgstr "Your email address has been verified. Redirecting to login..."
+
+#: src/shared/lib/use-auth-api.ts:59
 msgid "Your email has been successfully verified"
 msgstr "Your email has been successfully verified"
+
+#: src/features/verify-email/ui/verify-email-feature.tsx:39
+#~ msgid "Your email has been successfully verified. You can now sign in."
+#~ msgstr "Your email has been successfully verified. You can now sign in."
 
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:148
 #~ msgid "Your email has been successfully verified. You will be redirected to the login page shortly."
@@ -1145,11 +1214,11 @@ msgstr "Your email has been successfully verified"
 #~ msgid "Your email has been verified. You can now sign in to your account."
 #~ msgstr "Your email has been verified. You can now sign in to your account."
 
-#: src/shared/lib/use-auth-api.ts:42
-msgid "Your password has been successfully changed"
-msgstr "Your password has been successfully changed"
+#: src/shared/lib/use-auth-api.ts:41
+#~ msgid "Your password has been successfully changed"
+#~ msgstr "Your password has been successfully changed"
 
-#: src/shared/lib/use-auth-api.ts:192
+#: src/shared/lib/use-auth-api.ts:117
 msgid "Your password has been successfully reset"
 msgstr "Your password has been successfully reset"
 

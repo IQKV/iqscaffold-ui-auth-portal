@@ -149,7 +149,7 @@ src/
 
 ```
 I understand you want to add a logout button. Let me analyze the requirements
-and create a comprehensive solution. I'll now proceed to create the necessary
+and create solution. I'll now proceed to create the necessary
 files following the FSD architecture. First, I'll create the feature structure,
 then implement the component, and finally add the necessary exports.
 ```
@@ -598,11 +598,11 @@ After applying approved changes:
 4. **Feature-Sliced Structure**: Organize by features, not by file types
 5. **Lingui Integration**: Use `msg` macro for labels and `useLingui()._()` for runtime translation
 
-**Example: The project has a comprehensive FormField component in `shared/ui/form-field/`**
+**Example: A generic FormField pattern (project currently uses dedicated auth field components like `EmailField`, `PasswordField`, etc.)**
 
 ```tsx
 // shared/ui/form-field/form-field.tsx
-// This is a REAL component from the project - supports 15+ field types
+// Example pattern for a generic field component - supports many field types
 import { TextInput, PasswordInput, Select, Checkbox } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
 import { MessageDescriptor } from "@lingui/core";
@@ -764,7 +764,7 @@ export function useFormMutation<TData, TVariables, TContext = unknown>(
 **The project uses Zustand in the `processes/` layer for cross-cutting concerns:**
 
 ```tsx
-// processes/auth/model/auth-store.ts (ACTUAL PATTERN)
+// processes/auth/model/auth-store.ts (simplified example pattern)
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { persist } from "zustand/middleware";
@@ -848,7 +848,7 @@ export const useIsAuthenticated = () =>
 
 - Use `processes/` layer for stores that span multiple features
 - Use Immer middleware for immutable updates
-- Use persist middleware for localStorage sync
+- Optionally use persist middleware for localStorage sync when appropriate
 - Export granular selectors to prevent unnecessary re-renders
 - Separate selectors into dedicated files for organization
 
@@ -857,32 +857,56 @@ export const useIsAuthenticated = () =>
 **The project has sophisticated error handling with RFC 7807 Problem Details:**
 
 ```tsx
-// shared/lib/client.ts (ACTUAL IMPLEMENTATION)
-import axios, { AxiosError, AxiosRequestConfig } from "axios";
-import { getConfig } from "@/app/config";
-import { normalizeAxiosError } from "./http-error";
-import { notificationService } from "./notifications";
-import { resolveTenantId } from "./tenant-utils";
+// shared/api/base.ts (ACTUAL IMPLEMENTATION)
+import axios, {
+  type AxiosError,
+  type AxiosRequestConfig,
+  type AxiosInstance,
+} from "axios";
+import { getConfig, getFinalMSWConfig } from "@/app/config";
+import { normalizeAxiosError } from "@/shared/lib/http-error";
+import { notificationService } from "@/shared/lib/notifications";
+import { useTenantStore } from "@/processes/tenant";
+import { i18n } from "@lingui/core";
+import { getUserLocalePreference } from "@/shared/lib/locale-preference";
+import { getClientLocale } from "@/shared/locales";
 
-const BASE_URL = getConfig("VITE_API_URL_SERVER");
+const mswEnabled = getFinalMSWConfig().enabled;
+const BASE_URL = getConfig("VITE_API_SERVER_URL");
 
-export const api = axios.create({
+export const apiClient: AxiosInstance = axios.create({
   baseURL: BASE_URL,
-  headers: { "Content-Type": "application/json" },
-  withCredentials: true, // Cookie-based auth
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
 });
 
-// Add tenant header interceptor
-api.interceptors.request.use((config) => {
-  const tenantId = resolveTenantId();
-  if (tenantId && !config.headers["X-Tenant-ID"]) {
-    config.headers["X-Tenant-ID"] = tenantId;
-  }
-  return config;
-});
+axios.defaults.withCredentials = true;
 
-// Response interceptor with RFC 7807 support
-api.interceptors.response.use(
+apiClient.interceptors.request.use(
+  (config) => {
+    const tenantId = useTenantStore.getState().currentTenantId;
+    if (tenantId && !config.headers["X-Tenant-ID"]) {
+      config.headers["X-Tenant-ID"] = tenantId;
+    }
+
+    config.headers = config.headers ?? {};
+
+    const currentLocale = i18n.locale || getClientLocale();
+    (config.headers as any)["Accept-Language"] = currentLocale;
+
+    const userPreference = getUserLocalePreference();
+    if (userPreference) {
+      (config.headers as any)["X-User-Locale"] = userPreference;
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+apiClient.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const original = error.config as
@@ -895,8 +919,6 @@ api.interceptors.response.use(
     }
 
     const normalized = normalizeAxiosError(error);
-
-    // Show server errors globally (unless suppressed)
     if (normalized.type === "server") {
       const cfg = original as any;
       if (!cfg?.__suppressGlobalError) {
@@ -1217,7 +1239,7 @@ export type { SignInFormValues } from "./model/types";
 
 ```env
 # Backend API Configuration
-VITE_API_URL_SERVER=http://localhost:8080  # User service backend
+VITE_API_SERVER_URL=http://localhost:8080  # User service backend
 
 # Domain Configuration
 VITE_AUTH_DOMAIN_AUTH=https://auth.iqscaffold.com  # Auth portal domain
@@ -1240,7 +1262,7 @@ NODE_ENV=development           # Environment
 ```tsx
 // app/config/runtime-env.ts (ACTUAL PATTERN)
 const env = {
-  VITE_API_URL_SERVER: import.meta.env.VITE_API_URL_SERVER,
+  VITE_API_SERVER_URL: import.meta.env.VITE_API_SERVER_URL,
   VITE_AUTH_DOMAIN_AUTH: import.meta.env.VITE_AUTH_DOMAIN_AUTH,
   VITE_AUTH_DOMAIN_APP: import.meta.env.VITE_AUTH_DOMAIN_APP,
   VITE_ENABLE_MSW: import.meta.env.VITE_ENABLE_MSW === "true",
@@ -1339,9 +1361,9 @@ src/
 │           └── auth-store.test.ts  ← Test alongside store
 ├── shared/
 │   └── ui/
-│       └── form-field/
-│           ├── form-field.tsx
-│           └── form-field.test.tsx  ← Test alongside component
+│       └── error-boundary/
+│           ├── error-boundary.tsx
+│           └── error-boundary.test.tsx  ← Test alongside component
 ```
 
 **Benefits:**
@@ -1605,8 +1627,9 @@ export const DataTable = memo(
 
 ```tsx
 // shared/lib/queries/use-users-query.ts
-import { useQuery } from "@tanstack/react-query";
-import { api } from "../client";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useCallback } from "react";
+import { apiClient } from "@/shared/api";
 
 export function useUsersQuery(params?: {
   page?: number;
@@ -1615,7 +1638,7 @@ export function useUsersQuery(params?: {
 }) {
   return useQuery({
     queryKey: ["users", params],
-    queryFn: () => api.get("/users", { params }),
+    queryFn: () => apiClient.get("/users", { params }),
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes
     enabled: params?.enabled ?? true,
@@ -1630,7 +1653,7 @@ export function usePrefetchUsers() {
     (params?: { page?: number; search?: string }) => {
       queryClient.prefetchQuery({
         queryKey: ["users", params],
-        queryFn: () => api.get("/users", { params }),
+        queryFn: () => apiClient.get("/users", { params }),
         staleTime: 5 * 60 * 1000,
       });
     },

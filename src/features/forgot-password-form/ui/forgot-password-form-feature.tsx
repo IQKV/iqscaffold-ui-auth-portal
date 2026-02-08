@@ -1,11 +1,9 @@
-import { Anchor, Button, Card, Group, Stack, Text } from "@mantine/core";
-import { IconMail, IconArrowLeft } from "@tabler/icons-react";
+import { Button, Stack, Text } from "@mantine/core";
 import { useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
 import { t } from "@lingui/core/macro";
 import { useForgotPassword } from "@/shared/lib/use-auth-api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
-import { FormField } from "@/shared/ui";
+import { EmailField, AuthFormCard, AuthLinkBackToLogin } from "@/shared/ui";
 import {
   forgotPasswordFormSchema,
   initialForgotPasswordValues,
@@ -28,29 +26,19 @@ export function ForgotPasswordFormFeature({
     schema: forgotPasswordFormSchema,
   });
 
-  // Use custom hook for forgot password
   const forgotPasswordMutation = useForgotPassword();
 
-  // Handle success
-  useEffect(() => {
-    if (forgotPasswordMutation.isSuccess) {
-      const email = form.values.email;
-      if (onSuccess) {
-        onSuccess(email);
-      } else {
-        // Navigate back to login after successful submission
-        navigate({ to: "/login" });
-      }
-    }
-  }, [
-    forgotPasswordMutation.isSuccess,
-    onSuccess,
-    navigate,
-    form.values.email,
-  ]);
-
   const handleSubmit = (values: ForgotPasswordFormSchemaType) => {
-    forgotPasswordMutation.mutate(values.email);
+    forgotPasswordMutation.mutate(values.email, {
+      onSuccess: () => {
+        if (onSuccess) {
+          onSuccess(values.email);
+        } else {
+          // Navigate back to login after successful submission
+          navigate({ to: "/login" });
+        }
+      },
+    });
   };
 
   const handleBackToLogin = () => {
@@ -62,27 +50,17 @@ export function ForgotPasswordFormFeature({
   };
 
   return (
-    <Card
-      shadow="md"
-      padding="xl"
-      radius="md"
-      withBorder
-      data-testid="forgot-password-form"
-    >
+    <AuthFormCard data-testid="forgot-password-form">
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <Text size="sm" c="dimmed" ta="center">
             {t`Enter your email address and we'll send you a link to reset your password.`}
           </Text>
 
-          <FormField
-            type="email"
-            name="email"
+          <EmailField
+            form={form}
             label={t`Email Address`}
             placeholder={t`Enter your email address`}
-            leftSection={<IconMail size={16} />}
-            required
-            form={form}
             data-testid="forgot-password-input-email"
           />
 
@@ -95,22 +73,12 @@ export function ForgotPasswordFormFeature({
             {t`Send Reset Link`}
           </Button>
 
-          <Group justify="center" gap="xs">
-            <Anchor
-              component="button"
-              type="button"
-              size="sm"
-              onClick={handleBackToLogin}
-              data-testid="forgot-password-link-back"
-            >
-              <Group gap="xs" align="center">
-                <IconArrowLeft size={14} />
-                {t`Back to Sign In`}
-              </Group>
-            </Anchor>
-          </Group>
+          <AuthLinkBackToLogin
+            onClick={handleBackToLogin}
+            data-testid="forgot-password-link-back"
+          />
         </Stack>
       </form>
-    </Card>
+    </AuthFormCard>
   );
 }

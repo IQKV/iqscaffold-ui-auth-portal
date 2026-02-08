@@ -77,7 +77,12 @@ describe("ForgotPasswordFormFeature", () => {
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(mockMutate).toHaveBeenCalledWith("test@example.com");
+      expect(mockMutate).toHaveBeenCalledWith(
+        "test@example.com",
+        expect.objectContaining({
+          onSuccess: expect.any(Function),
+        })
+      );
     });
   });
 
@@ -121,19 +126,24 @@ describe("ForgotPasswordFormFeature", () => {
     const onSuccess = vi.fn();
 
     const { useForgotPassword } = await import("@/shared/lib/use-auth-api");
-    (useForgotPassword as any).mockReturnValue({
-      mutate: mockMutate,
+    (useForgotPassword as any).mockImplementation(() => ({
+      mutate: (email: string, options: any) => {
+        mockMutate(email, options);
+        options?.onSuccess?.();
+      },
       isPending: false,
       isSuccess: true,
-    });
+    }));
 
     render(<ForgotPasswordFormFeature onSuccess={onSuccess} />, {
       wrapper: createWrapper(),
     });
 
     const emailInput = screen.getByPlaceholderText("Enter your email address");
+    const submitButton = screen.getByTestId("forgot-password-button-submit");
 
     await user.type(emailInput, "test@example.com");
+    await user.click(submitButton);
 
     await waitFor(() => {
       expect(onSuccess).toHaveBeenCalledWith("test@example.com");

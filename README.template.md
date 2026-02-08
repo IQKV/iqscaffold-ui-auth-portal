@@ -19,20 +19,28 @@
 
 ## Business Purpose
 
-A dedicated authentication portal that handles:
+A dedicated authentication portal that handles **unauthenticated user flows**:
 
 - **User Registration** - Self-service account creation with email verification workflow
 - **User Authentication** - Secure login with JWT token-based session management
 - **Password Management** - Forgot password and reset password flows with secure token validation
-- **Session Management** - Token refresh, logout, and multi-device session handling
+- **Email Verification** - Email address verification with token and resend capability
 - **External Integration** - Seamless redirect to main application domain upon successful authentication
 - **Multi-Language Support** - Internationalization with Lingui for global user base
 
+**Authenticated user operations** (change password, account settings, security settings) are handled by the main application portal.
+
 ## Overview
 
-This is the authentication frontend for the IQ Scaffold Platform. It provides a modern, accessible, and performant user interface for identity management, delegating authentication concerns to the backend User Service while maintaining a clean separation between authentication flows and application-specific features.
+This is the authentication frontend for the IQ Scaffold Platform. It provides a modern, accessible, and performant user interface for **unauthenticated identity management flows**, delegating authentication concerns to the backend User Service while maintaining a clean separation between public authentication flows and authenticated application features.
+
+**Scope:** This portal handles only unauthenticated flows (login, signup, password reset, email verification). Authenticated user operations are handled by the main application portal at `app.iqscaffold.com`.
 
 ## Use Cases Implemented
+
+### 🔐 Auth Portal Scope
+
+This portal is specifically designed for **unauthenticated users** and handles the following flows:
 
 ### User Registration Flow
 
@@ -61,48 +69,61 @@ This is the authentication frontend for the IQ Scaffold Platform. It provides a 
 - Password strength validation
 - Success confirmation and redirect
 
-### Session Management
+### Email Verification
+
+- Email verification with token from URL
+- Automatic verification on page load
+- Resend verification email capability
+- Email input form for resend
+- Success/error state handling
+- Redirect to login after verification
+
+### Session Management (Basic)
 
 - Automatic token refresh before expiration
 - Logout with token cleanup
-- Logout from all devices support
 - Session expiration handling
-- Multi-tab synchronization via storage events
 - Page visibility change detection
+
+**Note:** Advanced session management (logout from all devices, multi-device session handling) is handled by the main application portal.
 
 ### Route Protection
 
-- Public routes (login, signup, forgot password, reset password)
-- Protected routes (change password, user profile)
-- Automatic redirect for unauthenticated users
-- Role-based access control support
-- Permission-based access control support
+- Public routes (login, signup, forgot password, reset password, verify email)
+- Guest-only routes (redirect authenticated users to app)
+- Automatic redirect for authenticated users
 - Email verification requirement enforcement
+
+**Note:** Protected routes for authenticated users (profile, settings, change password) are in the main application portal.
+
+---
 
 ## API Integration
 
 ### Backend Endpoints
 
-The auth portal integrates with the User Service API:
+The auth portal integrates with the User Service API for **unauthenticated flows only**:
 
 **Public Endpoints:**
 
-- `POST /api/v1/auth/signup` - Register new user
-- `POST /api/v1/auth/login` - Authenticate user
-- `POST /api/v1/auth/refresh` - Refresh access token
-- `POST /api/v1/auth/validate` - Validate JWT token
-- `POST /api/v1/auth/email/verify` - Verify email address with token
-- `POST /api/v1/auth/email/resend` - Resend verification email
-- `POST /api/v1/auth/password/forgot` - Initiate password reset
-- `POST /api/v1/auth/password/reset` - Reset password with token
-- `HEAD /api/v1/auth/password/reset` - Validate password reset token
-- `GET /api/v1/auth/email/status` - Get email verification status
+- `POST /v1/auth/signup` - Register new user
+- `POST /v1/auth/login` - Authenticate user
+- `POST /v1/auth/refresh` - Refresh access token
+- `POST /v1/auth/logout` - Logout user
+- `POST /v1/auth/validate` - Validate JWT token
+- `POST /v1/auth/email/verify` - Verify email address with token
+- `POST /v1/auth/email/resend` - Resend verification email
+- `POST /v1/auth/password/forgot` - Initiate password reset
+- `POST /v1/auth/password/reset` - Reset password with token
+- `HEAD /v1/auth/password/reset` - Validate password reset token
+
+**Note:** Authenticated user endpoints (change password, logout all devices, email status) are handled by the main app portal at `app.iqscaffold.com`.
 
 ### Configuration
 
 Environment variables for API integration:
 
-- `VITE_API_URL_SERVER` - Backend API base URL (User Service)
+- `VITE_API_SERVER_URL` - Backend API base URL (User Service)
 - `VITE_AUTH_DOMAIN_AUTH` - Auth portal domain
 - `VITE_AUTH_DOMAIN_APP` - Main application domain
 - `VITE_AUTH_REDIRECT_AFTER_LOGIN` - Post-login redirect URL
@@ -124,9 +145,11 @@ Environment variables for API integration:
 - JWT-based stateless authentication with token lifecycle management
 - Automatic token refresh before expiration
 - Secure token storage with localStorage
-- Multi-tab session synchronization
 - Route protection with declarative guards
 - User context extraction and propagation
+- Guest-only route protection (redirect authenticated users)
+
+**Note:** Multi-device session management and logout-all functionality are handled by the app portal.
 
 ### State Management
 
@@ -185,10 +208,10 @@ Environment variables for API integration:
 ```
 src/
 ├── app/              # Application initialization and configuration
-├── processes/        # Complex business processes (auth flow)
-├── pages/            # Route pages and layouts
+├── processes/        # Complex business processes (auth flow, tenant context)
+├── pages/            # Route pages (login, register, forgot-password, reset-password, verify-email)
 ├── widgets/          # Composite UI blocks (auth layout)
-├── features/         # User interactions (signin, signup, password reset)
+├── features/         # User interactions (signin, signup, password reset, email verification)
 ├── entities/         # Business entities (form models)
 ├── shared/           # Reusable infrastructure (API, UI, utils)
 └── types/            # Global type definitions
@@ -211,6 +234,9 @@ src/
 - Request/response transformation
 - Correlation ID propagation
 - Environment-specific configuration
+- Tenant ID header injection for multi-tenancy
+
+**API Scope:** Only unauthenticated endpoints (login, signup, password reset, email verification). Authenticated user APIs are in the app portal.
 
 ## Technical Highlights
 
@@ -254,7 +280,7 @@ src/
 
 This implementation serves as a reference for:
 
-- Building modern authentication frontends with React and TypeScript
+- Building modern authentication frontends for **unauthenticated flows** with React and TypeScript
 - Implementing Feature-Sliced Design for scalable architecture
 - Managing authentication state with Zustand
 - Handling JWT token lifecycle and refresh patterns
@@ -263,7 +289,8 @@ This implementation serves as a reference for:
 - Testing frontend applications with Vitest and Playwright
 - Integrating with RESTful authentication APIs
 - Managing environment-specific configuration
-- Implementing route protection and guards
+- Implementing route protection and guest guards
+- **Separating unauthenticated vs authenticated flows** across multiple portals
 
 ## Adapting for Your Domain
 
@@ -271,10 +298,12 @@ This authentication portal demonstrates patterns applicable to various scenarios
 
 ### Identity Management Frontends
 
-- Employee authentication portals
-- Customer identity platforms
-- Partner access management
-- Multi-tenant SaaS authentication
+- Employee authentication portals (unauthenticated flows only)
+- Customer identity platforms (public registration and login)
+- Partner access management (initial authentication)
+- Multi-tenant SaaS authentication (tenant-aware login)
+
+**Note:** For authenticated user management (profile, settings, security), see the app portal implementation.
 
 ### Form-Based Workflows
 

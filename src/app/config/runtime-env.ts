@@ -5,7 +5,7 @@ const readRuntimeEnv = (key: string): string | undefined => {
 
 const ENV_KEYS = [
   // API base URL
-  "VITE_API_URL_SERVER",
+  "VITE_API_SERVER_URL",
   // Auth domain configuration
   "VITE_AUTH_DOMAIN_AUTH",
   "VITE_AUTH_DOMAIN_APP",

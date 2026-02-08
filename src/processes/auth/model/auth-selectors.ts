@@ -73,10 +73,6 @@ export const useHasAnyAuthority = (authorities: string[]): boolean => {
   });
 };
 
-// Backward compatibility aliases
-export const useHasRole = useHasAuthority;
-export const useHasAnyRole = useHasAnyAuthority;
-
 /**
  * Hook to check if user has any of the specified permissions
  */

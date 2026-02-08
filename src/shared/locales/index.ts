@@ -1,8 +1,9 @@
 import { i18n } from "@lingui/core";
 import { t } from "@lingui/core/macro";
+import { messages } from "../../../locales/en";
 
 // Initialize immediately when this module is imported to prevent race conditions
-i18n.load("en", {});
+i18n.load("en", messages);
 i18n.activate("en");
 
 export type SupportedLocales = "en";
@@ -41,7 +42,7 @@ export const getClientLocale = () => {
 
 export async function dynamicActivateLocale(locale: string) {
   const activeLocale = availableLocales.includes(locale) ? locale : "en";
-  const module = await import(`../../../locales/${activeLocale}.po`);
+  const module = await import(`../../../locales/${activeLocale}.ts`);
   i18n.load(activeLocale, module.messages);
   i18n.activate(activeLocale);
 }

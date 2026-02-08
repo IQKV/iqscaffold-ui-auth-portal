@@ -7,8 +7,8 @@ import { ResetPasswordFormFeature } from "./reset-password-form-feature";
 
 // Mock dependencies
 vi.mock("@/shared/lib/use-auth-api", () => ({
-  useResetPassword: vi.fn(),
   useValidateResetToken: vi.fn(),
+  useResetPassword: vi.fn(),
 }));
 
 vi.mock("@tanstack/react-router", () => ({
@@ -36,15 +36,17 @@ describe("ResetPasswordFormFeature", () => {
 
   beforeEach(async () => {
     vi.clearAllMocks();
-    const { useResetPassword, useValidateResetToken } =
+    const { useValidateResetToken, useResetPassword } =
       await import("@/shared/lib/use-auth-api");
+
     (useResetPassword as any).mockReturnValue({
       mutate: mockMutate,
       isPending: false,
       isSuccess: false,
     });
+
     (useValidateResetToken as any).mockReturnValue({
-      data: true,
+      data: { valid: true },
       isLoading: false,
     });
   });
@@ -83,7 +85,7 @@ describe("ResetPasswordFormFeature", () => {
   it("shows error message with invalid token", async () => {
     const { useValidateResetToken } = await import("@/shared/lib/use-auth-api");
     (useValidateResetToken as any).mockReturnValue({
-      data: false,
+      data: { valid: false },
       isLoading: false,
     });
 
@@ -97,7 +99,7 @@ describe("ResetPasswordFormFeature", () => {
   it("shows error message when no token provided", async () => {
     const { useValidateResetToken } = await import("@/shared/lib/use-auth-api");
     (useValidateResetToken as any).mockReturnValue({
-      data: false,
+      data: { valid: false },
       isLoading: false,
     });
 
@@ -116,7 +118,7 @@ describe("ResetPasswordFormFeature", () => {
       "Enter your new password"
     );
     const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your new password"
+      "Confirm your password"
     );
 
     await user.type(passwordInput, "NewPassword123!");
@@ -136,7 +138,7 @@ describe("ResetPasswordFormFeature", () => {
       "Enter your new password"
     );
     const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your new password"
+      "Confirm your password"
     );
     const submitButton = screen.getByTestId("reset-password-button-submit");
 
@@ -145,10 +147,15 @@ describe("ResetPasswordFormFeature", () => {
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(mockMutate).toHaveBeenCalledWith({
-        token: "valid-token",
-        newPassword: "NewPassword123!",
-      });
+      expect(mockMutate).toHaveBeenCalledWith(
+        {
+          token: "valid-token",
+          password: "NewPassword123!",
+        },
+        {
+          onSuccess: expect.any(Function),
+        }
+      );
     });
   });
 

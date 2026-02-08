@@ -1,16 +1,19 @@
-import { Anchor, Button, Card, Group, Stack } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
-import { IconAt, IconLock, IconUser, IconUserPlus } from "@tabler/icons-react";
+import { Button, Group, Stack } from "@mantine/core";
+import { IconUserPlus } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
-import { useMutation } from "@tanstack/react-query";
 import { t } from "@lingui/core/macro";
-import {
-  authApi,
-  type UserRegistrationResponse,
-  type UserRegistration,
-} from "@/shared/api";
+import { type UserRegistrationResponse } from "@/shared/api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
-import { FormField } from "@/shared/ui";
+import { useSignup } from "@/shared/lib/use-auth-api";
+import {
+  NameField,
+  SignUpUsernameField,
+  EmailField,
+  PasswordField,
+  ConfirmPasswordField,
+  AuthFormCard,
+  AuthLinkToLogin,
+} from "@/shared/ui";
 import {
   signUpFormSchema,
   initialSignUpValues,
@@ -35,44 +38,23 @@ export function SignUpFormFeature({
     schema: signUpFormSchema,
   });
 
-  const registerMutation = useMutation({
-    mutationFn: async (values: UserRegistration) => {
-      return await authApi.signup(values);
-    },
-    onSuccess: (data) => {
-      notifications.show({
-        title: t`Registration Successful`,
-        message:
-          data.message ||
-          t`Your account has been created. Please verify your email.`,
-        color: "green",
-      });
-
-      if (onSuccess) {
-        onSuccess(data);
-      } else if (redirectToHome) {
-        // Redirect back to auth homepage (login page)
-        navigate({ to: "/" });
-      } else {
-        // Default behavior: navigate to login
-        navigate({ to: "/login" });
-      }
-    },
-    onError: (error: any) => {
-      const errorMessage =
-        error?.message || t`Registration failed. Please try again.`;
-
-      notifications.show({
-        title: t`Registration Failed`,
-        message: errorMessage,
-        color: "red",
-      });
-    },
-  });
+  const signupMutation = useSignup();
 
   const handleSubmit = (values: SignUpFormSchemaType) => {
     const { confirmPassword, ...signupData } = values;
-    registerMutation.mutate(signupData);
+    signupMutation.mutate(signupData, {
+      onSuccess: (data) => {
+        if (onSuccess) {
+          onSuccess(data);
+        } else if (redirectToHome) {
+          // Redirect back to auth homepage (login page)
+          navigate({ to: "/" });
+        } else {
+          // Default behavior: navigate to login
+          navigate({ to: "/login" });
+        }
+      },
+    });
   };
 
   const handleNavigateToLogin = () => {
@@ -87,78 +69,32 @@ export function SignUpFormFeature({
   };
 
   return (
-    <Card
-      shadow="md"
-      padding="xl"
-      radius="md"
-      withBorder
-      data-testid="signup-form"
-    >
+    <AuthFormCard data-testid="signup-form">
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <Group grow>
-            <FormField
-              type="text"
+            <NameField
               name="firstName"
-              label={t`First Name`}
-              placeholder={t`John`}
-              required
               form={form}
               data-testid="signup-input-firstname"
             />
-            <FormField
-              type="text"
+            <NameField
               name="lastName"
-              label={t`Last Name`}
-              placeholder={t`Doe`}
-              required
               form={form}
               data-testid="signup-input-lastname"
             />
           </Group>
 
-          <FormField
-            type="text"
-            name="username"
-            label={t`Username`}
-            placeholder={t`johndoe`}
-            leftSection={<IconUser size={16} />}
-            description={t`3-50 characters, letters, numbers, and underscores only`}
-            required
+          <SignUpUsernameField
             form={form}
             data-testid="signup-input-username"
           />
 
-          <FormField
-            type="email"
-            name="email"
-            label={t`Email`}
-            placeholder={t`john.doe@example.com`}
-            leftSection={<IconAt size={16} />}
-            required
-            form={form}
-            data-testid="signup-input-email"
-          />
+          <EmailField form={form} data-testid="signup-input-email" />
 
-          <FormField
-            type="password"
-            name="password"
-            label={t`Password`}
-            placeholder={t`Create a strong password`}
-            leftSection={<IconLock size={16} />}
-            description={t`Min 8 characters with uppercase, lowercase, number, and special character`}
-            required
-            form={form}
-            data-testid="signup-input-password"
-          />
+          <PasswordField form={form} data-testid="signup-input-password" />
 
-          <FormField
-            type="password"
-            name="confirmPassword"
-            label={t`Confirm Password`}
-            placeholder={t`Re-enter your password`}
-            leftSection={<IconLock size={16} />}
-            required
+          <ConfirmPasswordField
             form={form}
             data-testid="signup-input-confirm-password"
           />
@@ -167,23 +103,18 @@ export function SignUpFormFeature({
             type="submit"
             fullWidth
             leftSection={<IconUserPlus size={18} />}
-            loading={registerMutation.isPending}
+            loading={signupMutation.isPending}
             data-testid="signup-button-submit"
           >
             {t`Create Account`}
           </Button>
 
-          <Group justify="center" gap="xs">
-            <Anchor
-              size="sm"
-              onClick={handleNavigateToLogin}
-              data-testid="signup-link-login"
-            >
-              {t`Already have an account? Sign in`}
-            </Anchor>
-          </Group>
+          <AuthLinkToLogin
+            onClick={handleNavigateToLogin}
+            data-testid="signup-link-login"
+          />
         </Stack>
       </form>
-    </Card>
+    </AuthFormCard>
   );
 }

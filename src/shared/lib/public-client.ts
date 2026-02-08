@@ -7,7 +7,7 @@ export const publicApi = axios.create({
 
 publicApi.interceptors.request.use(
   (config) => {
-    const baseUrl = getConfig("VITE_API_URL_SERVER");
+    const baseUrl = getConfig("VITE_API_SERVER_URL");
     config.baseURL = `${baseUrl}/public`;
     return config;
   },

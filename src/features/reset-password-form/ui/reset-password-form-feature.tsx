@@ -1,23 +1,17 @@
-import {
-  Anchor,
-  Button,
-  Card,
-  Group,
-  Stack,
-  Text,
-  Loader,
-  Center,
-} from "@mantine/core";
-import { IconLock, IconArrowLeft } from "@tabler/icons-react";
+import { Button, Stack, Text, Loader, Center } from "@mantine/core";
 import { useNavigate, useSearch } from "@tanstack/react-router";
-import { useEffect } from "react";
 import { t } from "@lingui/core/macro";
 import {
-  useResetPassword,
   useValidateResetToken,
+  useResetPassword,
 } from "@/shared/lib/use-auth-api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
-import { FormField } from "@/shared/ui";
+import {
+  PasswordField,
+  ConfirmPasswordField,
+  AuthFormCard,
+  AuthLinkBackToLogin,
+} from "@/shared/ui";
 import {
   resetPasswordFormSchema,
   initialResetPasswordValues,
@@ -50,29 +44,25 @@ export function ResetPasswordFormFeature({
     schema: resetPasswordFormSchema,
   });
 
-  // Use custom hook for reset password
   const resetPasswordMutation = useResetPassword();
-
-  // Handle success
-  useEffect(() => {
-    if (resetPasswordMutation.isSuccess) {
-      if (onSuccess) {
-        onSuccess();
-      } else {
-        // Navigate to login after successful reset
-        navigate({ to: "/login" });
-      }
-    }
-  }, [resetPasswordMutation.isSuccess, onSuccess, navigate]);
 
   const handleSubmit = (values: ResetPasswordFormSchemaType) => {
     if (!token) {
       return;
     }
-    resetPasswordMutation.mutate({
-      token,
-      newPassword: values.password,
-    });
+    resetPasswordMutation.mutate(
+      { token, password: values.password },
+      {
+        onSuccess: () => {
+          if (onSuccess) {
+            onSuccess();
+          } else {
+            // Navigate to login after successful reset
+            navigate({ to: "/login" });
+          }
+        },
+      }
+    );
   };
 
   const handleBackToLogin = () => {
@@ -86,13 +76,7 @@ export function ResetPasswordFormFeature({
   // Show loading state while validating token
   if (isValidating) {
     return (
-      <Card
-        shadow="md"
-        padding="xl"
-        radius="md"
-        withBorder
-        data-testid="reset-password-loading"
-      >
+      <AuthFormCard data-testid="reset-password-loading">
         <Center py="xl">
           <Stack gap="md" align="center">
             <Loader size="lg" />
@@ -101,20 +85,14 @@ export function ResetPasswordFormFeature({
             </Text>
           </Stack>
         </Center>
-      </Card>
+      </AuthFormCard>
     );
   }
 
   // Show error if no token is provided or token is invalid
-  if (!token || isTokenValid === false) {
+  if (!token || (isTokenValid && isTokenValid.valid === false)) {
     return (
-      <Card
-        shadow="md"
-        padding="xl"
-        radius="md"
-        withBorder
-        data-testid="reset-password-invalid"
-      >
+      <AuthFormCard data-testid="reset-password-invalid">
         <Stack gap="md" align="center">
           <Text size="lg" fw={500} c="red">
             {t`Invalid Reset Link`}
@@ -130,43 +108,29 @@ export function ResetPasswordFormFeature({
             {t`Back to Sign In`}
           </Button>
         </Stack>
-      </Card>
+      </AuthFormCard>
     );
   }
 
   return (
-    <Card
-      shadow="md"
-      padding="xl"
-      radius="md"
-      withBorder
-      data-testid="reset-password-form"
-    >
+    <AuthFormCard data-testid="reset-password-form">
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <Text size="sm" c="dimmed" ta="center">
             {t`Enter your new password below. Make sure it's strong and secure.`}
           </Text>
 
-          <FormField
-            type="password"
-            name="password"
+          <PasswordField
+            form={form}
             label={t`New Password`}
             placeholder={t`Enter your new password`}
-            leftSection={<IconLock size={16} />}
-            required
-            form={form}
+            description=""
             data-testid="reset-password-input-password"
           />
 
-          <FormField
-            type="password"
-            name="confirmPassword"
-            label={t`Confirm New Password`}
-            placeholder={t`Confirm your new password`}
-            leftSection={<IconLock size={16} />}
-            required
+          <ConfirmPasswordField
             form={form}
+            name="confirmPassword"
             data-testid="reset-password-input-confirm-password"
           />
 
@@ -179,22 +143,12 @@ export function ResetPasswordFormFeature({
             {t`Reset Password`}
           </Button>
 
-          <Group justify="center" gap="xs">
-            <Anchor
-              component="button"
-              type="button"
-              size="sm"
-              onClick={handleBackToLogin}
-              data-testid="reset-password-link-back"
-            >
-              <Group gap="xs" align="center">
-                <IconArrowLeft size={14} />
-                {t`Back to Sign In`}
-              </Group>
-            </Anchor>
-          </Group>
+          <AuthLinkBackToLogin
+            onClick={handleBackToLogin}
+            data-testid="reset-password-link-back"
+          />
         </Stack>
       </form>
-    </Card>
+    </AuthFormCard>
   );
 }

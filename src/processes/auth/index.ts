@@ -20,9 +20,6 @@ export {
   useHasAnyPermission,
   useUserFullName,
   useUserInitials,
-  // Backward compatibility aliases
-  useHasRole,
-  useHasAnyRole,
 } from "./model/auth-selectors";
 
 // Guards and protection
@@ -46,8 +43,6 @@ export {
   getUserAuthorityPriority,
   isSessionExpiringSoon,
   getTimeUntilExpiration,
-  // Backward compatibility alias
-  getUserRolePriority,
 } from "./lib/auth-utils";
 
 // HTTP Interceptors setup
@@ -56,7 +51,6 @@ export { attachAuthInterceptors } from "./lib/http-interceptors";
 // UI Components
 export { AuthProvider } from "./ui/auth-provider";
 export { GuestGuardWrapper } from "./ui/guest-guard-wrapper";
-export { UserMenu } from "./ui/user-menu";
 
 // Token management
 export { TokenManager } from "./lib/token-manager";
