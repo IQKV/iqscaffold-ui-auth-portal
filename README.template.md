@@ -98,22 +98,6 @@ This portal is specifically designed for **unauthenticated users** and handles t
 
 ---
 
-### 🏠 What's NOT in Auth Portal (Handled by App Portal)
-
-The following features are **intentionally excluded** from the auth portal and are handled by the main application portal at `app.iqscaffold.com`:
-
-- ❌ **Change Password** (for authenticated users) - Use app portal security settings
-- ❌ **Logout All Devices** - Use app portal security settings
-- ❌ **Email Status Checker** (for authenticated users) - Use app portal profile
-- ❌ **User Profile Management** - Use app portal profile pages
-- ❌ **Account Settings** - Use app portal settings pages
-- ❌ **Security Settings** - Use app portal security pages
-- ❌ **User Preferences** - Use app portal preferences pages
-
-**Separation Principle:** If it requires authentication → App Portal. If it's for unauthenticated users → Auth Portal.
-
-See [AUTH_APP_SEPARATION.md](../AUTH_APP_SEPARATION.md) for complete separation documentation.
-
 ## API Integration
 
 ### Backend Endpoints
