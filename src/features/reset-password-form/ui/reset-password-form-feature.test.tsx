@@ -118,7 +118,7 @@ describe("ResetPasswordFormFeature", () => {
       "Enter your new password"
     );
     const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your new password"
+      "Confirm your password"
     );
 
     await user.type(passwordInput, "NewPassword123!");
@@ -138,7 +138,7 @@ describe("ResetPasswordFormFeature", () => {
       "Enter your new password"
     );
     const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your new password"
+      "Confirm your password"
     );
     const submitButton = screen.getByTestId("reset-password-button-submit");
 
