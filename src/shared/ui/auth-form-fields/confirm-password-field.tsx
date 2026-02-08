@@ -18,8 +18,8 @@ interface ConfirmPasswordFieldProps {
 export function ConfirmPasswordField({
   form,
   name = "confirmPassword",
-  label = t`Confirm New Password`,
-  placeholder = t`Confirm your new password`,
+  label = t`Confirm Password`,
+  placeholder = t`Confirm your password`,
   "data-testid": dataTestId,
 }: ConfirmPasswordFieldProps) {
   return (
