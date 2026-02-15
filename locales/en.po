@@ -97,8 +97,7 @@ msgstr "Are you sure you want to proceed?"
 #~ msgstr "At least one item is required"
 
 #: src/features/reset-password-form/ui/reset-password-form-feature.tsx:108
-#: src/features/verify-email/ui/verify-email-feature.tsx:121
-#: src/features/verify-email/ui/verify-email-feature.tsx:157
+#: src/features/verify-email/ui/verify-email-feature.tsx:95
 #: src/shared/ui/auth-navigation/auth-navigation.tsx:72
 msgid "Back to Sign In"
 msgstr "Back to Sign In"
@@ -147,20 +146,24 @@ msgid "Confirm Action"
 msgstr "Confirm Action"
 
 #: src/shared/ui/auth-form-fields/confirm-password-field.tsx:21
-msgid "Confirm New Password"
-msgstr "Confirm New Password"
+#~ msgid "Confirm New Password"
+#~ msgstr "Confirm New Password"
 
-#: src/features/signup-form/ui/signup-form-feature.tsx:158
-#~ msgid "Confirm Password"
-#~ msgstr "Confirm Password"
+#: src/shared/ui/auth-form-fields/confirm-password-field.tsx:21
+msgid "Confirm Password"
+msgstr "Confirm Password"
 
 #: src/shared/ui/auth-form-fields/confirm-password-field.tsx:22
-msgid "Confirm your new password"
-msgstr "Confirm your new password"
+#~ msgid "Confirm your new password"
+#~ msgstr "Confirm your new password"
+
+#: src/shared/ui/auth-form-fields/confirm-password-field.tsx:22
+msgid "Confirm your password"
+msgstr "Confirm your password"
 
 #: src/features/verify-email/ui/verify-email-feature.tsx:82
-msgid "Continue to Sign In"
-msgstr "Continue to Sign In"
+#~ msgid "Continue to Sign In"
+#~ msgstr "Continue to Sign In"
 
 #: src/features/verify-email/ui/verify-email-feature.tsx:67
 #~ msgid "Could not send verification email. Please try again."
@@ -260,8 +263,7 @@ msgid "Email"
 msgstr "Email"
 
 #: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:62
-#: src/features/verify-email/ui/verify-email-feature.tsx:101
-#: src/features/verify-email/ui/verify-email-feature.tsx:139
+#: src/features/verify-email/ui/verify-email-feature.tsx:77
 msgid "Email Address"
 msgstr "Email Address"
 
@@ -270,14 +272,18 @@ msgid "Email is required"
 msgstr "Email is required"
 
 #: src/features/verify-email/ui/verify-email-feature.tsx:70
-msgid "Email Successfully Verified"
-msgstr "Email Successfully Verified"
+#~ msgid "Email Successfully Verified"
+#~ msgstr "Email Successfully Verified"
 
 #: src/pages/verify-email.tsx:21
 msgid "Email Verification"
 msgstr "Email Verification"
 
-#: src/features/verify-email/ui/verify-email-feature.tsx:132
+#: src/pages/login.tsx:44
+msgid "Email verification failed. The link may be invalid or expired."
+msgstr "Email verification failed. The link may be invalid or expired."
+
+#: src/features/verify-email/ui/verify-email-feature.tsx:70
 msgid "Email Verification Required"
 msgstr "Email Verification Required"
 
@@ -292,6 +298,10 @@ msgstr "Email Verified"
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:68
 #~ msgid "Email Verified Successfully"
 #~ msgstr "Email Verified Successfully"
+
+#: src/pages/login.tsx:39
+msgid "Email verified successfully! You can now sign in."
+msgstr "Email verified successfully! You can now sign in."
 
 #: src/features/email-verification-form/ui/email-verification-form-feature.tsx:144
 #~ msgid "Email Verified!"
@@ -318,8 +328,7 @@ msgstr "Enable MSW"
 #~ msgstr "Enter your current password"
 
 #: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:63
-#: src/features/verify-email/ui/verify-email-feature.tsx:102
-#: src/features/verify-email/ui/verify-email-feature.tsx:140
+#: src/features/verify-email/ui/verify-email-feature.tsx:78
 msgid "Enter your email address"
 msgstr "Enter your email address"
 
@@ -789,7 +798,7 @@ msgstr "Please enter a valid email address"
 msgid "Please enter a valid username or email address"
 msgstr "Please enter a valid username or email address"
 
-#: src/features/verify-email/ui/verify-email-feature.tsx:134
+#: src/features/verify-email/ui/verify-email-feature.tsx:72
 msgid "Please enter your email address to receive a verification link."
 msgstr "Please enter your email address to receive a verification link."
 
@@ -805,7 +814,7 @@ msgstr "Please enter your email address to receive a verification link."
 #~ msgid "Please select at least one skill"
 #~ msgstr "Please select at least one skill"
 
-#: src/features/verify-email/ui/verify-email-feature.tsx:170
+#: src/features/verify-email/ui/verify-email-feature.tsx:108
 msgid "Please wait while we verify your email address."
 msgstr "Please wait while we verify your email address."
 
@@ -842,8 +851,8 @@ msgid "Remember me"
 msgstr "Remember me"
 
 #: src/features/verify-email/ui/verify-email-feature.tsx:110
-msgid "Resend Verification Email"
-msgstr "Resend Verification Email"
+#~ msgid "Resend Verification Email"
+#~ msgstr "Resend Verification Email"
 
 #: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:56
 #: src/features/reset-password-form/ui/reset-password-form-feature.tsx:65
@@ -900,7 +909,7 @@ msgstr "Running"
 msgid "Send Reset Link"
 msgstr "Send Reset Link"
 
-#: src/features/verify-email/ui/verify-email-feature.tsx:148
+#: src/features/verify-email/ui/verify-email-feature.tsx:86
 msgid "Send Verification Email"
 msgstr "Send Verification Email"
 
@@ -913,12 +922,12 @@ msgstr "Set New Password"
 #~ msgstr "Set VITE_ENABLE_MSW=true in your .env file"
 
 #: src/features/signin-form/ui/signin-form-feature.tsx:127
-#: src/pages/login.tsx:19
+#: src/pages/login.tsx:34
 msgid "Sign In"
 msgstr "Sign In"
 
 #: src/pages/index.tsx:25
-#: src/pages/login.tsx:18
+#: src/pages/login.tsx:33
 msgid "Sign in to your account to continue"
 msgstr "Sign in to your account to continue"
 
@@ -959,8 +968,8 @@ msgstr "The page you are looking for might have been removed, had its name chang
 #~ msgstr "The verification link is invalid or has expired."
 
 #: src/features/verify-email/ui/verify-email-feature.tsx:94
-msgid "The verification link is invalid or has expired. You can request a new verification email below."
-msgstr "The verification link is invalid or has expired. You can request a new verification email below."
+#~ msgid "The verification link is invalid or has expired. You can request a new verification email below."
+#~ msgstr "The verification link is invalid or has expired. You can request a new verification email below."
 
 #: src/pages/msw-demo.tsx:81
 #~ msgid "This component fetches data from /api/v1/users. When MSW is enabled, it returns mock data. When disabled, it will attempt to call your real API."
@@ -1091,7 +1100,6 @@ msgstr "Validating reset link..."
 msgid "Verification Email Sent"
 msgstr "Verification Email Sent"
 
-#: src/features/verify-email/ui/verify-email-feature.tsx:92
 #: src/shared/lib/use-auth-api.ts:64
 msgid "Verification Failed"
 msgstr "Verification Failed"
@@ -1104,7 +1112,7 @@ msgstr "Verification Failed"
 msgid "Verify Your Email"
 msgstr "Verify Your Email"
 
-#: src/features/verify-email/ui/verify-email-feature.tsx:168
+#: src/features/verify-email/ui/verify-email-feature.tsx:106
 msgid "Verifying Email..."
 msgstr "Verifying Email..."
 
@@ -1145,7 +1153,7 @@ msgstr "We'll help you get back into your account"
 #~ msgid "Weak"
 #~ msgstr "Weak"
 
-#: src/pages/login.tsx:17
+#: src/pages/login.tsx:32
 msgid "Welcome Back"
 msgstr "Welcome Back"
 
@@ -1195,8 +1203,8 @@ msgid "Your account has been created. Please verify your email."
 msgstr "Your account has been created. Please verify your email."
 
 #: src/features/verify-email/ui/verify-email-feature.tsx:72
-msgid "Your email address has been verified. Redirecting to login..."
-msgstr "Your email address has been verified. Redirecting to login..."
+#~ msgid "Your email address has been verified. Redirecting to login..."
+#~ msgstr "Your email address has been verified. Redirecting to login..."
 
 #: src/shared/lib/use-auth-api.ts:59
 msgid "Your email has been successfully verified"

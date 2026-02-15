@@ -6,10 +6,16 @@ import { requireGuest } from "@/processes/auth";
 import { Alert, Stack } from "@mantine/core";
 import { IconCheck, IconX } from "@tabler/icons-react";
 
+type LoginSearch = {
+  verified?: string;
+  redirect?: string;
+};
+
 export const Route = createFileRoute("/login")({
-  validateSearch: (search: Record<string, unknown>) => {
+  validateSearch: (search: Record<string, unknown>): LoginSearch => {
     return {
       verified: search.verified as string | undefined,
+      redirect: search.redirect as string | undefined,
     };
   },
   beforeLoad: () => {
