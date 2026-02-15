@@ -40,13 +40,12 @@ export function VerifyEmailFeature() {
     if (search.token) {
       verifyEmailMutation.mutate(search.token, {
         onSuccess: () => {
-          setVerificationStatus("success");
-          setTimeout(() => {
-            navigate({ to: "/login" });
-          }, 3000);
+          // Redirect to login page with success message
+          navigate({ to: "/login", search: { verified: "success" } });
         },
         onError: () => {
-          setVerificationStatus("error");
+          // Redirect to login page with error message
+          navigate({ to: "/login", search: { verified: "error" } });
         },
       });
     } else if (!search.email) {
@@ -62,67 +61,6 @@ export function VerifyEmailFeature() {
       },
     });
   };
-
-  if (verificationStatus === "success") {
-    return (
-      <Stack gap="md">
-        <Alert icon={<IconCheck size={16} />} color="green" variant="light">
-          <Text fw={500}>{t`Email Successfully Verified`}</Text>
-          <Text size="sm" c="dimmed">
-            {t`Your email address has been verified. Redirecting to login...`}
-          </Text>
-        </Alert>
-        <Button
-          variant="light"
-          onClick={() => {
-            navigate({ to: "/login" });
-          }}
-          fullWidth
-        >
-          {t`Continue to Sign In`}
-        </Button>
-      </Stack>
-    );
-  }
-
-  if (verificationStatus === "error") {
-    return (
-      <Stack gap="md">
-        <Alert icon={<IconX size={16} />} color="red" variant="light">
-          <Text fw={500}>{t`Verification Failed`}</Text>
-          <Text size="sm" c="dimmed">
-            {t`The verification link is invalid or has expired. You can request a new verification email below.`}
-          </Text>
-        </Alert>
-        <form onSubmit={form.onSubmit(handleResendVerification)}>
-          <Stack gap="md">
-            <EmailField
-              form={form}
-              label={t`Email Address`}
-              placeholder={t`Enter your email address`}
-              data-testid="verify-email-input-email"
-            />
-            <Button
-              type="submit"
-              loading={resendVerificationMutation.isPending}
-              fullWidth
-            >
-              {t`Resend Verification Email`}
-            </Button>
-          </Stack>
-        </form>
-        <Button
-          variant="subtle"
-          onClick={() => {
-            navigate({ to: "/login" });
-          }}
-          fullWidth
-        >
-          {t`Back to Sign In`}
-        </Button>
-      </Stack>
-    );
-  }
 
   if (verificationStatus === "resend") {
     return (
@@ -161,7 +99,7 @@ export function VerifyEmailFeature() {
     );
   }
 
-  // Pending verification
+  // Pending verification - show loading state
   return (
     <Stack gap="md">
       <Alert icon={<IconMail size={16} />} color="blue" variant="light">
