@@ -7,15 +7,15 @@ import { Alert, Stack } from "@mantine/core";
 import { IconCheck, IconX } from "@tabler/icons-react";
 
 export const Route = createFileRoute("/login")({
-  beforeLoad: () => {
-    requireGuest();
-  },
-  component: LoginPage,
   validateSearch: (search: Record<string, unknown>) => {
     return {
       verified: search.verified as string | undefined,
     };
   },
+  beforeLoad: () => {
+    requireGuest();
+  },
+  component: LoginPage,
 });
 
 function LoginPage() {
