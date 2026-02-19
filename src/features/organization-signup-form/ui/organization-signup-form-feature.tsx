@@ -1,4 +1,12 @@
-import { Button, Group, Stack, TextInput, Collapse, Text, PasswordInput } from "@mantine/core";
+import {
+  Button,
+  Group,
+  Stack,
+  TextInput,
+  Collapse,
+  Text,
+  PasswordInput,
+} from "@mantine/core";
 import { IconBuildingSkyscraper, IconChevronDown } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
 import { t } from "@lingui/core/macro";
@@ -6,10 +14,7 @@ import { useState, useMemo } from "react";
 import { type OrganizationSignupResponse } from "@/shared/api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
 import { useOrganizationSignup } from "@/shared/lib/use-auth-api";
-import {
-  AuthFormCard,
-  AuthLinkToLogin,
-} from "@/shared/ui";
+import { AuthFormCard, AuthLinkToLogin } from "@/shared/ui";
 import {
   organizationSignUpFormSchema,
   initialOrganizationSignUpValues,
@@ -167,7 +172,9 @@ export function OrganizationSignUpFormFeature({
             <Stack gap="md">
               <TextInput
                 label={t`Custom Tenant ID`}
-                placeholder={previewTenantId || t`Auto-generated from organization name`}
+                placeholder={
+                  previewTenantId || t`Auto-generated from organization name`
+                }
                 description={t`Leave empty to auto-generate. Only lowercase letters, numbers, and hyphens allowed.`}
                 data-testid="org-signup-input-tenant-id"
                 {...form.getInputProps("tenantId")}
