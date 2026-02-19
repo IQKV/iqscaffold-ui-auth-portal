@@ -1,4 +1,4 @@
-import { Button, Group, Stack } from "@mantine/core";
+import { Button, Group, Stack, Text } from "@mantine/core";
 import { useNavigate } from "@tanstack/react-router";
 import { useFormMutation } from "@/shared/lib/use-form-mutation";
 import { t } from "@lingui/core/macro";
@@ -131,6 +131,17 @@ export function SignInFormFeature({
             onClick={handleNavigateToRegister}
             data-testid="signin-link-register"
           />
+
+          <Text size="sm" c="dimmed" ta="center">
+            {t`Want to start a new organization?`}{" "}
+            <Button
+              variant="subtle"
+              size="compact-sm"
+              onClick={() => navigate({ to: "/signup-organization" })}
+            >
+              {t`Create organization`}
+            </Button>
+          </Text>
         </Stack>
       </form>
     </AuthFormCard>

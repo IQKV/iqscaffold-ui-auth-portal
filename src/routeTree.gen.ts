@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from "./pages/__root"
 import { Route as VerifyEmailRouteImport } from "./pages/verify-email"
+import { Route as SignupOrganizationRouteImport } from "./pages/signup-organization"
 import { Route as ResetPasswordRouteImport } from "./pages/reset-password"
 import { Route as RegisterRouteImport } from "./pages/register"
 import { Route as LoginRouteImport } from "./pages/login"
@@ -20,6 +21,11 @@ import { Route as IndexRouteImport } from "./pages/index"
 const VerifyEmailRoute = VerifyEmailRouteImport.update({
   id: "/verify-email",
   path: "/verify-email",
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupOrganizationRoute = SignupOrganizationRouteImport.update({
+  id: "/signup-organization",
+  path: "/signup-organization",
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   "/login": typeof LoginRoute
   "/register": typeof RegisterRoute
   "/reset-password": typeof ResetPasswordRoute
+  "/signup-organization": typeof SignupOrganizationRoute
   "/verify-email": typeof VerifyEmailRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   "/login": typeof LoginRoute
   "/register": typeof RegisterRoute
   "/reset-password": typeof ResetPasswordRoute
+  "/signup-organization": typeof SignupOrganizationRoute
   "/verify-email": typeof VerifyEmailRoute
 }
 export interface FileRoutesById {
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   "/login": typeof LoginRoute
   "/register": typeof RegisterRoute
   "/reset-password": typeof ResetPasswordRoute
+  "/signup-organization": typeof SignupOrganizationRoute
   "/verify-email": typeof VerifyEmailRoute
 }
 export interface FileRouteTypes {
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
     | "/login"
     | "/register"
     | "/reset-password"
+    | "/signup-organization"
     | "/verify-email"
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | "/login"
     | "/register"
     | "/reset-password"
+    | "/signup-organization"
     | "/verify-email"
   id:
     | "__root__"
@@ -108,6 +119,7 @@ export interface FileRouteTypes {
     | "/login"
     | "/register"
     | "/reset-password"
+    | "/signup-organization"
     | "/verify-email"
   fileRoutesById: FileRoutesById
 }
@@ -118,6 +130,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  SignupOrganizationRoute: typeof SignupOrganizationRoute
   VerifyEmailRoute: typeof VerifyEmailRoute
 }
 
@@ -128,6 +141,13 @@ declare module "@tanstack/react-router" {
       path: "/verify-email"
       fullPath: "/verify-email"
       preLoaderRoute: typeof VerifyEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/signup-organization": {
+      id: "/signup-organization"
+      path: "/signup-organization"
+      fullPath: "/signup-organization"
+      preLoaderRoute: typeof SignupOrganizationRouteImport
       parentRoute: typeof rootRouteImport
     }
     "/reset-password": {
@@ -182,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  SignupOrganizationRoute: SignupOrganizationRoute,
   VerifyEmailRoute: VerifyEmailRoute,
 }
 export const routeTree = rootRouteImport

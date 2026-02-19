@@ -10,7 +10,8 @@ export const createValidationSchemas = () => ({
   email: z
     .string()
     .min(1, t`Email is required`)
-    .email(t`Please enter a valid email address`),
+    .email(t`Please enter a valid email address`)
+    .max(255, t`Email must be less than 255 characters`),
 
   password: z
     .string()

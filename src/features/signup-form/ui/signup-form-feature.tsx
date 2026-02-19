@@ -1,4 +1,4 @@
-import { Button, Group, Stack } from "@mantine/core";
+import { Button, Group, Stack, Text } from "@mantine/core";
 import { IconUserPlus } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
 import { t } from "@lingui/core/macro";
@@ -108,6 +108,17 @@ export function SignUpFormFeature({
           >
             {t`Create Account`}
           </Button>
+
+          <Text size="sm" c="dimmed" ta="center">
+            {t`Want to start a new organization?`}{" "}
+            <Button
+              variant="subtle"
+              size="compact-sm"
+              onClick={() => navigate({ to: "/signup-organization" })}
+            >
+              {t`Create organization`}
+            </Button>
+          </Text>
 
           <AuthLinkToLogin
             onClick={handleNavigateToLogin}

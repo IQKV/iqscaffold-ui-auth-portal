@@ -77,6 +77,35 @@ export interface ValidateResetTokenResponse {
 }
 
 /**
+ * Organization signup types
+ */
+export interface OrganizationSignupRequest {
+  organizationName: string;
+  adminUsername: string;
+  adminEmail: string;
+  adminPassword: string;
+  adminFirstName: string;
+  adminLastName: string;
+  tenantId?: string;
+  domain?: string;
+}
+
+export interface OrganizationSignupResponse {
+  tenantId: string;
+  organizationName: string;
+  organizationId: number;
+  adminUserId: number;
+  adminUsername: string;
+  adminEmail: string;
+  adminFirstName: string;
+  adminLastName: string;
+  emailVerificationRequired: boolean;
+  createdAt: string;
+  message: string;
+  nextSteps: string;
+}
+
+/**
  * Authentication API
  */
 export const authApi = {
@@ -182,6 +211,20 @@ export const authApi = {
     const response = await apiClient.post<ValidateTokenResponse>(
       config.endpoints.validateToken,
       { token }
+    );
+    return response.data;
+  },
+
+  /**
+   * Self-service organization signup
+   * Creates a complete tenant environment with organization and admin user
+   */
+  async signupOrganization(
+    data: OrganizationSignupRequest
+  ): Promise<OrganizationSignupResponse> {
+    const response = await apiClient.post<OrganizationSignupResponse>(
+      "/v1/public/signup",
+      data
     );
     return response.data;
   },

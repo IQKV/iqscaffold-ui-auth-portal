@@ -10,4 +10,6 @@ export type {
   ValidateResetTokenResponse,
   AuthUser,
   UserRegistration,
+  OrganizationSignupRequest,
+  OrganizationSignupResponse,
 } from "./auth-api";

@@ -147,3 +147,25 @@ export function useSignup() {
     },
   });
 }
+
+/**
+ * Hook for organization signup (self-service tenant provisioning)
+ */
+export function useOrganizationSignup() {
+  return useMutation({
+    mutationFn: (data: Parameters<typeof authApi.signupOrganization>[0]) =>
+      authApi.signupOrganization(data),
+    onSuccess: (response) => {
+      notificationService.success({
+        title: t`Organization Created Successfully`,
+        message: response.message,
+      });
+    },
+    onError: (error: any) => {
+      notificationService.error({
+        title: t`Organization Signup Failed`,
+        message: error?.message || t`Failed to create organization`,
+      });
+    },
+  });
+}

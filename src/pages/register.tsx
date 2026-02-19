@@ -10,8 +10,8 @@ export const Route = createFileRoute("/register")({
 function RegisterPage() {
   return (
     <AuthLayout
-      title={t`Create Your Account`}
-      subtitle={t`Join IQ Scaffold and start your journey`}
+      title={t`Join Your Team`}
+      subtitle={t`Create your account to join an existing organization`}
       pageTitle={t`Sign Up`}
     >
       <SignUpFormFeature redirectToHome />
