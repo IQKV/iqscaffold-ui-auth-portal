@@ -59,27 +59,6 @@ export const createOrganizationSignUpFormSchema = () =>
         .min(1, t`Last name is required`)
         .max(100, t`Last name must be less than 100 characters`),
 
-      tenantId: z
-        .string()
-        .min(3, t`Tenant ID must be at least 3 characters`)
-        .max(100, t`Tenant ID must be less than 100 characters`)
-        .regex(
-          /^[a-z0-9-]+$/,
-          t`Tenant ID can only contain lowercase letters, numbers, and hyphens`
-        )
-        .optional()
-        .or(z.literal("")),
-
-      domain: z
-        .string()
-        .max(255, t`Domain must be less than 255 characters`)
-        .regex(
-          /^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i,
-          t`Please enter a valid domain name`
-        )
-        .optional()
-        .or(z.literal("")),
-
       confirmPassword: z.string().min(1, t`Please confirm your password`),
     })
     .refine((data) => data.adminPassword === data.confirmPassword, {
@@ -120,7 +99,5 @@ export const initialOrganizationSignUpValues: OrganizationSignUpFormSchemaType =
     adminPassword: "",
     adminFirstName: "",
     adminLastName: "",
-    tenantId: "",
-    domain: "",
     confirmPassword: "",
   };

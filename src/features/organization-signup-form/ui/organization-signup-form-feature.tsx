@@ -3,14 +3,12 @@ import {
   Group,
   Stack,
   TextInput,
-  Collapse,
   Text,
   PasswordInput,
 } from "@mantine/core";
-import { IconBuildingSkyscraper, IconChevronDown } from "@tabler/icons-react";
+import { IconBuildingSkyscraper } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
 import { t } from "@lingui/core/macro";
-import { useState, useMemo } from "react";
 import { type OrganizationSignupResponse } from "@/shared/api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
 import { useOrganizationSignup } from "@/shared/lib/use-auth-api";
@@ -31,7 +29,6 @@ export function OrganizationSignUpFormFeature({
   onNavigateToLogin,
 }: OrganizationSignUpFormFeatureProps) {
   const navigate = useNavigate();
-  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const form = useForm<OrganizationSignUpFormSchemaType>({
     initialValues: initialOrganizationSignUpValues,
@@ -40,31 +37,10 @@ export function OrganizationSignUpFormFeature({
 
   const organizationSignupMutation = useOrganizationSignup();
 
-  // Auto-generate tenant ID preview from organization name
-  const previewTenantId = useMemo(() => {
-    const orgName = form.values.organizationName;
-    if (orgName && !form.values.tenantId) {
-      return orgName
-        .toLowerCase()
-        .replace(/[^a-z0-9]/g, "-")
-        .replace(/-+/g, "-")
-        .replace(/^-|-$/g, "")
-        .substring(0, 50);
-    }
-    return "";
-  }, [form.values.organizationName, form.values.tenantId]);
-
   const handleSubmit = (values: OrganizationSignUpFormSchemaType) => {
     const { confirmPassword, ...signupData } = values;
 
-    // Remove empty optional fields
-    const cleanedData = {
-      ...signupData,
-      tenantId: signupData.tenantId || undefined,
-      domain: signupData.domain || undefined,
-    };
-
-    organizationSignupMutation.mutate(cleanedData, {
+    organizationSignupMutation.mutate(signupData, {
       onSuccess: (data) => {
         if (onSuccess) {
           onSuccess(data);
@@ -149,46 +125,6 @@ export function OrganizationSignUpFormFeature({
             data-testid="org-signup-input-confirm-password"
             {...form.getInputProps("confirmPassword")}
           />
-
-          {/* Advanced Options */}
-          <Button
-            variant="subtle"
-            size="xs"
-            onClick={() => setShowAdvanced(!showAdvanced)}
-            rightSection={
-              <IconChevronDown
-                size={16}
-                style={{
-                  transform: showAdvanced ? "rotate(180deg)" : "none",
-                  transition: "transform 0.2s",
-                }}
-              />
-            }
-          >
-            {t`Advanced Options`}
-          </Button>
-
-          <Collapse in={showAdvanced}>
-            <Stack gap="md">
-              <TextInput
-                label={t`Custom Tenant ID`}
-                placeholder={
-                  previewTenantId || t`Auto-generated from organization name`
-                }
-                description={t`Leave empty to auto-generate. Only lowercase letters, numbers, and hyphens allowed.`}
-                data-testid="org-signup-input-tenant-id"
-                {...form.getInputProps("tenantId")}
-              />
-
-              <TextInput
-                label={t`Custom Domain`}
-                placeholder="acme.example.com"
-                description={t`Optional custom domain for your organization`}
-                data-testid="org-signup-input-domain"
-                {...form.getInputProps("domain")}
-              />
-            </Stack>
-          </Collapse>
 
           <Button
             type="submit"

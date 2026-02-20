@@ -9,7 +9,5 @@ export interface OrganizationSignupFormValues {
   adminPassword: string;
   adminFirstName: string;
   adminLastName: string;
-  tenantId?: string;
-  domain?: string;
   confirmPassword: string;
 }
