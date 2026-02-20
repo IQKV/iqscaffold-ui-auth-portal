@@ -190,8 +190,10 @@ describe("FSD Architecture", () => {
       const pages = readdirSync(pagesDir).filter((f) => f.endsWith(".tsx"));
 
       pages.forEach((page) => {
+        // Allow kebab-case with optional $ and . for TanStack Router params
+        // Route params can use PascalCase after $, e.g., $invitationCode
         const isValid =
-          /^[a-z0-9-_]+\.tsx$/.test(page) || page.startsWith("__");
+          /^[a-z0-9-_$.A-Z]+\.tsx$/.test(page) || page.startsWith("__");
         expect(isValid, `Page "${page}" should use kebab-case`).toBe(true);
       });
     });
