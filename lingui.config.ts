@@ -3,6 +3,8 @@ import type { LinguiConfig } from "@lingui/conf";
 const config: LinguiConfig = {
   locales: [
     "en", // English
+    "ru", // Russian
+    "it", // Italian
   ],
   catalogs: [
     {

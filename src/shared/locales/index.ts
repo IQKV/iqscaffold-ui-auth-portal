@@ -6,16 +6,20 @@ import { messages } from "../../../locales/en";
 i18n.load("en", messages);
 i18n.activate("en");
 
-export type SupportedLocales = "en";
+export type SupportedLocales = "en" | "ru" | "it";
 
-export const availableLocales = ["en"];
+export const availableLocales = ["en", "ru", "it"];
 
 export const localeToFlagEmojiMap: Record<SupportedLocales, string> = {
   en: "🇬🇧",
+  ru: "🇷🇺",
+  it: "🇮🇹",
 };
 
 export const localeToNameMap: Record<SupportedLocales, string> = {
   en: `English`,
+  ru: `Русский`,
+  it: `Italiano`,
 };
 
 export const getLocaleName = (locale: SupportedLocales) => {

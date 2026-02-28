@@ -1,0 +1,605 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-09-19 18:34+0300\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: it\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. placeholder {0}: localeToNameMap[locale]
+#: src/shared/locales/index.ts:23
+msgid "{0}"
+msgstr "{0}"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:98
+#: src/shared/ui/auth-form-fields/username-field.tsx:39
+msgid "3-50 characters, letters, numbers, and underscores only"
+msgstr "3-50 caratteri, solo lettere, numeri e trattini bassi"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:116
+msgid "8+ characters with uppercase, lowercase, number, and special character"
+msgstr "8+ caratteri con maiuscole, minuscole, numeri e caratteri speciali"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:70
+msgid "ACME Corporation"
+msgstr "ACME Corporation"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:104
+msgid "Admin Email"
+msgstr "Email amministratore"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:79
+msgid "Admin First Name"
+msgstr "Nome amministratore"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:86
+msgid "Admin Last Name"
+msgstr "Cognome amministratore"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:113
+msgid "Admin Password"
+msgstr "Password amministratore"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:95
+msgid "Admin Username"
+msgstr "Nome utente amministratore"
+
+#: src/shared/ui/auth-navigation/auth-navigation.tsx:17
+msgid "Already have an account? Sign in"
+msgstr "Hai già un account? Accedi"
+
+#: src/shared/lib/use-invitation-api.ts:39
+msgid "An error occurred during signup. Please try again."
+msgstr "Si è verificato un errore durante la registrazione. Riprova."
+
+#: src/shared/ui/confirmation-modal/confirm-context-modal.tsx:23
+#: src/shared/ui/confirmation-modal/confirmation-modal.tsx:23
+#: src/shared/ui/confirmation-modal/open-confirm.ts:16
+msgid "Are you sure you want to proceed?"
+msgstr "Sei sicuro di voler procedere?"
+
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:108
+#: src/features/verify-email/ui/verify-email-feature.tsx:95
+#: src/shared/ui/auth-navigation/auth-navigation.tsx:72
+msgid "Back to Sign In"
+msgstr "Torna all'accesso"
+
+#: src/shared/ui/msw-dev-tools.tsx:100
+msgid "Bypass (allow through)"
+msgstr "Ignora (consenti)"
+
+#: src/shared/ui/confirmation-modal/confirm-context-modal.tsx:25
+#: src/shared/ui/confirmation-modal/confirmation-modal.tsx:25
+#: src/shared/ui/confirmation-modal/open-confirm.ts:18
+msgid "Cancel"
+msgstr "Annulla"
+
+#: src/pages/join.$invitationCode.tsx:89
+msgid "Complete the form below to join the organization"
+msgstr "Completa il modulo qui sotto per unirti all'organizzazione"
+
+#: src/pages/verify-email.tsx:20
+msgid "Complete your account setup by verifying your email address"
+msgstr "Completa la configurazione del tuo account verificando il tuo indirizzo email"
+
+#: src/shared/ui/confirmation-modal/confirm-context-modal.tsx:24
+#: src/shared/ui/confirmation-modal/confirmation-modal.tsx:24
+#: src/shared/ui/confirmation-modal/open-confirm.ts:17
+msgid "Confirm"
+msgstr "Conferma"
+
+#: src/shared/ui/confirmation-modal/confirm-context-modal.tsx:22
+#: src/shared/ui/confirmation-modal/confirmation-modal.tsx:22
+#: src/shared/ui/confirmation-modal/open-confirm.ts:15
+msgid "Confirm Action"
+msgstr "Conferma azione"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:122
+#: src/shared/ui/auth-form-fields/confirm-password-field.tsx:21
+msgid "Confirm Password"
+msgstr "Conferma password"
+
+#: src/shared/ui/auth-form-fields/confirm-password-field.tsx:22
+msgid "Confirm your password"
+msgstr "Conferma la tua password"
+
+#: src/shared/ui/auth-form-fields/password-field.tsx:26
+msgid "Create a strong password"
+msgstr "Crea una password sicura"
+
+#: src/pages/reset-password.tsx:19
+msgid "Create a strong password for your account"
+msgstr "Crea una password sicura per il tuo account"
+
+#: src/features/signup-form/ui/signup-form-feature.tsx:109
+msgid "Create Account"
+msgstr "Crea account"
+
+#: src/features/signin-form/ui/signin-form-feature.tsx:142
+#: src/features/signup-form/ui/signup-form-feature.tsx:119
+msgid "Create organization"
+msgstr "Crea organizzazione"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:136
+msgid "Create Organization"
+msgstr "Crea organizzazione"
+
+#: src/pages/register.tsx:14
+msgid "Create your account to join an existing organization"
+msgstr "Crea il tuo account per unirti a un'organizzazione esistente"
+
+#: src/pages/signup-organization.tsx:14
+msgid "Create your tenant environment and invite your team"
+msgstr "Crea il tuo ambiente e invita il tuo team"
+
+#: src/shared/ui/msw-dev-tools.tsx:79
+msgid "Disable MSW"
+msgstr "Disabilita MSW"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:87
+#: src/shared/ui/auth-form-fields/name-field.tsx:23
+msgid "Doe"
+msgstr "Rossi"
+
+#: src/shared/ui/auth-navigation/auth-navigation.tsx:34
+msgid "Don't have an account? Sign up"
+msgstr "Non hai un account? Registrati"
+
+#: src/shared/ui/auth-form-fields/email-field.tsx:18
+msgid "Email"
+msgstr "Email"
+
+#: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:62
+#: src/features/verify-email/ui/verify-email-feature.tsx:77
+msgid "Email Address"
+msgstr "Indirizzo email"
+
+#: src/features/organization-signup-form/model/validation.ts:28
+#: src/shared/lib/form-validation.ts:12
+msgid "Email is required"
+msgstr "L'email è obbligatoria"
+
+#: src/features/organization-signup-form/model/validation.ts:30
+#: src/shared/lib/form-validation.ts:14
+msgid "Email must be less than 255 characters"
+msgstr "L'email deve essere inferiore a 255 caratteri"
+
+#: src/pages/verify-email.tsx:21
+msgid "Email Verification"
+msgstr "Verifica email"
+
+#: src/pages/login.tsx:44
+msgid "Email verification failed. The link may be invalid or expired."
+msgstr "Verifica email fallita. Il link potrebbe essere non valido o scaduto."
+
+#: src/features/verify-email/ui/verify-email-feature.tsx:70
+msgid "Email Verification Required"
+msgstr "Verifica email richiesta"
+
+#: src/shared/lib/use-auth-api.ts:58
+msgid "Email Verified"
+msgstr "Email verificata"
+
+#: src/pages/login.tsx:39
+msgid "Email verified successfully! You can now sign in."
+msgstr "Email verificata con successo! Ora puoi accedere."
+
+#: src/shared/ui/msw-dev-tools.tsx:86
+msgid "Enable logging"
+msgstr "Abilita registrazione"
+
+#: src/shared/ui/msw-dev-tools.tsx:79
+msgid "Enable MSW"
+msgstr "Abilita MSW"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:114
+msgid "Enter a strong password"
+msgstr "Inserisci una password sicura"
+
+#: src/features/signup-with-invitation/ui/SignupWithInvitationForm.tsx:102
+msgid "Enter username"
+msgstr "Inserisci nome utente"
+
+#: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:63
+#: src/features/verify-email/ui/verify-email-feature.tsx:78
+msgid "Enter your email address"
+msgstr "Inserisci il tuo indirizzo email"
+
+#: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:57
+msgid "Enter your email address and we'll send you a link to reset your password."
+msgstr "Inserisci il tuo indirizzo email e ti invieremo un link per reimpostare la password."
+
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:126
+msgid "Enter your new password"
+msgstr "Inserisci la tua nuova password"
+
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:120
+msgid "Enter your new password below. Make sure it's strong and secure."
+msgstr "Inserisci la tua nuova password qui sotto. Assicurati che sia forte e sicura."
+
+#: src/features/signin-form/ui/signin-form-feature.tsx:105
+msgid "Enter your password"
+msgstr "Inserisci la tua password"
+
+#: src/shared/ui/auth-form-fields/username-field.tsx:20
+msgid "Enter your username or email"
+msgstr "Inserisci il tuo nome utente o email"
+
+#: src/pages/join.$invitationCode.tsx:72
+msgid "Error"
+msgstr "Errore"
+
+#: src/shared/ui/msw-dev-tools.tsx:102
+msgid "Error (throw error)"
+msgstr "Errore (genera errore)"
+
+#: src/shared/lib/use-auth-api.ts:145
+msgid "Failed to create account"
+msgstr "Impossibile creare l'account"
+
+#: src/shared/lib/use-auth-api.ts:167
+msgid "Failed to create organization"
+msgstr "Impossibile creare l'organizzazione"
+
+#: src/shared/lib/use-auth-api.ts:123
+msgid "Failed to reset password"
+msgstr "Impossibile reimpostare la password"
+
+#: src/shared/lib/use-auth-api.ts:43
+msgid "Failed to Send Email"
+msgstr "Impossibile inviare l'email"
+
+#: src/shared/lib/use-auth-api.ts:101
+msgid "Failed to send password reset link"
+msgstr "Impossibile inviare il link per reimpostare la password"
+
+#: src/shared/lib/use-auth-api.ts:100
+msgid "Failed to Send Reset Link"
+msgstr "Impossibile inviare il link di reimpostazione"
+
+#: src/shared/lib/use-auth-api.ts:44
+msgid "Failed to send verification email"
+msgstr "Impossibile inviare l'email di verifica"
+
+#: src/shared/lib/use-auth-api.ts:23
+msgid "Failed to validate token"
+msgstr "Impossibile validare il token"
+
+#: src/shared/lib/use-auth-api.ts:67
+msgid "Failed to verify email. The link may be invalid or expired."
+msgstr "Impossibile verificare l'email. Il link potrebbe essere non valido o scaduto."
+
+#: src/shared/ui/auth-form-fields/name-field.tsx:22
+msgid "First Name"
+msgstr "Nome"
+
+#: src/features/organization-signup-form/model/validation.ts:53
+#: src/shared/lib/form-validation.ts:52
+msgid "First name is required"
+msgstr "Il nome è obbligatorio"
+
+#: src/features/organization-signup-form/model/validation.ts:54
+#: src/shared/lib/form-validation.ts:53
+msgid "First name must be less than 100 characters"
+msgstr "Il nome deve essere inferiore a 100 caratteri"
+
+#: src/pages/forgot-password.tsx:15
+msgid "Forgot Password"
+msgstr "Password dimenticata"
+
+#: src/shared/ui/auth-navigation/auth-navigation.tsx:52
+msgid "Forgot password?"
+msgstr "Password dimenticata?"
+
+#: src/pages/404.tsx:47
+msgid "Go Back"
+msgstr "Indietro"
+
+#: src/pages/404.tsx:55
+msgid "Go Home"
+msgstr "Vai alla home"
+
+#: src/features/signup-with-invitation/ui/InvitationExpired.tsx:29
+#: src/features/signup-with-invitation/ui/InvitationInvalid.tsx:29
+msgid "Go to Login"
+msgstr "Vai al login"
+
+#: src/shared/ui/msw-dev-tools.tsx:94
+msgid "How to handle requests without mocks"
+msgstr "Come gestire le richieste senza mock"
+
+#: src/features/signup-with-invitation/ui/InvitationInvalid.tsx:17
+msgid "Invalid Invitation"
+msgstr "Invito non valido"
+
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:98
+msgid "Invalid Reset Link"
+msgstr "Link di reimpostazione non valido"
+
+#: src/features/signup-with-invitation/ui/InvitationExpired.tsx:17
+msgid "Invitation Expired"
+msgstr "Invito scaduto"
+
+#: src/features/signup-with-invitation/ui/OrganizationPreview.tsx:78
+msgid "Invitation expires"
+msgstr "L'invito scade"
+
+#: src/features/signup-with-invitation/ui/OrganizationPreview.tsx:71
+msgid "Invited by"
+msgstr "Invitato da"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:80
+#: src/shared/ui/auth-form-fields/name-field.tsx:23
+msgid "John"
+msgstr "Mario"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:105
+#: src/shared/ui/auth-form-fields/email-field.tsx:19
+msgid "john.doe@example.com"
+msgstr "mario.rossi@example.com"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:96
+#: src/shared/ui/auth-form-fields/username-field.tsx:37
+msgid "johndoe"
+msgstr "mariorossi"
+
+#: src/features/signup-with-invitation/ui/SignupWithInvitationForm.tsx:124
+#: src/pages/join.$invitationCode.tsx:86
+msgid "Join Organization"
+msgstr "Unisciti all'organizzazione"
+
+#: src/pages/register.tsx:13
+msgid "Join Your Team"
+msgstr "Unisciti al tuo team"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:140
+msgid "Joining an existing team?"
+msgstr "Ti unisci a un team esistente?"
+
+#: src/shared/ui/auth-form-fields/name-field.tsx:22
+msgid "Last Name"
+msgstr "Cognome"
+
+#: src/features/organization-signup-form/model/validation.ts:59
+#: src/shared/lib/form-validation.ts:58
+msgid "Last name is required"
+msgstr "Il cognome è obbligatorio"
+
+#: src/features/organization-signup-form/model/validation.ts:60
+#: src/shared/lib/form-validation.ts:59
+msgid "Last name must be less than 100 characters"
+msgstr "Il cognome deve essere inferiore a 100 caratteri"
+
+#: src/shared/ui/msw-dev-tools.tsx:87
+msgid "Log MSW requests to console"
+msgstr "Registra le richieste MSW nella console"
+
+#: src/features/signin-form/ui/signin-form-feature.tsx:56
+msgid "Login Failed"
+msgstr "Accesso fallito"
+
+#: src/features/signin-form/ui/signin-form-feature.tsx:52
+msgid "Login Successful"
+msgstr "Accesso riuscito"
+
+#: src/shared/ui/auth-form-fields/password-field.tsx:27
+msgid "Min 8 characters with uppercase, lowercase, number, and special character"
+msgstr "Min 8 caratteri con maiuscole, minuscole, numeri e caratteri speciali"
+
+#: src/shared/ui/msw-dev-tools.tsx:55
+msgid "MSW Dev Tools"
+msgstr "Strumenti di sviluppo MSW"
+
+#: src/shared/lib/form-validation.ts:47
+msgid "Name must be less than 100 characters"
+msgstr "Il nome deve essere inferiore a 100 caratteri"
+
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:125
+msgid "New Password"
+msgstr "Nuova password"
+
+#: src/shared/lib/use-auth-api.ts:160
+msgid "Organization Created Successfully"
+msgstr "Organizzazione creata con successo"
+
+#: src/features/organization-signup-form/ui/organization-signup-form-feature.tsx:69
+msgid "Organization Name"
+msgstr "Nome organizzazione"
+
+#: src/features/organization-signup-form/model/validation.ts:14
+msgid "Organization name must be at least 2 characters"
+msgstr "Il nome dell'organizzazione deve essere di almeno 2 caratteri"
+
+#: src/features/organization-signup-form/model/validation.ts:15
+msgid "Organization name must be less than 255 characters"
+msgstr "Il nome dell'organizzazione deve essere inferiore a 255 caratteri"
+
+#: src/pages/signup-organization.tsx:15
+msgid "Organization Signup"
+msgstr "Registrazione organizzazione"
+
+#: src/shared/lib/use-auth-api.ts:166
+msgid "Organization Signup Failed"
+msgstr "Registrazione organizzazione fallita"
+
+#: src/pages/404.tsx:33
+msgid "Page Not Found"
+msgstr "Pagina non trovata"
+
+#: src/shared/ui/auth-form-fields/password-field.tsx:25
+msgid "Password"
+msgstr "Password"
+
+#: src/shared/lib/form-validation.ts:79
+msgid "Password is required"
+msgstr "La password è obbligatoria"
+
+#: src/features/organization-signup-form/model/validation.ts:34
+#: src/shared/lib/form-validation.ts:18
+msgid "Password must be at least 8 characters"
+msgstr "La password deve essere di almeno 8 caratteri"
+
+#: src/features/organization-signup-form/model/validation.ts:35
+#: src/shared/lib/form-validation.ts:19
+msgid "Password must be less than 100 characters"
+msgstr "La password deve essere inferiore a 100 caratteri"
+
+#: src/features/organization-signup-form/model/validation.ts:36
+#: src/shared/lib/form-validation.ts:20
+msgid "Password must contain at least one lowercase letter"
+msgstr "La password deve contenere almeno una lettera minuscola"
+
+#: src/features/organization-signup-form/model/validation.ts:37
+#: src/shared/lib/form-validation.ts:21
+msgid "Password must contain at least one number"
+msgstr "La password deve contenere almeno un numero"
+
+#: src/features/organization-signup-form/model/validation.ts:38
+#: src/shared/lib/form-validation.ts:22
+msgid "Password must contain at least one special character"
+msgstr "La password deve contenere almeno un carattere speciale"
+
+#: src/features/organization-signup-form/model/validation.ts:39
+#: src/shared/lib/form-validation.ts:23
+msgid "Password must contain at least one uppercase letter"
+msgstr "La password deve contenere almeno una lettera maiuscola"
+
+#: src/features/organization-signup-form/model/validation.ts:40
+#: src/shared/lib/form-validation.ts:24
+msgid "Passwords do not match"
+msgstr "Le password non corrispondono"
+
+#: src/shared/lib/use-auth-api.ts:122
+msgid "Password Reset Successful"
+msgstr "Reimpostazione password riuscita"
+
+#: src/pages/reset-password.tsx:18
+msgid "Reset Password"
+msgstr "Reimposta password"
+
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:99
+msgid "Reset your password using the form below."
+msgstr "Reimposta la tua password utilizzando il modulo qui sotto."
+
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:139
+msgid "Reset Password"
+msgstr "Reimposta password"
+
+#: src/shared/lib/use-auth-api.ts:82
+msgid "Reset link sent successfully"
+msgstr "Link di reimpostazione inviato con successo"
+
+#: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:76
+msgid "Send Reset Link"
+msgstr "Invia link di reimpostazione"
+
+#: src/features/verify-email/ui/verify-email-feature.tsx:88
+msgid "Send Verification Email"
+msgstr "Invia email di verifica"
+
+#: src/pages/login.tsx:17
+msgid "Sign In"
+msgstr "Accedi"
+
+#: src/features/signin-form/ui/signin-form-feature.tsx:122
+msgid "Sign In"
+msgstr "Accedi"
+
+#: src/pages/login.tsx:18
+msgid "Sign in to your account"
+msgstr "Accedi al tuo account"
+
+#: src/pages/signup-organization.tsx:13
+msgid "Sign Up"
+msgstr "Registrati"
+
+#: src/shared/lib/use-auth-api.ts:138
+msgid "Signup Successful"
+msgstr "Registrazione riuscita"
+
+#: src/shared/lib/use-auth-api.ts:144
+msgid "Signup Failed"
+msgstr "Registrazione fallita"
+
+#: src/features/signup-form/ui/signup-form-feature.tsx:141
+msgid "Sign up as individual"
+msgstr "Registrati come individuo"
+
+#: src/pages/login.tsx:34
+msgid "Success"
+msgstr "Successo"
+
+#: src/pages/login.tsx:35
+msgid "The operation was successful."
+msgstr "L'operazione è riuscita."
+
+#: src/features/reset-password-form/ui/reset-password-form-feature.tsx:99
+msgid "The reset link has expired or is invalid. Please request a new one."
+msgstr "Il link di reimpostazione è scaduto o non valido. Richiedine uno nuovo."
+
+#: src/features/signup-with-invitation/ui/InvitationExpired.tsx:20
+msgid "This invitation has expired. Please contact the organization administrator for a new invitation."
+msgstr "Questo invito è scaduto. Contatta l'amministratore dell'organizzazione per un nuovo invito."
+
+#: src/features/signup-with-invitation/ui/InvitationInvalid.tsx:20
+msgid "This invitation is invalid or has been revoked. Please contact the organization administrator."
+msgstr "Questo invito non è valido o è stato revocato. Contatta l'amministratore dell'organizzazione."
+
+#: src/pages/404.tsx:36
+msgid "The page you're looking for doesn't exist or has been moved."
+msgstr "La pagina che stai cercando non esiste o è stata spostata."
+
+#: src/shared/lib/form-validation.ts:29
+msgid "Username is required"
+msgstr "Il nome utente è obbligatorio"
+
+#: src/shared/lib/form-validation.ts:30
+msgid "Username must be at least 3 characters"
+msgstr "Il nome utente deve essere di almeno 3 caratteri"
+
+#: src/shared/lib/form-validation.ts:31
+msgid "Username must be less than 50 characters"
+msgstr "Il nome utente deve essere inferiore a 50 caratteri"
+
+#: src/shared/lib/form-validation.ts:32
+msgid "Username can only contain letters, numbers, and underscores"
+msgstr "Il nome utente può contenere solo lettere, numeri e trattini bassi"
+
+#: src/shared/ui/auth-form-fields/username-field.tsx:19
+msgid "Username"
+msgstr "Nome utente"
+
+#: src/shared/lib/form-validation.ts:38
+msgid "Username or email is required"
+msgstr "Nome utente o email obbligatori"
+
+#: src/shared/lib/form-validation.ts:39
+msgid "Username or email must be less than 255 characters"
+msgstr "Nome utente o email devono essere inferiori a 255 caratteri"
+
+#: src/shared/lib/form-validation.ts:13
+msgid "Valid email is required"
+msgstr "È richiesta un'email valida"
+
+#: src/features/verify-email/ui/verify-email-feature.tsx:71
+msgid "We've sent a verification email to your address. Please check your inbox and click the verification link."
+msgstr "Abbiamo inviato un'email di verifica al tuo indirizzo. Controlla la tua casella di posta e clicca sul link di verifica."
+
+#: src/features/forgot-password-form/ui/forgot-password-form-feature.tsx:58
+msgid "We'll send you instructions to reset your password."
+msgstr "Ti invieremo le istruzioni per reimpostare la password."
+
+#: src/pages/join.$invitationCode.tsx:88
+msgid "You've been invited to join"
+msgstr "Sei stato invitato a unirti"
+
+#: src/features/signup-with-invitation/ui/OrganizationPreview.tsx:64
+msgid "You're invited to join"
+msgstr "Sei invitato a unirti"

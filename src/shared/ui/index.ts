@@ -22,3 +22,4 @@ export {
   AuthLinkToForgotPassword,
   AuthLinkBackToLogin,
 } from "./auth-navigation";
+export { LocaleSwitcher } from "./locale-switcher";

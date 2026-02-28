@@ -1,7 +1,8 @@
-import { Box, Flex, Stack, Text, Title } from "@mantine/core";
+import { Box, Flex, Group, Stack, Text, Title } from "@mantine/core";
 import { ReactNode, useMemo } from "react";
 import { Helmet } from "@dr.pogodin/react-helmet";
 import { ThemeToggle } from "@/widgets/theme-toggle";
+import { LocaleSwitcher } from "@/shared/ui";
 import classes from "./auth-layout.module.css";
 
 interface AuthLayoutProps {
@@ -64,9 +65,12 @@ export function AuthLayout({
           }}
           data-testid="auth-layout-form-container"
         >
-          {/* Theme Toggle - Top Right */}
+          {/* Controls - Top Right */}
           <Box pos="absolute" top="1rem" right="1rem" style={{ zIndex: 10 }}>
-            <ThemeToggle />
+            <Group gap="sm">
+              <LocaleSwitcher />
+              <ThemeToggle />
+            </Group>
           </Box>
 
           <Flex
