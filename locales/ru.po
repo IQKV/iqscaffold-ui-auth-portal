@@ -122,7 +122,7 @@ msgstr "Создайте надежный пароль для вашего ак�
 msgid "Create Account"
 msgstr "Создать аккаунт"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:155
+#: src/features/signin-form/ui/signin-form-feature.tsx:157
 #: src/features/signup-form/ui/signup-form-feature.tsx:119
 msgid "Create organization"
 msgstr "Создать организацию"
@@ -224,7 +224,7 @@ msgstr "Введите ваш новый пароль"
 msgid "Enter your new password below. Make sure it's strong and secure."
 msgstr "Введите ваш новый пароль ниже. Убедитесь, что он надежный и безопасный."
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:118
+#: src/features/signin-form/ui/signin-form-feature.tsx:120
 msgid "Enter your password"
 msgstr "Введите ваш пароль"
 
@@ -377,7 +377,7 @@ msgstr "Фамилия обязательна"
 msgid "Last name must be less than 100 characters"
 msgstr "Фамилия должна быть меньше 100 символов"
 
-#: src/widgets/tenant-select/ui/tenant-select.tsx:56
+#: src/widgets/tenant-select/ui/tenant-select.tsx:60
 msgid "Loading organizations..."
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr "Имя должно быть меньше 100 символов"
 msgid "New Password"
 msgstr "Новый пароль"
 
-#: src/widgets/tenant-select/ui/tenant-select.tsx:55
+#: src/widgets/tenant-select/ui/tenant-select.tsx:58
 msgid "Organization"
 msgstr ""
 
@@ -603,7 +603,7 @@ msgstr ""
 msgid "Running"
 msgstr ""
 
-#: src/widgets/tenant-select/ui/tenant-select.tsx:56
+#: src/widgets/tenant-select/ui/tenant-select.tsx:60
 msgid "Select an organization"
 msgstr ""
 
@@ -619,7 +619,7 @@ msgstr "Отправить письмо для подтверждения"
 msgid "Set New Password"
 msgstr ""
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:140
+#: src/features/signin-form/ui/signin-form-feature.tsx:142
 #: src/pages/login.tsx:34
 msgid "Sign In"
 msgstr "Войти"
@@ -789,7 +789,7 @@ msgstr ""
 msgid "Verifying Email..."
 msgstr ""
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:149
+#: src/features/signin-form/ui/signin-form-feature.tsx:151
 #: src/features/signup-form/ui/signup-form-feature.tsx:113
 msgid "Want to start a new organization?"
 msgstr ""

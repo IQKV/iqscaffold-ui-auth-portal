@@ -122,7 +122,7 @@ msgstr "Crea una password sicura per il tuo account"
 msgid "Create Account"
 msgstr "Crea account"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:155
+#: src/features/signin-form/ui/signin-form-feature.tsx:157
 #: src/features/signup-form/ui/signup-form-feature.tsx:119
 msgid "Create organization"
 msgstr "Crea organizzazione"
@@ -224,7 +224,7 @@ msgstr "Inserisci la tua nuova password"
 msgid "Enter your new password below. Make sure it's strong and secure."
 msgstr "Inserisci la tua nuova password qui sotto. Assicurati che sia forte e sicura."
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:118
+#: src/features/signin-form/ui/signin-form-feature.tsx:120
 msgid "Enter your password"
 msgstr "Inserisci la tua password"
 
@@ -377,7 +377,7 @@ msgstr "Il cognome è obbligatorio"
 msgid "Last name must be less than 100 characters"
 msgstr "Il cognome deve essere inferiore a 100 caratteri"
 
-#: src/widgets/tenant-select/ui/tenant-select.tsx:56
+#: src/widgets/tenant-select/ui/tenant-select.tsx:60
 msgid "Loading organizations..."
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr "Il nome deve essere inferiore a 100 caratteri"
 msgid "New Password"
 msgstr "Nuova password"
 
-#: src/widgets/tenant-select/ui/tenant-select.tsx:55
+#: src/widgets/tenant-select/ui/tenant-select.tsx:58
 msgid "Organization"
 msgstr ""
 
@@ -603,7 +603,7 @@ msgstr ""
 msgid "Running"
 msgstr ""
 
-#: src/widgets/tenant-select/ui/tenant-select.tsx:56
+#: src/widgets/tenant-select/ui/tenant-select.tsx:60
 msgid "Select an organization"
 msgstr ""
 
@@ -619,7 +619,7 @@ msgstr "Invia email di verifica"
 msgid "Set New Password"
 msgstr ""
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:140
+#: src/features/signin-form/ui/signin-form-feature.tsx:142
 #: src/pages/login.tsx:34
 msgid "Sign In"
 msgstr "Accedi"
@@ -789,7 +789,7 @@ msgstr ""
 msgid "Verifying Email..."
 msgstr ""
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:149
+#: src/features/signin-form/ui/signin-form-feature.tsx:151
 #: src/features/signup-form/ui/signup-form-feature.tsx:113
 msgid "Want to start a new organization?"
 msgstr ""

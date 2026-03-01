@@ -43,7 +43,9 @@ export function TenantSelect({
 
   // Convert tenant map to Select options format
   const options = useMemo(() => {
-    if (!availableTenants) {return [];}
+    if (!availableTenants) {
+      return [];
+    }
 
     return Object.entries(availableTenants).map(
       ([tenantId, organizationName]) => ({
