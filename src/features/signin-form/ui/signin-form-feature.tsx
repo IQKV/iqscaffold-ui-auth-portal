@@ -64,12 +64,27 @@ export function SignInFormFeature({
         if (onSuccess) {
           onSuccess();
         } else {
+          // Get tokens from auth store
+          const accessToken = useAuthStore.getState().accessToken;
+          const refreshToken = useAuthStore.getState().refreshToken;
+
           // Check for returnTo parameter in URL
           const urlParams = new URLSearchParams(window.location.search);
           const returnToUrl = urlParams.get("returnTo");
 
           // Redirect to returnTo URL or default to app domain
-          const targetUrl = returnToUrl || authConfig.redirects.afterLogin;
+          let targetUrl = returnToUrl || authConfig.redirects.afterLogin;
+
+          // Pass tokens via URL parameters for cross-domain authentication
+          if (accessToken && refreshToken) {
+            const separator = targetUrl.includes("?") ? "&" : "?";
+            const tokenParams = new URLSearchParams({
+              access_token: accessToken,
+              refresh_token: refreshToken,
+            });
+            targetUrl = `${targetUrl}${separator}${tokenParams.toString()}`;
+          }
+
           window.location.href = targetUrl;
         }
       },

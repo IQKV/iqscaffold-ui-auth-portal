@@ -235,7 +235,7 @@ msgstr "Create Account"
 #~ msgid "Create New User"
 #~ msgstr "Create New User"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:157
+#: src/features/signin-form/ui/signin-form-feature.tsx:172
 #: src/features/signup-form/ui/signup-form-feature.tsx:119
 msgid "Create organization"
 msgstr "Create organization"
@@ -438,7 +438,7 @@ msgstr "Enter your new password"
 msgid "Enter your new password below. Make sure it's strong and secure."
 msgstr "Enter your new password below. Make sure it's strong and secure."
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:120
+#: src/features/signin-form/ui/signin-form-feature.tsx:135
 msgid "Enter your password"
 msgstr "Enter your password"
 
@@ -1129,7 +1129,7 @@ msgstr "Set New Password"
 #~ msgid "Set VITE_ENABLE_MSW=true in your .env file"
 #~ msgstr "Set VITE_ENABLE_MSW=true in your .env file"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:142
+#: src/features/signin-form/ui/signin-form-feature.tsx:157
 #: src/pages/login.tsx:34
 msgid "Sign In"
 msgstr "Sign In"
@@ -1373,7 +1373,7 @@ msgstr "Verifying Email..."
 #~ msgid "Very Weak"
 #~ msgstr "Very Weak"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:151
+#: src/features/signin-form/ui/signin-form-feature.tsx:166
 #: src/features/signup-form/ui/signup-form-feature.tsx:113
 msgid "Want to start a new organization?"
 msgstr "Want to start a new organization?"

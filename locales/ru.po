@@ -122,7 +122,7 @@ msgstr "Создайте надежный пароль для вашего ак�
 msgid "Create Account"
 msgstr "Создать аккаунт"
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:157
+#: src/features/signin-form/ui/signin-form-feature.tsx:172
 #: src/features/signup-form/ui/signup-form-feature.tsx:119
 msgid "Create organization"
 msgstr "Создать организацию"
@@ -224,7 +224,7 @@ msgstr "Введите ваш новый пароль"
 msgid "Enter your new password below. Make sure it's strong and secure."
 msgstr "Введите ваш новый пароль ниже. Убедитесь, что он надежный и безопасный."
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:120
+#: src/features/signin-form/ui/signin-form-feature.tsx:135
 msgid "Enter your password"
 msgstr "Введите ваш пароль"
 
@@ -619,7 +619,7 @@ msgstr "Отправить письмо для подтверждения"
 msgid "Set New Password"
 msgstr ""
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:142
+#: src/features/signin-form/ui/signin-form-feature.tsx:157
 #: src/pages/login.tsx:34
 msgid "Sign In"
 msgstr "Войти"
@@ -789,7 +789,7 @@ msgstr ""
 msgid "Verifying Email..."
 msgstr ""
 
-#: src/features/signin-form/ui/signin-form-feature.tsx:151
+#: src/features/signin-form/ui/signin-form-feature.tsx:166
 #: src/features/signup-form/ui/signup-form-feature.tsx:113
 msgid "Want to start a new organization?"
 msgstr ""
