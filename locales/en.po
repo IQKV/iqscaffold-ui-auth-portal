@@ -691,7 +691,7 @@ msgstr "Last name must be less than 100 characters"
 #~ msgid "Leave empty to auto-generate. Only lowercase letters, numbers, and hyphens allowed."
 #~ msgstr "Leave empty to auto-generate. Only lowercase letters, numbers, and hyphens allowed."
 
-#: src/widgets/tenant-select/ui/tenant-select.tsx:60
+#: src/widgets/tenant-select/ui/tenant-select.tsx:62
 msgid "Loading organizations..."
 msgstr "Loading organizations..."
 
@@ -812,7 +812,7 @@ msgstr "New Password"
 #~ msgid "Optional custom domain for your organization"
 #~ msgstr "Optional custom domain for your organization"
 
-#: src/widgets/tenant-select/ui/tenant-select.tsx:58
+#: src/widgets/tenant-select/ui/tenant-select.tsx:60
 msgid "Organization"
 msgstr "Organization"
 
@@ -1101,7 +1101,7 @@ msgstr "Running"
 #~ msgid "Security Settings"
 #~ msgstr "Security Settings"
 
-#: src/widgets/tenant-select/ui/tenant-select.tsx:60
+#: src/widgets/tenant-select/ui/tenant-select.tsx:62
 msgid "Select an organization"
 msgstr "Select an organization"
 

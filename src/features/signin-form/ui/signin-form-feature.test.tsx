@@ -26,7 +26,7 @@ vi.mock("@/app/config", () => ({
     handlers: [],
   }),
   getConfig: (key: string) => {
-    if (key === "VITE_API_SERVER_URL") return "https://api.example.com";
+    if (key === "VITE_API_SERVER_URL") {return "https://api.example.com";}
     return "";
   },
 }));

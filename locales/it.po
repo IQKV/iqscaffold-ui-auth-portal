@@ -377,7 +377,7 @@ msgstr "Il cognome è obbligatorio"
 msgid "Last name must be less than 100 characters"
 msgstr "Il cognome deve essere inferiore a 100 caratteri"
 
-#: src/widgets/tenant-select/ui/tenant-select.tsx:60
+#: src/widgets/tenant-select/ui/tenant-select.tsx:62
 msgid "Loading organizations..."
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr "Il nome deve essere inferiore a 100 caratteri"
 msgid "New Password"
 msgstr "Nuova password"
 
-#: src/widgets/tenant-select/ui/tenant-select.tsx:58
+#: src/widgets/tenant-select/ui/tenant-select.tsx:60
 msgid "Organization"
 msgstr ""
 
@@ -603,7 +603,7 @@ msgstr ""
 msgid "Running"
 msgstr ""
 
-#: src/widgets/tenant-select/ui/tenant-select.tsx:60
+#: src/widgets/tenant-select/ui/tenant-select.tsx:62
 msgid "Select an organization"
 msgstr ""
 

@@ -377,7 +377,7 @@ msgstr "Фамилия обязательна"
 msgid "Last name must be less than 100 characters"
 msgstr "Фамилия должна быть меньше 100 символов"
 
-#: src/widgets/tenant-select/ui/tenant-select.tsx:60
+#: src/widgets/tenant-select/ui/tenant-select.tsx:62
 msgid "Loading organizations..."
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr "Имя должно быть меньше 100 символов"
 msgid "New Password"
 msgstr "Новый пароль"
 
-#: src/widgets/tenant-select/ui/tenant-select.tsx:58
+#: src/widgets/tenant-select/ui/tenant-select.tsx:60
 msgid "Organization"
 msgstr ""
 
@@ -603,7 +603,7 @@ msgstr ""
 msgid "Running"
 msgstr ""
 
-#: src/widgets/tenant-select/ui/tenant-select.tsx:60
+#: src/widgets/tenant-select/ui/tenant-select.tsx:62
 msgid "Select an organization"
 msgstr ""
 
