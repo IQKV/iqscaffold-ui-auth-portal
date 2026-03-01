@@ -12,6 +12,7 @@ export type SignInFormSchemaType = z.infer<typeof signInFormSchema>;
 export const initialSignInValues: SignInFormSchemaType = {
   username: "",
   password: "",
+  tenantId: "default", // Default tenant for MVP
   rememberMe: false,
 };
 

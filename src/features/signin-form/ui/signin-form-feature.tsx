@@ -3,6 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useFormMutation } from "@/shared/lib/use-form-mutation";
 import { t } from "@lingui/core/macro";
 import { useAuthStore } from "@/processes/auth";
+import { useTenantStore } from "@/processes/tenant";
 import { getAuthConfig } from "@/app/config";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
 import {
@@ -13,6 +14,7 @@ import {
   AuthLinkToRegister,
   AuthLinkToForgotPassword,
 } from "@/shared/ui";
+import { TenantSelect } from "@/widgets";
 import {
   signInFormSchema,
   initialSignInValues,
@@ -36,6 +38,7 @@ export function SignInFormFeature({
   const authConfig = getAuthConfig();
   const login = useAuthStore((state) => state.login);
   const isLoading = useAuthStore((state) => state.isLoading);
+  const setTenantId = useTenantStore((state) => state.setTenantId);
 
   const form = useForm<SignInFormSchemaType>({
     initialValues: initialSignInValues,
@@ -45,6 +48,8 @@ export function SignInFormFeature({
   const loginMutation = useFormMutation(
     form,
     async (values: SignInFormSchemaType) => {
+      // Set tenant ID before login to ensure it's in the request header
+      setTenantId(values.tenantId);
       await login(values);
     },
     {
@@ -95,6 +100,16 @@ export function SignInFormFeature({
     <AuthFormCard data-testid="signin-form">
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
+          <TenantSelect
+            value={form.values.tenantId}
+            onChange={(value) =>
+              form.setFieldValue("tenantId", value || "default")
+            }
+            error={form.errors.tenantId}
+            required
+            data-testid="signin-select-tenant"
+          />
+
           <SignInUsernameField
             form={form}
             data-testid="signin-input-username"

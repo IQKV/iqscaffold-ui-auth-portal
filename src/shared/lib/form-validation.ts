@@ -132,6 +132,7 @@ export const createFormSchemas = () => {
     signIn: createFormSchema({
       username: schemas.usernameOrEmail,
       password: schemas.simplePassword,
+      tenantId: z.string().min(1, t`Organization is required`),
       rememberMe: z.boolean().default(false),
     }),
 
