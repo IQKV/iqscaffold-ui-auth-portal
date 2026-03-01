@@ -21,6 +21,14 @@ vi.mock("@/app/config", () => ({
       afterLogin: "https://app.example.com",
     },
   }),
+  getFinalMSWConfig: () => ({
+    enabled: false,
+    handlers: [],
+  }),
+  getConfig: (key: string) => {
+    if (key === "VITE_API_SERVER_URL") return "https://api.example.com";
+    return "";
+  },
 }));
 
 const createWrapper = () => {
@@ -97,6 +105,7 @@ describe("SignInFormFeature", () => {
       expect(mockLogin).toHaveBeenCalledWith({
         username: "testuser",
         password: "password123",
+        tenantId: "default",
         rememberMe: false,
       });
     });

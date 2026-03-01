@@ -8,6 +8,7 @@ describe("signin-form validation", () => {
         const result = signInFormSchema.safeParse({
           username: "",
           password: "password",
+          tenantId: "default",
           rememberMe: false,
         });
         expect(result.success).toBe(false);
@@ -26,6 +27,7 @@ describe("signin-form validation", () => {
         const result = signInFormSchema.safeParse({
           username: "ab",
           password: "password",
+          tenantId: "default",
           rememberMe: false,
         });
         expect(result.success).toBe(false);
@@ -44,6 +46,7 @@ describe("signin-form validation", () => {
         const result = signInFormSchema.safeParse({
           username: "user",
           password: "password",
+          tenantId: "default",
           rememberMe: false,
         });
         expect(result.success).toBe(true);
@@ -53,6 +56,7 @@ describe("signin-form validation", () => {
         const result = signInFormSchema.safeParse({
           username: "test@example.com",
           password: "password",
+          tenantId: "default",
           rememberMe: false,
         });
         expect(result.success).toBe(true);
@@ -64,6 +68,7 @@ describe("signin-form validation", () => {
         const result = signInFormSchema.safeParse({
           username: "user",
           password: "",
+          tenantId: "default",
           rememberMe: false,
         });
         expect(result.success).toBe(false);
@@ -80,6 +85,7 @@ describe("signin-form validation", () => {
         const result = signInFormSchema.safeParse({
           username: "user",
           password: "p",
+          tenantId: "default",
           rememberMe: false,
         });
         expect(result.success).toBe(true);
@@ -89,6 +95,7 @@ describe("signin-form validation", () => {
         const result = signInFormSchema.safeParse({
           username: "user",
           password: "password123",
+          tenantId: "default",
           rememberMe: false,
         });
         expect(result.success).toBe(true);
@@ -100,6 +107,7 @@ describe("signin-form validation", () => {
         const result = signInFormSchema.safeParse({
           username: "user",
           password: "password",
+          tenantId: "default",
           rememberMe: true,
         });
         expect(result.success).toBe(true);
@@ -109,6 +117,7 @@ describe("signin-form validation", () => {
         const result = signInFormSchema.safeParse({
           username: "user",
           password: "password",
+          tenantId: "default",
         });
         expect(result.success).toBe(true);
         if (result.success) {
@@ -123,12 +132,17 @@ describe("signin-form validation", () => {
       expect(initialSignInValues).toEqual({
         username: "",
         password: "",
+        tenantId: "default",
         rememberMe: false,
       });
     });
 
     it("should have rememberMe as false by default", () => {
       expect(initialSignInValues.rememberMe).toBe(false);
+    });
+
+    it("should have default tenant", () => {
+      expect(initialSignInValues.tenantId).toBe("default");
     });
   });
 });
