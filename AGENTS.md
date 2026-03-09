@@ -1321,8 +1321,8 @@ pnpm e2e                   # Run E2E tests
 # Code Quality
 pnpm lint                  # Run ESLint
 pnpm lint:fix              # Fix ESLint issues
-pnpm prettier:check        # Check formatting
-pnpm prettier:write        # Format code
+pnpm formatter:check       # Check formatting
+pnpm formatter:write       # Format code
 pnpm type-check            # TypeScript type checking
 
 # Internationalization
@@ -2037,7 +2037,7 @@ refactor(auth): migrate to processes layer for cross-feature auth
 // package.json
 {
   "lint-staged": {
-    "*": ["pnpm prettier:check"],
+    "*": ["pnpm formatter:check"],
     "package.json": ["sort-package-json"]
   }
 }

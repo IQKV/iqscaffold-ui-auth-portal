@@ -216,8 +216,8 @@ After creating your project from this template, you'll want to customize it:
 | `pnpm lint`               | Lint code with ESLint                           |
 | `pnpm lint:fix`           | Fix linting issues automatically                |
 | `pnpm lint:stylelint`     | Lint CSS/SCSS files                             |
-| `pnpm prettier:check`     | Check code formatting                           |
-| `pnpm prettier:write`     | Format code with Prettier                       |
+| `pnpm formatter:check`    | Check code formatting                           |
+| `pnpm formatter:write`    | Format code with Prettier                       |
 | `pnpm type-check`         | Check TypeScript types (no emit)                |
 | `pnpm messages:extract`   | Extract i18n messages from source               |
 | `pnpm messages:compile`   | Compile i18n messages for production            |
