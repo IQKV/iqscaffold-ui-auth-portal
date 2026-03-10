@@ -158,11 +158,11 @@ export const authApi = {
   async validateResetToken(token: string): Promise<ValidateResetTokenResponse> {
     const config = getAuthConfig();
     try {
-      const response = await apiClient.head(config.endpoints.resetPassword, {
+      const _response = await apiClient.head(config.endpoints.resetPassword, {
         params: { token },
       });
       return { valid: true };
-    } catch (error) {
+    } catch {
       return { valid: false };
     }
   },

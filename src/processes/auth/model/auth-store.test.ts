@@ -1,9 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { useAuthStore } from "./auth-store";
 import { authApi } from "@/shared/api";
-import { TokenManager } from "../lib/token-manager";
-import { notificationService } from "@/shared/lib/notifications";
-import { useTenantStore } from "@/processes/tenant";
 
 // Mock dependencies
 vi.mock("@/shared/api", () => ({

@@ -81,7 +81,7 @@ test.describe("App Smoke Tests", () => {
   test("app is responsive on different viewports", async ({ page }) => {
     const authPage = new AuthPage(page);
 
-    await testUtils.testResponsiveDesign(page, async (page) => {
+    await testUtils.testResponsiveDesign(page, async (_page) => {
       await authPage.goToLogin();
       await authPage.expectLoginPageVisible();
     });

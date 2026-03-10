@@ -15,7 +15,6 @@ import {
   getErrorMessage,
   getErrorTitle,
   shouldShowError,
-  type AppError,
   type AppErrorType,
 } from "./http-error";
 

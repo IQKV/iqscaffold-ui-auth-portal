@@ -8,7 +8,7 @@ import { getUserLocalePreference } from "@/shared/lib/locale-preference";
 import { getClientLocale } from "@/shared/locales";
 
 // When MSW is enabled, still use the API server URL for consistency
-const mswEnabled = getFinalMSWConfig().enabled;
+const _mswEnabled = getFinalMSWConfig().enabled;
 const BASE_URL = getConfig("VITE_API_SERVER_URL");
 
 /**
@@ -57,7 +57,7 @@ apiClient.interceptors.request.use(
       if (tenantId && !config.headers["X-Tenant-ID"]) {
         config.headers["X-Tenant-ID"] = tenantId;
       }
-    } catch (error) {
+    } catch {
       // Tenant store might not be initialized, ignore
     }
 

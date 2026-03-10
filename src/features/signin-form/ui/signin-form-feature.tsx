@@ -32,7 +32,7 @@ export function SignInFormFeature({
   onSuccess,
   onForgotPassword,
   onNavigateToRegister,
-  useExternalRedirect = false,
+  _useExternalRedirect = false,
 }: SignInFormFeatureProps) {
   const navigate = useNavigate();
   const authConfig = getAuthConfig();

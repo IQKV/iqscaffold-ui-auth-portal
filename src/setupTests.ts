@@ -1,6 +1,5 @@
 import "@testing-library/jest-dom";
 import {
-  server,
   startMSWServer,
   stopMSWServer,
   resetMSWServer,

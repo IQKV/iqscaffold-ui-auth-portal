@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { formSchemas } from "@/shared/lib/form-validation";
-import { ForgotPasswordFormValues } from "./types";
 
 // Use the standardized schema from shared validation
 export const forgotPasswordFormSchema = formSchemas.forgotPassword;

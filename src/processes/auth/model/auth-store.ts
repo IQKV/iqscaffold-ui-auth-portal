@@ -8,9 +8,8 @@ import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { authApi, type TokenResponse, type AuthUser } from "@/shared/api";
 import { TokenManager } from "../lib/token-manager";
-import { notificationService } from "@/shared/lib/notifications";
 import { useTenantStore } from "@/processes/tenant";
-import type { AuthStore, LoginCredentials, AuthError } from "./types";
+import type { AuthStore, LoginCredentials } from "./types";
 
 const tokenManager = TokenManager.getInstance();
 

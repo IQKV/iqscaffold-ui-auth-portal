@@ -31,7 +31,7 @@ export function OrganizationSignUpFormFeature({
   const organizationSignupMutation = useOrganizationSignup();
 
   const handleSubmit = (values: OrganizationSignUpFormSchemaType) => {
-    const { confirmPassword, ...signupData } = values;
+    const { confirmPassword: _confirmPassword, ...signupData } = values;
 
     organizationSignupMutation.mutate(signupData, {
       onSuccess: (data) => {

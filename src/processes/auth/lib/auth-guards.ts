@@ -52,7 +52,7 @@ export const requireGuest = () => {
  * Require specific role for route access
  * Note: Auth portal doesn't have protected pages, so this redirects to app domain
  */
-export const requireRole = (role: string) => {
+export const requireRole = (_role: string) => {
   if (!isAuthenticated()) {
     throw redirect({
       to: "/login",
@@ -71,7 +71,7 @@ export const requireRole = (role: string) => {
  * Require any of the specified roles for route access
  * Note: Auth portal doesn't have protected pages, so this redirects to app domain
  */
-export const requireAnyRole = (roles: string[]) => {
+export const requireAnyRole = (_roles: string[]) => {
   if (!isAuthenticated()) {
     throw redirect({
       to: "/login",
@@ -90,7 +90,7 @@ export const requireAnyRole = (roles: string[]) => {
  * Require specific permission for route access
  * Note: Auth portal doesn't have protected pages, so this redirects to app domain
  */
-export const requirePermission = (permission: string) => {
+export const requirePermission = (_permission: string) => {
   if (!isAuthenticated()) {
     throw redirect({
       to: "/login",
@@ -109,7 +109,7 @@ export const requirePermission = (permission: string) => {
  * Require any of the specified permissions for route access
  * Note: Auth portal doesn't have protected pages, so this redirects to app domain
  */
-export const requireAnyPermission = (permissions: string[]) => {
+export const requireAnyPermission = (_permissions: string[]) => {
   if (!isAuthenticated()) {
     throw redirect({
       to: "/login",

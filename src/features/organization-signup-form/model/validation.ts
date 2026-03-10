@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { t } from "@lingui/core/macro";
-import { OrganizationSignupFormValues } from "./types";
 
 /**
  * Organization signup form validation schema

@@ -17,7 +17,7 @@ export const Route = createFileRoute("/join/$invitationCode")({
 
 function JoinWithInvitationPage() {
   const { invitationCode } = Route.useParams();
-  const navigate = useNavigate();
+  const _navigate = useNavigate();
 
   const { data: organization, isLoading, error } = useInvitationPreview(invitationCode);
 

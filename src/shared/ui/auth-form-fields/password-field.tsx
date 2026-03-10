@@ -25,7 +25,7 @@ export function PasswordField({
   label = t`Password`,
   placeholder = t`Create a strong password`,
   description = t`Min 8 characters with uppercase, lowercase, number, and special character`,
-  showStrengthIndicator = false,
+  _showStrengthIndicator = false,
   "data-testid": dataTestId,
 }: PasswordFieldProps) {
   return (

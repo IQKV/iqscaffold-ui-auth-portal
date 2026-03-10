@@ -70,7 +70,7 @@ export function SignupWithInvitationForm({
   const signupMutation = useSignupWithInvitation(invitationCode);
 
   const handleSubmit = (values: SignupWithInvitationFormValues) => {
-    const { confirmPassword, ...signupData } = values;
+    const { confirmPassword: _confirmPassword, ...signupData } = values;
     signupMutation.mutate(signupData, {
       onSuccess: (data) => {
         onSuccess(data);

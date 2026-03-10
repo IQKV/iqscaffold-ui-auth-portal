@@ -5,7 +5,6 @@ import {
   getFieldErrors,
   toMantineErrors,
   getErrorMessage,
-  type AppError,
 } from "./http-error";
 import { beforeEach } from "node:test";
 

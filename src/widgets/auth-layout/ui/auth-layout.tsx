@@ -1,5 +1,5 @@
 import { Box, Flex, Group, Stack, Text, Title } from "@mantine/core";
-import { ReactNode, useMemo } from "react";
+import { ReactNode } from "react";
 import { Helmet } from "@dr.pogodin/react-helmet";
 import { ThemeToggle } from "@/widgets/theme-toggle";
 import { LocaleSwitcher } from "@/shared/ui";

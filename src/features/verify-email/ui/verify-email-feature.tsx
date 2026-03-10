@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearch, useNavigate } from "@tanstack/react-router";
 import { Button, Text, Alert, Stack } from "@mantine/core";
-import { IconCheck, IconX, IconMail } from "@tabler/icons-react";
+import { IconMail } from "@tabler/icons-react";
 import { useVerifyEmail, useResendVerification } from "@/shared/lib/use-auth-api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
 import { EmailField } from "@/shared/ui";

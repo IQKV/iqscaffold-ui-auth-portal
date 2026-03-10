@@ -41,7 +41,7 @@ export function SignUpFormFeature({
   const signupMutation = useSignup();
 
   const handleSubmit = (values: SignUpFormSchemaType) => {
-    const { confirmPassword, ...signupData } = values;
+    const { confirmPassword: _confirmPassword, ...signupData } = values;
     signupMutation.mutate(signupData, {
       onSuccess: (data) => {
         if (onSuccess) {

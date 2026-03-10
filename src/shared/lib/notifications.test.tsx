@@ -154,7 +154,7 @@ describe("Notification Service", () => {
 
   describe("loading", () => {
     it("shows loading notification with default title", () => {
-      const id = notificationService.loading({ message: "Loading data..." });
+      const _id = notificationService.loading({ message: "Loading data..." });
 
       expect(notifications.show).toHaveBeenCalledWith({
         id: "loading",

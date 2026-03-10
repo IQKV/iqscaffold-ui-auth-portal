@@ -10,7 +10,6 @@ import {
   publicInvitationApi,
   type OrganizationPreviewDto,
   type SignupWithInvitationRequest,
-  type SignupWithInvitationResponse,
 } from "@/shared/api/invitation-api";
 
 /**

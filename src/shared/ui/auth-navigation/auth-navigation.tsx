@@ -1,4 +1,4 @@
-import { Anchor, Group, Text } from "@mantine/core";
+import { Anchor, Group } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { t } from "@lingui/core/macro";
 

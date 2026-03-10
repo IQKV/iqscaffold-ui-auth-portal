@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { formSchemas } from "@/shared/lib/form-validation";
-import { SignInFormValues } from "./types";
 
 // Use the standardized schema from shared validation
 export const signInFormSchema = formSchemas.signIn;
