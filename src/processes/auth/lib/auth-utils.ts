@@ -89,18 +89,14 @@ export const getUserAuthorityPriority = (user?: AuthUser | null): number => {
   };
 
   return Math.max(
-    ...currentUser.authorities.map(
-      (authority) => authorityPriorities[authority] || 0
-    )
+    ...currentUser.authorities.map((authority) => authorityPriorities[authority] || 0),
   );
 };
 
 /**
  * Check if current session is about to expire
  */
-export const isSessionExpiringSoon = (
-  minutesThreshold: number = 5
-): boolean => {
+export const isSessionExpiringSoon = (minutesThreshold: number = 5): boolean => {
   const token = tokenManager.getAccessToken();
   if (!token) {
     return false;
@@ -155,7 +151,7 @@ export const getTimeUntilExpiration = (): {
 export const canPerformAction = (
   action: string,
   resource?: string,
-  user?: AuthUser | null
+  user?: AuthUser | null,
 ): boolean => {
   const currentUser = user || useAuthStore.getState().user;
   if (!currentUser) {
@@ -183,10 +179,7 @@ export const getUserTenant = (user?: AuthUser | null): string => {
 /**
  * Check if user belongs to specific tenant
  */
-export const belongsToTenant = (
-  tenantId: string,
-  user?: AuthUser | null
-): boolean => {
+export const belongsToTenant = (tenantId: string, user?: AuthUser | null): boolean => {
   const currentUser = user || useAuthStore.getState().user;
   return currentUser?.tenantId === tenantId;
 };

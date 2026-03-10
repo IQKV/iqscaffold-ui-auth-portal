@@ -1,12 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import {
-  Container,
-  Stack,
-  Text,
-  Title,
-  LoadingOverlay,
-  Alert,
-} from "@mantine/core";
+import { Container, Stack, Text, Title, LoadingOverlay, Alert } from "@mantine/core";
 import { IconAlertCircle } from "@tabler/icons-react";
 import { t } from "@lingui/core/macro";
 import { useInvitationPreview } from "@/shared/lib/use-invitation-api";
@@ -26,11 +19,7 @@ function JoinWithInvitationPage() {
   const { invitationCode } = Route.useParams();
   const navigate = useNavigate();
 
-  const {
-    data: organization,
-    isLoading,
-    error,
-  } = useInvitationPreview(invitationCode);
+  const { data: organization, isLoading, error } = useInvitationPreview(invitationCode);
 
   const handleSignupSuccess = (data: SignupWithInvitationResponse) => {
     // Store tokens in localStorage
@@ -74,11 +63,7 @@ function JoinWithInvitationPage() {
   if (!organization) {
     return (
       <Container size="sm" py="xl">
-        <Alert
-          icon={<IconAlertCircle size={16} />}
-          title={t`Error`}
-          color="red"
-        >
+        <Alert icon={<IconAlertCircle size={16} />} title={t`Error`} color="red">
           {t`Unable to load invitation details`}
         </Alert>
       </Container>
@@ -99,10 +84,7 @@ function JoinWithInvitationPage() {
 
         <OrganizationPreview organization={organization} />
 
-        <SignupWithInvitationForm
-          invitationCode={invitationCode}
-          onSuccess={handleSignupSuccess}
-        />
+        <SignupWithInvitationForm invitationCode={invitationCode} onSuccess={handleSignupSuccess} />
       </Stack>
     </Container>
   );

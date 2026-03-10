@@ -17,11 +17,7 @@ import { queryClient } from "@/shared/lib";
 
 import { ErrorBoundary } from "@/shared/ui";
 import { MSWDevTools } from "@/shared/ui/msw-dev-tools";
-import {
-  AuthProvider,
-  GuestGuardWrapper,
-  attachAuthInterceptors,
-} from "@/processes/auth";
+import { AuthProvider, GuestGuardWrapper, attachAuthInterceptors } from "@/processes/auth";
 import { TenantProvider } from "@/processes/tenant";
 
 import { ConfirmContextModal } from "@/shared/ui/confirmation-modal";
@@ -57,8 +53,7 @@ export function App() {
 
     // Load locale messages asynchronously after component mounts
     const loadLocale = async () => {
-      const { dynamicActivateLocale, getClientLocale } =
-        await import("@/shared/locales");
+      const { dynamicActivateLocale, getClientLocale } = await import("@/shared/locales");
       await dynamicActivateLocale(getClientLocale());
     };
 

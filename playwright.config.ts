@@ -31,11 +31,7 @@ export default defineConfig({
         ]
       : []),
   ],
-  reporter: [
-    ["html", { open: "never" }],
-    ["list"],
-    ...(isCI ? [["github"]] : []),
-  ],
+  reporter: [["html", { open: "never" }], ["list"], ...(isCI ? [["github"]] : [])],
   retries: isCI ? 2 : 1, // Allow one retry locally for flaky tests
   testDir: "./e2e",
   outputDir: "./.playwright/test-results",

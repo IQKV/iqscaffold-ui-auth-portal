@@ -1,15 +1,9 @@
 import { z } from "zod";
-import {
-  createFormSchema,
-  createPasswordConfirmationSchema,
-} from "./form-validation";
+import { createFormSchema, createPasswordConfirmationSchema } from "./form-validation";
 
 // Test-specific validation schemas without Lingui
 const testValidationSchemas = {
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .email("Please enter a valid email address"),
+  email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
 
   password: z
     .string()
@@ -18,19 +12,13 @@ const testValidationSchemas = {
     .regex(/(?=.*[a-z])/, "Password must include at least one lowercase letter")
     .regex(/(?=.*[A-Z])/, "Password must include at least one uppercase letter")
     .regex(/(?=.*\d)/, "Password must include at least one number")
-    .regex(
-      /(?=.*[@$!%*?&])/,
-      "Password must include at least one special character (@$!%*?&)"
-    ),
+    .regex(/(?=.*[@$!%*?&])/, "Password must include at least one special character (@$!%*?&)"),
 
   username: z
     .string()
     .min(3, "Username must be at least 3 characters")
     .max(50, "Username must be less than 50 characters")
-    .regex(
-      /^[a-zA-Z0-9_]+$/,
-      "Username can only contain letters, numbers, and underscores"
-    ),
+    .regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores"),
 
   name: z
     .string()
@@ -42,88 +30,53 @@ const testValidationSchemas = {
 describe("validationSchemas", () => {
   describe("email", () => {
     it("validates correct email addresses", () => {
-      expect(
-        testValidationSchemas.email.safeParse("test@example.com").success
-      ).toBe(true);
-      expect(
-        testValidationSchemas.email.safeParse("user.name+tag@domain.co.uk")
-          .success
-      ).toBe(true);
+      expect(testValidationSchemas.email.safeParse("test@example.com").success).toBe(true);
+      expect(testValidationSchemas.email.safeParse("user.name+tag@domain.co.uk").success).toBe(
+        true,
+      );
     });
 
     it("rejects invalid email addresses", () => {
       expect(testValidationSchemas.email.safeParse("").success).toBe(false);
-      expect(
-        testValidationSchemas.email.safeParse("invalid-email").success
-      ).toBe(false);
-      expect(testValidationSchemas.email.safeParse("@domain.com").success).toBe(
-        false
-      );
+      expect(testValidationSchemas.email.safeParse("invalid-email").success).toBe(false);
+      expect(testValidationSchemas.email.safeParse("@domain.com").success).toBe(false);
     });
   });
 
   describe("password", () => {
     it("validates strong passwords", () => {
       const strongPassword = "StrongPass123!";
-      expect(
-        testValidationSchemas.password.safeParse(strongPassword).success
-      ).toBe(true);
+      expect(testValidationSchemas.password.safeParse(strongPassword).success).toBe(true);
     });
 
     it("rejects weak passwords", () => {
-      expect(testValidationSchemas.password.safeParse("weak").success).toBe(
-        false
-      ); // Too short
-      expect(
-        testValidationSchemas.password.safeParse("nouppercase123!").success
-      ).toBe(false); // No uppercase
-      expect(
-        testValidationSchemas.password.safeParse("NOLOWERCASE123!").success
-      ).toBe(false); // No lowercase
-      expect(
-        testValidationSchemas.password.safeParse("NoNumbers!").success
-      ).toBe(false); // No numbers
-      expect(
-        testValidationSchemas.password.safeParse("NoSpecialChars123").success
-      ).toBe(false); // No special chars
+      expect(testValidationSchemas.password.safeParse("weak").success).toBe(false); // Too short
+      expect(testValidationSchemas.password.safeParse("nouppercase123!").success).toBe(false); // No uppercase
+      expect(testValidationSchemas.password.safeParse("NOLOWERCASE123!").success).toBe(false); // No lowercase
+      expect(testValidationSchemas.password.safeParse("NoNumbers!").success).toBe(false); // No numbers
+      expect(testValidationSchemas.password.safeParse("NoSpecialChars123").success).toBe(false); // No special chars
     });
   });
 
   describe("username", () => {
     it("validates correct usernames", () => {
-      expect(testValidationSchemas.username.safeParse("user123").success).toBe(
-        true
-      );
-      expect(
-        testValidationSchemas.username.safeParse("test_user").success
-      ).toBe(true);
-      expect(
-        testValidationSchemas.username.safeParse("User_Name_123").success
-      ).toBe(true);
+      expect(testValidationSchemas.username.safeParse("user123").success).toBe(true);
+      expect(testValidationSchemas.username.safeParse("test_user").success).toBe(true);
+      expect(testValidationSchemas.username.safeParse("User_Name_123").success).toBe(true);
     });
 
     it("rejects invalid usernames", () => {
-      expect(testValidationSchemas.username.safeParse("ab").success).toBe(
-        false
-      ); // Too short
-      expect(
-        testValidationSchemas.username.safeParse("user-name").success
-      ).toBe(false); // Contains hyphen
-      expect(
-        testValidationSchemas.username.safeParse("user name").success
-      ).toBe(false); // Contains space
-      expect(
-        testValidationSchemas.username.safeParse("user@name").success
-      ).toBe(false); // Contains @
+      expect(testValidationSchemas.username.safeParse("ab").success).toBe(false); // Too short
+      expect(testValidationSchemas.username.safeParse("user-name").success).toBe(false); // Contains hyphen
+      expect(testValidationSchemas.username.safeParse("user name").success).toBe(false); // Contains space
+      expect(testValidationSchemas.username.safeParse("user@name").success).toBe(false); // Contains @
     });
   });
 
   describe("name", () => {
     it("validates names", () => {
       expect(testValidationSchemas.name.safeParse("John").success).toBe(true);
-      expect(testValidationSchemas.name.safeParse("  John Doe  ").success).toBe(
-        true
-      ); // Trims whitespace
+      expect(testValidationSchemas.name.safeParse("  John Doe  ").success).toBe(true); // Trims whitespace
     });
 
     it("rejects empty names", () => {

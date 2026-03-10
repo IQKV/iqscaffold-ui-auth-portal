@@ -35,9 +35,7 @@ export function useSignupWithInvitation(invitationCode: string) {
     onError: (error: any) => {
       notifications.show({
         title: t`Signup Failed`,
-        message:
-          error?.message ||
-          t`An error occurred during signup. Please try again.`,
+        message: error?.message || t`An error occurred during signup. Please try again.`,
         color: "red",
       });
     },

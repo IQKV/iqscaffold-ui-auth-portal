@@ -15,10 +15,8 @@ describe("signin-form validation", () => {
         if (!result.success) {
           expect(
             result.error.issues.some((issue) =>
-              issue.message.includes(
-                "Username or email must be at least 3 characters"
-              )
-            )
+              issue.message.includes("Username or email must be at least 3 characters"),
+            ),
           ).toBe(true);
         }
       });
@@ -34,10 +32,8 @@ describe("signin-form validation", () => {
         if (!result.success) {
           expect(
             result.error.issues.some((issue) =>
-              issue.message.includes(
-                "Username or email must be at least 3 characters"
-              )
-            )
+              issue.message.includes("Username or email must be at least 3 characters"),
+            ),
           ).toBe(true);
         }
       });
@@ -74,9 +70,7 @@ describe("signin-form validation", () => {
         expect(result.success).toBe(false);
         if (!result.success) {
           expect(
-            result.error.issues.some((issue) =>
-              issue.message.includes("Password is required")
-            )
+            result.error.issues.some((issue) => issue.message.includes("Password is required")),
           ).toBe(true);
         }
       });

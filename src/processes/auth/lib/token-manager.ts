@@ -29,10 +29,7 @@ export class TokenManager {
    */
   setTokens(accessToken: string, refreshToken: string): void {
     localStorage.setItem(this.config.tokenStorage.accessTokenKey, accessToken);
-    localStorage.setItem(
-      this.config.tokenStorage.refreshTokenKey,
-      refreshToken
-    );
+    localStorage.setItem(this.config.tokenStorage.refreshTokenKey, refreshToken);
   }
 
   /**

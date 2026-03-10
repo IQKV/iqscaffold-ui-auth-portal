@@ -88,7 +88,7 @@ export function SignInFormFeature({
           window.location.href = targetUrl;
         }
       },
-    }
+    },
   );
 
   const handleSubmit = (values: SignInFormSchemaType) => {
@@ -117,18 +117,13 @@ export function SignInFormFeature({
         <Stack gap="md">
           <TenantSelect
             value={form.values.tenantId}
-            onChange={(value) =>
-              form.setFieldValue("tenantId", value || "default")
-            }
+            onChange={(value) => form.setFieldValue("tenantId", value || "default")}
             error={form.errors.tenantId}
             required
             data-testid="signin-select-tenant"
           />
 
-          <SignInUsernameField
-            form={form}
-            data-testid="signin-input-username"
-          />
+          <SignInUsernameField form={form} data-testid="signin-input-username" />
 
           <PasswordField
             form={form}
@@ -138,10 +133,7 @@ export function SignInFormFeature({
           />
 
           <Group justify="space-between">
-            <RememberMeCheckbox
-              form={form}
-              data-testid="signin-checkbox-remember"
-            />
+            <RememberMeCheckbox form={form} data-testid="signin-checkbox-remember" />
             <AuthLinkToForgotPassword
               onClick={handleForgotPassword}
               data-testid="signin-link-forgot-password"

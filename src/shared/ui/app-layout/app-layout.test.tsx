@@ -14,7 +14,7 @@ describe("AppLayout", () => {
         <AppLayout>
           <div>Test Content</div>
         </AppLayout>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByText("Test Content")).toBeInTheDocument();
@@ -27,7 +27,7 @@ describe("AppLayout", () => {
           <div>First Child</div>
           <div>Second Child</div>
         </AppLayout>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByText("First Child")).toBeInTheDocument();
@@ -40,7 +40,7 @@ describe("AppLayout", () => {
         <AppLayout>
           <div>Content</div>
         </AppLayout>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     // Check that AppShell structure is present

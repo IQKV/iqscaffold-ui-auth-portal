@@ -62,9 +62,7 @@ export function useVerifyEmail() {
     onError: (error: any) => {
       notificationService.error({
         title: t`Verification Failed`,
-        message:
-          error?.message ||
-          t`Failed to verify email. The link may be invalid or expired.`,
+        message: error?.message || t`Failed to verify email. The link may be invalid or expired.`,
       });
     },
   });
@@ -131,8 +129,7 @@ export function useResetPassword() {
  */
 export function useSignup() {
   return useMutation({
-    mutationFn: (data: Parameters<typeof authApi.signup>[0]) =>
-      authApi.signup(data),
+    mutationFn: (data: Parameters<typeof authApi.signup>[0]) => authApi.signup(data),
     onSuccess: () => {
       notificationService.success({
         title: t`Registration Successful`,

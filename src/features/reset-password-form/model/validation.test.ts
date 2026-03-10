@@ -1,8 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  resetPasswordFormSchema,
-  initialResetPasswordValues,
-} from "./validation";
+import { resetPasswordFormSchema, initialResetPasswordValues } from "./validation";
 
 describe("reset-password-form validation", () => {
   describe("resetPasswordFormSchema", () => {
@@ -16,8 +13,8 @@ describe("reset-password-form validation", () => {
         if (!result.success) {
           expect(
             result.error.issues.some((issue) =>
-              issue.message.includes("Password must be at least 8 characters")
-            )
+              issue.message.includes("Password must be at least 8 characters"),
+            ),
           ).toBe(true);
         }
       });
@@ -31,8 +28,8 @@ describe("reset-password-form validation", () => {
         if (!result.success) {
           expect(
             result.error.issues.some((issue) =>
-              issue.message.includes("Password must be at least 8 characters")
-            )
+              issue.message.includes("Password must be at least 8 characters"),
+            ),
           ).toBe(true);
         }
       });
@@ -45,9 +42,7 @@ describe("reset-password-form validation", () => {
         expect(result.success).toBe(false);
         if (!result.success) {
           expect(
-            result.error.issues.some((issue) =>
-              issue.message.includes("uppercase letter")
-            )
+            result.error.issues.some((issue) => issue.message.includes("uppercase letter")),
           ).toBe(true);
         }
       });
@@ -60,9 +55,7 @@ describe("reset-password-form validation", () => {
         expect(result.success).toBe(false);
         if (!result.success) {
           expect(
-            result.error.issues.some((issue) =>
-              issue.message.includes("lowercase letter")
-            )
+            result.error.issues.some((issue) => issue.message.includes("lowercase letter")),
           ).toBe(true);
         }
       });
@@ -74,11 +67,7 @@ describe("reset-password-form validation", () => {
         });
         expect(result.success).toBe(false);
         if (!result.success) {
-          expect(
-            result.error.issues.some((issue) =>
-              issue.message.includes("number")
-            )
-          ).toBe(true);
+          expect(result.error.issues.some((issue) => issue.message.includes("number"))).toBe(true);
         }
       });
 
@@ -90,9 +79,7 @@ describe("reset-password-form validation", () => {
         expect(result.success).toBe(false);
         if (!result.success) {
           expect(
-            result.error.issues.some((issue) =>
-              issue.message.includes("special character")
-            )
+            result.error.issues.some((issue) => issue.message.includes("special character")),
           ).toBe(true);
         }
       });
@@ -136,8 +123,8 @@ describe("reset-password-form validation", () => {
         if (!result.success) {
           expect(
             result.error.issues.some((issue) =>
-              issue.message.includes("Please confirm your password")
-            )
+              issue.message.includes("Please confirm your password"),
+            ),
           ).toBe(true);
         }
       });
@@ -150,9 +137,7 @@ describe("reset-password-form validation", () => {
         expect(result.success).toBe(false);
         if (!result.success) {
           expect(
-            result.error.issues.some((issue) =>
-              issue.message.includes("Passwords do not match")
-            )
+            result.error.issues.some((issue) => issue.message.includes("Passwords do not match")),
           ).toBe(true);
         }
       });

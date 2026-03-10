@@ -91,9 +91,8 @@ export const productsHandlers = [
     if (config.delay) {
       await delay(
         typeof config.delay === "object"
-          ? Math.random() * (config.delay.max - config.delay.min) +
-              config.delay.min
-          : config.delay
+          ? Math.random() * (config.delay.max - config.delay.min) + config.delay.min
+          : config.delay,
       );
     }
 
@@ -231,7 +230,7 @@ if (!user) {
       status: 404,
       detail: `User with ID ${id} was not found.`,
     },
-    { status: 404 }
+    { status: 404 },
   );
 }
 
@@ -244,7 +243,7 @@ if (emailExists) {
       status: 409,
       detail: "A user with this email already exists.",
     },
-    { status: 409 }
+    { status: 409 },
   );
 }
 ```
@@ -268,7 +267,7 @@ if (config.delay) {
   await delay(
     typeof config.delay === "object"
       ? Math.random() * (config.delay.max - config.delay.min) + config.delay.min
-      : config.delay
+      : config.delay,
   );
 }
 ```

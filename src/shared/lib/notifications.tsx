@@ -93,11 +93,7 @@ function getErrorAutoClose(errorType: AppErrorType): number | false {
 }
 
 export const notificationService = {
-  success: ({
-    title = "Success",
-    message,
-    autoClose = 4000,
-  }: NotificationOptions) => {
+  success: ({ title = "Success", message, autoClose = 4000 }: NotificationOptions) => {
     notifications.show({
       title,
       message,
@@ -107,11 +103,7 @@ export const notificationService = {
     });
   },
 
-  error: ({
-    title = "Error",
-    message,
-    autoClose = 6000,
-  }: NotificationOptions) => {
+  error: ({ title = "Error", message, autoClose = 6000 }: NotificationOptions) => {
     notifications.show({
       title,
       message,
@@ -164,11 +156,7 @@ export const notificationService = {
     return notificationId;
   },
 
-  warning: ({
-    title = "Warning",
-    message,
-    autoClose = 5000,
-  }: NotificationOptions) => {
+  warning: ({ title = "Warning", message, autoClose = 5000 }: NotificationOptions) => {
     notifications.show({
       title,
       message,
@@ -178,11 +166,7 @@ export const notificationService = {
     });
   },
 
-  info: ({
-    title = "Info",
-    message,
-    autoClose = 4000,
-  }: NotificationOptions) => {
+  info: ({ title = "Info", message, autoClose = 4000 }: NotificationOptions) => {
     notifications.show({
       title,
       message,
@@ -192,10 +176,7 @@ export const notificationService = {
     });
   },
 
-  loading: ({
-    title = "Loading",
-    message,
-  }: Omit<NotificationOptions, "autoClose">) => {
+  loading: ({ title = "Loading", message }: Omit<NotificationOptions, "autoClose">) => {
     return notifications.show({
       id: "loading",
       title,
@@ -208,11 +189,7 @@ export const notificationService = {
 
   updateLoading: (
     id: string,
-    {
-      title,
-      message,
-      type = "success",
-    }: NotificationOptions & { type?: "success" | "error" }
+    { title, message, type = "success" }: NotificationOptions & { type?: "success" | "error" },
   ) => {
     const config = {
       success: { color: "green", icon: <IconCheck size="1rem" /> },

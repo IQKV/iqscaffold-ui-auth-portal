@@ -18,15 +18,10 @@ const ENV_KEYS = [
   "VITE_LOG_LEVEL",
 ] as const;
 
-export const clientBuildEnv: Record<string, string | undefined> =
-  Object.fromEntries(ENV_KEYS.map((k) => [k, readRuntimeEnv(k)])) as Record<
-    string,
-    string | undefined
-  >;
+export const clientBuildEnv: Record<string, string | undefined> = Object.fromEntries(
+  ENV_KEYS.map((k) => [k, readRuntimeEnv(k)]),
+) as Record<string, string | undefined>;
 
-export const getConfig = (
-  key: string,
-  fallback?: string
-): string | undefined => {
+export const getConfig = (key: string, fallback?: string): string | undefined => {
   return clientBuildEnv[key] ?? fallback;
 };

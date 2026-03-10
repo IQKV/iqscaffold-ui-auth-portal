@@ -10,10 +10,7 @@ interface BaseUsernameFieldProps {
 }
 
 // For sign-in form - accepts username or email
-export function SignInUsernameField({
-  form,
-  "data-testid": dataTestId,
-}: BaseUsernameFieldProps) {
+export function SignInUsernameField({ form, "data-testid": dataTestId }: BaseUsernameFieldProps) {
   return (
     <TextInput
       label={t`Username or Email`}
@@ -27,10 +24,7 @@ export function SignInUsernameField({
 }
 
 // For sign-up form - username only with description
-export function SignUpUsernameField({
-  form,
-  "data-testid": dataTestId,
-}: BaseUsernameFieldProps) {
+export function SignUpUsernameField({ form, "data-testid": dataTestId }: BaseUsernameFieldProps) {
   return (
     <TextInput
       label={t`Username`}

@@ -88,8 +88,7 @@ export class AuthEffects {
 
     // If tokens were cleared in another tab
     if (
-      (event.key === tokenStorage.accessTokenKey ||
-        event.key === tokenStorage.refreshTokenKey) &&
+      (event.key === tokenStorage.accessTokenKey || event.key === tokenStorage.refreshTokenKey) &&
       event.newValue === null
     ) {
       const { logout } = useAuthStore.getState();
@@ -115,10 +114,7 @@ export class AuthEffects {
    */
   cleanup(): void {
     this.stopTokenRefreshMonitoring();
-    document.removeEventListener(
-      "visibilitychange",
-      this.handleVisibilityChange
-    );
+    document.removeEventListener("visibilitychange", this.handleVisibilityChange);
     window.removeEventListener("storage", this.handleStorageChange);
   }
 }

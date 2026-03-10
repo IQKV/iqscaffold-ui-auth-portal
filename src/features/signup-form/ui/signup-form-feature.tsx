@@ -73,31 +73,17 @@ export function SignUpFormFeature({
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <Group grow>
-            <NameField
-              name="firstName"
-              form={form}
-              data-testid="signup-input-firstname"
-            />
-            <NameField
-              name="lastName"
-              form={form}
-              data-testid="signup-input-lastname"
-            />
+            <NameField name="firstName" form={form} data-testid="signup-input-firstname" />
+            <NameField name="lastName" form={form} data-testid="signup-input-lastname" />
           </Group>
 
-          <SignUpUsernameField
-            form={form}
-            data-testid="signup-input-username"
-          />
+          <SignUpUsernameField form={form} data-testid="signup-input-username" />
 
           <EmailField form={form} data-testid="signup-input-email" />
 
           <PasswordField form={form} data-testid="signup-input-password" />
 
-          <ConfirmPasswordField
-            form={form}
-            data-testid="signup-input-confirm-password"
-          />
+          <ConfirmPasswordField form={form} data-testid="signup-input-confirm-password" />
 
           <Button
             type="submit"
@@ -120,10 +106,7 @@ export function SignUpFormFeature({
             </Button>
           </Text>
 
-          <AuthLinkToLogin
-            onClick={handleNavigateToLogin}
-            data-testid="signup-link-login"
-          />
+          <AuthLinkToLogin onClick={handleNavigateToLogin} data-testid="signup-link-login" />
         </Stack>
       </form>
     </AuthFormCard>

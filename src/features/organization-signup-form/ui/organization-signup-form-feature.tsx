@@ -1,11 +1,4 @@
-import {
-  Button,
-  Group,
-  Stack,
-  TextInput,
-  Text,
-  PasswordInput,
-} from "@mantine/core";
+import { Button, Group, Stack, TextInput, Text, PasswordInput } from "@mantine/core";
 import { IconBuildingSkyscraper } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
 import { t } from "@lingui/core/macro";
@@ -147,10 +140,7 @@ export function OrganizationSignUpFormFeature({
             </Button>
           </Text>
 
-          <AuthLinkToLogin
-            onClick={handleNavigateToLogin}
-            data-testid="org-signup-link-login"
-          />
+          <AuthLinkToLogin onClick={handleNavigateToLogin} data-testid="org-signup-link-login" />
         </Stack>
       </form>
     </AuthFormCard>

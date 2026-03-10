@@ -7,10 +7,7 @@ interface AuthLinkProps {
   "data-testid"?: string;
 }
 
-export function AuthLinkToLogin({
-  onClick,
-  "data-testid": testId,
-}: AuthLinkProps) {
+export function AuthLinkToLogin({ onClick, "data-testid": testId }: AuthLinkProps) {
   return (
     <Group justify="center" gap="xs">
       <Anchor size="sm" onClick={onClick} data-testid={testId || "link-login"}>
@@ -20,27 +17,17 @@ export function AuthLinkToLogin({
   );
 }
 
-export function AuthLinkToRegister({
-  onClick,
-  "data-testid": testId,
-}: AuthLinkProps) {
+export function AuthLinkToRegister({ onClick, "data-testid": testId }: AuthLinkProps) {
   return (
     <Group justify="center" gap="xs">
-      <Anchor
-        size="sm"
-        onClick={onClick}
-        data-testid={testId || "link-register"}
-      >
+      <Anchor size="sm" onClick={onClick} data-testid={testId || "link-register"}>
         {t`Don't have an account? Sign up`}
       </Anchor>
     </Group>
   );
 }
 
-export function AuthLinkToForgotPassword({
-  onClick,
-  "data-testid": testId,
-}: AuthLinkProps) {
+export function AuthLinkToForgotPassword({ onClick, "data-testid": testId }: AuthLinkProps) {
   return (
     <Anchor
       component="button"
@@ -54,10 +41,7 @@ export function AuthLinkToForgotPassword({
   );
 }
 
-export function AuthLinkBackToLogin({
-  onClick,
-  "data-testid": testId,
-}: AuthLinkProps) {
+export function AuthLinkBackToLogin({ onClick, "data-testid": testId }: AuthLinkProps) {
   return (
     <Group justify="center" gap="xs">
       <Anchor

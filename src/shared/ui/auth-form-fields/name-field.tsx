@@ -10,11 +10,7 @@ interface NameFieldProps {
   "data-testid"?: string;
 }
 
-export function NameField({
-  form,
-  name,
-  "data-testid": dataTestId,
-}: NameFieldProps) {
+export function NameField({ form, name, "data-testid": dataTestId }: NameFieldProps) {
   const isFirstName = name === "firstName";
 
   return (

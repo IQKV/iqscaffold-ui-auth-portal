@@ -82,9 +82,7 @@ export class AuthPage {
   get resetPasswordForm() {
     return {
       passwordInput: this.page.getByPlaceholder("Enter your new password"),
-      confirmPasswordInput: this.page.getByPlaceholder(
-        "Confirm your new password"
-      ),
+      confirmPasswordInput: this.page.getByPlaceholder("Confirm your new password"),
       submitButton: this.page.getByRole("button", { name: "Reset Password" }),
       backToLoginLink: this.page.getByText("Back to Sign In"),
     };
@@ -129,9 +127,7 @@ export class AuthPage {
     await this.registerForm.usernameInput.fill(data.username);
     await this.registerForm.emailInput.fill(data.email);
     await this.registerForm.passwordInput.fill(data.password);
-    await this.registerForm.confirmPasswordInput.fill(
-      data.confirmPassword || data.password
-    );
+    await this.registerForm.confirmPasswordInput.fill(data.confirmPassword || data.password);
   }
 
   async submitRegisterForm() {
@@ -165,18 +161,14 @@ export class AuthPage {
 
   // Assertions
   async expectLoginPageVisible() {
-    await expect(
-      this.page.getByRole("heading", { name: "Welcome to IQ Scaffold" })
-    ).toBeVisible();
+    await expect(this.page.getByRole("heading", { name: "Welcome to IQ Scaffold" })).toBeVisible();
     await expect(this.loginForm.usernameInput).toBeVisible();
     await expect(this.loginForm.passwordInput).toBeVisible();
     await expect(this.loginForm.submitButton).toBeVisible();
   }
 
   async expectRegisterPageVisible() {
-    await expect(
-      this.page.getByRole("heading", { name: "Create Your Account" })
-    ).toBeVisible();
+    await expect(this.page.getByRole("heading", { name: "Create Your Account" })).toBeVisible();
     await expect(this.registerForm.firstNameInput).toBeVisible();
     await expect(this.registerForm.submitButton).toBeVisible();
   }
@@ -273,7 +265,7 @@ export const testUtils = {
       (error) =>
         !error.includes("Failed to load resource") && // API errors are expected without backend
         !error.includes("NetworkError") &&
-        !error.includes("fetch")
+        !error.includes("fetch"),
     );
 
     expect(criticalErrors).toHaveLength(0);
@@ -282,10 +274,7 @@ export const testUtils = {
   /**
    * Test responsive design at different viewports
    */
-  async testResponsiveDesign(
-    page: Page,
-    testCallback: (page: Page) => Promise<void>
-  ) {
+  async testResponsiveDesign(page: Page, testCallback: (page: Page) => Promise<void>) {
     const viewports = [
       { width: 375, height: 667, name: "mobile" },
       { width: 768, height: 1024, name: "tablet" },

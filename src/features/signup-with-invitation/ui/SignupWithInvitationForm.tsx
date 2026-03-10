@@ -22,7 +22,7 @@ const signupWithInvitationSchema = z
       .max(50, "Username must be at most 50 characters")
       .regex(
         /^[a-zA-Z0-9_-]+$/,
-        "Username can only contain letters, numbers, underscores, and hyphens"
+        "Username can only contain letters, numbers, underscores, and hyphens",
       ),
     email: z.string().email("Invalid email address"),
     password: z
@@ -44,9 +44,7 @@ const signupWithInvitationSchema = z
     path: ["confirmPassword"],
   });
 
-type SignupWithInvitationFormValues = z.infer<
-  typeof signupWithInvitationSchema
->;
+type SignupWithInvitationFormValues = z.infer<typeof signupWithInvitationSchema>;
 
 interface SignupWithInvitationFormProps {
   invitationCode: string;
@@ -85,16 +83,8 @@ export function SignupWithInvitationForm({
       <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
         <Stack gap="md">
           <Group grow>
-            <NameField
-              name="firstName"
-              form={form}
-              data-testid="signup-input-firstname"
-            />
-            <NameField
-              name="lastName"
-              form={form}
-              data-testid="signup-input-lastname"
-            />
+            <NameField name="firstName" form={form} data-testid="signup-input-firstname" />
+            <NameField name="lastName" form={form} data-testid="signup-input-lastname" />
           </Group>
 
           <TextInput
@@ -109,10 +99,7 @@ export function SignupWithInvitationForm({
 
           <PasswordField form={form} data-testid="signup-input-password" />
 
-          <ConfirmPasswordField
-            form={form}
-            data-testid="signup-input-confirm-password"
-          />
+          <ConfirmPasswordField form={form} data-testid="signup-input-confirm-password" />
 
           <Button
             type="submit"

@@ -19,29 +19,19 @@ describe("ConfirmationModal", () => {
   it("renders when opened", () => {
     render(
       <TestWrapper>
-        <ConfirmationModal
-          opened
-          onClose={mockOnClose}
-          onConfirm={mockOnConfirm}
-        />
-      </TestWrapper>
+        <ConfirmationModal opened onClose={mockOnClose} onConfirm={mockOnConfirm} />
+      </TestWrapper>,
     );
 
     expect(screen.getByText("Confirm Action")).toBeInTheDocument();
-    expect(
-      screen.getByText("Are you sure you want to proceed?")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Are you sure you want to proceed?")).toBeInTheDocument();
   });
 
   it("does not render when closed", () => {
     render(
       <TestWrapper>
-        <ConfirmationModal
-          opened={false}
-          onClose={mockOnClose}
-          onConfirm={mockOnConfirm}
-        />
-      </TestWrapper>
+        <ConfirmationModal opened={false} onClose={mockOnClose} onConfirm={mockOnConfirm} />
+      </TestWrapper>,
     );
 
     expect(screen.queryByText("Confirm Action")).not.toBeInTheDocument();
@@ -57,13 +47,11 @@ describe("ConfirmationModal", () => {
           title="Delete Item"
           message="Are you sure you want to delete this item?"
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByText("Delete Item")).toBeInTheDocument();
-    expect(
-      screen.getByText("Are you sure you want to delete this item?")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Are you sure you want to delete this item?")).toBeInTheDocument();
   });
 
   it("displays custom button labels", () => {
@@ -76,7 +64,7 @@ describe("ConfirmationModal", () => {
           confirmLabel="Delete"
           cancelLabel="Keep"
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByText("Delete")).toBeInTheDocument();
@@ -88,12 +76,8 @@ describe("ConfirmationModal", () => {
 
     render(
       <TestWrapper>
-        <ConfirmationModal
-          opened
-          onClose={mockOnClose}
-          onConfirm={mockOnConfirm}
-        />
-      </TestWrapper>
+        <ConfirmationModal opened onClose={mockOnClose} onConfirm={mockOnConfirm} />
+      </TestWrapper>,
     );
 
     const confirmButton = screen.getByText("Confirm");
@@ -107,12 +91,8 @@ describe("ConfirmationModal", () => {
 
     render(
       <TestWrapper>
-        <ConfirmationModal
-          opened
-          onClose={mockOnClose}
-          onConfirm={mockOnConfirm}
-        />
-      </TestWrapper>
+        <ConfirmationModal opened onClose={mockOnClose} onConfirm={mockOnConfirm} />
+      </TestWrapper>,
     );
 
     const cancelButton = screen.getByText("Cancel");
@@ -124,13 +104,8 @@ describe("ConfirmationModal", () => {
   it("shows danger styling when danger prop is true", () => {
     render(
       <TestWrapper>
-        <ConfirmationModal
-          opened
-          onClose={mockOnClose}
-          onConfirm={mockOnConfirm}
-          danger
-        />
-      </TestWrapper>
+        <ConfirmationModal opened onClose={mockOnClose} onConfirm={mockOnConfirm} danger />
+      </TestWrapper>,
     );
 
     // Danger icon should be present
@@ -141,13 +116,8 @@ describe("ConfirmationModal", () => {
   it("disables buttons when loading", () => {
     render(
       <TestWrapper>
-        <ConfirmationModal
-          opened
-          onClose={mockOnClose}
-          onConfirm={mockOnConfirm}
-          loading
-        />
-      </TestWrapper>
+        <ConfirmationModal opened onClose={mockOnClose} onConfirm={mockOnConfirm} loading />
+      </TestWrapper>,
     );
 
     const cancelButton = screen.getByRole("button", { name: "Cancel" });

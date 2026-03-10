@@ -22,14 +22,8 @@ import { useMSWControl } from "@/shared/lib";
  */
 export function MSWDevTools() {
   const [opened, setOpened] = useState(false);
-  const {
-    config,
-    isRunning,
-    toggleMSW,
-    setLogging,
-    setDelay,
-    setUnhandledRequestBehavior,
-  } = useMSWControl();
+  const { config, isRunning, toggleMSW, setLogging, setDelay, setUnhandledRequestBehavior } =
+    useMSWControl();
 
   // Only show in development
   if (!import.meta.env.DEV) {
@@ -68,9 +62,7 @@ export function MSWDevTools() {
 
       <Group mb="md">
         <Button
-          leftSection={
-            isRunning ? <IconBugOff size={16} /> : <IconBug size={16} />
-          }
+          leftSection={isRunning ? <IconBugOff size={16} /> : <IconBug size={16} />}
           variant={isRunning ? "filled" : "outline"}
           color={isRunning ? "red" : "blue"}
           onClick={toggleMSW}
@@ -93,9 +85,7 @@ export function MSWDevTools() {
             label={t`Unhandled requests`}
             description={t`How to handle requests without mocks`}
             value={config.onUnhandledRequest}
-            onChange={(value) =>
-              setUnhandledRequestBehavior(value as "bypass" | "warn" | "error")
-            }
+            onChange={(value) => setUnhandledRequestBehavior(value as "bypass" | "warn" | "error")}
             data={[
               { value: "bypass", label: t`Bypass (allow through)` },
               { value: "warn", label: t`Warn (log warning)` },
@@ -124,8 +114,7 @@ export function MSWDevTools() {
           />
 
           <Text size="xs" c="dimmed">
-            Changes take effect immediately. MSW will intercept API calls when
-            enabled.
+            Changes take effect immediately. MSW will intercept API calls when enabled.
           </Text>
         </Stack>
       </Collapse>

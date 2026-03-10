@@ -44,10 +44,7 @@ export interface ProblemDetail {
 }
 
 function extractRequestId(from: any): string | undefined {
-  const headers = (from?.headers ?? {}) as Record<
-    string,
-    string | string[] | undefined
-  >;
+  const headers = (from?.headers ?? {}) as Record<string, string | string[] | undefined>;
   const id =
     headers["x-request-id"] ??
     headers["x-correlation-id"] ??
@@ -64,10 +61,7 @@ function extractRequestId(from: any): string | undefined {
 }
 
 function extractCorrelationId(from: any): string | undefined {
-  const headers = (from?.headers ?? {}) as Record<
-    string,
-    string | string[] | undefined
-  >;
+  const headers = (from?.headers ?? {}) as Record<string, string | string[] | undefined>;
   const id = headers["x-correlation-id"] ?? headers["correlation-id"];
   if (Array.isArray(id)) {
     return id[0];
@@ -156,8 +150,7 @@ export function normalizeAxiosError(err: unknown): AppError {
   // Network or timeout
   if (isAxios && !ax.response) {
     const code = ax.code;
-    const isTimeout =
-      code === "ECONNABORTED" || /timeout/i.test(ax.message || "");
+    const isTimeout = code === "ECONNABORTED" || /timeout/i.test(ax.message || "");
     return {
       type: isTimeout ? "timeout" : "network",
       message: isTimeout
@@ -177,24 +170,11 @@ export function normalizeAxiosError(err: unknown): AppError {
 
     // Handle RFC 7807 Problem Details format
     if (isProblemDetail(data)) {
-      return handleProblemDetail(
-        data,
-        status,
-        hdrRequestId,
-        hdrCorrelationId,
-        err
-      );
+      return handleProblemDetail(data, status, hdrRequestId, hdrCorrelationId, err);
     }
 
     // Fallback to legacy error handling for non-RFC 7807 responses
-    return handleLegacyError(
-      data,
-      status,
-      ax,
-      hdrRequestId,
-      hdrCorrelationId,
-      err
-    );
+    return handleLegacyError(data, status, ax, hdrRequestId, hdrCorrelationId, err);
   }
 
   // Non-axios or unknown error
@@ -216,7 +196,7 @@ function handleProblemDetail(
   status: number,
   requestId?: string,
   correlationId?: string,
-  cause?: unknown
+  cause?: unknown,
 ): AppError {
   const type = determineErrorType(status, data.code);
   const retryable = isRetryableError(status, data.code);
@@ -246,7 +226,7 @@ function handleLegacyError(
   ax: AxiosError,
   requestId?: string,
   correlationId?: string,
-  cause?: unknown
+  cause?: unknown,
 ): AppError {
   const type = determineErrorType(status);
   const retryable = isRetryableError(status);
@@ -262,13 +242,9 @@ function handleLegacyError(
     ax.message ??
     "Request failed";
 
-  const errors = flattenValidationErrors(
-    data?.errors ?? data?.violations ?? data?.fields
-  );
+  const errors = flattenValidationErrors(data?.errors ?? data?.violations ?? data?.fields);
 
-  const combinedMessage = errors.length
-    ? `${message}. ${errors.join(", ")}`
-    : message;
+  const combinedMessage = errors.length ? `${message}. ${errors.join(", ")}` : message;
 
   return {
     type: errors.length && type === "client" ? "validation" : type,
@@ -292,9 +268,7 @@ function constructProblemDetailMessage(data: ProblemDetail): string {
 
   // Add field-specific errors if present
   if (data.fields && data.fields.length > 0) {
-    const fieldMessages = data.fields.map(
-      (field) => `${field.field}: ${field.message}`
-    );
+    const fieldMessages = data.fields.map((field) => `${field.field}: ${field.message}`);
     message += `. ${fieldMessages.join(", ")}`;
   }
 
@@ -400,11 +374,8 @@ export function getFieldErrors(err: unknown): FieldErrors {
   const violations = data?.violations as Array<Record<string, any>> | undefined;
   if (Array.isArray(violations)) {
     for (const v of violations) {
-      const field = normalizeFieldKey(
-        v?.field || v?.propertyPath || v?.name || ""
-      );
-      const msg =
-        v?.message || v?.reason || v?.detail || v?.error || "Invalid value";
+      const field = normalizeFieldKey(v?.field || v?.propertyPath || v?.name || "");
+      const msg = v?.message || v?.reason || v?.detail || v?.error || "Invalid value";
       if (!field) {
         continue;
       }
@@ -440,10 +411,7 @@ export function toMantineErrors(err: unknown): Record<string, string> {
   return res;
 }
 
-export function getErrorMessage(
-  err: unknown,
-  fallback = "Something went wrong"
-): string {
+export function getErrorMessage(err: unknown, fallback = "Something went wrong"): string {
   const appErr = normalizeAxiosError(err);
   let message = appErr.message || fallback;
 

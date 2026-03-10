@@ -41,7 +41,7 @@ test.describe("App Smoke Tests", () => {
         !error.includes("Failed to load resource") &&
         !error.includes("NetworkError") &&
         !error.includes("fetch") &&
-        !error.includes("500")
+        !error.includes("500"),
     );
 
     expect(criticalErrors).toHaveLength(0);

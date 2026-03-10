@@ -26,7 +26,7 @@ describe("ThemeToggle", () => {
     render(
       <TestWrapper>
         <ThemeToggle />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     const button = screen.getByTestId("theme-toggle-button");
@@ -37,7 +37,7 @@ describe("ThemeToggle", () => {
     render(
       <TestWrapper>
         <ThemeToggle />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     const button = screen.getByLabelText("Toggle color scheme");
@@ -50,7 +50,7 @@ describe("ThemeToggle", () => {
     render(
       <TestWrapper>
         <ThemeToggle />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     const button = screen.getByTestId("theme-toggle-button");
@@ -63,7 +63,7 @@ describe("ThemeToggle", () => {
     render(
       <TestWrapper>
         <ThemeToggle />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     const button = screen.getByTestId("theme-toggle-button");

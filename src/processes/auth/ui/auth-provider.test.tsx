@@ -35,7 +35,7 @@ describe("AuthProvider", () => {
         <AuthProvider>
           <div data-testid="child-content">Test Content</div>
         </AuthProvider>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByTestId("child-content")).toBeInTheDocument();
@@ -47,7 +47,7 @@ describe("AuthProvider", () => {
         <AuthProvider>
           <div>Content</div>
         </AuthProvider>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(mockInitialize).toHaveBeenCalled();
@@ -62,7 +62,7 @@ describe("AuthProvider", () => {
         <AuthProvider>
           <div data-testid="child-content">Test Content</div>
         </AuthProvider>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.queryByTestId("child-content")).not.toBeInTheDocument();
@@ -74,12 +74,10 @@ describe("AuthProvider", () => {
 
     render(
       <TestWrapper>
-        <AuthProvider
-          fallback={<div data-testid="custom-fallback">Loading...</div>}
-        >
+        <AuthProvider fallback={<div data-testid="custom-fallback">Loading...</div>}>
           <div data-testid="child-content">Test Content</div>
         </AuthProvider>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByTestId("custom-fallback")).toBeInTheDocument();
@@ -95,7 +93,7 @@ describe("AuthProvider", () => {
         <AuthProvider>
           <div data-testid="child-content">Test Content</div>
         </AuthProvider>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.queryByTestId("child-content")).not.toBeInTheDocument();
@@ -108,7 +106,7 @@ describe("AuthProvider", () => {
         <AuthProvider>
           <div data-testid="child-content">Test Content</div>
         </AuthProvider>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     await waitFor(() => {

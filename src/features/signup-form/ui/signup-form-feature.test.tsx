@@ -57,9 +57,7 @@ describe("SignUpFormFeature", () => {
     expect(screen.getByTestId("signup-input-username")).toBeInTheDocument();
     expect(screen.getByTestId("signup-input-email")).toBeInTheDocument();
     expect(screen.getByTestId("signup-input-password")).toBeInTheDocument();
-    expect(
-      screen.getByTestId("signup-input-confirm-password")
-    ).toBeInTheDocument();
+    expect(screen.getByTestId("signup-input-confirm-password")).toBeInTheDocument();
     expect(screen.getByTestId("signup-button-submit")).toBeInTheDocument();
   });
 
@@ -116,12 +114,8 @@ describe("SignUpFormFeature", () => {
     const lastNameInput = screen.getByPlaceholderText("Doe");
     const usernameInput = screen.getByPlaceholderText("johndoe");
     const emailInput = screen.getByPlaceholderText("john.doe@example.com");
-    const passwordInput = screen.getByPlaceholderText(
-      "Create a strong password"
-    );
-    const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your password"
-    );
+    const passwordInput = screen.getByPlaceholderText("Create a strong password");
+    const confirmPasswordInput = screen.getByPlaceholderText("Confirm your password");
     const submitButton = screen.getByTestId("signup-button-submit");
 
     await user.type(firstNameInput, "John");
@@ -141,7 +135,7 @@ describe("SignUpFormFeature", () => {
           email: "john@example.com",
           password: "Password123!",
         }),
-        expect.any(Object)
+        expect.any(Object),
       );
     });
   }, 15000);
@@ -203,12 +197,8 @@ describe("SignUpFormFeature", () => {
     const lastNameInput = screen.getByPlaceholderText("Doe");
     const usernameInput = screen.getByPlaceholderText("johndoe");
     const emailInput = screen.getByPlaceholderText("john.doe@example.com");
-    const passwordInput = screen.getByPlaceholderText(
-      "Create a strong password"
-    );
-    const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your password"
-    );
+    const passwordInput = screen.getByPlaceholderText("Create a strong password");
+    const confirmPasswordInput = screen.getByPlaceholderText("Confirm your password");
     const submitButton = screen.getByTestId("signup-button-submit");
 
     await user.type(firstNameInput, "John");
@@ -224,7 +214,7 @@ describe("SignUpFormFeature", () => {
       () => {
         expect(onSuccess).toHaveBeenCalledWith(mockResponse);
       },
-      { timeout: 3000 }
+      { timeout: 3000 },
     );
   }, 10000);
 });

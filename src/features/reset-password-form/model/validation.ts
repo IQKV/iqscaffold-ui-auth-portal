@@ -6,9 +6,7 @@ import { ResetPasswordFormValues } from "./types";
 export const resetPasswordFormSchema = formSchemas.resetPassword;
 
 // Type inference from schema
-export type ResetPasswordFormSchemaType = z.infer<
-  typeof resetPasswordFormSchema
->;
+export type ResetPasswordFormSchemaType = z.infer<typeof resetPasswordFormSchema>;
 
 // Initial values
 export const initialResetPasswordValues: ResetPasswordFormSchemaType = {
@@ -17,5 +15,4 @@ export const initialResetPasswordValues: ResetPasswordFormSchemaType = {
 };
 
 // Legacy export for backward compatibility (will be removed)
-export const validateResetPasswordForm =
-  "DEPRECATED: Use resetPasswordFormSchema instead";
+export const validateResetPasswordForm = "DEPRECATED: Use resetPasswordFormSchema instead";

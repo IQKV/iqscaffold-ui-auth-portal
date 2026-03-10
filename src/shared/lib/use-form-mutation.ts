@@ -19,19 +19,21 @@ export type NotifyConfig = {
   fallback?: string;
 };
 
-export type FormMutationOptions<TData, TVariables, TContext> =
-  UseMutationOptions<TData, unknown, TVariables, TContext> & {
-    notifySuccess?: NotifyConfig | false;
-    notifyError?:
-      | (NotifyConfig & { includeFieldErrorsInMessage?: boolean })
-      | false;
-    mapField?: (errors: Record<string, string>) => Record<string, string>;
-  };
+export type FormMutationOptions<TData, TVariables, TContext> = UseMutationOptions<
+  TData,
+  unknown,
+  TVariables,
+  TContext
+> & {
+  notifySuccess?: NotifyConfig | false;
+  notifyError?: (NotifyConfig & { includeFieldErrorsInMessage?: boolean }) | false;
+  mapField?: (errors: Record<string, string>) => Record<string, string>;
+};
 
 export function useFormMutation<TData, TVariables, TContext = unknown>(
   form: UseFormReturnType<any>,
   mutationFn: (variables: TVariables) => Promise<TData>,
-  options?: FormMutationOptions<TData, TVariables, TContext>
+  options?: FormMutationOptions<TData, TVariables, TContext>,
 ): UseMutationResult<TData, unknown, TVariables, TContext> {
   const {
     notifySuccess,
@@ -48,15 +50,10 @@ export function useFormMutation<TData, TVariables, TContext = unknown>(
       // Clear previous field errors
       form.setErrors({});
 
-      if (
-        notifySuccess &&
-        (notifySuccess.message || typeof notifySuccess === "object")
-      ) {
+      if (notifySuccess && (notifySuccess.message || typeof notifySuccess === "object")) {
         notificationService.success({
           title: notifySuccess.title ?? "Success",
-          message:
-            (notifySuccess.message as string) ??
-            "Operation completed successfully",
+          message: (notifySuccess.message as string) ?? "Operation completed successfully",
         });
       }
 

@@ -52,9 +52,7 @@ describe("HTTP Error Utilities", () => {
       const result = normalizeAxiosError(networkError);
 
       expect(result.type).toBe("network");
-      expect(result.message).toBe(
-        "Network error. Please check your connection and try again."
-      );
+      expect(result.message).toBe("Network error. Please check your connection and try again.");
       expect(result.retryable).toBe(true);
     });
 
@@ -115,7 +113,7 @@ describe("HTTP Error Utilities", () => {
       expect(result.type).toBe("validation");
       expect(result.status).toBe(422);
       expect(result.message).toBe(
-        "Validation failed. Email is required, Name must be at least 2 characters"
+        "Validation failed. Email is required, Name must be at least 2 characters",
       );
     });
 

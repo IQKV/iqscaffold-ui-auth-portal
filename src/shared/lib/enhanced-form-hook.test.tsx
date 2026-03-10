@@ -10,16 +10,12 @@ import {
   Checkbox,
 } from "@mantine/core";
 import { z } from "zod";
-import {
-  useForm as useMantineForm,
-  UseFormInput,
-  UseFormReturnType,
-} from "@mantine/form";
+import { useForm as useMantineForm, UseFormInput, UseFormReturnType } from "@mantine/form";
 import { zodResolver } from "mantine-form-zod-resolver";
 
 // Test-specific form hook without Lingui dependency
 const useForm = <T extends Record<string, any> = Record<string, any>>(
-  input: { schema: z.ZodSchema<T> } & Omit<UseFormInput<T>, "validate">
+  input: { schema: z.ZodSchema<T> } & Omit<UseFormInput<T>, "validate">,
 ): UseFormReturnType<T> => {
   const { schema, ...mantineFormInput } = input;
   const formConfig: UseFormInput<T> = {
@@ -31,10 +27,7 @@ const useForm = <T extends Record<string, any> = Record<string, any>>(
 
 // Test-specific validation schemas without Lingui
 const testValidationSchemas = {
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .email("Please enter a valid email address"),
+  email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
 };
 
 const createFormSchema = <T extends z.ZodRawShape>(shape: T) => {
@@ -101,30 +94,16 @@ const SimpleFormComponent = () => {
   return (
     <form>
       <TextInput label="Text Field" {...form.getInputProps("text")} />
-      <TextInput
-        type="email"
-        label="Email Field"
-        {...form.getInputProps("email")}
-      />
-      <PasswordInput
-        label="Password Field"
-        {...form.getInputProps("password")}
-      />
-      <TextInput
-        type="number"
-        label="Number Field"
-        {...form.getInputProps("number")}
-      />
+      <TextInput type="email" label="Email Field" {...form.getInputProps("email")} />
+      <PasswordInput label="Password Field" {...form.getInputProps("password")} />
+      <TextInput type="number" label="Number Field" {...form.getInputProps("number")} />
       <Textarea label="Textarea Field" {...form.getInputProps("textarea")} />
       <Select
         label="Select Field"
         data={[{ value: "option1", label: "Option 1" }]}
         {...form.getInputProps("select")}
       />
-      <Checkbox
-        label="Checkbox Field"
-        {...form.getInputProps("checkbox", { type: "checkbox" })}
-      />
+      <Checkbox label="Checkbox Field" {...form.getInputProps("checkbox", { type: "checkbox" })} />
     </form>
   );
 };
@@ -136,7 +115,7 @@ describe("useForm", () => {
     render(
       <TestWrapper>
         <TestFormComponent />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     const emailInput = screen.getByLabelText(/email/i);
@@ -158,7 +137,7 @@ describe("useForm", () => {
     render(
       <TestWrapper>
         <TestFormComponent />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     const usernameInput = screen.getByLabelText(/username/i);
@@ -168,9 +147,7 @@ describe("useForm", () => {
     await user.click(screen.getByRole("button", { name: /submit/i }));
 
     await waitFor(() => {
-      expect(
-        screen.getByText(/username must be at least 3 characters/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/username must be at least 3 characters/i)).toBeInTheDocument();
     });
   });
 
@@ -180,7 +157,7 @@ describe("useForm", () => {
     render(
       <TestWrapper>
         <TestFormComponent />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     const ageInput = screen.getByLabelText(/age/i);
@@ -202,7 +179,7 @@ describe("useForm", () => {
     render(
       <TestWrapper>
         <TestFormComponent />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     // Fill form with valid data
@@ -230,7 +207,7 @@ describe("Form field types", () => {
     render(
       <TestWrapper>
         <SimpleFormComponent />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByLabelText(/text field/i)).toBeInTheDocument();

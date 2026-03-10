@@ -36,8 +36,7 @@ describe("ResetPasswordFormFeature", () => {
 
   beforeEach(async () => {
     vi.clearAllMocks();
-    const { useValidateResetToken, useResetPassword } =
-      await import("@/shared/lib/use-auth-api");
+    const { useValidateResetToken, useResetPassword } = await import("@/shared/lib/use-auth-api");
 
     (useResetPassword as any).mockReturnValue({
       mutate: mockMutate,
@@ -57,15 +56,9 @@ describe("ResetPasswordFormFeature", () => {
     });
 
     expect(screen.getByTestId("reset-password-form")).toBeInTheDocument();
-    expect(
-      screen.getByTestId("reset-password-input-password")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByTestId("reset-password-input-confirm-password")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByTestId("reset-password-button-submit")
-    ).toBeInTheDocument();
+    expect(screen.getByTestId("reset-password-input-password")).toBeInTheDocument();
+    expect(screen.getByTestId("reset-password-input-confirm-password")).toBeInTheDocument();
+    expect(screen.getByTestId("reset-password-button-submit")).toBeInTheDocument();
   });
 
   it("shows loading state while validating token", async () => {
@@ -114,12 +107,8 @@ describe("ResetPasswordFormFeature", () => {
       wrapper: createWrapper(),
     });
 
-    const passwordInput = screen.getByPlaceholderText(
-      "Enter your new password"
-    );
-    const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your password"
-    );
+    const passwordInput = screen.getByPlaceholderText("Enter your new password");
+    const confirmPasswordInput = screen.getByPlaceholderText("Confirm your password");
 
     await user.type(passwordInput, "NewPassword123!");
     await user.type(confirmPasswordInput, "NewPassword123!");
@@ -134,12 +123,8 @@ describe("ResetPasswordFormFeature", () => {
       wrapper: createWrapper(),
     });
 
-    const passwordInput = screen.getByPlaceholderText(
-      "Enter your new password"
-    );
-    const confirmPasswordInput = screen.getByPlaceholderText(
-      "Confirm your password"
-    );
+    const passwordInput = screen.getByPlaceholderText("Enter your new password");
+    const confirmPasswordInput = screen.getByPlaceholderText("Confirm your password");
     const submitButton = screen.getByTestId("reset-password-button-submit");
 
     await user.type(passwordInput, "NewPassword123!");
@@ -154,7 +139,7 @@ describe("ResetPasswordFormFeature", () => {
         },
         {
           onSuccess: expect.any(Function),
-        }
+        },
       );
     });
   });
@@ -172,13 +157,9 @@ describe("ResetPasswordFormFeature", () => {
     const user = userEvent.setup();
     const onBackToLogin = vi.fn();
 
-    render(
-      <ResetPasswordFormFeature
-        token="valid-token"
-        onBackToLogin={onBackToLogin}
-      />,
-      { wrapper: createWrapper() }
-    );
+    render(<ResetPasswordFormFeature token="valid-token" onBackToLogin={onBackToLogin} />, {
+      wrapper: createWrapper(),
+    });
 
     const backLink = screen.getByTestId("reset-password-link-back");
     await user.click(backLink);

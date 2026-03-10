@@ -8,10 +8,7 @@ interface RememberMeCheckboxProps {
   "data-testid"?: string;
 }
 
-export function RememberMeCheckbox({
-  form,
-  "data-testid": dataTestId,
-}: RememberMeCheckboxProps) {
+export function RememberMeCheckbox({ form, "data-testid": dataTestId }: RememberMeCheckboxProps) {
   return (
     <Checkbox
       label={t`Remember me`}

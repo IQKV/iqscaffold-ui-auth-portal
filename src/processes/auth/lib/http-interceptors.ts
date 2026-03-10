@@ -1,8 +1,4 @@
-import type {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosRequestHeaders,
-} from "axios";
+import type { AxiosError, AxiosRequestConfig, AxiosRequestHeaders } from "axios";
 import { apiClient } from "@/shared/api";
 import { TokenManager } from "./token-manager";
 import { useAuthStore } from "../model/auth-store";
@@ -27,26 +23,20 @@ export function attachAuthInterceptors() {
       }
       return config;
     },
-    (error) => Promise.reject(error)
+    (error) => Promise.reject(error),
   );
 
   apiClient.interceptors.response.use(
     (response) => response,
     async (error: AxiosError) => {
-      const original = error.config as
-        | (AxiosRequestConfig & { _retry?: boolean })
-        | undefined;
+      const original = error.config as (AxiosRequestConfig & { _retry?: boolean }) | undefined;
       const status = error.response?.status;
 
       if (!status || !original) {
         return Promise.reject(error);
       }
 
-      if (
-        status === 401 &&
-        !original._retry &&
-        tokenManager.canRefreshSession()
-      ) {
+      if (status === 401 && !original._retry && tokenManager.canRefreshSession()) {
         original._retry = true;
         try {
           await useAuthStore.getState().refreshTokens();
@@ -64,6 +54,6 @@ export function attachAuthInterceptors() {
       }
 
       return Promise.reject(error);
-    }
+    },
   );
 }

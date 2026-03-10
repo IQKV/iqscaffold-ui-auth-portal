@@ -75,9 +75,7 @@ describe("SignInFormFeature", () => {
     const user = userEvent.setup();
     render(<SignInFormFeature />, { wrapper: createWrapper() });
 
-    const usernameInput = screen.getByPlaceholderText(
-      "Enter your username or email"
-    );
+    const usernameInput = screen.getByPlaceholderText("Enter your username or email");
     const passwordInput = screen.getByPlaceholderText("Enter your password");
 
     await user.type(usernameInput, "testuser");
@@ -93,9 +91,7 @@ describe("SignInFormFeature", () => {
 
     render(<SignInFormFeature />, { wrapper: createWrapper() });
 
-    const usernameInput = screen.getByPlaceholderText(
-      "Enter your username or email"
-    );
+    const usernameInput = screen.getByPlaceholderText("Enter your username or email");
     const passwordInput = screen.getByPlaceholderText("Enter your password");
     const submitButton = screen.getByTestId("signin-button-submit");
 
@@ -116,9 +112,7 @@ describe("SignInFormFeature", () => {
   it("displays forgot password link", () => {
     render(<SignInFormFeature />, { wrapper: createWrapper() });
 
-    const forgotPasswordLink = screen.getByTestId(
-      "signin-link-forgot-password"
-    );
+    const forgotPasswordLink = screen.getByTestId("signin-link-forgot-password");
     expect(forgotPasswordLink).toBeInTheDocument();
   });
 
@@ -137,9 +131,7 @@ describe("SignInFormFeature", () => {
       wrapper: createWrapper(),
     });
 
-    const forgotPasswordLink = screen.getByTestId(
-      "signin-link-forgot-password"
-    );
+    const forgotPasswordLink = screen.getByTestId("signin-link-forgot-password");
     await user.click(forgotPasswordLink);
 
     expect(onForgotPassword).toHaveBeenCalled();

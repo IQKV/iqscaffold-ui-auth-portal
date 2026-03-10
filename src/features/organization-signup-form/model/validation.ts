@@ -18,10 +18,7 @@ export const createOrganizationSignUpFormSchema = () =>
         .string()
         .min(3, t`Username must be at least 3 characters`)
         .max(50, t`Username must be less than 50 characters`)
-        .regex(
-          /^[a-zA-Z0-9_]+$/,
-          t`Username can only contain letters, numbers, and underscores`
-        ),
+        .regex(/^[a-zA-Z0-9_]+$/, t`Username can only contain letters, numbers, and underscores`),
 
       adminEmail: z
         .string()
@@ -33,18 +30,12 @@ export const createOrganizationSignUpFormSchema = () =>
         .string()
         .min(8, t`Password must be at least 8 characters`)
         .max(100, t`Password must be less than 100 characters`)
-        .regex(
-          /(?=.*[a-z])/,
-          t`Password must include at least one lowercase letter`
-        )
-        .regex(
-          /(?=.*[A-Z])/,
-          t`Password must include at least one uppercase letter`
-        )
+        .regex(/(?=.*[a-z])/, t`Password must include at least one lowercase letter`)
+        .regex(/(?=.*[A-Z])/, t`Password must include at least one uppercase letter`)
         .regex(/(?=.*\d)/, t`Password must include at least one number`)
         .regex(
           /(?=.*[@$!%*?&])/,
-          t`Password must include at least one special character (@$!%*?&)`
+          t`Password must include at least one special character (@$!%*?&)`,
         ),
 
       adminFirstName: z
@@ -67,9 +58,8 @@ export const createOrganizationSignUpFormSchema = () =>
     });
 
 // Lazy initialization to avoid calling t() at module load time
-let _organizationSignUpFormSchema: ReturnType<
-  typeof createOrganizationSignUpFormSchema
-> | null = null;
+let _organizationSignUpFormSchema: ReturnType<typeof createOrganizationSignUpFormSchema> | null =
+  null;
 
 export const organizationSignUpFormSchema = new Proxy(
   {} as ReturnType<typeof createOrganizationSignUpFormSchema>,
@@ -78,11 +68,9 @@ export const organizationSignUpFormSchema = new Proxy(
       if (!_organizationSignUpFormSchema) {
         _organizationSignUpFormSchema = createOrganizationSignUpFormSchema();
       }
-      return _organizationSignUpFormSchema[
-        prop as keyof typeof _organizationSignUpFormSchema
-      ];
+      return _organizationSignUpFormSchema[prop as keyof typeof _organizationSignUpFormSchema];
     },
-  }
+  },
 );
 
 // Type inference from schema
@@ -91,13 +79,12 @@ export type OrganizationSignUpFormSchemaType = z.infer<
 >;
 
 // Initial values
-export const initialOrganizationSignUpValues: OrganizationSignUpFormSchemaType =
-  {
-    organizationName: "",
-    adminUsername: "",
-    adminEmail: "",
-    adminPassword: "",
-    adminFirstName: "",
-    adminLastName: "",
-    confirmPassword: "",
-  };
+export const initialOrganizationSignUpValues: OrganizationSignUpFormSchemaType = {
+  organizationName: "",
+  adminUsername: "",
+  adminEmail: "",
+  adminPassword: "",
+  adminFirstName: "",
+  adminLastName: "",
+  confirmPassword: "",
+};

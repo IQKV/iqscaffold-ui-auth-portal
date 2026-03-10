@@ -112,12 +112,7 @@ export const Route = createFileRoute("/admin")({
 ### User Information
 
 ```tsx
-import {
-  useCurrentUser,
-  useUserFullName,
-  useHasRole,
-  useHasPermission,
-} from "@/processes/auth";
+import { useCurrentUser, useUserFullName, useHasRole, useHasPermission } from "@/processes/auth";
 
 function UserProfile() {
   const user = useCurrentUser();

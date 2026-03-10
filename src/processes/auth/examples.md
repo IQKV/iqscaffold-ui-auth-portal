@@ -15,20 +15,14 @@ function AuthStatus() {
     return <div>Checking authentication...</div>;
   }
 
-  return (
-    <div>Status: {isAuthenticated ? "Authenticated" : "Not Authenticated"}</div>
-  );
+  return <div>Status: {isAuthenticated ? "Authenticated" : "Not Authenticated"}</div>;
 }
 ```
 
 ## 2. Display Current User Info
 
 ```tsx
-import {
-  useCurrentUser,
-  useUserFullName,
-  useUserInitials,
-} from "@/processes/auth";
+import { useCurrentUser, useUserFullName, useUserInitials } from "@/processes/auth";
 
 function UserGreeting() {
   const user = useCurrentUser();
@@ -98,11 +92,7 @@ function DocumentEditor({ document }) {
 
 ```tsx
 import { useEffect } from "react";
-import {
-  useAuthStore,
-  isSessionExpiringSoon,
-  getTimeUntilExpiration,
-} from "@/processes/auth";
+import { useAuthStore, isSessionExpiringSoon, getTimeUntilExpiration } from "@/processes/auth";
 
 function SessionMonitor() {
   const logout = useAuthStore((state) => state.logout);
@@ -116,9 +106,7 @@ function SessionMonitor() {
       }
 
       if (isSessionExpiringSoon(1)) {
-        const shouldLogout = confirm(
-          "Your session is about to expire. Continue?"
-        );
+        const shouldLogout = confirm("Your session is about to expire. Continue?");
         if (!shouldLogout) {
           logout();
         }
@@ -273,11 +261,7 @@ function AuthErrorDisplay() {
 ## 12. Real-time Auth Status Indicator
 
 ```tsx
-import {
-  useAuthStore,
-  useAuthError,
-  useAuthInitialized,
-} from "@/processes/auth";
+import { useAuthStore, useAuthError, useAuthInitialized } from "@/processes/auth";
 
 function AuthStatusIndicator() {
   const isLoading = useAuthStore((state) => state.isLoading);

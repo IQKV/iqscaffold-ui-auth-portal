@@ -99,7 +99,7 @@ describe("AuthStore", () => {
           username: "testuser",
           password: "wrong",
           rememberMe: false,
-        })
+        }),
       ).rejects.toThrow();
 
       const state = useAuthStore.getState();

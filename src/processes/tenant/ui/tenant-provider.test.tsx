@@ -31,7 +31,7 @@ describe("TenantProvider", () => {
     render(
       <TenantProvider>
         <div data-testid="child-content">Test Content</div>
-      </TenantProvider>
+      </TenantProvider>,
     );
 
     expect(screen.getByTestId("child-content")).toBeInTheDocument();
@@ -44,7 +44,7 @@ describe("TenantProvider", () => {
     render(
       <TenantProvider>
         <div>Content</div>
-      </TenantProvider>
+      </TenantProvider>,
     );
 
     expect(mockInitialize).toHaveBeenCalled();
@@ -57,7 +57,7 @@ describe("TenantProvider", () => {
     render(
       <TenantProvider>
         <div>Content</div>
-      </TenantProvider>
+      </TenantProvider>,
     );
 
     expect(mockInitialize).not.toHaveBeenCalled();
@@ -67,7 +67,7 @@ describe("TenantProvider", () => {
     render(
       <TenantProvider>
         <div data-testid="child-content">Test Content</div>
-      </TenantProvider>
+      </TenantProvider>,
     );
 
     // Should render immediately without loading state
@@ -79,7 +79,7 @@ describe("TenantProvider", () => {
       <TenantProvider>
         <div data-testid="child-1">First Child</div>
         <div data-testid="child-2">Second Child</div>
-      </TenantProvider>
+      </TenantProvider>,
     );
 
     expect(screen.getByTestId("child-1")).toBeInTheDocument();

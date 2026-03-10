@@ -30,12 +30,7 @@ const generateParticles = (): ParticleStyle[] =>
 
 const particles = generateParticles();
 
-export function AuthLayout({
-  children,
-  title,
-  subtitle,
-  pageTitle,
-}: AuthLayoutProps) {
+export function AuthLayout({ children, title, subtitle, pageTitle }: AuthLayoutProps) {
   return (
     <>
       <Helmet>
@@ -82,11 +77,7 @@ export function AuthLayout({
             <Box w="100%" maw={560} mx="auto">
               <Stack gap="xl">
                 <Stack gap="xs">
-                  <Title
-                    order={1}
-                    fz={{ base: "1.75rem", sm: "2rem" }}
-                    fw={700}
-                  >
+                  <Title order={1} fz={{ base: "1.75rem", sm: "2rem" }} fw={700}>
                     {title}
                   </Title>
                   {subtitle && (

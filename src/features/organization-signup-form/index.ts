@@ -1,5 +1,2 @@
 export { OrganizationSignUpFormFeature } from "./ui";
-export type {
-  OrganizationSignupFormValues,
-  OrganizationSignUpFormSchemaType,
-} from "./model";
+export type { OrganizationSignupFormValues, OrganizationSignUpFormSchemaType } from "./model";

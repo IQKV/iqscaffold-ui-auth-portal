@@ -17,28 +17,16 @@ export const createValidationSchemas = () => ({
     .string()
     .min(8, t`Password must be at least 8 characters`)
     .max(100, t`Password must be less than 100 characters`)
-    .regex(
-      /(?=.*[a-z])/,
-      t`Password must include at least one lowercase letter`
-    )
-    .regex(
-      /(?=.*[A-Z])/,
-      t`Password must include at least one uppercase letter`
-    )
+    .regex(/(?=.*[a-z])/, t`Password must include at least one lowercase letter`)
+    .regex(/(?=.*[A-Z])/, t`Password must include at least one uppercase letter`)
     .regex(/(?=.*\d)/, t`Password must include at least one number`)
-    .regex(
-      /(?=.*[@$!%*?&])/,
-      t`Password must include at least one special character (@$!%*?&)`
-    ),
+    .regex(/(?=.*[@$!%*?&])/, t`Password must include at least one special character (@$!%*?&)`),
 
   username: z
     .string()
     .min(3, t`Username must be at least 3 characters`)
     .max(50, t`Username must be less than 50 characters`)
-    .regex(
-      /^[a-zA-Z0-9_]+$/,
-      t`Username can only contain letters, numbers, and underscores`
-    ),
+    .regex(/^[a-zA-Z0-9_]+$/, t`Username can only contain letters, numbers, and underscores`),
 
   name: z
     .string()
@@ -73,27 +61,23 @@ export const createValidationSchemas = () => ({
         // Username validation
         return /^[a-zA-Z0-9_]+$/.test(value);
       },
-      t`Please enter a valid username or email address`
+      t`Please enter a valid username or email address`,
     ),
 
   simplePassword: z.string().min(1, t`Password is required`),
 });
 
 // Core validation schemas using Lingui for internationalization (lazy initialization)
-let _validationSchemas: ReturnType<typeof createValidationSchemas> | null =
-  null;
+let _validationSchemas: ReturnType<typeof createValidationSchemas> | null = null;
 
-export const validationSchemas = new Proxy(
-  {} as ReturnType<typeof createValidationSchemas>,
-  {
-    get(target, prop) {
-      if (!_validationSchemas) {
-        _validationSchemas = createValidationSchemas();
-      }
-      return _validationSchemas[prop as keyof typeof _validationSchemas];
-    },
-  }
-);
+export const validationSchemas = new Proxy({} as ReturnType<typeof createValidationSchemas>, {
+  get(target, prop) {
+    if (!_validationSchemas) {
+      _validationSchemas = createValidationSchemas();
+    }
+    return _validationSchemas[prop as keyof typeof _validationSchemas];
+  },
+});
 
 // Form schema builders
 export const createFormSchema = <T extends z.ZodRawShape>(shape: T) => {
@@ -106,23 +90,17 @@ export const createFormResolver = <T extends z.ZodSchema>(schema: T) => {
 };
 
 // Utility to create password confirmation validation
-export const createPasswordConfirmationSchema = (
-  passwordField = "password"
-) => {
+export const createPasswordConfirmationSchema = (passwordField = "password") => {
   const schemas = createValidationSchemas();
   return z
     .object({
       [passwordField]: schemas.password,
       confirmPassword: z.string().min(1, t`Please confirm your password`),
     })
-    .refine(
-      (data) =>
-        data[passwordField as keyof typeof data] === data.confirmPassword,
-      {
-        message: t`Passwords do not match`,
-        path: ["confirmPassword"],
-      }
-    );
+    .refine((data) => data[passwordField as keyof typeof data] === data.confirmPassword, {
+      message: t`Passwords do not match`,
+      path: ["confirmPassword"],
+    });
 };
 
 // Common form schemas
@@ -169,14 +147,11 @@ export const createFormSchemas = () => {
 // Form schemas with lazy initialization
 let _formSchemas: ReturnType<typeof createFormSchemas> | null = null;
 
-export const formSchemas = new Proxy(
-  {} as ReturnType<typeof createFormSchemas>,
-  {
-    get(target, prop) {
-      if (!_formSchemas) {
-        _formSchemas = createFormSchemas();
-      }
-      return _formSchemas[prop as keyof typeof _formSchemas];
-    },
-  }
-);
+export const formSchemas = new Proxy({} as ReturnType<typeof createFormSchemas>, {
+  get(target, prop) {
+    if (!_formSchemas) {
+      _formSchemas = createFormSchemas();
+    }
+    return _formSchemas[prop as keyof typeof _formSchemas];
+  },
+});

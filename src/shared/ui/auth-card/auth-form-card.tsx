@@ -7,12 +7,7 @@ interface AuthFormCardProps extends CardProps {
   description?: string;
 }
 
-export function AuthFormCard({
-  children,
-  title,
-  description,
-  ...props
-}: AuthFormCardProps) {
+export function AuthFormCard({ children, title, description, ...props }: AuthFormCardProps) {
   return (
     <Card shadow="md" padding="xl" radius="md" withBorder {...props}>
       {(title || description) && (

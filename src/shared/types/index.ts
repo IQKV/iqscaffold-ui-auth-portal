@@ -12,9 +12,4 @@ export interface SortableItem {
 }
 
 // Tenant types
-export type {
-  Tenant,
-  TenantSummary,
-  TenantResolutionResult,
-  TenantContext,
-} from "./tenant";
+export type { Tenant, TenantSummary, TenantResolutionResult, TenantContext } from "./tenant";

@@ -36,14 +36,8 @@ import { getConfig } from "./runtime-env";
 // Build auth configuration from environment variables with fallbacks
 const buildAuthConfig = (): AuthConfig => {
   // Prefer runtime window overrides via getConfig, fallback to hard defaults
-  const authDomain = getConfig(
-    "VITE_AUTH_DOMAIN_AUTH",
-    DEFAULT_AUTH_DOMAIN
-  ) as string;
-  const appDomain = getConfig(
-    "VITE_AUTH_DOMAIN_APP",
-    DEFAULT_APP_DOMAIN
-  ) as string;
+  const authDomain = getConfig("VITE_AUTH_DOMAIN_AUTH", DEFAULT_AUTH_DOMAIN) as string;
+  const appDomain = getConfig("VITE_AUTH_DOMAIN_APP", DEFAULT_APP_DOMAIN) as string;
 
   return {
     endpoints: {
@@ -63,20 +57,11 @@ const buildAuthConfig = (): AuthConfig => {
     },
     redirects: {
       // Always redirect to app domain root after successful login
-      afterLogin: getConfig(
-        "VITE_AUTH_REDIRECT_AFTER_LOGIN",
-        appDomain
-      ) as string,
+      afterLogin: getConfig("VITE_AUTH_REDIRECT_AFTER_LOGIN", appDomain) as string,
       // Redirect to auth domain login page after logout
-      afterLogout: getConfig(
-        "VITE_AUTH_REDIRECT_AFTER_LOGOUT",
-        `${authDomain}/login`
-      ) as string,
+      afterLogout: getConfig("VITE_AUTH_REDIRECT_AFTER_LOGOUT", `${authDomain}/login`) as string,
       // Redirect to auth domain login page after signup
-      afterSignup: getConfig(
-        "VITE_AUTH_REDIRECT_AFTER_SIGNUP",
-        `${authDomain}/login`
-      ) as string,
+      afterSignup: getConfig("VITE_AUTH_REDIRECT_AFTER_SIGNUP", `${authDomain}/login`) as string,
     },
     domains: {
       auth: authDomain,
@@ -97,7 +82,7 @@ export const configureAuth = (
     tokenStorage?: Partial<AuthConfig["tokenStorage"]>;
     redirects?: Partial<AuthConfig["redirects"]>;
     domains?: Partial<AuthConfig["domains"]>;
-  }
+  },
 ) => {
   authConfig = {
     ...authConfig,

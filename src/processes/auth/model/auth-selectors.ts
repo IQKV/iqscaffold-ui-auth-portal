@@ -67,9 +67,7 @@ export const useHasAnyAuthority = (authorities: string[]): boolean => {
     if (!state.user?.authorities) {
       return false;
     }
-    return authorities.some((authority) =>
-      state.user!.authorities.includes(authority)
-    );
+    return authorities.some((authority) => state.user!.authorities.includes(authority));
   });
 };
 
@@ -81,9 +79,7 @@ export const useHasAnyPermission = (permissions: string[]): boolean => {
     if (!state.user?.permissions) {
       return false;
     }
-    return permissions.some((permission) =>
-      state.user!.permissions.includes(permission)
-    );
+    return permissions.some((permission) => state.user!.permissions.includes(permission));
   });
 };
 

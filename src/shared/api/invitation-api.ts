@@ -65,11 +65,9 @@ export const publicInvitationApi = {
   /**
    * Get organization preview for an invitation
    */
-  async previewInvitation(
-    invitationCode: string
-  ): Promise<OrganizationPreviewDto> {
+  async previewInvitation(invitationCode: string): Promise<OrganizationPreviewDto> {
     const response = await apiClient.get<OrganizationPreviewDto>(
-      `/api/v1/public/invitations/${invitationCode}/preview`
+      `/api/v1/public/invitations/${invitationCode}/preview`,
     );
     return response.data;
   },
@@ -77,11 +75,9 @@ export const publicInvitationApi = {
   /**
    * Validate an invitation code
    */
-  async validateInvitation(
-    invitationCode: string
-  ): Promise<InvitationValidationResult> {
+  async validateInvitation(invitationCode: string): Promise<InvitationValidationResult> {
     const response = await apiClient.post<InvitationValidationResult>(
-      `/api/v1/public/invitations/${invitationCode}/validate`
+      `/api/v1/public/invitations/${invitationCode}/validate`,
     );
     return response.data;
   },
@@ -91,11 +87,11 @@ export const publicInvitationApi = {
    */
   async signupWithInvitation(
     invitationCode: string,
-    data: SignupWithInvitationRequest
+    data: SignupWithInvitationRequest,
   ): Promise<SignupWithInvitationResponse> {
     const response = await apiClient.post<SignupWithInvitationResponse>(
       `/api/v1/public/invitations/${invitationCode}/signup`,
-      data
+      data,
     );
     return response.data;
   },

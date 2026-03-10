@@ -1,8 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  forgotPasswordFormSchema,
-  initialForgotPasswordValues,
-} from "./validation";
+import { forgotPasswordFormSchema, initialForgotPasswordValues } from "./validation";
 
 describe("forgot-password-form validation", () => {
   describe("forgotPasswordFormSchema", () => {
@@ -21,9 +18,7 @@ describe("forgot-password-form validation", () => {
         });
         expect(result.success).toBe(false);
         if (!result.success) {
-          expect(result.error.issues[0].message).toBe(
-            "Please enter a valid email address"
-          );
+          expect(result.error.issues[0].message).toBe("Please enter a valid email address");
         }
       });
 
@@ -31,9 +26,7 @@ describe("forgot-password-form validation", () => {
         const result = forgotPasswordFormSchema.safeParse({ email: "test@" });
         expect(result.success).toBe(false);
         if (!result.success) {
-          expect(result.error.issues[0].message).toBe(
-            "Please enter a valid email address"
-          );
+          expect(result.error.issues[0].message).toBe("Please enter a valid email address");
         }
       });
 
@@ -43,9 +36,7 @@ describe("forgot-password-form validation", () => {
         });
         expect(result.success).toBe(false);
         if (!result.success) {
-          expect(result.error.issues[0].message).toBe(
-            "Please enter a valid email address"
-          );
+          expect(result.error.issues[0].message).toBe("Please enter a valid email address");
         }
       });
 

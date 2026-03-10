@@ -677,12 +677,7 @@ import { t } from "@lingui/core/macro";
 // shared/lib/use-form-mutation.ts (ACTUAL IMPLEMENTATION)
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 import { UseFormReturnType } from "@mantine/form";
-import {
-  normalizeAxiosError,
-  toMantineErrors,
-  shouldShowError,
-  getErrorTitle,
-} from "./http-error";
+import { normalizeAxiosError, toMantineErrors, shouldShowError, getErrorTitle } from "./http-error";
 import { notificationService } from "./notifications";
 
 export type NotifyConfig = {
@@ -691,22 +686,23 @@ export type NotifyConfig = {
   fallback?: string;
 };
 
-export type FormMutationOptions<TData, TVariables, TContext> =
-  UseMutationOptions<TData, unknown, TVariables, TContext> & {
-    notifySuccess?: NotifyConfig | false;
-    notifyError?:
-      | (NotifyConfig & { includeFieldErrorsInMessage?: boolean })
-      | false;
-    mapField?: (errors: Record<string, string>) => Record<string, string>;
-  };
+export type FormMutationOptions<TData, TVariables, TContext> = UseMutationOptions<
+  TData,
+  unknown,
+  TVariables,
+  TContext
+> & {
+  notifySuccess?: NotifyConfig | false;
+  notifyError?: (NotifyConfig & { includeFieldErrorsInMessage?: boolean }) | false;
+  mapField?: (errors: Record<string, string>) => Record<string, string>;
+};
 
 export function useFormMutation<TData, TVariables, TContext = unknown>(
   form: UseFormReturnType<any>,
   mutationFn: (variables: TVariables) => Promise<TData>,
-  options?: FormMutationOptions<TData, TVariables, TContext>
+  options?: FormMutationOptions<TData, TVariables, TContext>,
 ) {
-  const { notifySuccess, notifyError, mapField, onError, onSuccess, ...rest } =
-    options ?? {};
+  const { notifySuccess, notifyError, mapField, onError, onSuccess, ...rest } = options ?? {};
 
   return useMutation({
     mutationFn,
@@ -715,10 +711,7 @@ export function useFormMutation<TData, TVariables, TContext = unknown>(
       form.setErrors({});
 
       // Show success notification
-      if (
-        notifySuccess &&
-        (notifySuccess.message || typeof notifySuccess === "object")
-      ) {
+      if (notifySuccess && (notifySuccess.message || typeof notifySuccess === "object")) {
         notificationService.success({
           title: notifySuccess.title ?? "Success",
           message: notifySuccess.message ?? "Operation completed successfully",
@@ -834,14 +827,13 @@ export const useAuthStore = create<AuthState & AuthActions>()(
         user: state.user,
         isAuthenticated: state.isAuthenticated,
       }),
-    }
-  )
+    },
+  ),
 );
 
 // Selectors (exported from auth-selectors.ts)
 export const useCurrentUser = () => useAuthStore((state) => state.user);
-export const useIsAuthenticated = () =>
-  useAuthStore((state) => state.isAuthenticated);
+export const useIsAuthenticated = () => useAuthStore((state) => state.isAuthenticated);
 ```
 
 **Key Patterns:**
@@ -858,11 +850,7 @@ export const useIsAuthenticated = () =>
 
 ```tsx
 // shared/api/base.ts (ACTUAL IMPLEMENTATION)
-import axios, {
-  type AxiosError,
-  type AxiosRequestConfig,
-  type AxiosInstance,
-} from "axios";
+import axios, { type AxiosError, type AxiosRequestConfig, type AxiosInstance } from "axios";
 import { getConfig, getFinalMSWConfig } from "@/app/config";
 import { normalizeAxiosError } from "@/shared/lib/http-error";
 import { notificationService } from "@/shared/lib/notifications";
@@ -903,15 +891,13 @@ apiClient.interceptors.request.use(
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 apiClient.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    const original = error.config as
-      | (AxiosRequestConfig & { _retry?: boolean })
-      | undefined;
+    const original = error.config as (AxiosRequestConfig & { _retry?: boolean }) | undefined;
     const status = error.response?.status;
 
     if (!status || !original) {
@@ -930,7 +916,7 @@ apiClient.interceptors.response.use(
     }
 
     return Promise.reject(normalized);
-  }
+  },
 );
 ```
 
@@ -1016,27 +1002,15 @@ export const createValidationSchemas = () => ({
   password: z
     .string()
     .min(8, t`Password must be at least 8 characters`)
-    .regex(
-      /(?=.*[a-z])/,
-      t`Password must include at least one lowercase letter`
-    )
-    .regex(
-      /(?=.*[A-Z])/,
-      t`Password must include at least one uppercase letter`
-    )
+    .regex(/(?=.*[a-z])/, t`Password must include at least one lowercase letter`)
+    .regex(/(?=.*[A-Z])/, t`Password must include at least one uppercase letter`)
     .regex(/(?=.*\d)/, t`Password must include at least one number`)
-    .regex(
-      /(?=.*[@$!%*?&])/,
-      t`Password must include at least one special character`
-    ),
+    .regex(/(?=.*[@$!%*?&])/, t`Password must include at least one special character`),
 
   username: z
     .string()
     .min(3, t`Username must be at least 3 characters`)
-    .regex(
-      /^[a-zA-Z0-9_]+$/,
-      t`Username can only contain letters, numbers, and underscores`
-    ),
+    .regex(/^[a-zA-Z0-9_]+$/, t`Username can only contain letters, numbers, and underscores`),
 
   usernameOrEmail: z
     .string()
@@ -1045,26 +1019,21 @@ export const createValidationSchemas = () => ({
     .refine(
       (value) => {
         const isEmail = value.includes("@");
-        return isEmail
-          ? /^\S+@\S+\.\S+$/.test(value)
-          : /^[a-zA-Z0-9_]+$/.test(value);
+        return isEmail ? /^\S+@\S+\.\S+$/.test(value) : /^[a-zA-Z0-9_]+$/.test(value);
       },
-      t`Please enter a valid username or email address`
+      t`Please enter a valid username or email address`,
     ),
 });
 
 // Lazy-loaded proxy for validation schemas
-export const validationSchemas = new Proxy(
-  {} as ReturnType<typeof createValidationSchemas>,
-  {
-    get(target, prop) {
-      if (!_validationSchemas) {
-        _validationSchemas = createValidationSchemas();
-      }
-      return _validationSchemas[prop];
-    },
-  }
-);
+export const validationSchemas = new Proxy({} as ReturnType<typeof createValidationSchemas>, {
+  get(target, prop) {
+    if (!_validationSchemas) {
+      _validationSchemas = createValidationSchemas();
+    }
+    return _validationSchemas[prop];
+  },
+});
 
 // Pre-built form schemas
 export const createFormSchemas = () => {
@@ -1103,25 +1072,18 @@ export const createFormSchemas = () => {
 };
 
 // Lazy-loaded form schemas
-export const formSchemas = new Proxy(
-  {} as ReturnType<typeof createFormSchemas>,
-  {
-    get(target, prop) {
-      if (!_formSchemas) _formSchemas = createFormSchemas();
-      return _formSchemas[prop];
-    },
-  }
-);
+export const formSchemas = new Proxy({} as ReturnType<typeof createFormSchemas>, {
+  get(target, prop) {
+    if (!_formSchemas) _formSchemas = createFormSchemas();
+    return _formSchemas[prop];
+  },
+});
 ```
 
 **Enhanced Form Hook (`shared/lib/enhanced-form-hook.ts`):**
 
 ```tsx
-import {
-  useForm as useMantineForm,
-  UseFormInput,
-  UseFormReturnType,
-} from "@mantine/form";
+import { useForm as useMantineForm, UseFormInput, UseFormReturnType } from "@mantine/form";
 import { z } from "zod";
 import { createFormResolver } from "./form-validation";
 
@@ -1134,7 +1096,7 @@ export interface UseFormInput<T extends Record<string, any>> extends Omit<
 
 // Standardized form hook with automatic Zod validation
 export function useForm<T extends Record<string, any>>(
-  input: UseFormInput<T>
+  input: UseFormInput<T>,
 ): UseFormReturnType<T> {
   const { schema, ...mantineFormInput } = input;
 
@@ -1199,12 +1161,7 @@ export function SignInFormFeature() {
           form={form}
         />
 
-        <FormField
-          type="checkbox"
-          name="rememberMe"
-          label={t`Remember me`}
-          form={form}
-        />
+        <FormField type="checkbox" name="rememberMe" label={t`Remember me`} form={form} />
 
         <Button type="submit" loading={loginMutation.isPending}>
           {t`Sign In`}
@@ -1281,9 +1238,7 @@ export function getAuthConfig() {
       app: getConfig("VITE_AUTH_DOMAIN_APP"),
     },
     redirects: {
-      afterLogin:
-        getConfig("VITE_AUTH_REDIRECT_AFTER_LOGIN") ||
-        getConfig("VITE_AUTH_DOMAIN_APP"),
+      afterLogin: getConfig("VITE_AUTH_REDIRECT_AFTER_LOGIN") || getConfig("VITE_AUTH_DOMAIN_APP"),
       afterLogout: `${getConfig("VITE_AUTH_DOMAIN_AUTH")}/login`,
       afterSignup: `${getConfig("VITE_AUTH_DOMAIN_AUTH")}/login`,
     },
@@ -1408,15 +1363,7 @@ const FormFieldTestComponent = ({ type, ...props }: any) => {
     initialValues: { testField: "" },
   });
 
-  return (
-    <FormField
-      name="testField"
-      label="Test Field"
-      form={form}
-      type={type}
-      {...props}
-    />
-  );
+  return <FormField name="testField" label="Test Field" form={form} type={type} {...props} />;
 };
 
 describe("FormField", () => {
@@ -1424,7 +1371,7 @@ describe("FormField", () => {
     render(
       <TestWrapper>
         <FormFieldTestComponent type="text" placeholder="Enter text" />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     const input = screen.getByLabelText("Test Field");
@@ -1439,7 +1386,7 @@ describe("FormField", () => {
     render(
       <TestWrapper>
         <FormFieldTestComponent type="text" />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     const input = screen.getByLabelText("Test Field");
@@ -1568,9 +1515,7 @@ const ExamplesPage = lazy(() => import("../widgets/examples-page"));
 
 export const Route = createFileRoute("/examples")({
   component: () => (
-    <Suspense
-      fallback={<LoadingOverlay visible message="Loading examples..." />}
-    >
+    <Suspense fallback={<LoadingOverlay visible message="Loading examples..." />}>
       <ExamplesPage />
     </Suspense>
   ),
@@ -1585,10 +1530,7 @@ import { memo, useMemo } from "react";
 import { DataTable as MantineDataTable } from "mantine-datatable";
 import type { DataTableProps } from "mantine-datatable";
 
-interface OptimizedDataTableProps<T> extends Omit<
-  DataTableProps<T>,
-  "records"
-> {
+interface OptimizedDataTableProps<T> extends Omit<DataTableProps<T>, "records"> {
   data: T[];
   searchQuery?: string;
   searchFields?: (keyof T)[];
@@ -1606,20 +1548,13 @@ export const DataTable = memo(
 
       return data.filter((item) =>
         searchFields.some((field) =>
-          String(item[field]).toLowerCase().includes(searchQuery.toLowerCase())
-        )
+          String(item[field]).toLowerCase().includes(searchQuery.toLowerCase()),
+        ),
       );
     }, [data, searchQuery, searchFields]);
 
-    return (
-      <MantineDataTable
-        records={filteredData}
-        highlightOnHover
-        striped
-        {...props}
-      />
-    );
-  }
+    return <MantineDataTable records={filteredData} highlightOnHover striped {...props} />;
+  },
 );
 ```
 
@@ -1631,11 +1566,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { apiClient } from "@/shared/api";
 
-export function useUsersQuery(params?: {
-  page?: number;
-  search?: string;
-  enabled?: boolean;
-}) {
+export function useUsersQuery(params?: { page?: number; search?: string; enabled?: boolean }) {
   return useQuery({
     queryKey: ["users", params],
     queryFn: () => apiClient.get("/users", { params }),
@@ -1657,7 +1588,7 @@ export function usePrefetchUsers() {
         staleTime: 5 * 60 * 1000,
       });
     },
-    [queryClient]
+    [queryClient],
   );
 }
 ```
@@ -1680,16 +1611,13 @@ export async function dynamicActivateLocale(locale: string) {
 
 export function getClientLocale(): string {
   // Check localStorage, navigator.language, or default to 'en'
-  return (
-    localStorage.getItem("locale") || navigator.language.split("-")[0] || "en"
-  );
+  return localStorage.getItem("locale") || navigator.language.split("-")[0] || "en";
 }
 
 // app/app.tsx - Lazy load locale after mount
 useEffect(() => {
   const loadLocale = async () => {
-    const { dynamicActivateLocale, getClientLocale } =
-      await import("@/shared/locales");
+    const { dynamicActivateLocale, getClientLocale } = await import("@/shared/locales");
     await dynamicActivateLocale(getClientLocale());
   };
   loadLocale().catch(console.error);
@@ -1702,10 +1630,7 @@ useEffect(() => {
 // Use t macro for static strings (compile-time)
 import { t } from "@lingui/core/macro";
 
-<FormField
-  label={t`Username or Email`}
-  placeholder={t`Enter your username or email`}
-/>;
+<FormField label={t`Username or Email`} placeholder={t`Enter your username or email`} />;
 
 // Use Trans for JSX with interpolation
 import { Trans } from "@lingui/macro";

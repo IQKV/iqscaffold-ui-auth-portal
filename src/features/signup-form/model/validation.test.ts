@@ -22,8 +22,8 @@ describe("signup-form validation", () => {
         if (!result.success) {
           expect(
             result.error.issues.some((issue) =>
-              issue.message.includes("Username must be at least 3 characters")
-            )
+              issue.message.includes("Username must be at least 3 characters"),
+            ),
           ).toBe(true);
         }
       });
@@ -38,8 +38,8 @@ describe("signup-form validation", () => {
         if (!result.success) {
           expect(
             result.error.issues.some((issue) =>
-              issue.message.includes("Username must be less than 50 characters")
-            )
+              issue.message.includes("Username must be less than 50 characters"),
+            ),
           ).toBe(true);
         }
       });
@@ -53,10 +53,8 @@ describe("signup-form validation", () => {
         if (!result.success) {
           expect(
             result.error.issues.some((issue) =>
-              issue.message.includes(
-                "Username can only contain letters, numbers, and underscores"
-              )
-            )
+              issue.message.includes("Username can only contain letters, numbers, and underscores"),
+            ),
           ).toBe(true);
         }
       });
@@ -70,10 +68,8 @@ describe("signup-form validation", () => {
         if (!result.success) {
           expect(
             result.error.issues.some((issue) =>
-              issue.message.includes(
-                "Username can only contain letters, numbers, and underscores"
-              )
-            )
+              issue.message.includes("Username can only contain letters, numbers, and underscores"),
+            ),
           ).toBe(true);
         }
       });
@@ -113,8 +109,8 @@ describe("signup-form validation", () => {
         if (!result.success) {
           expect(
             result.error.issues.some((issue) =>
-              issue.message.includes("Please enter a valid email address")
-            )
+              issue.message.includes("Please enter a valid email address"),
+            ),
           ).toBe(true);
         }
       });
@@ -128,8 +124,8 @@ describe("signup-form validation", () => {
         if (!result.success) {
           expect(
             result.error.issues.some((issue) =>
-              issue.message.includes("Please enter a valid email address")
-            )
+              issue.message.includes("Please enter a valid email address"),
+            ),
           ).toBe(true);
         }
       });
@@ -162,8 +158,8 @@ describe("signup-form validation", () => {
         if (!result.success) {
           expect(
             result.error.issues.some((issue) =>
-              issue.message.includes("Password must be at least 8 characters")
-            )
+              issue.message.includes("Password must be at least 8 characters"),
+            ),
           ).toBe(true);
         }
       });
@@ -180,10 +176,8 @@ describe("signup-form validation", () => {
         if (!result.success) {
           expect(
             result.error.issues.some((issue) =>
-              issue.message.includes(
-                "Password must be less than 100 characters"
-              )
-            )
+              issue.message.includes("Password must be less than 100 characters"),
+            ),
           ).toBe(true);
         }
       });
@@ -197,9 +191,7 @@ describe("signup-form validation", () => {
         expect(result.success).toBe(false);
         if (!result.success) {
           expect(
-            result.error.issues.some((issue) =>
-              issue.message.includes("lowercase letter")
-            )
+            result.error.issues.some((issue) => issue.message.includes("lowercase letter")),
           ).toBe(true);
         }
       });
@@ -213,9 +205,7 @@ describe("signup-form validation", () => {
         expect(result.success).toBe(false);
         if (!result.success) {
           expect(
-            result.error.issues.some((issue) =>
-              issue.message.includes("uppercase letter")
-            )
+            result.error.issues.some((issue) => issue.message.includes("uppercase letter")),
           ).toBe(true);
         }
       });
@@ -228,11 +218,7 @@ describe("signup-form validation", () => {
         });
         expect(result.success).toBe(false);
         if (!result.success) {
-          expect(
-            result.error.issues.some((issue) =>
-              issue.message.includes("number")
-            )
-          ).toBe(true);
+          expect(result.error.issues.some((issue) => issue.message.includes("number"))).toBe(true);
         }
       });
 
@@ -245,9 +231,7 @@ describe("signup-form validation", () => {
         expect(result.success).toBe(false);
         if (!result.success) {
           expect(
-            result.error.issues.some((issue) =>
-              issue.message.includes("special character")
-            )
+            result.error.issues.some((issue) => issue.message.includes("special character")),
           ).toBe(true);
         }
       });
@@ -286,9 +270,7 @@ describe("signup-form validation", () => {
         expect(result.success).toBe(false);
         if (!result.success) {
           expect(
-            result.error.issues.some((issue) =>
-              issue.message.includes("Passwords do not match")
-            )
+            result.error.issues.some((issue) => issue.message.includes("Passwords do not match")),
           ).toBe(true);
         }
       });
@@ -312,9 +294,7 @@ describe("signup-form validation", () => {
         expect(result.success).toBe(false);
         if (!result.success) {
           expect(
-            result.error.issues.some((issue) =>
-              issue.message.includes("First name is required")
-            )
+            result.error.issues.some((issue) => issue.message.includes("First name is required")),
           ).toBe(true);
         }
       });
@@ -329,10 +309,8 @@ describe("signup-form validation", () => {
         if (!result.success) {
           expect(
             result.error.issues.some((issue) =>
-              issue.message.includes(
-                "First name must be less than 100 characters"
-              )
-            )
+              issue.message.includes("First name must be less than 100 characters"),
+            ),
           ).toBe(true);
         }
       });
@@ -355,9 +333,7 @@ describe("signup-form validation", () => {
         expect(result.success).toBe(false);
         if (!result.success) {
           expect(
-            result.error.issues.some((issue) =>
-              issue.message.includes("Last name is required")
-            )
+            result.error.issues.some((issue) => issue.message.includes("Last name is required")),
           ).toBe(true);
         }
       });
@@ -372,10 +348,8 @@ describe("signup-form validation", () => {
         if (!result.success) {
           expect(
             result.error.issues.some((issue) =>
-              issue.message.includes(
-                "Last name must be less than 100 characters"
-              )
-            )
+              issue.message.includes("Last name must be less than 100 characters"),
+            ),
           ).toBe(true);
         }
       });

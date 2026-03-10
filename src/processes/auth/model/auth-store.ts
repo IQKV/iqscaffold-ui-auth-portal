@@ -233,5 +233,5 @@ const createAuthStore: AuthStoreCreator = (set, get) => ({
 export const useAuthStore = create<AuthStore>()(
   devtools(immer(createAuthStore), {
     name: "auth-store",
-  })
+  }),
 );

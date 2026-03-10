@@ -1,10 +1,7 @@
 import { Button, Stack, Text, Loader, Center } from "@mantine/core";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { t } from "@lingui/core/macro";
-import {
-  useValidateResetToken,
-  useResetPassword,
-} from "@/shared/lib/use-auth-api";
+import { useValidateResetToken, useResetPassword } from "@/shared/lib/use-auth-api";
 import { useForm } from "@/shared/lib/enhanced-form-hook";
 import {
   PasswordField,
@@ -36,8 +33,7 @@ export function ResetPasswordFormFeature({
   const token = propToken || search.token;
 
   // Validate the reset token
-  const { data: isTokenValid, isLoading: isValidating } =
-    useValidateResetToken(token);
+  const { data: isTokenValid, isLoading: isValidating } = useValidateResetToken(token);
 
   const form = useForm<ResetPasswordFormSchemaType>({
     initialValues: initialResetPasswordValues,
@@ -61,7 +57,7 @@ export function ResetPasswordFormFeature({
             navigate({ to: "/login" });
           }
         },
-      }
+      },
     );
   };
 
@@ -143,10 +139,7 @@ export function ResetPasswordFormFeature({
             {t`Reset Password`}
           </Button>
 
-          <AuthLinkBackToLogin
-            onClick={handleBackToLogin}
-            data-testid="reset-password-link-back"
-          />
+          <AuthLinkBackToLogin onClick={handleBackToLogin} data-testid="reset-password-link-back" />
         </Stack>
       </form>
     </AuthFormCard>

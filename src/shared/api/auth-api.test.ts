@@ -64,10 +64,7 @@ describe("authApi", () => {
 
       const result = await authApi.login(credentials);
 
-      expect(apiClient.post).toHaveBeenCalledWith(
-        "/v1/auth/login",
-        credentials
-      );
+      expect(apiClient.post).toHaveBeenCalledWith("/v1/auth/login", credentials);
       expect(result).toEqual(mockResponse.data);
     });
   });
@@ -132,10 +129,7 @@ describe("authApi", () => {
 
       const result = await authApi.refresh(refreshData);
 
-      expect(apiClient.post).toHaveBeenCalledWith(
-        "/v1/auth/refresh",
-        refreshData
-      );
+      expect(apiClient.post).toHaveBeenCalledWith("/v1/auth/refresh", refreshData);
       expect(result).toEqual(mockResponse.data);
     });
   });

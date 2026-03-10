@@ -26,13 +26,11 @@ describe("AuthLayout", () => {
         <AuthLayout title="Test Title">
           <div>Test Content</div>
         </AuthLayout>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByTestId("auth-layout")).toBeInTheDocument();
-    expect(
-      screen.getByTestId("auth-layout-form-container")
-    ).toBeInTheDocument();
+    expect(screen.getByTestId("auth-layout-form-container")).toBeInTheDocument();
     expect(screen.getByText("Test Title")).toBeInTheDocument();
     expect(screen.getByText("Test Content")).toBeInTheDocument();
   });
@@ -43,7 +41,7 @@ describe("AuthLayout", () => {
         <AuthLayout title="Sign In">
           <div>Form</div>
         </AuthLayout>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByText("Sign In")).toBeInTheDocument();
@@ -55,7 +53,7 @@ describe("AuthLayout", () => {
         <AuthLayout title="Sign In" subtitle="Welcome back!">
           <div>Form</div>
         </AuthLayout>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByText("Welcome back!")).toBeInTheDocument();
@@ -67,7 +65,7 @@ describe("AuthLayout", () => {
         <AuthLayout title="Sign In">
           <div>Form</div>
         </AuthLayout>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.queryByText("Welcome back!")).not.toBeInTheDocument();
@@ -79,7 +77,7 @@ describe("AuthLayout", () => {
         <AuthLayout title="Test">
           <div data-testid="child-content">Child Component</div>
         </AuthLayout>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByTestId("child-content")).toBeInTheDocument();
@@ -92,7 +90,7 @@ describe("AuthLayout", () => {
         <AuthLayout title="Test">
           <div>Content</div>
         </AuthLayout>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByTestId("theme-toggle")).toBeInTheDocument();
@@ -104,7 +102,7 @@ describe("AuthLayout", () => {
         <AuthLayout title="Sign In">
           <div>Content</div>
         </AuthLayout>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     const helmet = screen.getByTestId("helmet");
@@ -117,7 +115,7 @@ describe("AuthLayout", () => {
         <AuthLayout title="Sign In" pageTitle="Custom Page Title">
           <div>Content</div>
         </AuthLayout>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     const helmet = screen.getByTestId("helmet");
@@ -131,7 +129,7 @@ describe("AuthLayout", () => {
           <div>First Child</div>
           <div>Second Child</div>
         </AuthLayout>
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByText("First Child")).toBeInTheDocument();

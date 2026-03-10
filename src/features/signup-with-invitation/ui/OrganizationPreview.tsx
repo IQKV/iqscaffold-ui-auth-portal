@@ -1,11 +1,5 @@
 import { Paper, Stack, Text, Group, Badge, ThemeIcon } from "@mantine/core";
-import {
-  IconBuilding,
-  IconBriefcase,
-  IconMapPin,
-  IconUser,
-  IconClock,
-} from "@tabler/icons-react";
+import { IconBuilding, IconBriefcase, IconMapPin, IconUser, IconClock } from "@tabler/icons-react";
 import { t } from "@lingui/core/macro";
 import type { OrganizationPreviewDto } from "@/shared/api/invitation-api";
 
@@ -19,9 +13,7 @@ function isInvitationExpiringSoon(expiresAt: Date): boolean {
   return timeDiff < 24 * 60 * 60 * 1000; // Less than 24 hours
 }
 
-export function OrganizationPreview({
-  organization,
-}: OrganizationPreviewProps) {
+export function OrganizationPreview({ organization }: OrganizationPreviewProps) {
   const expiresAt = new Date(organization.invitationExpiresAt);
   const isExpiringSoon = isInvitationExpiringSoon(expiresAt);
 
@@ -42,9 +34,7 @@ export function OrganizationPreview({
           </div>
         </Group>
 
-        {organization.description && (
-          <Text size="sm">{organization.description}</Text>
-        )}
+        {organization.description && <Text size="sm">{organization.description}</Text>}
 
         <Stack gap="xs">
           {organization.industry && (
@@ -58,9 +48,7 @@ export function OrganizationPreview({
             <Group gap="xs">
               <IconMapPin size={16} />
               <Text size="sm">
-                {[organization.city, organization.country]
-                  .filter(Boolean)
-                  .join(", ")}
+                {[organization.city, organization.country].filter(Boolean).join(", ")}
               </Text>
             </Group>
           )}
@@ -76,11 +64,7 @@ export function OrganizationPreview({
             <IconClock size={16} />
             <Text size="sm">
               {t`Invitation expires`}:{" "}
-              <Badge
-                color={isExpiringSoon ? "red" : "blue"}
-                variant="light"
-                size="sm"
-              >
+              <Badge color={isExpiringSoon ? "red" : "blue"} variant="light" size="sm">
                 {expiresAt.toLocaleString()}
               </Badge>
             </Text>

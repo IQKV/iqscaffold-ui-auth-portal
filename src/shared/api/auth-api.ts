@@ -114,10 +114,7 @@ export const authApi = {
    */
   async login(credentials: LoginCredentials): Promise<TokenResponse> {
     const config = getAuthConfig();
-    const response = await apiClient.post<TokenResponse>(
-      config.endpoints.login,
-      credentials
-    );
+    const response = await apiClient.post<TokenResponse>(config.endpoints.login, credentials);
     return response.data;
   },
 
@@ -126,10 +123,7 @@ export const authApi = {
    */
   async signup(data: UserRegistration): Promise<UserRegistrationResponse> {
     const config = getAuthConfig();
-    const response = await apiClient.post<UserRegistrationResponse>(
-      config.endpoints.signup,
-      data
-    );
+    const response = await apiClient.post<UserRegistrationResponse>(config.endpoints.signup, data);
     return response.data;
   },
 
@@ -138,10 +132,7 @@ export const authApi = {
    */
   async refresh(data: RefreshTokenRequest): Promise<TokenResponse> {
     const config = getAuthConfig();
-    const response = await apiClient.post<TokenResponse>(
-      config.endpoints.refresh,
-      data
-    );
+    const response = await apiClient.post<TokenResponse>(config.endpoints.refresh, data);
     return response.data;
   },
 
@@ -208,10 +199,9 @@ export const authApi = {
    */
   async validateToken(token: string): Promise<ValidateTokenResponse> {
     const config = getAuthConfig();
-    const response = await apiClient.post<ValidateTokenResponse>(
-      config.endpoints.validateToken,
-      { token }
-    );
+    const response = await apiClient.post<ValidateTokenResponse>(config.endpoints.validateToken, {
+      token,
+    });
     return response.data;
   },
 
@@ -219,13 +209,8 @@ export const authApi = {
    * Self-service organization signup
    * Creates a complete tenant environment with organization and admin user
    */
-  async signupOrganization(
-    data: OrganizationSignupRequest
-  ): Promise<OrganizationSignupResponse> {
-    const response = await apiClient.post<OrganizationSignupResponse>(
-      "/v1/public/signup",
-      data
-    );
+  async signupOrganization(data: OrganizationSignupRequest): Promise<OrganizationSignupResponse> {
+    const response = await apiClient.post<OrganizationSignupResponse>("/v1/public/signup", data);
     return response.data;
   },
 };

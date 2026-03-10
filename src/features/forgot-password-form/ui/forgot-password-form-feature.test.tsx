@@ -46,12 +46,8 @@ describe("ForgotPasswordFormFeature", () => {
     render(<ForgotPasswordFormFeature />, { wrapper: createWrapper() });
 
     expect(screen.getByTestId("forgot-password-form")).toBeInTheDocument();
-    expect(
-      screen.getByTestId("forgot-password-input-email")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByTestId("forgot-password-button-submit")
-    ).toBeInTheDocument();
+    expect(screen.getByTestId("forgot-password-input-email")).toBeInTheDocument();
+    expect(screen.getByTestId("forgot-password-button-submit")).toBeInTheDocument();
     expect(screen.getByTestId("forgot-password-link-back")).toBeInTheDocument();
   });
 
@@ -81,7 +77,7 @@ describe("ForgotPasswordFormFeature", () => {
         "test@example.com",
         expect.objectContaining({
           onSuccess: expect.any(Function),
-        })
+        }),
       );
     });
   });

@@ -1,8 +1,4 @@
-import axios, {
-  type AxiosError,
-  type AxiosRequestConfig,
-  type AxiosInstance,
-} from "axios";
+import axios, { type AxiosError, type AxiosRequestConfig, type AxiosInstance } from "axios";
 import { getConfig, getFinalMSWConfig } from "@/app/config";
 import { normalizeAxiosError } from "@/shared/lib/http-error";
 import { notificationService } from "@/shared/lib/notifications";
@@ -67,7 +63,7 @@ apiClient.interceptors.request.use(
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 /**
@@ -76,9 +72,7 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    const original = error.config as
-      | (AxiosRequestConfig & { _retry?: boolean })
-      | undefined;
+    const original = error.config as (AxiosRequestConfig & { _retry?: boolean }) | undefined;
     const status = error.response?.status;
 
     // If no response or different error, propagate
@@ -99,7 +93,7 @@ apiClient.interceptors.response.use(
       }
     }
     return Promise.reject(normalized);
-  }
+  },
 );
 
 /**

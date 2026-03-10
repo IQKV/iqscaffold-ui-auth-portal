@@ -7,14 +7,15 @@ import { z } from "zod";
 import { createFormResolver } from "./form-validation";
 
 // Standardized form hook using Zod validation
-export interface UseFormInput<
-  T extends Record<string, any> = Record<string, any>,
-> extends Omit<MantineUseFormInput<T>, "validate"> {
+export interface UseFormInput<T extends Record<string, any> = Record<string, any>> extends Omit<
+  MantineUseFormInput<T>,
+  "validate"
+> {
   schema: z.ZodType<any, any, any>;
 }
 
 export function useForm<T extends Record<string, any> = Record<string, any>>(
-  input: UseFormInput<T>
+  input: UseFormInput<T>,
 ): UseFormReturnType<T> {
   const { schema, ...mantineFormInput } = input;
 
@@ -30,13 +31,10 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
 export const useEnhancedForm = useForm;
 
 // Type-safe form field getter
-export function getTypedInputProps<
-  T extends Record<string, any>,
-  K extends keyof T,
->(
+export function getTypedInputProps<T extends Record<string, any>, K extends keyof T>(
   form: UseFormReturnType<T>,
   field: K,
-  options?: Parameters<UseFormReturnType<T>["getInputProps"]>[1]
+  options?: Parameters<UseFormReturnType<T>["getInputProps"]>[1],
 ) {
   return form.getInputProps(field as string, options);
 }
@@ -46,7 +44,7 @@ export function validateField<T extends Record<string, any>>(
   schema: z.ZodSchema<T>,
   fieldName: keyof T,
   value: any,
-  allValues?: T
+  allValues?: T,
 ): string | null {
   try {
     // Try to validate the entire object and extract field error
@@ -55,7 +53,7 @@ export function validateField<T extends Record<string, any>>(
   } catch (error) {
     if (error instanceof z.ZodError) {
       const fieldError = error.errors.find(
-        (err) => err.path.length === 1 && err.path[0] === fieldName
+        (err) => err.path.length === 1 && err.path[0] === fieldName,
       );
       return fieldError?.message || null;
     }
@@ -66,7 +64,7 @@ export function validateField<T extends Record<string, any>>(
 // Utility to get all validation errors
 export function getAllValidationErrors<T>(
   schema: z.ZodSchema<T>,
-  values: T
+  values: T,
 ): Record<keyof T, string> | null {
   try {
     schema.parse(values);

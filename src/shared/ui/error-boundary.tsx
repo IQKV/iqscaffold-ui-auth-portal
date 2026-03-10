@@ -1,19 +1,7 @@
 import React, { Component, type ErrorInfo, type ReactNode } from "react";
-import {
-  Container,
-  Title,
-  Text,
-  Button,
-  Stack,
-  Alert,
-  Code,
-} from "@mantine/core";
+import { Container, Title, Text, Button, Stack, Alert, Code } from "@mantine/core";
 import { IconAlertTriangle, IconRefresh } from "@tabler/icons-react";
-import {
-  normalizeAxiosError,
-  getErrorTitle,
-  getErrorMessage,
-} from "../lib/http-error";
+import { normalizeAxiosError, getErrorTitle, getErrorMessage } from "../lib/http-error";
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -26,11 +14,7 @@ interface ErrorBoundaryProps {
   /**
    * Custom fallback component
    */
-  fallback?: (
-    error: Error,
-    errorInfo: ErrorInfo,
-    retry: () => void
-  ) => ReactNode;
+  fallback?: (error: Error, errorInfo: ErrorInfo, retry: () => void) => ReactNode;
   /**
    * Called when an error is caught
    */
@@ -45,10 +29,7 @@ interface ErrorBoundaryProps {
 /**
  * Error boundary component with RFC 7807 error handling support
  */
-export class ErrorBoundary extends Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
@@ -108,11 +89,7 @@ export class ErrorBoundary extends Component<
             </Stack>
 
             {normalizedError.requestId && (
-              <Alert
-                variant="light"
-                color="blue"
-                icon={<IconAlertTriangle size="1rem" />}
-              >
+              <Alert variant="light" color="blue" icon={<IconAlertTriangle size="1rem" />}>
                 <Text size="sm">
                   Reference ID: <Code>{normalizedError.requestId}</Code>
                 </Text>

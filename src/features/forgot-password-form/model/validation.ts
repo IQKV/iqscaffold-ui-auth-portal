@@ -6,9 +6,7 @@ import { ForgotPasswordFormValues } from "./types";
 export const forgotPasswordFormSchema = formSchemas.forgotPassword;
 
 // Type inference from schema
-export type ForgotPasswordFormSchemaType = z.infer<
-  typeof forgotPasswordFormSchema
->;
+export type ForgotPasswordFormSchemaType = z.infer<typeof forgotPasswordFormSchema>;
 
 // Initial values
 export const initialForgotPasswordValues: ForgotPasswordFormSchemaType = {
@@ -16,5 +14,4 @@ export const initialForgotPasswordValues: ForgotPasswordFormSchemaType = {
 };
 
 // Legacy export for backward compatibility (will be removed)
-export const validateForgotPasswordForm =
-  "DEPRECATED: Use forgotPasswordFormSchema instead";
+export const validateForgotPasswordForm = "DEPRECATED: Use forgotPasswordFormSchema instead";
