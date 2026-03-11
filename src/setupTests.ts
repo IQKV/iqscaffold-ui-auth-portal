@@ -1,9 +1,5 @@
 import "@testing-library/jest-dom";
-import {
-  startMSWServer,
-  stopMSWServer,
-  resetMSWServer,
-} from "@/shared/mocks/server-exports";
+import { startMSWServer, stopMSWServer, resetMSWServer } from "@/shared/mocks/server-exports";
 import { i18n } from "@lingui/core";
 import { messages } from "../locales/en";
 

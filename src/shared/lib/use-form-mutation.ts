@@ -4,12 +4,7 @@ import {
   type UseMutationOptions,
   type UseMutationResult,
 } from "@tanstack/react-query";
-import {
-  getErrorTitle,
-  normalizeAxiosError,
-  shouldShowError,
-  toMantineErrors,
-} from "./http-error";
+import { getErrorTitle, normalizeAxiosError, shouldShowError, toMantineErrors } from "./http-error";
 import { notificationService } from "./notifications";
 
 export type NotifyConfig = {
