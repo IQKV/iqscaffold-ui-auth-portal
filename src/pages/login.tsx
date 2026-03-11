@@ -44,7 +44,7 @@ function LoginPage() {
             {t`Email verification failed. The link may be invalid or expired.`}
           </Alert>
         )}
-        <SignInFormFeature useExternalRedirect />
+        <SignInFormFeature _useExternalRedirect />
       </Stack>
     </AuthLayout>
   );

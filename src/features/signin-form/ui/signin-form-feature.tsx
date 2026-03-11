@@ -25,7 +25,7 @@ interface SignInFormFeatureProps {
   onSuccess?: () => void;
   onForgotPassword?: () => void;
   onNavigateToRegister?: () => void;
-  useExternalRedirect?: boolean;
+  _useExternalRedirect?: boolean;
 }
 
 export function SignInFormFeature({

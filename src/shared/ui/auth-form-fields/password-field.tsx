@@ -14,7 +14,7 @@ interface PasswordFieldProps {
   /** Custom description */
   description?: string;
   /** Show password strength indicator */
-  showStrengthIndicator?: boolean;
+  _showStrengthIndicator?: boolean;
   /** Test ID for testing */
   "data-testid"?: string;
 }
