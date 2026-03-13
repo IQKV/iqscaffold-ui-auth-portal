@@ -50,7 +50,7 @@
 - **Vitest** - Fast unit testing with coverage and UI
 - **Playwright** - Reliable end-to-end testing with auto-start dev server
 - **oxlint** - Modern linting
-- **Prettier** - Code formatting with package.json plugin
+- **oxfmt** - Code formatting
 - **Stylelint** - CSS/SCSS linting
 - **Husky** - Git hooks for quality gates
 - **Commitlint** - Conventional commit message validation
