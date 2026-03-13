@@ -264,7 +264,6 @@ src/
 - TypeScript strict mode for type safety
 - Comprehensive ESLint rules for code quality
 - Prettier integration for consistent formatting
-- Storybook for component development (ready)
 - DevTools for debugging (React Query, Router)
 
 ### Operational Features

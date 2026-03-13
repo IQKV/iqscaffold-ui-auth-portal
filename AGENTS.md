@@ -49,8 +49,7 @@
 
 - **Vitest** - Fast unit testing with coverage and UI
 - **Playwright** - Reliable end-to-end testing with auto-start dev server
-- **Storybook 8** - Component development in isolation
-- **ESLint 9** - Modern linting with flat config (Mantine preset + custom rules)
+- **oxlint** - Modern linting
 - **Prettier** - Code formatting with package.json plugin
 - **Stylelint** - CSS/SCSS linting
 - **Husky** - Git hooks for quality gates
@@ -285,9 +284,8 @@ interface UserProfileProps {
 // features/user-profile/ui/user-profile.tsx
 
 // 3. Implement with Mantine components
-// 4. Add Storybook story
-// 5. Write unit tests
-// 6. Export through public API
+// 4. Write unit tests
+// 5. Export through public API
 ```
 
 ### Code Quality Checklist for AI
@@ -301,7 +299,6 @@ interface UserProfileProps {
 - [ ] Performance optimizations (memoization)
 - [ ] Unit tests co-located with source files
 - [ ] Tests follow existing patterns (Vitest + React Testing Library)
-- [ ] Storybook story with variants (when applicable)
 
 ## User Confirmation Policy & Decision Framework
 
@@ -1284,9 +1281,6 @@ pnpm type-check            # TypeScript type checking
 pnpm messages:extract      # Extract translation messages
 pnpm messages:compile      # Compile translations
 
-# Storybook
-pnpm storybook             # Start Storybook
-pnpm storybook:build       # Build Storybook
 ```
 
 ## Testing Strategy
@@ -1295,7 +1289,6 @@ pnpm storybook:build       # Build Storybook
 
 - **Unit Tests**: Vitest + React Testing Library
 - **E2E Tests**: Playwright
-- **Component Tests**: Storybook with interactions
 - **Coverage**: Vitest coverage with v8
 
 ### Test Co-location Pattern (CRITICAL)
@@ -1875,7 +1868,7 @@ Implement complete user profile feature following FSD architecture:
 - Add profile page with edit capabilities
 - Integrate with auth store for current user data
 - Add i18n translations for all UI text
-- Include unit tests and Storybook stories
+- Include unit tests
 
 Closes #234
 ```

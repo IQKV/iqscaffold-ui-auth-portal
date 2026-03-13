@@ -86,8 +86,8 @@ See [AUTH_APP_SEPARATION.md](../AUTH_APP_SEPARATION.md) for detailed separation 
 
 ### 🔍 **Code Quality & Development**
 
-- 🔍 **ESLint 9** - Flat config with Mantine preset + TanStack plugins
-- 💅 **Prettier 3.6** - Code formatting with packagejson plugin
+- 🔍 **oxlint** - modern linting with TypeScript, React
+- 💅 **oxfmt** - Code formatting
 - 🎨 **Stylelint 16** - CSS/SCSS linting with standard-scss config
 - 🪝 **Husky** - Git hooks for pre-commit validation
 - 📝 **Commitlint** - Conventional commit enforcement
@@ -198,7 +198,7 @@ After creating your project from this template, you'll want to customize it:
 ### 📃 Available Scripts
 
 | Command                   | Description                                     |
-| ------------------------- | ----------------------------------------------- |
+| ------------------------- |-------------------------------------------------|
 | `pnpm dev`                | Start development server (port 5173)            |
 | `pnpm build`              | Build for production (with i18n compilation)    |
 | `pnpm preview`            | Preview production build                        |
@@ -213,7 +213,7 @@ After creating your project from this template, you'll want to customize it:
 | `pnpm e2e:report`         | Open last Playwright HTML report                |
 | `pnpm e2e:all-browsers`   | Run E2E tests on Chromium, Firefox, and WebKit  |
 | `pnpm playwright:install` | Install Playwright browsers with dependencies   |
-| `pnpm lint`               | Lint code with ESLint                           |
+| `pnpm lint`               | Lint code with oxlint                           |
 | `pnpm lint:fix`           | Fix linting issues automatically                |
 | `pnpm lint:stylelint`     | Lint CSS/SCSS files                             |
 | `pnpm formatter:check`    | Check code formatting                           |
