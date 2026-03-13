@@ -198,7 +198,7 @@ After creating your project from this template, you'll want to customize it:
 ### 📃 Available Scripts
 
 | Command                   | Description                                     |
-| ------------------------- |-------------------------------------------------|
+| ------------------------- | ----------------------------------------------- |
 | `pnpm dev`                | Start development server (port 5173)            |
 | `pnpm build`              | Build for production (with i18n compilation)    |
 | `pnpm preview`            | Preview production build                        |
