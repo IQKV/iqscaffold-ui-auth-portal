@@ -217,7 +217,7 @@ After creating your project from this template, you'll want to customize it:
 | `pnpm lint:fix`           | Fix linting issues automatically                |
 | `pnpm lint:stylelint`     | Lint CSS/SCSS files                             |
 | `pnpm formatter:check`    | Check code formatting                           |
-| `pnpm formatter:write`    | Format code with oxfmt                       |
+| `pnpm formatter:write`    | Format code with oxfmt                          |
 | `pnpm type-check`         | Check TypeScript types (no emit)                |
 | `pnpm messages:extract`   | Extract i18n messages from source               |
 | `pnpm messages:compile`   | Compile i18n messages for production            |
