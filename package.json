@@ -142,7 +142,7 @@
     "tsdown": "^0.21.2",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.57.2",
-    "vite": "^7.3.1",
+    "vite": "^8.0.3",
     "vite-bundle-visualizer": "^1.2.1",
     "vite-plugin-copy": "^0.1.6",
     "vite-plugin-remove-console": "^2.2.0",
