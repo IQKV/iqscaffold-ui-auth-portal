@@ -16,9 +16,9 @@ The IQ Scaffold Auth Portal is deployed using Helm charts and automated CI/CD pi
 | Environment | Namespace                   | Purpose                      |
 | ----------- | --------------------------- | ---------------------------- |
 | Dev         | `iqkvdev-dev-env`        | Development and WIP branches |
-| Test        | `iqscaffold-test-env`       | Feature branch testing       |
-| Staging     | `iqscaffold-staging-env`    | Pre-production validation    |
-| Production  | `iqscaffold-production-env` | Live production environment  |
+| Test        | `iqkvdev-test-env`       | Feature branch testing       |
+| Staging     | `iqkvdev-staging-env`    | Pre-production validation    |
+| Production  | `iqkvdev-production-env` | Live production environment  |
 
 ### Automated Deployment (CI/CD)
 
@@ -66,7 +66,7 @@ helm upgrade --install --atomic --wait --timeout 5m iqscaffold-ui-mantine-auth-p
   --values ./values-production.yaml \
   --set image.tag=${DRONE_TAG} \
   --set app.env.apiServerUrl="https://api.iqscaffold.com" \
-  --namespace iqscaffold-production-env
+  --namespace iqkvdev-production-env
 ```
 
 </details>
@@ -116,7 +116,7 @@ helm upgrade --install auth-portal ./ \
   --set app.env.apiServerUrl="https://api.iqscaffold.com" \
   --set app.env.authDomainAuth="https://auth.iqscaffold.com" \
   --set app.env.authDomainApp="https://app.iqscaffold.com" \
-  --namespace iqscaffold-production-env \
+  --namespace iqkvdev-production-env \
   --create-namespace
 ```
 
@@ -272,10 +272,10 @@ curl -H "Origin: https://app.iqscaffold.com" \
 
 ```bash
 # Rollback to previous version
-helm rollback iqscaffold-ui-mantine-auth-portal -n iqscaffold-production-env
+helm rollback iqscaffold-ui-mantine-auth-portal -n iqkvdev-production-env
 
 # Or uninstall completely
-helm uninstall iqscaffold-ui-mantine-auth-portal -n iqscaffold-production-env
+helm uninstall iqscaffold-ui-mantine-auth-portal -n iqkvdev-production-env
 ```
 
 </details>
