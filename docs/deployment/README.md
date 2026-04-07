@@ -15,7 +15,6 @@ The IQ Scaffold Auth Portal is deployed using Helm charts and automated CI/CD pi
 
 | Environment | Namespace                | Purpose                      |
 | ----------- | ------------------------ | ---------------------------- |
-| Dev         | `iqkvdev-dev-env`        | Development and WIP branches |
 | Test        | `iqkvdev-test-env`       | Feature branch testing       |
 | Staging     | `iqkvdev-staging-env`    | Pre-production validation    |
 | Production  | `iqkvdev-production-env` | Live production environment  |
@@ -58,7 +57,7 @@ helm upgrade --install --atomic --wait --timeout 5m iqscaffold-ui-mantine-auth-p
   --values ./values-test.yaml \
   --set image.tag=wip \
   --set app.env.apiServerUrl="https://api-dev.iqscaffold.com" \
-  --namespace iqkvdev-dev-env
+  --namespace iqkvdev-test-env
 
 # Production (Tagged releases)
 helm upgrade --install --atomic --wait --timeout 5m iqscaffold-ui-mantine-auth-portal ./ \
@@ -87,7 +86,7 @@ cd charts/IQKV/iqscaffold-ui-mantine-auth-portal
 helm upgrade --install auth-portal ./ \
   --values values-dev.yaml \
   --set app.env.apiServerUrl="https://api-dev.iqscaffold.com" \
-  --namespace iqkvdev-dev-env \
+  --namespace iqkvdev-test-env \
   --create-namespace
 ```
 
@@ -101,7 +100,7 @@ helm upgrade --install auth-portal ./ \
 ```bash
 helm upgrade --install auth-portal ./ \
   --values values-dev.yaml \
-  --namespace iqkvdev-dev-env \
+  --namespace iqkvdev-test-env \
   --create-namespace
 ```
 
