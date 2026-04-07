@@ -29,8 +29,8 @@ The service uses Drone CI/CD pipeline with 10 stages:
 1. **VerifyCode** - Code quality, tests, static analysis
 2. **PublishArtifacts** - Build artifacts to registry
 3. **PublishDockerImage** - Container images to registry
-4. **DeployWorkInProgressOnDev** - WIP branch auto-deployment
-5. **RollbackWorkInProgressOnDev** - WIP rollback
+4. **DeployWorkInProgressToTestEnv** - WIP branch auto-deployment
+5. **RollbackWorkInProgressFromTestEnv** - WIP rollback
 6. **PromoteFeatureDeployment** - Feature branch promotion
 7. **RollbackFeatureDeployment** - Feature rollback
 8. **PromoteDeployment** - Release promotion
@@ -55,7 +55,7 @@ The pipeline uses these Helm commands for deployment:
 # Development (WIP branches)
 helm upgrade --install --atomic --wait --timeout 5m iqscaffold-ui-mantine-auth-portal ./ \
   --values ./values.yaml \
-  --values ./values-dev.yaml \
+  --values ./values-test.yaml \
   --set image.tag=wip \
   --set app.env.apiServerUrl="https://api-dev.iqscaffold.com" \
   --namespace iqkvdev-dev-env
@@ -203,13 +203,13 @@ Production deployments include:
 
 ```bash
 # Check service logs
-kubectl logs deployment/iqscaffold-ui-mantine-auth-portal -n iqkvdev-dev-env
+kubectl logs deployment/iqscaffold-ui-mantine-auth-portal -n iqkvdev-test-env
 
 # Check pod status
-kubectl get pods -l app.kubernetes.io/name=iqscaffold-ui-mantine-auth-portal -n iqkvdev-dev-env
+kubectl get pods -l app.kubernetes.io/name=iqscaffold-ui-mantine-auth-portal -n iqkvdev-test-env
 
 # Check ingress configuration
-kubectl describe ingress iqscaffold-ui-mantine-auth-portal -n iqkvdev-dev-env
+kubectl describe ingress iqscaffold-ui-mantine-auth-portal -n iqkvdev-test-env
 ```
 
 </details>
@@ -219,10 +219,10 @@ kubectl describe ingress iqscaffold-ui-mantine-auth-portal -n iqkvdev-dev-env
 
 ```bash
 # View ConfigMap
-kubectl describe configmap iqscaffold-ui-mantine-auth-portal-config -n iqkvdev-dev-env
+kubectl describe configmap iqscaffold-ui-mantine-auth-portal-config -n iqkvdev-test-env
 
 # Check runtime configuration
-kubectl exec -it deployment/iqscaffold-ui-mantine-auth-portal -n iqkvdev-dev-env -- \
+kubectl exec -it deployment/iqscaffold-ui-mantine-auth-portal -n iqkvdev-test-env -- \
   cat /usr/share/nginx/html/config.js
 ```
 
@@ -233,7 +233,7 @@ kubectl exec -it deployment/iqscaffold-ui-mantine-auth-portal -n iqkvdev-dev-env
 
 ```bash
 # Port forward to access health endpoints
-kubectl port-forward deployment/iqscaffold-ui-mantine-auth-portal 8080:8080 -n iqkvdev-dev-env
+kubectl port-forward deployment/iqscaffold-ui-mantine-auth-portal 8080:8080 -n iqkvdev-test-env
 
 # Test health endpoints
 curl http://localhost:8080/
@@ -250,10 +250,10 @@ curl http://localhost:8080/health
 
 ```bash
 # Check ingress CORS configuration
-kubectl get ingress iqscaffold-ui-mantine-auth-portal -n iqkvdev-dev-env -o yaml
+kubectl get ingress iqscaffold-ui-mantine-auth-portal -n iqkvdev-test-env -o yaml
 
 # View CSP configuration
-kubectl exec -it deployment/iqscaffold-ui-mantine-auth-portal -n iqkvdev-dev-env -- \
+kubectl exec -it deployment/iqscaffold-ui-mantine-auth-portal -n iqkvdev-test-env -- \
   cat /usr/share/nginx/content-security-policy.conf
 
 # Test CORS headers
