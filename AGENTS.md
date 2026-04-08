@@ -9,7 +9,7 @@
 - Type-safe development with strict TypeScript configuration
 - Feature-Sliced Design with enforced layer boundaries (architecture tests)
 - Comprehensive error handling with RFC 7807 Problem Details support
-- Modern build tooling with Vite 7 and SWC
+- Modern build tooling with Vite 8 and SWC
 - Internationalization with Lingui (lazy-loaded translations)
 - Mock Service Worker (MSW) for API mocking in development
 - Production-ready with Docker and CI/CD workflows
@@ -20,7 +20,7 @@
 
 - **React 19** - Latest React with concurrent features and improved performance
 - **TypeScript** - Strict type safety with latest language features
-- **Vite 7** - Lightning-fast development with SWC compiler
+- **Vite 8** - Lightning-fast development with SWC compiler
 - **PNPM** - Fast, disk space efficient package manager
 
 ### UI & Styling

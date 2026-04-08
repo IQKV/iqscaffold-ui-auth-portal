@@ -47,7 +47,7 @@ See [AUTH_APP_SEPARATION.md](../AUTH_APP_SEPARATION.md) for detailed separation 
 
 ## 🛠️ Technical Stack
 
-**React 19 + TypeScript + Vite 7 + TanStack Router + Mantine UI v8**
+**React 19 + TypeScript + Vite 8 + TanStack Router + Mantine UI v8**
 
 > Modern, type-safe authentication portal built with Feature-Sliced Design architecture and comprehensive testing.
 
@@ -56,7 +56,7 @@ See [AUTH_APP_SEPARATION.md](../AUTH_APP_SEPARATION.md) for detailed separation 
 ### 🚀 **Core Technologies**
 
 - ✨ **React 19** - Latest React with concurrent features
-- ⚡ **Vite 7** - Lightning-fast development with SWC compiler
+- ⚡ **Vite 8** - Lightning-fast development with SWC compiler
 - 🎯 **TypeScript 5.9** - Strict type safety with latest language features
 - 📦 **PNPM 10.20** - Fast, disk space efficient package manager
 - 🎨 **Mantine UI v8** - Complete component library with theming
