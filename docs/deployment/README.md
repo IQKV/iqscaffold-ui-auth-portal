@@ -14,7 +14,7 @@ The IQ Scaffold Auth Portal is deployed using Helm charts and automated CI/CD pi
 ### Environments
 
 | Environment | Namespace         | Purpose                     |
-| ----------- |-------------------| --------------------------- |
+| ----------- | ----------------- | --------------------------- |
 | Test        | `iqkvdev-sit-env` | Feature branch testing      |
 | Staging     | `iqkvdev-uat-env` | Pre-production validation   |
 | Production  | `iqkvdev-prd-env` | Live production environment |
@@ -39,11 +39,11 @@ The service uses Drone CI/CD pipeline with 10 stages:
 #### Branch Deployment Strategy
 
 | Branch Type | Auto Deploy | Manual Promote | Target Environment |
-| ----------- |-------------|----------------|--------------------|
-| `wip`       | ✅ SIT       | -              | SIT                |
-| `feature/*` | -           | ✅ SIT          | SIT                |
-| `dev`       | -           | ✅ Staging      | Staging            |
-| Tags        | -           | ✅ Production   | Production         |
+| ----------- | ----------- | -------------- | ------------------ |
+| `wip`       | ✅ SIT      | -              | SIT                |
+| `feature/*` | -           | ✅ SIT         | SIT                |
+| `dev`       | -           | ✅ Staging     | Staging            |
+| Tags        | -           | ✅ Production  | Production         |
 
 <details>
 <summary>Deployment Commands</summary>
