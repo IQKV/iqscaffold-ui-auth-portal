@@ -15,9 +15,9 @@ The IQ Scaffold Auth Portal is deployed using Helm charts and automated CI/CD pi
 
 | Environment | Namespace         | Purpose                     |
 | ----------- | ----------------- | --------------------------- |
-| Test        | `iqkvdev-sit-env` | Feature branch testing      |
-| Staging     | `iqkvdev-uat-env` | Pre-production validation   |
-| Production  | `iqkvdev-prd-env` | Live production environment |
+| Test        | `iqkv-sit-env` | Feature branch testing      |
+| Staging     | `iqkv-uat-env` | Pre-production validation   |
+| Production  | `iqkv-prd-env` | Live production environment |
 
 ### Automated Deployment (CI/CD)
 
@@ -57,7 +57,7 @@ helm upgrade --install --atomic --wait --timeout 5m iqscaffold-ui-mantine-auth-p
   --values ./values-test.yaml \
   --set image.tag=wip \
   --set app.env.apiServerUrl="https://api-dev.iqscaffold.com" \
-  --namespace iqkvdev-sit-env
+  --namespace iqkv-sit-env
 
 # Production (Tagged releases)
 helm upgrade --install --atomic --wait --timeout 5m iqscaffold-ui-mantine-auth-portal ./ \
@@ -65,7 +65,7 @@ helm upgrade --install --atomic --wait --timeout 5m iqscaffold-ui-mantine-auth-p
   --values ./values-prd.yaml \
   --set image.tag=${DRONE_TAG} \
   --set app.env.apiServerUrl="https://api.iqscaffold.com" \
-  --namespace iqkvdev-prd-env
+  --namespace iqkv-prd-env
 ```
 
 </details>
@@ -86,7 +86,7 @@ cd charts/IQKV/iqscaffold-ui-mantine-auth-portal
 helm upgrade --install auth-portal ./ \
   --values values-sit.yaml \
   --set app.env.apiServerUrl="https://api-dev.iqscaffold.com" \
-  --namespace iqkvdev-sit-env \
+  --namespace iqkv-sit-env \
   --create-namespace
 ```
 
@@ -100,7 +100,7 @@ helm upgrade --install auth-portal ./ \
 ```bash
 helm upgrade --install auth-portal ./ \
   --values values-sit.yaml \
-  --namespace iqkvdev-sit-env \
+  --namespace iqkv-sit-env \
   --create-namespace
 ```
 
@@ -115,7 +115,7 @@ helm upgrade --install auth-portal ./ \
   --set app.env.apiServerUrl="https://api.iqscaffold.com" \
   --set app.env.authDomainAuth="https://auth.iqscaffold.com" \
   --set app.env.authDomainApp="https://app.iqscaffold.com" \
-  --namespace iqkvdev-prd-env \
+  --namespace iqkv-prd-env \
   --create-namespace
 ```
 
@@ -202,13 +202,13 @@ Production deployments include:
 
 ```bash
 # Check service logs
-kubectl logs deployment/iqscaffold-ui-mantine-auth-portal -n iqkvdev-sit-env
+kubectl logs deployment/iqscaffold-ui-mantine-auth-portal -n iqkv-sit-env
 
 # Check pod status
-kubectl get pods -l app.kubernetes.io/name=iqscaffold-ui-mantine-auth-portal -n iqkvdev-sit-env
+kubectl get pods -l app.kubernetes.io/name=iqscaffold-ui-mantine-auth-portal -n iqkv-sit-env
 
 # Check ingress configuration
-kubectl describe ingress iqscaffold-ui-mantine-auth-portal -n iqkvdev-sit-env
+kubectl describe ingress iqscaffold-ui-mantine-auth-portal -n iqkv-sit-env
 ```
 
 </details>
@@ -218,10 +218,10 @@ kubectl describe ingress iqscaffold-ui-mantine-auth-portal -n iqkvdev-sit-env
 
 ```bash
 # View ConfigMap
-kubectl describe configmap iqscaffold-ui-mantine-auth-portal-config -n iqkvdev-sit-env
+kubectl describe configmap iqscaffold-ui-mantine-auth-portal-config -n iqkv-sit-env
 
 # Check runtime configuration
-kubectl exec -it deployment/iqscaffold-ui-mantine-auth-portal -n iqkvdev-sit-env -- \
+kubectl exec -it deployment/iqscaffold-ui-mantine-auth-portal -n iqkv-sit-env -- \
   cat /usr/share/nginx/html/config.js
 ```
 
@@ -232,7 +232,7 @@ kubectl exec -it deployment/iqscaffold-ui-mantine-auth-portal -n iqkvdev-sit-env
 
 ```bash
 # Port forward to access health endpoints
-kubectl port-forward deployment/iqscaffold-ui-mantine-auth-portal 8080:8080 -n iqkvdev-sit-env
+kubectl port-forward deployment/iqscaffold-ui-mantine-auth-portal 8080:8080 -n iqkv-sit-env
 
 # Test health endpoints
 curl http://localhost:8080/
@@ -249,10 +249,10 @@ curl http://localhost:8080/health
 
 ```bash
 # Check ingress CORS configuration
-kubectl get ingress iqscaffold-ui-mantine-auth-portal -n iqkvdev-sit-env -o yaml
+kubectl get ingress iqscaffold-ui-mantine-auth-portal -n iqkv-sit-env -o yaml
 
 # View CSP configuration
-kubectl exec -it deployment/iqscaffold-ui-mantine-auth-portal -n iqkvdev-sit-env -- \
+kubectl exec -it deployment/iqscaffold-ui-mantine-auth-portal -n iqkv-sit-env -- \
   cat /usr/share/nginx/content-security-policy.conf
 
 # Test CORS headers
@@ -271,10 +271,10 @@ curl -H "Origin: https://app.iqscaffold.com" \
 
 ```bash
 # Rollback to previous version
-helm rollback iqscaffold-ui-mantine-auth-portal -n iqkvdev-prd-env
+helm rollback iqscaffold-ui-mantine-auth-portal -n iqkv-prd-env
 
 # Or uninstall completely
-helm uninstall iqscaffold-ui-mantine-auth-portal -n iqkvdev-prd-env
+helm uninstall iqscaffold-ui-mantine-auth-portal -n iqkv-prd-env
 ```
 
 </details>
