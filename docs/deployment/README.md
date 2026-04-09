@@ -13,8 +13,8 @@ The IQ Scaffold Auth Portal is deployed using Helm charts and automated CI/CD pi
 
 ### Environments
 
-| Environment | Namespace         | Purpose                     |
-| ----------- | ----------------- | --------------------------- |
+| Environment | Namespace      | Purpose                     |
+| ----------- | -------------- | --------------------------- |
 | Test        | `iqkv-sit-env` | Feature branch testing      |
 | Staging     | `iqkv-uat-env` | Pre-production validation   |
 | Production  | `iqkv-prd-env` | Live production environment |
