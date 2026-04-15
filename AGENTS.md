@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**IQ Scaffold Auth Portal** - A dedicated authentication service built with Feature-Sliced Design (FSD) architecture. This is a standalone authentication gateway that handles user sign up, sign in, password reset, and redirects to the main application upon successful login.
+**IQ  Key Value Auth Portal** - A dedicated authentication service built with Feature-Sliced Design (FSD) architecture. This is a standalone authentication gateway that handles user sign up, sign in, password reset, and redirects to the main application upon successful login.
 
 **Key Characteristics:**
 

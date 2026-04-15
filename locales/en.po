@@ -653,8 +653,8 @@ msgid "johndoe"
 msgstr "johndoe"
 
 #: src/pages/register.tsx:14
-#~ msgid "Join IQ Scaffold and start your journey"
-#~ msgstr "Join IQ Scaffold and start your journey"
+#~ msgid "Join IQ  Key Value and start your journey"
+#~ msgstr "Join IQ  Key Value and start your journey"
 
 #: src/features/signup-with-invitation/ui/SignupWithInvitationForm.tsx:111
 #: src/pages/join.$invitationCode.tsx:78
@@ -1423,8 +1423,8 @@ msgid "Welcome back!"
 msgstr "Welcome back!"
 
 #: src/pages/index.tsx:23
-msgid "Welcome to IQ Scaffold"
-msgstr "Welcome to IQ Scaffold"
+msgid "Welcome to IQ  Key Value"
+msgstr "Welcome to IQ  Key Value"
 
 #: src/pages/dashboard.tsx:42
 #~ msgid "Welcome, {userFullName}!"

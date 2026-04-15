@@ -1,6 +1,6 @@
-# 🔐 IQ Scaffold Auth Portal
+# 🔐 IQ  Key Value Auth Portal
 
-> Modern authentication frontend providing user registration, login, password management, and seamless integration with the IQ Scaffold Platform.
+> Modern authentication frontend providing user registration, login, password management, and seamless integration with the IQ  Key Value Platform.
 
 **Note:** This project serves as a starting point for developing an authentication portal for SAAS applications, providing a solid foundation with modern patterns and best practices.
 
@@ -32,7 +32,7 @@ A dedicated authentication portal that handles **unauthenticated user flows**:
 
 ## Overview
 
-This is the authentication frontend for the IQ Scaffold Platform. It provides a modern, accessible, and performant user interface for **unauthenticated identity management flows**, delegating authentication concerns to the backend User Service while maintaining a clean separation between public authentication flows and authenticated application features.
+This is the authentication frontend for the IQ  Key Value Platform. It provides a modern, accessible, and performant user interface for **unauthenticated identity management flows**, delegating authentication concerns to the backend User Service while maintaining a clean separation between public authentication flows and authenticated application features.
 
 **Scope:** This portal handles only unauthenticated flows (login, signup, password reset, email verification). Authenticated user operations are handled by the main application portal at `app.iqscaffold.com`.
 

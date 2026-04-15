@@ -21,7 +21,7 @@ const TanStackRouterDevtools =
 function RootComponent() {
   return (
     <AppLayout>
-      <Helmet defaultTitle="IQ Scaffold Platform" titleTemplate="%s | IQ Scaffold Platform" />
+      <Helmet defaultTitle="IQ  Key Value Platform" titleTemplate="%s | IQ  Key Value Platform" />
       <Outlet />
       <TanStackRouterDevtools />
     </AppLayout>

@@ -819,7 +819,7 @@ msgid "Welcome back!"
 msgstr ""
 
 #: src/pages/index.tsx:23
-msgid "Welcome to IQ Scaffold"
+msgid "Welcome to IQ  Key Value"
 msgstr ""
 
 #: src/features/signup-with-invitation/ui/OrganizationPreview.tsx:64
