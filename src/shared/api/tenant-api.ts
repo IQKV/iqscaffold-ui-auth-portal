@@ -41,7 +41,7 @@ export const tenantApi = {
    * @returns Map of tenant IDs to organization names
    * @example
    * {
-   *   "default": "IQ  Key Value Platform",
+   *   "default": "IQ Key Value Platform",
    *   "acme": "Acme Corporation"
    * }
    */

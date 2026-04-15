@@ -2,7 +2,7 @@
 
 ### Overview
 
-The IQ  Key Value Auth Portal is deployed using Helm charts and automated CI/CD pipelines. The service provides a React-based authentication portal UI with Nginx serving, runtime configuration via ConfigMap, and SPA routing support.
+The IQ Key Value Auth Portal is deployed using Helm charts and automated CI/CD pipelines. The service provides a React-based authentication portal UI with Nginx serving, runtime configuration via ConfigMap, and SPA routing support.
 
 ### Prerequisites
 

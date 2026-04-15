@@ -10,9 +10,9 @@
 
 ---
 
-# 🔐 Auth Portal - IQ  Key Value Authentication Service
+# 🔐 Auth Portal - IQ Key Value Authentication Service
 
-**Dedicated authentication portal for IQ  Key Value platform** - A standalone authentication gateway built with modern React architecture.
+**Dedicated authentication portal for IQ Key Value platform** - A standalone authentication gateway built with modern React architecture.
 
 ## 📜 Description
 

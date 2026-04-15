@@ -45,7 +45,7 @@ export const TEST_CONFIG = {
 
   // Page titles and headings
   PAGE_TITLES: {
-    LOGIN: "Welcome to IQ  Key Value",
+    LOGIN: "Welcome to IQ Key Value",
     REGISTER: "Create Your Account",
   },
 

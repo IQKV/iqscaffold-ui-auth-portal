@@ -34,7 +34,7 @@ export function AuthLayout({ children, title, subtitle, pageTitle }: AuthLayoutP
   return (
     <>
       <Helmet>
-        <title>{pageTitle || title} | IQ  Key Value</title>
+        <title>{pageTitle || title} | IQ Key Value</title>
       </Helmet>
       <Flex
         pos="fixed"
