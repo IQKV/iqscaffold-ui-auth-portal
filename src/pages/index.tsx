@@ -9,7 +9,10 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   return (
-    <AuthLayout title={t`Welcome to IQ Key Value`} subtitle={t`Sign in to your account to continue`}>
+    <AuthLayout
+      title={t`Welcome to IQ Key Value`}
+      subtitle={t`Sign in to your account to continue`}
+    >
       <SignInFormFeature _useExternalRedirect />
     </AuthLayout>
   );

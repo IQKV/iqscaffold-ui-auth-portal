@@ -26,8 +26,8 @@ function JoinWithInvitationPage() {
     localStorage.setItem("accessToken", data.tokens.accessToken);
     localStorage.setItem("refreshToken", data.tokens.refreshToken);
 
-    // Redirect to app.iqscaffold.com dashboard
-    window.location.href = `${import.meta.env.VITE_APP_PORTAL_URL || "https://app.iqscaffold.com"}/dashboard`;
+    // Redirect to app.iqkv.dev dashboard
+    window.location.href = `${import.meta.env.VITE_APP_PORTAL_URL || "https://app.iqkv.dev"}/dashboard`;
   };
 
   if (isLoading) {
