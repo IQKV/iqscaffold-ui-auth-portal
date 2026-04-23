@@ -1626,7 +1626,7 @@ import { t } from "@lingui/core/macro";
 <FormField label={t`Username or Email`} placeholder={t`Enter your username or email`} />;
 
 // Use Trans for JSX with interpolation
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/core/macro";
 
 <h1>
   <Trans>Welcome, {userName}!</Trans>
