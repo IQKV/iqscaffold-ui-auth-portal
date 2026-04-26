@@ -275,7 +275,7 @@ The auth portal connects to backend services via `VITE_API_SERVER_URL` with:
 
 **Expected Backend Endpoints (Unauthenticated Flows Only):**
 
-- `POST /v1/auth/signup` - User registration
+- `POST /v1/auth/signup` - User signup
 - `POST /v1/auth/login` - User authentication
 - `POST /v1/auth/refresh` - Refresh access token
 - `POST /v1/auth/logout` - User logout
