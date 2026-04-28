@@ -56,7 +56,7 @@ helm upgrade --install --atomic --wait --timeout 5m iqscaffold-ui-mantine-auth-p
   --values ./values.yaml \
   --values ./values-test.yaml \
   --set image.tag=wip \
-  --set app.env.apiServerUrl="https://api.iqkv.dev" \
+  --set app.env.apiServerUrl="https://api.iqkv.site" \
   --namespace iqkv-sit-env
 
 # Production (Tagged releases)
@@ -64,7 +64,7 @@ helm upgrade --install --atomic --wait --timeout 5m iqscaffold-ui-mantine-auth-p
   --values ./values.yaml \
   --values ./values-prd.yaml \
   --set image.tag=${DRONE_TAG} \
-  --set app.env.apiServerUrl="https://api.iqkv.dev" \
+  --set app.env.apiServerUrl="https://api.iqkv.site" \
   --namespace iqkv-prd-env
 ```
 
@@ -85,7 +85,7 @@ cd charts/IQKV/iqscaffold-ui-mantine-auth-portal
 # Deploy to development
 helm upgrade --install auth-portal ./ \
   --values values-sit.yaml \
-  --set app.env.apiServerUrl="https://api.iqkv.dev" \
+  --set app.env.apiServerUrl="https://api.iqkv.site" \
   --namespace iqkv-sit-env \
   --create-namespace
 ```
@@ -112,9 +112,9 @@ helm upgrade --install auth-portal ./ \
 ```bash
 helm upgrade --install auth-portal ./ \
   --values values-prd.yaml \
-  --set app.env.apiServerUrl="https://api.iqkv.dev" \
-  --set app.env.authDomainAuth="https://auth.iqkv.dev" \
-  --set app.env.authDomainApp="https://app.iqkv.dev" \
+  --set app.env.apiServerUrl="https://api.iqkv.site" \
+  --set app.env.authDomainAuth="https://auth.iqkv.site" \
+  --set app.env.authDomainApp="https://app.iqkv.site" \
   --namespace iqkv-prd-env \
   --create-namespace
 ```
@@ -256,10 +256,10 @@ kubectl exec -it deployment/iqscaffold-ui-mantine-auth-portal -n iqkv-sit-env --
   cat /usr/share/nginx/content-security-policy.conf
 
 # Test CORS headers
-curl -H "Origin: https://app.iqkv.dev" \
+curl -H "Origin: https://app.iqkv.site" \
   -H "Access-Control-Request-Method: POST" \
   -H "Access-Control-Request-Headers: X-Requested-With" \
-  -X OPTIONS https://auth.iqkv.dev/
+  -X OPTIONS https://auth.iqkv.site/
 ```
 
 </details>
@@ -284,7 +284,7 @@ helm uninstall iqscaffold-ui-mantine-auth-portal -n iqkv-prd-env
 - TLS enabled in production with Let's Encrypt certificates
 - Strict Content Security Policy in production
 - Enhanced security headers (HSTS, X-Frame-Options, etc.)
-- CORS configured for iqkv.dev subdomains only
+- CORS configured for iqkv.site subdomains only
 - Rate limiting enabled in production
 - Non-root container execution
 - Read-only root filesystem in production

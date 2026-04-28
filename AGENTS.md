@@ -1196,8 +1196,8 @@ export type { SignInFormValues } from "./model/types";
 VITE_API_SERVER_URL=http://localhost:8080  # User service backend
 
 # Domain Configuration
-VITE_AUTH_DOMAIN_AUTH=https://auth.iqkv.dev  # Auth portal domain
-VITE_AUTH_DOMAIN_APP=https://app.iqkv.dev    # Main app domain
+VITE_AUTH_DOMAIN_AUTH=https://auth.iqkv.site  # Auth portal domain
+VITE_AUTH_DOMAIN_APP=https://app.iqkv.site    # Main app domain
 
 # Redirect Configuration
 VITE_AUTH_REDIRECT_AFTER_LOGIN=VITE_AUTH_DOMAIN_APP  # After successful login

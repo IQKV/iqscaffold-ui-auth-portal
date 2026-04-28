@@ -3,7 +3,7 @@
  * Provides React Query hooks for public auth endpoints
  *
  * Note: Authenticated user hooks (changePassword, logoutAll, emailStatus)
- * are in the app portal at app.iqkv.dev
+ * are in the app portal at app.iqkv.site
  */
 
 import { useMutation, useQuery } from "@tanstack/react-query";

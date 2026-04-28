@@ -28,8 +28,8 @@ export interface AuthConfig {
 }
 
 // Default hardcoded values (fallbacks)
-const DEFAULT_AUTH_DOMAIN = "https://auth.iqkv.dev";
-const DEFAULT_APP_DOMAIN = "https://app.iqkv.dev";
+const DEFAULT_AUTH_DOMAIN = "https://auth.iqkv.site";
+const DEFAULT_APP_DOMAIN = "https://app.iqkv.site";
 
 import { getConfig } from "./runtime-env";
 

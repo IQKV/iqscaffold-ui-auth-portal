@@ -34,7 +34,7 @@ A dedicated authentication portal that handles **unauthenticated user flows**:
 
 This is the authentication frontend for the IQ Key Value Platform. It provides a modern, accessible, and performant user interface for **unauthenticated identity management flows**, delegating authentication concerns to the backend User Service while maintaining a clean separation between public authentication flows and authenticated application features.
 
-**Scope:** This portal handles only unauthenticated flows (login, signup, password reset, email verification). Authenticated user operations are handled by the main application portal at `app.iqkv.dev`.
+**Scope:** This portal handles only unauthenticated flows (login, signup, password reset, email verification). Authenticated user operations are handled by the main application portal at `app.iqkv.site`.
 
 ## Use Cases Implemented
 
@@ -117,7 +117,7 @@ The auth portal integrates with the User Service API for **unauthenticated flows
 - `POST /v1/auth/password/reset` - Reset password with token
 - `HEAD /v1/auth/password/reset` - Validate password reset token
 
-**Note:** Authenticated user endpoints (change password, logout all devices, email status) are handled by the main app portal at `app.iqkv.dev`.
+**Note:** Authenticated user endpoints (change password, logout all devices, email status) are handled by the main app portal at `app.iqkv.site`.
 
 ### Configuration
 
