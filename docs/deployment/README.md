@@ -80,7 +80,7 @@ helm upgrade --install --atomic --wait --timeout 5m iqscaffold-ui-mantine-auth-p
 ```bash
 # Clone Helm charts
 git clone <HELM_CHARTS_REPOSITORY> charts
-cd charts/IQKV/iqscaffold-ui-mantine-auth-portal
+cd charts/KnowHowDevOps/iqscaffold-ui-mantine-auth-portal
 
 # Deploy to development
 helm upgrade --install auth-portal ./ \
