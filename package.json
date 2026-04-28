@@ -129,7 +129,7 @@
     "nx": "^22.7.0",
     "oxfmt": "^0.46.0",
     "oxlint": "^1.62.0",
-    "oxlint-tsgolint": "^0.22.0",
+    "oxlint-tsgolint": "^0.22.1",
     "postcss": "^8.5.10",
     "postcss-preset-mantine": "1.18.0",
     "postcss-simple-vars": "^7.0.1",
